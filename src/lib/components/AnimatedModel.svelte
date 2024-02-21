@@ -1,10 +1,10 @@
 <!-- Human model with animations -->
 <script lang="ts">
   import { T } from '@threlte/core'
-  import {  GLTF, useGltf, useGltfAnimations, Text } from '@threlte/extras'
+  import { useGltf, useGltfAnimations, Text } from '@threlte/extras'
 
   const actionOffset = "ActionLetter";
-  const gltf = useGltf('models/ModelTextures.glb', {
+  const gltf = useGltf('models/ModelTextures4.glb', {
     useDraco: true
   })
 

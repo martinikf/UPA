@@ -2,7 +2,7 @@
 <script lang="ts">
 
   import { T, Canvas } from '@threlte/core'
-  import { ContactShadows, Float, Grid, OrbitControls } from '@threlte/extras'
+  import { OrbitControls } from '@threlte/extras'
 
   import Model from './AnimatedModel.svelte'
 
