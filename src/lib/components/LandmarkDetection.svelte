@@ -1,8 +1,22 @@
 <script lang="ts">
     // based on: https://codepen.io/mediapipe-preview/pen/gOKBGPN
     import { HandLandmarker, FilesetResolver, GestureRecognizer,  DrawingUtils, type HandLandmarkerResult} from "@mediapipe/tasks-vision";
-
+    import { createEventDispatcher } from 'svelte';
     import { browser } from '$app/environment';
+
+    let videoHeight = 360;
+    let videoWidth = 480;
+
+    export function setSize(width: number, height: number){
+        videoWidth = width;
+        videoHeight = height;
+    }
+
+    // https://stackoverflow.com/questions/50702662/passing-parent-method-to-child-in-svelte
+    const dispatch = createEventDispatcher();
+    function gestureRecognized(event){
+        dispatch('gestureRecognized', event);
+    }
 
     if(browser){
 
@@ -10,8 +24,6 @@
         let runningMode = "VIDEO";
         let enableWebcamButton: HTMLButtonElement;
         let webcamRunning: Boolean = false;
-        const videoHeight = "360px";
-        const videoWidth = "480px";
         let tfliteModel : any;
 
         const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'Ch']
@@ -112,11 +124,15 @@
                 //Run ML model, get for each gesture its probability
                 const probabilities = await handGestureClassifier(relativeLandmarks);
 
+                let result : {[key: string]: number} = {}
                 for(let i = 0; i < probabilities.length; i++){
-                    if(probabilities[i] > 0.25){
+                    if(probabilities[i] > 0.2){
                         console.log("Gesture " + letters[i] + " has probability " + probabilities[i]);
+                        result[letters[i]] = probabilities[i];
                     }
-                }                  
+                }
+
+                gestureRecognized(result);
             }
             canvasCtx.restore();
 
@@ -125,86 +141,86 @@
                 window.requestAnimationFrame(predictWebcam);
             }
         }
-    
 
-    function drawLandmarks(drawingUtils : DrawingUtils, results : any){
-        for (const landmark of results.landmarks) {
-            drawingUtils.drawConnectors(landmark, GestureRecognizer.HAND_CONNECTIONS, {
-            color: "#00FF00",
-            lineWidth: 5
-            });
-            drawingUtils.drawLandmarks(landmark, { 
-                color: "#0000FF", 
-                lineWidth: 2
-            });
-        }       
-    }
-
-    function drawBoundingBox(drawingUtils : DrawingUtils, landmarks : any) : void{
-        //TODO idk how to create bounding box for param
-    }
-
-    // https://github.com/kinivi/hand-gesture-recognition-mediapipe
-    function calculateLandmarksAbsolutePositions(landmarks : any, imageWidth : number, imageHeight : number) : any {
-        let newLandmarks = [];
-
-        for (const landmark of landmarks){
-            let x = Math.min( Math.floor(landmark.x * imageWidth), imageWidth - 1);
-            let y = Math.min( Math.floor(landmark.y * imageHeight), imageHeight - 1);
-            //let z = landmark.z;
-            newLandmarks.push({x: x, y: y});
+        function drawLandmarks(drawingUtils : DrawingUtils, results : any){
+            for (const landmark of results.landmarks) {
+                drawingUtils.drawConnectors(landmark, GestureRecognizer.HAND_CONNECTIONS, {
+                color: "#00FF00",
+                lineWidth: 5
+                });
+                drawingUtils.drawLandmarks(landmark, {
+                    color: "#0000FF",
+                    lineWidth: 2
+                });
+            }
         }
 
-        return newLandmarks;
-    }
+        function drawBoundingBox(drawingUtils : DrawingUtils, landmarks : any) : void{
+            //TODO idk how to create bounding box for param
+        }
 
-    function calculateRelativeLandmarks(landmarks : any) : any{        
-        const tempLandmarkList = structuredClone(landmarks);
-        
-        let baseX: number = 0;
-        let baseY: number = 0;
+        // https://github.com/kinivi/hand-gesture-recognition-mediapipe
+        function calculateLandmarksAbsolutePositions(landmarks : any, imageWidth : number, imageHeight : number) : any {
+            let newLandmarks = [];
 
-        for (let index = 0; index < tempLandmarkList.length; index++) {
-            const landmarkPoint = tempLandmarkList[index];
-
-            if (index === 0) {
-                baseX = landmarkPoint.x;
-                baseY = landmarkPoint.y;
+            for (const landmark of landmarks){
+                let x = Math.min( Math.floor(landmark.x * imageWidth), imageWidth - 1);
+                let y = Math.min( Math.floor(landmark.y * imageHeight), imageHeight - 1);
+                //let z = landmark.z;
+                newLandmarks.push({x: x, y: y});
             }
 
-            tempLandmarkList[index].x = tempLandmarkList[index].x - baseX;
-            tempLandmarkList[index].y = tempLandmarkList[index].y - baseY;
+            return newLandmarks;
         }
 
-        
-        // Convert to a one-dimensional list
-        let flattenedLandmarkList = [];
-        for (let index = 0; index < tempLandmarkList.length; index++) {
-            flattenedLandmarkList.push(tempLandmarkList[index].x);
-            flattenedLandmarkList.push(tempLandmarkList[index].y);
+        function calculateRelativeLandmarks(landmarks : any) : any{
+            const tempLandmarkList = structuredClone(landmarks);
+
+            let baseX: number = 0;
+            let baseY: number = 0;
+
+            for (let index = 0; index < tempLandmarkList.length; index++) {
+                const landmarkPoint = tempLandmarkList[index];
+
+                if (index === 0) {
+                    baseX = landmarkPoint.x;
+                    baseY = landmarkPoint.y;
+                }
+
+                tempLandmarkList[index].x = tempLandmarkList[index].x - baseX;
+                tempLandmarkList[index].y = tempLandmarkList[index].y - baseY;
+            }
+
+
+            // Convert to a one-dimensional list
+            let flattenedLandmarkList = [];
+            for (let index = 0; index < tempLandmarkList.length; index++) {
+                flattenedLandmarkList.push(tempLandmarkList[index].x);
+                flattenedLandmarkList.push(tempLandmarkList[index].y);
+            }
+
+            // Normalization
+            const absValues = flattenedLandmarkList.map(Math.abs);
+            const maxValue: number = Math.max(...absValues);
+
+            const normalizedLandmarkList: number[] = flattenedLandmarkList.map((val) => val / maxValue);
+            return normalizedLandmarkList;
         }
 
-        // Normalization
-        const absValues = flattenedLandmarkList.map(Math.abs);
-        const maxValue: number = Math.max(...absValues);
+        async function handGestureClassifier(landmarks : any){
 
-        const normalizedLandmarkList: number[] = flattenedLandmarkList.map((val) => val / maxValue);
-        return normalizedLandmarkList;
+            if(tfliteModel === undefined){
+                await loadGestureModel();
+            }
+
+            const input = tf.tensor(landmarks, [1, 42]);
+            const output = tfliteModel.predict(input);
+
+            const result = await output.dataSync();
+
+            return result;
+        }
     }
-
-    async function handGestureClassifier(landmarks : any){
-
-        if(tfliteModel === undefined){
-            await loadGestureModel();
-        }
-
-        const input = tf.tensor(landmarks, [1, 42]);
-        const output = tfliteModel.predict(input);
-
-        const result = await output.dataSync();
-        return result;
-    }
-}
 </script>
 
 <svelte:head>
@@ -213,8 +229,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-tflite/dist/tf-tflite.min.js"></script>
 </svelte:head>
 
-
-<div id="webcamDiv">
+<div id="webcamDiv" style="--videoWidth: {videoWidth}; --videoHeight: {videoHeight}">
     <video id="webcam" autoplay playsinline><track kind="captions"></video>
     <canvas class="output_canvas" id="output_canvas" width="1920" height="1080"></canvas>
 </div>
@@ -223,19 +238,19 @@
     #webcamDiv{
         -webkit-transform: scaleX(-1);
         transform: scaleX(-1);
-        width: 480px;
-        height: 360px;
+        width: calc(var(--videoWidth) * 1px);
+        height: calc(var(--videoHeight) * 1px);
         position: relative;
     }
 
     #webcam{
-        width: 480px;
-        height: 360px;
+        width: calc(var(--videoWidth) * 1px);
+        height: calc(var(--videoHeight) * 1px);
     }
 
     #output_canvas{
-        width: 480px;
-        height: 360px;
+        width: calc(var(--videoWidth) * 1px);
+        height: calc(var(--videoHeight) * 1px);
         position: absolute;
         left: 0px;
         top: 0px;
