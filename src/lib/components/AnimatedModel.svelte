@@ -48,7 +48,7 @@
   function normalizeActionKey(letter : string, double : boolean) : string{
     let charToReturn : string = letter;
     if (letter in dict){
-      return dict[letter]; //Dont return doubled special letter -> no animations for them
+      return dict[letter]; // Don't return doubled special letter -> no animations for them
     }
 
     if(double){
@@ -63,7 +63,7 @@
     const currentAction = $actions[currentActionKey]
     const nextAction = $actions[nextActionKey]
 
-    if(nextAction != null && nextActionKey.includes("Letter")){
+    if(nextAction && nextActionKey.includes("Letter")){
       nextAction.setLoop(2200, 1); // 2200 - LoopOnce
       nextAction.clampWhenFinished = true;
       nextAction.reset();

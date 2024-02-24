@@ -11,10 +11,8 @@
 	let wordDisplay : HTMLElement | null = null;
 
 	function handleMessage(msg) {
-		if(randomWord.length < 1 || currentWordDisplay === null) return;
+		if(randomWord.length < 1 || currentWordDisplay == null) return;
 
-		console.log("Dispatched: ");
-		console.log(msg.detail);
 		let result = msg.detail;
 		if (currentState >= randomWord.length) {
 			alert("Word recognized!");
@@ -50,7 +48,9 @@
 
 		randomWord = words[Math.floor(Math.random() * words.length)].trim();
 		console.log(randomWord);
-		wordDisplay.innerHTML = randomWord;
+
+		if(wordDisplay)
+			wordDisplay.innerHTML = randomWord;
 	}
 
 	function loadWords(){
@@ -64,12 +64,11 @@
 			.catch((e) => console.error(e));
 	}
 
+	if(browser){
+		currentWordDisplay = document.getElementById("currentWord");
+		wordDisplay = document.getElementById("word");
 
-		if(browser){
-			//landmarkDetection.setSize(800, 800);
-			currentWordDisplay = document.getElementById("currentWord");
-			wordDisplay = document.getElementById("word");
-			newWordOnClick();
+		newWordOnClick();
 	}
 
 </script>
