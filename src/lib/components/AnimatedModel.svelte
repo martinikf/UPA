@@ -34,7 +34,7 @@
     "Ů": "Ud", // Missing animation for "Ů" so use "Ú" instead
     "Ý": "Yd",
     "Č": "Cc",
-    "Ď" : "Dc",
+    "Ď": "Dc",
     "Ě": "Ec",
     "Ň": "Nc",
     "Ř": "Rc",
@@ -120,11 +120,8 @@
     }
     else{
         //delay on new word
-        return setTimeout(() => {
-          playAnimationRec()
-        }, delayOnNewWord);
+        return setTimeout(() => { playAnimationRec() }, delayOnNewWord);
       }
-
   }
 
   export function playAnimationForText(textArg : string){

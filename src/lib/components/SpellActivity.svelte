@@ -10,7 +10,7 @@
 	let currentWordDisplay : HTMLElement | null = null;
 	let wordDisplay : HTMLElement | null = null;
 
-	function handleMessage(msg) {
+	function handleMessage(msg : any) {
 		if(randomWord.length < 1 || currentWordDisplay == null) return;
 
 		let result = msg.detail;

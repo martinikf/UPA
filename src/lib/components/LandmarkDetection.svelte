@@ -14,19 +14,7 @@
 
     let handLandmarker : HandLandmarker | undefined;
     let webcamRunning: boolean = false;
-    let tfliteModel : tflite.TFLiteModel;
-
-    export function setSize(width: number, height: number){
-        videoWidth = width;
-        videoHeight = height;
-    }
-
-    // https://stackoverflow.com/questions/50702662/passing-parent-method-to-child-in-svelte
-    const dispatch = createEventDispatcher();
-
-    function gestureRecognized(event : {[key: string]: number}){
-        dispatch('gestureRecognized', event);
-    }
+    let tfliteModel : tflite.TFLiteModel | undefined;
 
     if(browser){
         const video = document.getElementById("webcam") as HTMLVideoElement;
@@ -44,6 +32,18 @@
             createHandLandmarker(canvasElement, canvasCtx, video);
             predictWebcam(canvasElement, canvasCtx, video);
         }
+    }
+
+    export function setSize(width: number, height: number){
+        videoWidth = width;
+        videoHeight = height;
+    }
+
+    // https://stackoverflow.com/questions/50702662/passing-parent-method-to-child-in-svelte
+    const dispatch = createEventDispatcher();
+
+    function gestureRecognized(event : {[key: string]: number}){
+        dispatch('gestureRecognized', event);
     }
 
     async function createHandLandmarker(canvasElement : HTMLCanvasElement, canvasCtx : CanvasRenderingContext2D, video : HTMLVideoElement){
@@ -81,6 +81,8 @@
         });
     }
 
+
+    let lastTimeMs : number = 0;
     async function predictWebcam(canvasElement : HTMLCanvasElement, canvasCtx : CanvasRenderingContext2D, video : HTMLVideoElement) {
         const webcamElement = document.getElementById("webcam");
 
@@ -90,6 +92,8 @@
 
         let startTimeMs = performance.now();
         if (lastVideoTime !== video.currentTime) {
+            console.log(startTimeMs - lastTimeMs + " ms"); // time to render one frame
+            lastTimeMs = startTimeMs;
             lastVideoTime = video.currentTime;
             results = handLandmarker.detectForVideo(video, startTimeMs);
         }
@@ -105,10 +109,10 @@
                 drawLandmarks(drawingUtils, landmark);
             }
 
-            const abosluteLandmarks = calculateLandmarksAbsolutePositions(results.landmarks[0], video.videoWidth, video.videoHeight);
+            const abosluteLandmarks = calcAbsolutePositions(results.landmarks[0], video.videoWidth, video.videoHeight);
 
             //Convert landmarks to relative normalized coordtinates
-            const relativeLandmarks = calculateRelativeLandmarks(abosluteLandmarks);
+            const relativeLandmarks = calcRelativeLandmarks(abosluteLandmarks);
 
             //Run ML model, get for each gesture its probability
             const probabilities = await handGestureClassifier(relativeLandmarks);
@@ -143,7 +147,7 @@
     }
 
     // https://github.com/kinivi/hand-gesture-recognition-mediapipe
-    function calculateLandmarksAbsolutePositions(landmarks : { x: number, y:number, z:number }[], imageWidth : number, imageHeight : number) : { x: number; y: number }[] {
+    function calcAbsolutePositions(landmarks : { x: number, y:number, z:number }[], imageWidth : number, imageHeight : number) : { x: number; y: number }[] {
         let newLandmarks = [];
 
         for (const landmark of landmarks){
@@ -156,7 +160,7 @@
         return newLandmarks;
     }
 
-    function calculateRelativeLandmarks(landmarks : { x: number; y: number }[]) : number[]{
+    function calcRelativeLandmarks(landmarks : { x: number; y: number }[]) : number[]{
         const tempLandmarkList = structuredClone(landmarks);
 
         let baseX: number = 0;
@@ -196,6 +200,8 @@
               'https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-tflite@0.0.1-alpha.8/dist/'
             );
             tfliteModel = await tflite.loadTFLiteModel('models/keypoint_classifier.tflite');
+            // https://github.com/tensorflow/tfjs/tree/master/tfjs-backend-webgpu
+            //tf.setBackend('webgpu'); // TODO: run ML on GPU
         }
 
         const input = tf.tensor(landmarks, [1, 42]);
@@ -210,6 +216,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-cpu"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-tflite/dist/tf-tflite.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-webgpu/dist/tf-backend-webgpu.js"></script>
 </svelte:head>
 
 <div id="webcamDiv" style="--videoWidth: {videoWidth}; --videoHeight: {videoHeight}">
