@@ -10,6 +10,8 @@
 	let currentWordDisplay : HTMLElement | null = null;
 	let wordDisplay : HTMLElement | null = null;
 
+	let timeout = 0;
+
 	function handleMessage(msg : any) {
 		if(randomWord.length < 1 || currentWordDisplay == null) return;
 
@@ -18,6 +20,8 @@
 			alert("Word recognized!");
 			currentState = 0;
 		}
+
+		if(performance.now() < timeout) return;
 
 		let currentLetter = randomWord[currentState].toUpperCase();
 		if(currentLetter === 'C' && currentState < randomWord.length - 1 && randomWord[currentState + 1].toUpperCase() === 'H'){
@@ -29,6 +33,7 @@
 				currentState++;
 			currentState++;
 			currentWordDisplay.innerHTML = randomWord.substring(0, currentState);
+			timeout = performance.now() + 500;
 		}
 	}
 
