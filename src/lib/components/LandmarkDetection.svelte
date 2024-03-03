@@ -16,10 +16,15 @@
     let webcamRunning: boolean = false;
     let tfliteModel : tflite.TFLiteModel | undefined;
 
+    let loading_text_html : HTMLElement | null;
+    let loading_text_show : boolean = true;
+
     if(browser){
         const video = document.getElementById("webcam") as HTMLVideoElement;
         const canvasElement = document.getElementById("output_canvas") as HTMLCanvasElement;
         const canvasCtx = canvasElement.getContext("2d");
+
+        loading_text_html = document.getElementById("loading_text");
 
         // Check if webcam access is supported.
         const hasGetUserMedia = () => !!navigator.mediaDevices?.getUserMedia;
@@ -104,6 +109,11 @@
         const drawingUtils = new DrawingUtils(canvasCtx);
 
         if (results && results.landmarks && results.landmarks.length > 0) {
+            if(loading_text_show && loading_text_html) {
+                loading_text_html.style.display = "none";
+                loading_text_show = false;
+            }
+
             // draw landmarks and connections
             for (const landmark of results.landmarks) {
                 drawLandmarks(drawingUtils, landmark);
@@ -222,6 +232,7 @@
 <div id="webcamDiv" style="--videoWidth: {videoWidth}; --videoHeight: {videoHeight}">
     <video id="webcam" autoplay playsinline><track kind="captions" src=""></video>
     <canvas class="output_canvas" id="output_canvas" width="1920" height="1080"></canvas>
+    <div id="loading_text">Načítání...</div>
 </div>
 
 <style>
@@ -244,5 +255,16 @@
         position: absolute;
         left: 0;
         top: 0;
+    }
+
+    #loading_text{
+        position: absolute;
+        top: 50%;
+        right: 33%;
+        transform: scaleX(-1);
+
+        font-size: 48px;
+        font-weight: bold;
+        color: #a51c51;
     }
 </style>
