@@ -17,6 +17,8 @@
   let currentChar = ''; 
   let previousChar = '';
 
+  export let transitioning : boolean = false;
+
   let speed = 1;
   let delayOnNewWord = 0;
   let delayOnNewLetter = 0;
@@ -59,11 +61,14 @@
   }
 
   function transitionTo (nextActionKey: string, duration = 1){
+    transitioning = true;
+
     console.log("transitionTo", nextActionKey)
     const currentAction = $actions[currentActionKey]
     const nextAction = $actions[nextActionKey]
 
     if(nextAction && nextActionKey.includes("Letter")){
+
       nextAction.setLoop(2200, 1); // 2200 - LoopOnce
       nextAction.clampWhenFinished = true;
       nextAction.reset();
@@ -83,6 +88,8 @@
   }
 
   mixer.addEventListener("finished", () => {
+    transitioning = false;
+
     if(currentActionKey.includes("Letter")){
         setTimeout(() => {
           playAnimationRec()
@@ -94,7 +101,8 @@
     if(text.length == 0) {
       //End of animation
       letterDisplay = "-";
-      transitionTo("ActionRest", 1)
+      transitionTo("ActionRest", 0.6)
+      transitioning = false; // because rest doesnt stop
       return;
     }
 
