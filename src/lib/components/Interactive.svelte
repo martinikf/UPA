@@ -22,10 +22,14 @@
 		console.log(model.transitioning)
 		if(performance.now() < timeout || model.transitioning) return;
 
+		display_char = char == "" ? "🕒" : char;
+
 		let result = msg.detail;
 		if (char)
 			if(result[removeDiacritics(char)]){
-				nextChar();
+				display_char = "👍"
+				char = ""
+				setTimeout(() => {nextChar();}, 2_000 / speed)
 			}
 
 		timeout = performance.now() + 1_500 / speed;
@@ -35,7 +39,8 @@
 		return inputString.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 	}
 
-	let char : string;
+	let char : string = "";
+	let display_char : string = "🕒";
 
 	function start(){
 		if(running){
@@ -44,10 +49,13 @@
 		running = true;
 
 		text = alphabet;
+
+		timeout = performance.now() + 2_000 / speed;
+
 		char = text[0].toUpperCase();
 		text = text.slice(1);
-
 		model.playAnimationForText(char);
+
 	}
 
 	function replay(){
@@ -59,6 +67,12 @@
 			running = false;
 			return;
 		}
+
+		//clock icon
+		display_char = "🕒"
+
+		timeout = performance.now() + 2_000 / speed;
+
 		char = text[0].toUpperCase();
 		if (char =="C" && text.length > 1 && text[1].toUpperCase() == "H"){
 			char = "Ch";
@@ -77,6 +91,10 @@
 		<Scene bind:model={model} bind:this={scene}/>
 	</div>
 
+	<div id="charToShow">
+		{display_char}
+	</div>
+
 	<LandmarkDetection bind:this={landmarkDetection} on:gestureRecognized={handleMessage}/>
 </div>
 
@@ -88,8 +106,8 @@
 
 <style>
     .animation{
-        width: 500px;
-        height: 600px;
+        width: 400px;
+        height: 400px;
         position: relative;
         background: linear-gradient(0deg, rgb(255, 115, 0) 0%, rgb(255, 216, 0) 35%, rgb(0, 86, 184) 100%);
     }
@@ -98,5 +116,12 @@
 				display: flex;
 				flex-direction: row;
 				justify-content: space-around;
+		}
+
+		#charToShow{
+			font-size: 3em;
+			font-weight: bold;
+
+				width: 100px;
 		}
 </style>

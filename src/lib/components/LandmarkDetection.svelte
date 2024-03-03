@@ -35,6 +35,7 @@
 
         if(video && canvasElement && canvasCtx){
             createHandLandmarker(canvasElement, canvasCtx, video);
+            loadTF();
             predictWebcam(canvasElement, canvasCtx, video);
         }
     }
@@ -63,6 +64,7 @@
             runningMode: "VIDEO",
             numHands: 1
         });
+
         enableCam(canvasElement, canvasCtx, video);
     }
 
@@ -86,10 +88,18 @@
         });
     }
 
+    function loadingDone(){
+        if(loading_text_html)
+            loading_text_html.style.display = "none";
+        loading_text_show = false;
+    }
+
 
     let lastTimeMs : number = 0;
     async function predictWebcam(canvasElement : HTMLCanvasElement, canvasCtx : CanvasRenderingContext2D, video : HTMLVideoElement) {
         const webcamElement = document.getElementById("webcam");
+
+        loadingDone();
 
         if(canvasCtx === null || handLandmarker === undefined || video === null || webcamElement === null){
             return;
@@ -97,7 +107,7 @@
 
         let startTimeMs = performance.now();
         if (lastVideoTime !== video.currentTime) {
-            console.log(startTimeMs - lastTimeMs + " ms"); // time to render one frame
+            //console.log(startTimeMs - lastTimeMs + " ms"); // time to render one frame
             lastTimeMs = startTimeMs;
             lastVideoTime = video.currentTime;
             results = handLandmarker.detectForVideo(video, startTimeMs);
@@ -109,10 +119,6 @@
         const drawingUtils = new DrawingUtils(canvasCtx);
 
         if (results && results.landmarks && results.landmarks.length > 0) {
-            if(loading_text_show && loading_text_html) {
-                loading_text_html.style.display = "none";
-                loading_text_show = false;
-            }
 
             // draw landmarks and connections
             for (const landmark of results.landmarks) {
@@ -203,15 +209,21 @@
         return flattenedLandmarkList.map((val) => val / maxValue);
     }
 
-    async function handGestureClassifier(landmarks : number[]) : Promise<number[]>{
-
-        if(tfliteModel === undefined){
+    async function loadTF(){
+        if(tfliteModel === undefined) {
             tflite.setWasmPath(
               'https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-tflite@0.0.1-alpha.8/dist/'
             );
             tfliteModel = await tflite.loadTFLiteModel('models/keypoint_classifier.tflite');
             // https://github.com/tensorflow/tfjs/tree/master/tfjs-backend-webgpu
             //tf.setBackend('webgpu'); // TODO: run ML on GPU
+        }
+    }
+
+    async function handGestureClassifier(landmarks : number[]) : Promise<number[]>{
+
+        if(tfliteModel === undefined){
+           await loadTF();
         }
 
         const input = tf.tensor(landmarks, [1, 42]);

@@ -28,13 +28,17 @@
 			currentLetter = "CH";
 		}
 
-		if (result[currentLetter]) {
+		if (result[removeDiacritics(currentLetter)]) {
 			if(currentLetter === "CH")
 				currentState++;
 			currentState++;
 			currentWordDisplay.innerHTML = randomWord.substring(0, currentState);
 			timeout = performance.now() + 500;
 		}
+	}
+
+	function removeDiacritics(inputString : string) : string {
+		return inputString.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 	}
 
 	let words : string[] = [];
