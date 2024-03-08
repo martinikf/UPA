@@ -5,7 +5,7 @@
     import { browser } from '$app/environment';
 
     const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'Ch']
-
+    const msToNextPredict = 80;
     let lastVideoTime = -1;
     let results : HandLandmarkerResult | undefined;
 
@@ -17,7 +17,6 @@
     let tfliteModel : tflite.TFLiteModel | undefined;
 
     let loading_text_html : HTMLElement | null;
-    let loading_text_show : boolean = true;
 
     if(browser){
         const video = document.getElementById("webcam") as HTMLVideoElement;
@@ -91,7 +90,6 @@
     function loadingDone(){
         if(loading_text_html)
             loading_text_html.style.display = "none";
-        loading_text_show = false;
     }
 
 
@@ -106,8 +104,11 @@
         }
 
         let startTimeMs = performance.now();
+        if(startTimeMs - msToNextPredict < lastTimeMs){
+            return window.requestAnimationFrame(() => {predictWebcam(canvasElement, canvasCtx, video)});
+        }
         if (lastVideoTime !== video.currentTime) {
-            //console.log(startTimeMs - lastTimeMs + " ms"); // time to render one frame
+            console.log(startTimeMs - lastTimeMs + " ms"); // time to render one frame
             lastTimeMs = startTimeMs;
             lastVideoTime = video.currentTime;
             results = handLandmarker.detectForVideo(video, startTimeMs);

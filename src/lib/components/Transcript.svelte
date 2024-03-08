@@ -6,10 +6,8 @@
 	let landmarkDetection: LandmarkDetection;
 
 	let wordDisplay : HTMLElement | null = null;
+	let winner : string | null = "-";
 
-	let currentGestures;
-
-	let winner = "-";
 
 	function handleMessage(msg : any) {
 		let result = msg.detail;

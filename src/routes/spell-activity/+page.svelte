@@ -2,10 +2,7 @@
 	import SpellActivity from '$lib/components/SpellActivity.svelte'
 </script>
 
-<div>
-	<h1>Česká jednoruční prstová abeceda</h1>
-	<h2>Spell activity</h2>
-</div>
+<h2>Procvičení znakování</h2>
 
 <SpellActivity />
 

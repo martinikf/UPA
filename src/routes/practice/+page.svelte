@@ -2,10 +2,7 @@
   import Practice from '$lib/components/Practice.svelte'
 </script>
 
-<div>
-  <h1>Česká jednoruční prstová abeceda</h1>
-  <h2>Procvičování prstové abecedy</h2>
-</div>
+<h2>Procvičení odezírání</h2>
 
 <Practice />
 
