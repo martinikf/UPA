@@ -88,6 +88,7 @@
     }
 
     function loadingDone(){
+        console.log("Webcam loading done")
         if(loading_text_html)
             loading_text_html.style.display = "none";
     }
@@ -105,8 +106,9 @@
 
         let startTimeMs = performance.now();
         if(startTimeMs - msToNextPredict < lastTimeMs){
-            return window.requestAnimationFrame(() => {predictWebcam(canvasElement, canvasCtx, video)});
+            return setTimeout(() => {predictWebcam(canvasElement, canvasCtx, video)}, msToNextPredict - (startTimeMs - lastTimeMs));
         }
+
         if (lastVideoTime !== video.currentTime) {
             console.log(startTimeMs - lastTimeMs + " ms"); // time to render one frame
             lastTimeMs = startTimeMs;

@@ -34,7 +34,6 @@
 
   <T.AmbientLight intensity={1} />
 
-
   <Model bind:this={model} bind:letterDisplay={letterDisplay}  />
 
 </Canvas>
