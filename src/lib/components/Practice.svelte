@@ -1,18 +1,14 @@
 <!-- Controller for translator logic -->
 <script lang="ts">
 
-	import Model from './AnimatedModel.svelte';
-    import Scene from './Scene.svelte';
+	  import Model from './AnimatedModel.svelte';
 
     let words : string[] = [];
 
-    let scene : Scene;
-    let model : Model;
+    export let model : Model;
 
     let textInput = "";
     let speed = 1;
-
-    let displayLetter = false; //Hide letter for practice mode
 
     let randomWord : string;
 
@@ -55,21 +51,9 @@
 <button on:click={() => {model.resetAnimation(); setTimeout(()=>{model.playAnimationForText(randomWord)}, 500)}}>Přehrát znovu</button>
 <button on:click={() => {checkAnswer()}}>Zkontrolovat</button>
 
-
-<div class="animation">
-    <Scene bind:model={model} bind:this={scene} bind:showLetter={displayLetter}/>
-</div>
-
-
 <style>
     :global(body) {
         margin: 0;
-    }
-
-    .animation{
-        width: 400px;
-        height: 400px;
-        background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgb(165, 28, 81) 35%, rgb(153, 65, 170) 100%);
     }
 
 </style>

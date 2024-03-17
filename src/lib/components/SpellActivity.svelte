@@ -2,8 +2,9 @@
 
 	import LandmarkDetection from './LandmarkDetection.svelte';
 	import { browser } from '$app/environment';
+	import { onMount } from 'svelte';
 
-	let landmarkDetection: LandmarkDetection;
+	export let landmarkDetection: LandmarkDetection;
 
 	let currentState = 0;
 
@@ -12,7 +13,7 @@
 
 	let timeout = 0;
 
-	function handleMessage(msg : any) {
+	export function handleMessage(msg : any) {
 		if(randomWord.length < 1 || currentWordDisplay == null) return;
 
 		let result = msg.detail;
@@ -44,13 +45,13 @@
 	let words : string[] = [];
 	let randomWord : string;
 
-	function newWordOnClick(){
+	function newWordOnClick() {
 		randomWord = "";
 		currentState = 0;
-		if(currentWordDisplay)
+		if (currentWordDisplay)
 			currentWordDisplay.innerHTML = "";
 
-		if (words.length < 1){
+		if (words.length < 1) {
 			console.log("Loading words")
 			return loadWords();
 		}
@@ -58,8 +59,10 @@
 		randomWord = words[Math.floor(Math.random() * words.length)].trim();
 		console.log(randomWord);
 
-		if(wordDisplay)
+		if (wordDisplay) {
 			wordDisplay.innerHTML = randomWord;
+			console.log("Nastaveno slovo: " + randomWord)
+		}
 	}
 
 	function loadWords(){
@@ -74,21 +77,20 @@
 	}
 
 	if(browser){
-		currentWordDisplay = document.getElementById("currentWord");
-		wordDisplay = document.getElementById("word");
+		onMount(() => {
+			currentWordDisplay = document.getElementById("currentWord");
+			wordDisplay = document.getElementById("word");
 
-		newWordOnClick();
+			newWordOnClick();
+		});
 	}
 
 </script>
 
 <div id="word"> </div>
 
-<LandmarkDetection bind:this={landmarkDetection} on:gestureRecognized={handleMessage}/>
-
 <button on:click={newWordOnClick}>Nové slovo</button>
 
 <div id="currentWord"> </div>
-
 
 <style> </style>

@@ -4,6 +4,7 @@
 		<nav>
 			<ul>
 				<li><a href="/">Hlavní stránka</a></li>
+				<li><a href="/playground">Playground</a></li>
 				<li><a href="/sign-alphabet">Prstová abeceda</a></li>
 				<li><a href="/translator">Překladač z texu</a></li>
 				<li><a rel="external" href="/transcript">Přepisovač</a></li>

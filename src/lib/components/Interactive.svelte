@@ -2,11 +2,9 @@
 
 	import LandmarkDetection from './LandmarkDetection.svelte';
 	import Model from './AnimatedModel.svelte';
-	import Scene from './Scene.svelte';
 
-	let scene : Scene;
-	let model : Model;
-	let landmarkDetection: LandmarkDetection;
+	export let model : Model;
+	export let landmarkDetection: LandmarkDetection;
 
 	let speed = 1;
 
@@ -18,7 +16,7 @@
 
 	let timeout = 0;
 
-	function handleMessage(msg : any) {
+	export function handleMessage(msg : any) {
 		console.log(model.transitioning)
 		if(performance.now() < timeout || model.transitioning) return;
 
@@ -86,37 +84,16 @@
 
 </script>
 
-<div class="flex">
-	<div class="animation">
-		<Scene bind:model={model} bind:this={scene}/>
-	</div>
-
-	<div id="charToShow">
-		{display_char}
-	</div>
-
-	<LandmarkDetection bind:this={landmarkDetection} on:gestureRecognized={handleMessage}/>
-</div>
-
-
 <button on:click={start}>Zapnout</button>
 <button on:click={replay}>Přehrát znovu</button>
 
 <input type="range" min="0" max="3" step="0.2" bind:value={speed} on:change={() => {model.changeSpeed(speed)}} />
 
-<style>
-    .animation{
-        width: 400px;
-        height: 400px;
-        position: relative;
-        background: linear-gradient(0deg, rgb(255, 115, 0) 0%, rgb(255, 216, 0) 35%, rgb(0, 86, 184) 100%);
-    }
+<div id="charToShow">
+	{display_char}
+</div>
 
-		.flex{
-				display: flex;
-				flex-direction: row;
-				justify-content: space-around;
-		}
+<style>
 
 		#charToShow{
 			font-size: 3em;

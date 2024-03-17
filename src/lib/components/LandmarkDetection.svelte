@@ -3,6 +3,7 @@
     import { HandLandmarker, FilesetResolver, GestureRecognizer,  DrawingUtils, type HandLandmarkerResult} from "@mediapipe/tasks-vision";
     import { createEventDispatcher } from 'svelte';
     import { browser } from '$app/environment';
+    import { onMount } from 'svelte';
 
     const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'Ch']
     const msToNextPredict = 80;
@@ -19,24 +20,27 @@
     let loading_text_html : HTMLElement | null;
 
     if(browser){
-        const video = document.getElementById("webcam") as HTMLVideoElement;
-        const canvasElement = document.getElementById("output_canvas") as HTMLCanvasElement;
-        const canvasCtx = canvasElement.getContext("2d");
+        onMount(() => {
+            console.log("browser load")
+            const video = document.getElementById("webcam") as HTMLVideoElement;
+            const canvasElement = document.getElementById("output_canvas") as HTMLCanvasElement;
+            const canvasCtx = canvasElement.getContext("2d");
 
-        loading_text_html = document.getElementById("loading_text");
+            loading_text_html = document.getElementById("loading_text");
 
-        // Check if webcam access is supported.
-        const hasGetUserMedia = () => !!navigator.mediaDevices?.getUserMedia;
+            // Check if webcam access is supported.
+            const hasGetUserMedia = () => !!navigator.mediaDevices?.getUserMedia;
 
-        if (!hasGetUserMedia()) {
-            console.warn("getUserMedia() is not supported by your browser");
-        }
+            if (!hasGetUserMedia()) {
+                console.warn("getUserMedia() is not supported by your browser");
+            }
 
-        if(video && canvasElement && canvasCtx){
-            createHandLandmarker(canvasElement, canvasCtx, video);
-            loadTF();
-            predictWebcam(canvasElement, canvasCtx, video);
-        }
+            if(video && canvasElement && canvasCtx){
+                createHandLandmarker(canvasElement, canvasCtx, video);
+                loadTF();
+                predictWebcam(canvasElement, canvasCtx, video);
+            }
+        });
     }
 
     export function setSize(width: number, height: number){

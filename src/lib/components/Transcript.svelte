@@ -2,14 +2,15 @@
 
 	import LandmarkDetection from './LandmarkDetection.svelte';
 	import { browser } from '$app/environment';
+	import { onMount } from 'svelte';
 
-	let landmarkDetection: LandmarkDetection;
+	export let landmarkDetection: LandmarkDetection;
 
 	let wordDisplay : HTMLElement | null = null;
 	let winner : string | null = "-";
 
 
-	function handleMessage(msg : any) {
+	export function handleMessage(msg : any) {
 		let result = msg.detail;
 		winner = findKeyWithMaxValue(result);
 	}
@@ -39,14 +40,14 @@
 	}
 
 	if(browser){
-		wordDisplay = document.getElementById("word");
+		onMount(() => {
+			wordDisplay = document.getElementById("word");
+		});
 	}
 
 </script>
 
 <div id="word"> </div>
-
-<LandmarkDetection bind:this={landmarkDetection} on:gestureRecognized={handleMessage}/>
 
 <button on:click={confirm}>Potvrdit</button>
 
