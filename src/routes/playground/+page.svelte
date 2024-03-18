@@ -42,8 +42,9 @@
 
 </script>
 
-<h2>Učitel prstové abecedy</h2>
+
 <div class="mode_container">
+	<h3>Režimy UPA</h3>
 	<ul class="mode_list">
 		<li><button on:click={() => {mode = "translator"}}>Překladač</button></li>
 		<li><button on:click={() => {mode = "practice"}}>Procvičení odezírání</button></li>
@@ -128,8 +129,9 @@
 		}
 
 		.mode_container{
-				margin-left: 10%;
-				margin-bottom: 50px;
+			margin-bottom: 50px;
+			margin-top: 15px;
+			margin-left: 10%;
 		}
 		.mode_list{
 				margin: 0;
@@ -138,7 +140,10 @@
 		}
 
 		.mode_list li{
-				display: inline;
+				display: inline-block;
+		}
+		.mode_list li button{
+        padding: 5px;
 		}
 
 		.webcam_button{

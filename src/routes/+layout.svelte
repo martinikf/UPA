@@ -4,13 +4,9 @@
 		<nav>
 			<ul>
 				<li><a href="/">Hlavní stránka</a></li>
-				<li><a href="/playground">Playground</a></li>
 				<li><a href="/sign-alphabet">Prstová abeceda</a></li>
+				<li><a href="/playground">Playground</a></li>
 				<li><a href="/translator">Překladač z texu</a></li>
-				<li><a rel="external" href="/transcript">Přepisovač</a></li>
-				<li><a href="/practice">Procvičení odezírání</a></li>
-				<li><a rel="external" href="/spell-activity">Procvičení znakování</a></li>
-				<li><a rel="external" href="/interactive">Interaktivní procvičení</a></li>
 			</ul>
 		</nav>
 		<span><a class="githubLink" href="https://github.com/martinikf/prstovka">GitHub</a></span>
@@ -33,7 +29,6 @@
 	.headerContent{
 		max-width: 1600px;
 		margin: auto;
-
 		display: flex;
 		justify-content: space-between;
 	}
