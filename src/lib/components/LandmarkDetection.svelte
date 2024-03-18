@@ -10,8 +10,8 @@
     let lastVideoTime = -1;
     let results : HandLandmarkerResult | undefined;
 
-    let videoHeight = 360;
-    let videoWidth = 480;
+    let videoHeight = 480;
+    let videoWidth = 640;
 
     let handLandmarker : HandLandmarker | undefined;
     let webcamRunning: boolean = false;
@@ -248,9 +248,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-webgpu/dist/tf-backend-webgpu.js"></script>
 </svelte:head>
 
-<div id="webcamDiv" style="--videoWidth: {videoWidth}; --videoHeight: {videoHeight}">
+<div id="webcamDiv" > <!-- style="--videoWidth: {videoWidth}; --videoHeight: {videoHeight}" -->
     <video id="webcam" autoplay playsinline><track kind="captions" src=""></video>
-    <canvas class="output_canvas" id="output_canvas" width="1920" height="1080"></canvas>
+    <canvas class="output_canvas" id="output_canvas" width="{videoWidth}" height="{videoHeight}"></canvas>
     <div id="loading_text">Načítání...</div>
 </div>
 
