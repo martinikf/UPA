@@ -10,6 +10,7 @@
 	import Transcript from '$lib/components/Transcript.svelte';
 
 	import Interactive from '$lib/components/Interactive.svelte';
+	import ControlRow from '$lib/components/ControlRow.svelte';
 
 
 	let mode : string = 'translator';
@@ -28,12 +29,12 @@
 
 	function handleMessage(msg : any) {
 		//let result = msg.detail;
-		if(webcam && webcamMode === 'practice') {
+		if(webcam && mode === 'practiceWebcam') {
 			spellActivity.handleMessage(msg);
-		} else if(webcam && webcamMode === 'transcript') {
+		} else if(webcam && mode === 'transcript') {
 			transcript.handleMessage(msg);
 		}
-		else if(webcam && webcamMode === 'interactive') {
+		else if(webcam && mode === 'interactive') {
 			interactive.handleMessage(msg);
 		}
 
@@ -47,9 +48,9 @@
 		<li><button on:click={() => {mode = "translator"}}>Překladač</button></li>
 		<li><button on:click={() => {mode = "practice"}}>Procvičení odezírání</button></li>
 		{#if webcam}
-			<li><button on:click={() => {webcamMode = "practice"}}>Procvičení znakování</button></li>
-			<li><button on:click={() => {webcamMode = "transcript"}}>Přepis</button></li>
-			<li><button on:click={() => {webcamMode = "interactive"; mode = "interactive";}}>Interaktivní režim</button></li>
+			<li><button on:click={() => {mode = "practiceWebcam"}}>Procvičení znakování</button></li>
+			<li><button on:click={() => {mode = "transcript"}}>Přepis</button></li>
+			<li><button on:click={() => {mode = "interactive"; mode = "interactive";}}>Interaktivní režim</button></li>
 		{/if}
 	</ul>
 </div>
@@ -57,8 +58,12 @@
 
 
 <div class="content_container">
-	<div class="animation_canvas">
-		<Scene bind:model={model} bind:this={scene} bind:showLetter={displayLetter}/>
+	<div class="animation">
+		<ControlRow bind:model={model}/>
+
+		<div class="animation_canvas">
+			<Scene bind:model={model} bind:this={scene} bind:showLetter={displayLetter}/>
+		</div>
 	</div>
 
 	<div>
@@ -66,24 +71,22 @@
 			<Translator bind:model={model} />
 		{:else if mode === 'practice'}
 			<Practice bind:model={model} />
-		{/if}
-		{#if mode === 'interactive'}
+		{:else if mode === 'interactive'}
 			<Interactive bind:model={model} bind:landmarkDetection={landmarkDetection} bind:this={interactive} />
-		{/if}
-		{#if webcam && webcamMode === 'practice'}
+		{:else if webcam && mode === 'practiceWebcam'}
 			<SpellActivity bind:this={spellActivity} bind:landmarkDetection={landmarkDetection} />
-		{:else if webcam && webcamMode === 'transcript'}
+		{:else if webcam && mode === 'transcript'}
 			<Transcript bind:this={transcript} bind:landmarkDetection={landmarkDetection} />
 		{/if}
 	</div>
 
 	<div class="webcam_container">
-		{#if webcam}
-			<LandmarkDetection bind:this={landmarkDetection} on:gestureRecognized={handleMessage}/>
-		{:else}
-			<button on:click={() => {webcam = !webcam}}>Zapnout kameru</button>
-		{/if}
-
+		<button class="webcam_button" on:click={() => {webcam = !webcam}}>{webcam ? "Vypnout kameru" : "Zapnnout kameru"}</button>
+		<div class="webcam">
+			{#if webcam}
+				<LandmarkDetection bind:this={landmarkDetection} on:gestureRecognized={handleMessage}/>
+			{/if}
+		</div>
 	</div>
 </div>
 
@@ -116,11 +119,12 @@
         background: linear-gradient(0deg, rgb(255, 115, 0) 0%, rgb(255, 216, 0) 35%, rgb(0, 86, 184) 100%);
 		}
 
-		.webcam_container{
+		.webcam{
 			position: relative;
-				height: 480px;
-				width: 640px;
+			height: 480px;
+			width: 640px;
 			border: solid 2px black;
+				margin-top: 5px;
 		}
 
 		.mode_container{
@@ -135,5 +139,10 @@
 
 		.mode_list li{
 				display: inline;
+		}
+
+		.webcam_button{
+        padding: 5px;
+				width: 100%;
 		}
 </style>

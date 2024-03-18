@@ -87,10 +87,19 @@
 
 </script>
 
-<div id="word"> </div>
+<div class="controls">
+	<p>Aktuální slovo: <strong id="word"></strong></p>
+	<p>Správně znakovaná písmena: <strong id="currentWord"></strong></p>
+	<button on:click={newWordOnClick}>Nové slovo</button>
+</div>
 
-<button on:click={newWordOnClick}>Nové slovo</button>
-
-<div id="currentWord"> </div>
-
-<style> </style>
+<style>
+	.controls{
+			margin-top: 50px;
+			padding: 5px;
+	}
+	button{
+			width: 100%;
+      padding: 5px;
+	}
+</style>

@@ -92,7 +92,6 @@
     }
 
     function loadingDone(){
-        console.log("Webcam loading done")
         if(loading_text_html)
             loading_text_html.style.display = "none";
     }
@@ -102,7 +101,8 @@
     async function predictWebcam(canvasElement : HTMLCanvasElement, canvasCtx : CanvasRenderingContext2D, video : HTMLVideoElement) {
         const webcamElement = document.getElementById("webcam");
 
-        loadingDone();
+        if(loading_text_html?.style.display !== "none")
+            loadingDone();
 
         if(canvasCtx === null || handLandmarker === undefined || video === null || webcamElement === null){
             return;
@@ -114,7 +114,7 @@
         }
 
         if (lastVideoTime !== video.currentTime) {
-            console.log(startTimeMs - lastTimeMs + " ms"); // time to render one frame
+            //console.log(startTimeMs - lastTimeMs + " ms"); // time to render one frame
             lastTimeMs = startTimeMs;
             lastVideoTime = video.currentTime;
             results = handLandmarker.detectForVideo(video, startTimeMs);

@@ -11,17 +11,25 @@
 </script>
 
 
-<input bind:value={textInput} placeholder="Text..." />
-<input type="range" min="0" max="3" step="0.2" bind:value={speed} on:change={() => {model.changeSpeed(speed)}} />
-<button on:click={() => {model.playAnimationForText(textInput.trim())}}>Přeložit</button>
-<button on:click={() => {model.resetAnimation()}}>Vypnout</button>
-<button on:click={() => {model.pauseResumeAnimation()}}>Zastavit/Pokračovat</button>
-
-
-
+<div class="controls">
+	<input bind:value={textInput} placeholder="Text..." />
+	<button on:click={() => {model.playAnimationForText(textInput.trim())}}>Přeložit</button>
+</div>
 
 <style>
     :global(body) {
         margin: 0;
+    }
+
+    .controls{
+        display: grid;
+        grid-template-columns: 1fr;
+        margin-top: 50px;
+				padding: 5px;
+    }
+
+    .controls > * {
+        padding: 5px;
+        margin-bottom: 10px;
     }
 </style>

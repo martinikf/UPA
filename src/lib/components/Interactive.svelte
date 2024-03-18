@@ -84,21 +84,37 @@
 
 </script>
 
-<button on:click={start}>Zapnout</button>
-<button on:click={replay}>Přehrát znovu</button>
-
-<input type="range" min="0" max="3" step="0.2" bind:value={speed} on:change={() => {model.changeSpeed(speed)}} />
-
-<div id="charToShow">
-	{display_char}
+<div class="controls">
+	<button on:click={start}>Spustit</button>
+	<button on:click={replay}>Přehrát znovu</button>
 </div>
+
+<p class="text">
+	<strong class="char_to_show">
+		{display_char}
+	</strong>
+</p>
 
 <style>
 
-		#charToShow{
+		.controls{
+				margin-top: 50px;
+				padding: 5px;
+		}
+
+		.controls button{
+				width: 100%;
+				padding: 5px;
+				margin-bottom: 10px;
+		}
+
+		.text{
+				text-align: center;
+		}
+
+		.char_to_show{
 			font-size: 3em;
 			font-weight: bold;
-
-				width: 100px;
 		}
+
 </style>

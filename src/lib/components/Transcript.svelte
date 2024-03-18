@@ -47,8 +47,20 @@
 
 </script>
 
-<div id="word"> </div>
+<div class="controls">
+	<button on:click={confirm}>Potvrdit</button>
+	<p>Přepis znakování: <strong id="word"> </strong></p>
+</div>
 
-<button on:click={confirm}>Potvrdit</button>
+<style>
+	.controls{
+		padding: 5px;
+		margin-top: 50px;
+	}
 
-<style> </style>
+	button{
+		width: 100%;
+		padding: 5px;
+	}
+
+</style>
