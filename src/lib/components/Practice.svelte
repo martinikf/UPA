@@ -45,10 +45,10 @@
 </script>
 
 <div class="controls">
-	<input bind:value={textInput} placeholder="Text..." />
+	<input bind:value={textInput} placeholder="Zde napište zobrazené slovo..." />
 	<button on:click={() => {checkAnswer()}}>Zkontrolovat</button>
-	<button on:click={() => {model.resetAnimation(); setTimeout(()=>{model.playAnimationForText(randomWord)}, 500)}}>Přehrát znovu</button>
-	<button on:click={() => {newWordOnClick()}}>Nové slovo</button>
+	<button on:click={() => {model.resetAnimation(); setTimeout(()=>{model.playAnimationForText(randomWord)}, 500)}}>Přehrát slovo znovu</button>
+	<button on:click={() => {newWordOnClick()}}>Vytvořit nové náhodné slovo</button>
 </div>
 
 <style>
