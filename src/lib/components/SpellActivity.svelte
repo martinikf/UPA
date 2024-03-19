@@ -1,9 +1,11 @@
 <script lang="ts">
 
 	import LandmarkDetection from './LandmarkDetection.svelte';
+	import Model from './AnimatedModel.svelte';
 	import { browser } from '$app/environment';
 	import { onMount } from 'svelte';
 
+	export let model: Model;
 	export let landmarkDetection: LandmarkDetection;
 
 	let currentState = 0;
@@ -94,6 +96,10 @@
 			.catch((e) => console.error(e));
 	}
 
+	function showWord(){
+		model.playAnimationForText(randomWord);
+	}
+
 	if(browser){
 		onMount(() => {
 			currentWordDisplay = document.getElementById("currentWord");
@@ -115,6 +121,8 @@
 		<div class="gap"></div>
 		<input type="text" placeholder="Vlastní slovo..." bind:value={customWord} />
 		<button on:click={customWordOnClick}>Nastavit vlastní slovo</button>
+		<div class="gap"></div>
+		<button on:click={showWord}>Ukázat slovo</button>
 	</div>
 </div>
 

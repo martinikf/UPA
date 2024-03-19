@@ -17,7 +17,7 @@
 
 	let scene : Scene;
 	let model : Model;
-	let displayLetter : boolean = false;
+	let displayLetter : boolean = true;
 
 	let transcript : Transcript;
 	let spellActivity : SpellActivity;
@@ -37,23 +37,37 @@
 		}
 	}
 
+	function displayLetterHandler(){
+		if(mode == "practice"){
+			displayLetter = false;
+		}
+		else{
+			displayLetter = true;
+		}
+	}
+
+	function modeButtonOnClick(){
+		model.resetAnimation();
+		displayLetterHandler();
+	}
+
 </script>
 
 
 <div class="mode_container">
 	<h3>Režimy UPA</h3>
 	<ul class="mode_list">
-		<li><button on:click={() => {mode = "translator"}}>Překladač</button></li>
-		<li><button on:click={() => {mode = "practice"}}>Procvičení odezírání</button></li>
+		<li><button on:click={() => {mode = "translator"; modeButtonOnClick(); }}>Překladač</button></li>
+		<li><button on:click={() => {mode = "practice"; modeButtonOnClick(); }}>Procvičení odezírání</button></li>
 		<li>
 			<button class="webcam_button" on:click={() => {webcam = !webcam}}>
 				{webcam ? "Vypnout kameru" : "Zapnnout kameru"}
 			</button>
 		</li>
 		{#if webcam}
-			<li><button on:click={() => {mode = "practiceWebcam"}}>Procvičení znakování</button></li>
-			<li><button on:click={() => {mode = "transcript"}}>Přepis</button></li>
-			<li><button on:click={() => {mode = "interactive"; mode = "interactive";}}>Interaktivní režim</button></li>
+			<li><button on:click={() => {mode = "practiceWebcam"; modeButtonOnClick(); }}>Procvičení znakování</button></li>
+			<li><button on:click={() => {mode = "transcript"; modeButtonOnClick(); }}>Přepis</button></li>
+			<li><button on:click={() => {mode = "interactive"; modeButtonOnClick(); }}>Interaktivní režim</button></li>
 		{/if}
 	</ul>
 </div>
@@ -75,9 +89,9 @@
 		{:else if mode === 'interactive'}
 			<Interactive bind:model={model} bind:landmarkDetection={landmarkDetection} bind:this={interactive} />
 		{:else if webcam && mode === 'practiceWebcam'}
-			<SpellActivity bind:this={spellActivity} bind:landmarkDetection={landmarkDetection} />
+			<SpellActivity bind:this={spellActivity} bind:landmarkDetection={landmarkDetection} bind:model={model} />
 		{:else if webcam && mode === 'transcript'}
-			<Transcript bind:this={transcript} bind:landmarkDetection={landmarkDetection} />
+			<Transcript bind:this={transcript} bind:landmarkDetection={landmarkDetection}  bind:model={model}/>
 		{/if}
 	</div>
 

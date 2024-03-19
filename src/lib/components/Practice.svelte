@@ -24,12 +24,26 @@
     }
 
     function checkAnswer(){
+			if(textInput.length < 1){
+				alert("Napište slovo, které jste viděli.");
+				return;
+			}
+
         if(textInput.trim().toUpperCase() === randomWord.toUpperCase()){
             alert("Správně!");
         } else {
             alert("Špatně!");
         }
     }
+
+		function replay(){
+			if(randomWord === undefined || randomWord.length < 1){
+				alert("Nejdříve vytvořte slovo.");
+				return;
+			}
+			model.resetAnimation();
+			setTimeout(()=>{model.playAnimationForText(randomWord)}, 500);
+		}
 
     function loadWords(){
         // Load words from file
@@ -45,10 +59,10 @@
 </script>
 
 <div class="controls">
+	<button on:click={() => {newWordOnClick()}}>Vytvořit nové náhodné slovo</button>
 	<input bind:value={textInput} placeholder="Zde napište zobrazené slovo..." />
 	<button on:click={() => {checkAnswer()}}>Zkontrolovat</button>
-	<button on:click={() => {model.resetAnimation(); setTimeout(()=>{model.playAnimationForText(randomWord)}, 500)}}>Přehrát slovo znovu</button>
-	<button on:click={() => {newWordOnClick()}}>Vytvořit nové náhodné slovo</button>
+	<button on:click={() => {replay()}}>Přehrát slovo znovu</button>
 </div>
 
 <style>

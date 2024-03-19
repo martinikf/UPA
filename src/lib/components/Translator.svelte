@@ -6,14 +6,21 @@
     export let model : Model;
 
     let textInput = "";
-    let speed = 1;
+
+		function translate(){
+			if(textInput.trim() != "")
+				model.playAnimationForText(textInput.trim());
+			else{
+				alert("Textové pole je prázdné!");
+			}
+		}
 
 </script>
 
 
 <div class="controls">
 	<input bind:value={textInput} placeholder="Text..." />
-	<button on:click={() => {model.playAnimationForText(textInput.trim())}}>Přeložit</button>
+	<button on:click={() => {translate()}}>Přeložit</button>
 </div>
 
 <style>
