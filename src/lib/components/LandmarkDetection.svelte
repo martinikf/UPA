@@ -10,9 +10,6 @@
     let lastVideoTime = -1;
     let results : HandLandmarkerResult | undefined;
 
-    let videoHeight = 480;
-    let videoWidth = 640;
-
     let handLandmarker : HandLandmarker | undefined;
     let webcamRunning: boolean = false;
     let tfliteModel : tflite.TFLiteModel | undefined;
@@ -41,11 +38,6 @@
                 predictWebcam(canvasElement, canvasCtx, video);
             }
         });
-    }
-
-    export function setSize(width: number, height: number){
-        videoWidth = width;
-        videoHeight = height;
     }
 
     // https://stackoverflow.com/questions/50702662/passing-parent-method-to-child-in-svelte
@@ -132,10 +124,10 @@
                 drawLandmarks(drawingUtils, landmark);
             }
 
-            const abosluteLandmarks = calcAbsolutePositions(results.landmarks[0], video.videoWidth, video.videoHeight);
+            const absoluteLandmarks = calcAbsolutePositions(results.landmarks[0], video.videoWidth, video.videoHeight);
 
             //Convert landmarks to relative normalized coordtinates
-            const relativeLandmarks = calcRelativeLandmarks(abosluteLandmarks);
+            const relativeLandmarks = calcRelativeLandmarks(absoluteLandmarks);
 
             //Run ML model, get for each gesture its probability
             const probabilities = await handGestureClassifier(relativeLandmarks);
@@ -248,32 +240,37 @@
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-webgpu/dist/tf-backend-webgpu.js"></script>
 </svelte:head>
 
-<div id="webcamDiv" > <!-- style="--videoWidth: {videoWidth}; --videoHeight: {videoHeight}" -->
-    <video id="webcam" autoplay playsinline><track kind="captions" src=""></video>
-    <canvas class="output_canvas" id="output_canvas" width="{videoWidth}" height="{videoHeight}"></canvas>
-    <div id="loading_text">Načítání...</div>
+<div class="webcam_container">
+    <div id="webcam_mirror"> <!--  -->
+        <video id="webcam" autoplay playsinline><track kind="captions" src=""></video>
+        <canvas class="output_canvas" id="output_canvas" width="4000" height="3000"></canvas> <!-- used for drawing of lines, points and bounding box -->
+        <div id="loading_text">Načítání...</div>
+    </div>
 </div>
 
 <style>
-    #webcamDiv{
+    .webcam_container{
+        display: flex;
+        justify-content: left;
+    }
+
+    #webcam_mirror{
         -webkit-transform: scaleX(-1);
         transform: scaleX(-1);
-        width: calc(var(--videoWidth) * 1px);
-        height: calc(var(--videoHeight) * 1px);
         position: relative;
     }
 
     #webcam{
-        width: calc(var(--videoWidth) * 1px);
-        height: calc(var(--videoHeight) * 1px);
+        width: 100%;
+        height: 100%;
     }
 
     #output_canvas{
-        width: calc(var(--videoWidth) * 1px);
-        height: calc(var(--videoHeight) * 1px);
         position: absolute;
         left: 0;
         top: 0;
+        width: 100%;
+        height: 100%;
     }
 
     #loading_text{
@@ -284,6 +281,6 @@
 
         font-size: 48px;
         font-weight: bold;
-        color: #a51c51;
+        color: #d9d9d9;
     }
 </style>

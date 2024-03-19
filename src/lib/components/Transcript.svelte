@@ -55,7 +55,6 @@
 <style>
 	.controls{
 		padding: 5px;
-		margin-top: 50px;
 	}
 
 	button{

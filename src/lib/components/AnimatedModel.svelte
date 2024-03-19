@@ -145,7 +145,8 @@
     speed = newSpeed;
     console.log("Speed changed to: ", speed);
 
-    mixer.timeScale = speed; 
+    if(!isPaused)
+      mixer.timeScale = speed;
     delayOnNewLetter = 300 / speed;
     delayOnNewWord = 1000 / speed;
     transitionSpeed = Math.min(1, Math.pow(speed, -1))

@@ -45,6 +45,11 @@
 	<ul class="mode_list">
 		<li><button on:click={() => {mode = "translator"}}>Překladač</button></li>
 		<li><button on:click={() => {mode = "practice"}}>Procvičení odezírání</button></li>
+		<li>
+			<button class="webcam_button" on:click={() => {webcam = !webcam}}>
+				{webcam ? "Vypnout kameru" : "Zapnnout kameru"}
+			</button>
+		</li>
 		{#if webcam}
 			<li><button on:click={() => {mode = "practiceWebcam"}}>Procvičení znakování</button></li>
 			<li><button on:click={() => {mode = "transcript"}}>Přepis</button></li>
@@ -56,14 +61,13 @@
 
 <div class="content_container">
 	<div class="animation">
-		<ControlRow bind:model={model}/>
-
 		<div class="animation_canvas">
 			<Scene bind:model={model} bind:this={scene} bind:showLetter={displayLetter}/>
 		</div>
+		<ControlRow bind:model={model}/>
 	</div>
 
-	<div>
+	<div class="control_container">
 		{#if mode === 'translator'}
 			<Translator bind:model={model} />
 		{:else if mode === 'practice'}
@@ -78,7 +82,6 @@
 	</div>
 
 	<div class="webcam_container">
-		<button class="webcam_button" on:click={() => {webcam = !webcam}}>{webcam ? "Vypnout kameru" : "Zapnnout kameru"}</button>
 		<div class="webcam">
 			{#if webcam}
 				<LandmarkDetection bind:this={landmarkDetection} on:gestureRecognized={handleMessage}/>
@@ -99,71 +102,97 @@
 		margin: 0;
 	}
 
-	.content_container{
-		display: grid;
+  .mode_container{
 		width: 80%;
+		margin: auto auto 2rem;
+		max-width: 1600px;
+  }
+
+  .mode_list{
+		margin: 0;
+		padding: 0;
+		list-style: none;
+  }
+
+  .mode_list li{
+		display: inline-block;
+  }
+  .mode_list li button{
+		padding: 5px;
+  }
+
+	.content_container{
+		display: flex;
+		justify-content: space-around;
+		width: 80%;
+		max-width: 1600px;
 		margin: auto;
-		grid-template-columns: 1fr 1fr 1fr;
+	}
+
+	.animation{
+			width: 100%;
+			max-width: 400px;
 	}
 
 	.animation_canvas{
 		border: solid 2px black;
 		position: relative;
 		background: linear-gradient(0deg, rgb(255, 115, 0) 0%, rgb(255, 216, 0) 35%, rgb(0, 86, 184) 100%);
+		height: 300px;
+		width: 400px;
+	}
+
+	.control_container{
+		min-width: 400px;
+		margin-left: 2rem;
+		margin-right: 2rem;
+		margin-top: 50px;
+	}
+
+	.webcam_container{
+		width: 400px;
 	}
 
 	.webcam{
 		position: relative;
-		border: solid 2px black;
 		margin-top: 5px;
 	}
 
-	.mode_container{
-		margin-bottom: 50px;
-		margin-top: 15px;
-		margin-left: 10%;
+	@media (max-width: 1400px) {
+		.mode_container{
+			width: 90%;
+		}
+
+		.control_container{
+			min-width: 200px;
+			margin-right: 0;
+		}
+
+		.content_container{
+			width: 90%;
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+		}
 	}
 
-	.mode_list{
-		margin: 0;
-		padding: 0;
-		list-style: none;
-	}
+	@media (max-width: 768px) {
+		.content_container{
+			display: grid;
+			grid-template-columns: 1fr;
+			width: 95%;
+		}
 
-	.mode_list li{
-		display: inline-block;
-	}
-	.mode_list li button{
-		padding: 5px;
-	}
+		.content_container > *{
+			margin: auto;
+		}
 
-	.webcam_button{
-		padding: 5px;
-		width: 100%;
-	}
-
-	/* Desktops */
-	@media screen and (max-width: 1200px) {
-	}
-
-	/* Laptops */
-	@media screen and (max-width: 1024px) {
-	}
-
-	/* Tablets */
-	@media sceen and (max-width: 768px) {
+		.control_container{
+			width: 100%;
+			margin-top: 15px;
+		}
   }
 
-	/* Phones */
   @media (max-width: 480px) {
-      .content_container{
-          grid-template-columns: 1fr;
-          width: 98%;
-      }
 
-			.webcam{
-					width: 400px;
-					height: 300px;
-			}
   }
 </style>

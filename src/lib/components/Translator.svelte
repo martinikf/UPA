@@ -24,7 +24,6 @@
     .controls{
         display: grid;
         grid-template-columns: 1fr;
-        margin-top: 50px;
 				padding: 5px;
     }
 

@@ -106,7 +106,6 @@
 <style>
 
 		.controls{
-				margin-top: 50px;
 				padding: 5px;
 				display: grid;
 				grid-template-columns: 1fr;

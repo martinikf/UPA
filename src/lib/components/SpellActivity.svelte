@@ -120,7 +120,6 @@
 
 <style>
 	.controls{
-			margin-top: 50px;
 			padding: 5px;
 	}
 	.controls_grid{

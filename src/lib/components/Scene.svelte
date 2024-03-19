@@ -19,6 +19,7 @@
     position={[0, 0, 0.8]}
     fov={60}
   >
+
     <OrbitControls
       autoRotate={false}
       enableZoom={true}
