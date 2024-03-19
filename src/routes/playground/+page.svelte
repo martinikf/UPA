@@ -12,10 +12,8 @@
 	import Interactive from '$lib/components/Interactive.svelte';
 	import ControlRow from '$lib/components/ControlRow.svelte';
 
-
 	let mode : string = 'translator';
 	let webcam : boolean = false;
-	let webcamMode : string = "";
 
 	let scene : Scene;
 	let model : Model;
@@ -37,7 +35,6 @@
 		else if(webcam && mode === 'interactive') {
 			interactive.handleMessage(msg);
 		}
-
 	}
 
 </script>
@@ -55,7 +52,6 @@
 		{/if}
 	</ul>
 </div>
-
 
 
 <div class="content_container">
@@ -91,7 +87,6 @@
 	</div>
 </div>
 
-
 <svelte:head>
 	<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core"></script>
 	<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-cpu"></script>
@@ -100,54 +95,75 @@
 </svelte:head>
 
 <style>
-    :global(body) {
-        margin: 0;
-    }
+	:global(body) {
+		margin: 0;
+	}
 
-		.content_container{
-				display: grid;
-				width: 80%;
-				margin: auto;
-				grid-template-columns: 1fr 1fr 1fr;
-		}
+	.content_container{
+		display: grid;
+		width: 80%;
+		margin: auto;
+		grid-template-columns: 1fr 1fr 1fr;
+	}
 
-		.animation_canvas{
-        width: 440px;
-        height: 480px;
-        border: solid 2px black;
+	.animation_canvas{
+		border: solid 2px black;
+		position: relative;
+		background: linear-gradient(0deg, rgb(255, 115, 0) 0%, rgb(255, 216, 0) 35%, rgb(0, 86, 184) 100%);
+	}
 
-        position: relative;
-        background: linear-gradient(0deg, rgb(255, 115, 0) 0%, rgb(255, 216, 0) 35%, rgb(0, 86, 184) 100%);
-		}
+	.webcam{
+		position: relative;
+		border: solid 2px black;
+		margin-top: 5px;
+	}
 
-		.webcam{
-			position: relative;
-			height: 480px;
-			width: 640px;
-			border: solid 2px black;
-				margin-top: 5px;
-		}
+	.mode_container{
+		margin-bottom: 50px;
+		margin-top: 15px;
+		margin-left: 10%;
+	}
 
-		.mode_container{
-			margin-bottom: 50px;
-			margin-top: 15px;
-			margin-left: 10%;
-		}
-		.mode_list{
-				margin: 0;
-				padding: 0;
-				list-style: none;
-		}
+	.mode_list{
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
 
-		.mode_list li{
-				display: inline-block;
-		}
-		.mode_list li button{
-        padding: 5px;
-		}
+	.mode_list li{
+		display: inline-block;
+	}
+	.mode_list li button{
+		padding: 5px;
+	}
 
-		.webcam_button{
-        padding: 5px;
-				width: 100%;
-		}
+	.webcam_button{
+		padding: 5px;
+		width: 100%;
+	}
+
+	/* Desktops */
+	@media screen and (max-width: 1200px) {
+	}
+
+	/* Laptops */
+	@media screen and (max-width: 1024px) {
+	}
+
+	/* Tablets */
+	@media sceen and (max-width: 768px) {
+  }
+
+	/* Phones */
+  @media (max-width: 480px) {
+      .content_container{
+          grid-template-columns: 1fr;
+          width: 98%;
+      }
+
+			.webcam{
+					width: 400px;
+					height: 300px;
+			}
+  }
 </style>
