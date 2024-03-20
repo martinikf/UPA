@@ -8,5 +8,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="@tensorflow" level="application" />
+    <orderEntry type="library" name="@tensorflow/tfjs-backend-webgpu" level="application" />
+    <orderEntry type="library" name="@tensorflow/tfjs-tflite" level="application" />
   </component>
 </module>

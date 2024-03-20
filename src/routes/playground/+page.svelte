@@ -54,7 +54,6 @@
 
 </script>
 
-
 <div class="mode_container">
 	<h3>Režimy UPA</h3>
 	<ul class="mode_list">
@@ -97,11 +96,13 @@
 	</div>
 
 	<div class="webcam_container">
-		<div class="webcam">
-			{#if webcam}
-				<LandmarkDetection bind:this={landmarkDetection} on:gestureRecognized={handleMessage}/>
-			{/if}
-		</div>
+		{#if webcam}
+			<button id="show_video_button" on:click={() => {landmarkDetection.toggleShowVideo();}} >
+				<div class="webcam">
+						<LandmarkDetection bind:this={landmarkDetection} on:gestureRecognized={handleMessage}/>
+				</div>
+			</button>
+		{/if}
 	</div>
 </div>
 
@@ -171,6 +172,14 @@
 	.webcam{
 		position: relative;
 		margin-top: 5px;
+			border: solid 2px black;
+	}
+
+	#show_video_button{
+			background-color: transparent;
+			border: none;
+			padding: 0;
+			margin: 0;
 	}
 
 	@media (max-width: 1400px) {
@@ -181,6 +190,7 @@
 		.control_container{
 			min-width: 200px;
 			margin-right: 0;
+				margin-top: 0px;
 		}
 
 		.content_container{

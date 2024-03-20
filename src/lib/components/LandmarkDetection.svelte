@@ -14,6 +14,8 @@
     let webcamRunning: boolean = false;
     let tfliteModel : tflite.TFLiteModel | undefined;
 
+    let showVideo : boolean = true;
+
     let loading_text_html : HTMLElement | null;
 
     if(browser){
@@ -231,6 +233,12 @@
         return await output.dataSync();
     }
 
+    export function toggleShowVideo(){
+        showVideo = !showVideo;
+        console.log("toggle" + showVideo)
+
+    }
+
 </script>
 
 <svelte:head>
@@ -243,7 +251,10 @@
 <div class="webcam_container">
     <div id="webcam_mirror"> <!--  -->
         <video id="webcam" autoplay playsinline><track kind="captions" src=""></video>
-        <canvas class="output_canvas" id="output_canvas" width="4000" height="3000"></canvas> <!-- used for drawing of lines, points and bounding box -->
+        {#if !showVideo}
+            <div class="video_block"></div>
+        {/if}
+        <canvas class="output_canvas" id="output_canvas" width="2000" height="1500"></canvas> <!-- used for drawing of lines, points and bounding box -->
         <div id="loading_text">Načítání...</div>
     </div>
 </div>
@@ -252,6 +263,15 @@
     .webcam_container{
         display: flex;
         justify-content: left;
+    }
+
+    .video_block{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #444444;
     }
 
     #webcam_mirror{
