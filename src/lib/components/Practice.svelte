@@ -8,8 +8,6 @@
     export let model : Model;
 
     let textInput = "";
-    let speed = 1;
-
     let randomWord : string;
 
     function newWordOnClick(){

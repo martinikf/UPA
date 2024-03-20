@@ -1,10 +1,8 @@
 <script lang="ts">
 
-	import LandmarkDetection from './LandmarkDetection.svelte';
 	import Model from './AnimatedModel.svelte';
 
 	export let model : Model;
-	export let landmarkDetection: LandmarkDetection;
 
 	let speed = 1;
 
@@ -86,7 +84,6 @@
 
 		model.playAnimationForText(char);
 	}
-
 
 </script>
 

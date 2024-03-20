@@ -102,7 +102,7 @@
       //End of animation
       letterDisplay = "-";
       transitionTo("ActionRest", 0.6)
-      transitioning = false; // because rest doesnt stop
+      transitioning = false; // because rest doesn't stop
       return;
     }
 

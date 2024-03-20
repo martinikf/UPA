@@ -1,6 +1,6 @@
 <header>
 	<div class="headerContent">
-		<h1>UPA</h1>
+		<h1 class="logo">UPA</h1>
 		<nav>
 			<ul>
 				<li><a href="/">Hlavní stránka</a></li>
@@ -9,7 +9,7 @@
 				<li><a href="/translator">Překladač z texu</a></li>
 			</ul>
 		</nav>
-		<span><a class="githubLink" href="https://github.com/martinikf/prstovka">GitHub</a></span>
+		<span><a class="githubLink" href="https://github.com/martinikf/UPA">GitHub</a></span>
 	</div>
 </header>
 
@@ -70,4 +70,23 @@
 	.githubLink:hover{
 		text-decoration: underline;
 	}
+
+	@media (max-width: 768px) {
+		.logo{
+			display: none;
+		}
+
+		header{
+			padding: 15px 5px;
+		}
+
+		.githubLink{
+			display: none;
+		}
+
+		nav ul li{
+			margin-right: .5rem;
+		}
+	}
+
 </style>

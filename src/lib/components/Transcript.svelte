@@ -1,14 +1,11 @@
 <script lang="ts">
 
-	import LandmarkDetection from './LandmarkDetection.svelte';
 	import Model from './AnimatedModel.svelte';
 
 	import { browser } from '$app/environment';
 	import { onMount } from 'svelte';
-	import { Button } from 'svelte-tweakpane-ui';
 
 	export let model: Model;
-	export let landmarkDetection: LandmarkDetection;
 
 	let wordDisplay : HTMLElement | null = null;
 	let winner : string | null = "-";

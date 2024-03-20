@@ -2,7 +2,7 @@
   
 </script>
 
-<h1>Učitel prstové abecedey</h1>
+<h1>Učitel prstové abecedy</h1>
 
 <style>
   :global(body) {

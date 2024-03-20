@@ -25,6 +25,7 @@
 
 	let landmarkDetection: LandmarkDetection;
 
+	//Landmark message forwarder to the correct component
 	function handleMessage(msg : any) {
 		//let result = msg.detail;
 		if(webcam && mode === 'practiceWebcam') {
@@ -87,11 +88,11 @@
 		{:else if mode === 'practice'}
 			<Practice bind:model={model} />
 		{:else if mode === 'interactive'}
-			<Interactive bind:model={model} bind:landmarkDetection={landmarkDetection} bind:this={interactive} />
+			<Interactive bind:model={model} bind:this={interactive} />
 		{:else if webcam && mode === 'practiceWebcam'}
-			<SpellActivity bind:this={spellActivity} bind:landmarkDetection={landmarkDetection} bind:model={model} />
+			<SpellActivity bind:this={spellActivity} bind:model={model} />
 		{:else if webcam && mode === 'transcript'}
-			<Transcript bind:this={transcript} bind:landmarkDetection={landmarkDetection}  bind:model={model}/>
+			<Transcript bind:this={transcript} bind:model={model}/>
 		{/if}
 	</div>
 

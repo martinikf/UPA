@@ -25,7 +25,7 @@
 <div class="control_row">
 	<div>
 		<label for="speed_slider">Rychlost</label>
-		<input type="range" id="speed_slider" min="0" max="3" step="0.2" bind:value={speed} on:change={() => {model.changeSpeed(speed)}} />
+		<input type="range" id="speed_slider" min="0" max="3" step="0.2" bind:value={speed} on:change={() => {model ? model.changeSpeed(speed) : null}} />
 	</div>
 	<div>
 		<button on:click={() => {resetOnClick()}}>Reset</button>

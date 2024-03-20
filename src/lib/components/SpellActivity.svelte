@@ -1,12 +1,10 @@
 <script lang="ts">
 
-	import LandmarkDetection from './LandmarkDetection.svelte';
 	import Model from './AnimatedModel.svelte';
 	import { browser } from '$app/environment';
 	import { onMount } from 'svelte';
 
 	export let model: Model;
-	export let landmarkDetection: LandmarkDetection;
 
 	let currentState = 0;
 
