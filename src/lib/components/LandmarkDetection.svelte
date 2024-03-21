@@ -4,6 +4,8 @@
     import { createEventDispatcher } from 'svelte';
     import { browser } from '$app/environment';
     import { onMount } from 'svelte';
+    import * as tf from '@tensorflow/tfjs';
+    import type { LayersModel } from '@tensorflow/tfjs';
 
     const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'Ch']
     const msToNextPredict = 80;
@@ -12,7 +14,7 @@
 
     let handLandmarker : HandLandmarker | undefined;
     let webcamRunning: boolean = false;
-    let tfliteModel : tflite.TFLiteModel | undefined;
+    let tfModel : LayersModel | undefined;
 
     let showVideo : boolean = true;
 
@@ -211,24 +213,24 @@
     }
 
     async function loadTF(){
-        if(tfliteModel === undefined) {
-            tflite.setWasmPath(
-              'https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-tflite@0.0.1-alpha.8/dist/'
-            );
-            tfliteModel = await tflite.loadTFLiteModel('models/keypoint_classifier.tflite');
+        if(tfModel === undefined) {
+            tfModel = await tf.loadLayersModel('models/tfjsmodel/model.json');
+
             // https://github.com/tensorflow/tfjs/tree/master/tfjs-backend-webgpu
-            //tf.setBackend('webgpu'); // TODO: run ML on GPU
+            // await tf.setBackend('webgpu');
         }
     }
 
     async function handGestureClassifier(landmarks : number[]) : Promise<number[]>{
-
-        if(tfliteModel === undefined){
+        if(tfModel === undefined){
            await loadTF();
+            if (tfModel === undefined){
+                throw new Error("Model not loaded");
+            }
         }
 
         const input = tf.tensor(landmarks, [1, 42]);
-        const output = tfliteModel.predict(input);
+        const output = tfModel.predict(input);
 
         return await output.dataSync();
     }
@@ -236,17 +238,9 @@
     export function toggleShowVideo(){
         showVideo = !showVideo;
         console.log("toggle" + showVideo)
-
     }
 
 </script>
-
-<svelte:head>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-cpu"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-tflite/dist/tf-tflite.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-webgpu/dist/tf-backend-webgpu.js"></script>
-</svelte:head>
 
 <div class="webcam_container">
     <div id="webcam_mirror"> <!--  -->

@@ -106,13 +106,6 @@
 	</div>
 </div>
 
-<svelte:head>
-	<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core"></script>
-	<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-cpu"></script>
-	<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-tflite/dist/tf-tflite.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-webgpu/dist/tf-backend-webgpu.js"></script>
-</svelte:head>
-
 <style>
 	:global(body) {
 		margin: 0;
