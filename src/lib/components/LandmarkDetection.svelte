@@ -20,10 +20,11 @@
 
     let loading_text_html : HTMLElement | null;
 
+    let video : HTMLVideoElement | null = null;
+
     if(browser){
         onMount(() => {
-            console.log("browser load")
-            const video = document.getElementById("webcam") as HTMLVideoElement;
+            video = document.getElementById("webcam") as HTMLVideoElement;
             const canvasElement = document.getElementById("output_canvas") as HTMLCanvasElement;
             const canvasCtx = canvasElement.getContext("2d");
 
@@ -75,16 +76,19 @@
             return;
         }
 
-        // getUsermedia parameters.
-        const constraints = {
-            video: true
-        };
-
         // Activate the webcam stream.
-        navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
+        navigator.mediaDevices.getUserMedia({video: true }).then((stream) => {
             video.srcObject = stream;
             video.addEventListener("loadeddata", () => {predictWebcam(canvasElement, canvasCtx, video)});
         });
+    }
+
+    export function disableCam() {
+        if (video && video.srcObject) {
+            webcamRunning = false;
+            let tracks = video.srcObject.getTracks();
+            tracks[0].stop();
+        }
     }
 
     function loadingDone(){
@@ -139,7 +143,7 @@
             let result : {[key: string]: number} = {}
             for(let i = 0; i < probabilities.length; i++){
                 if(probabilities[i] > 0.2){
-                    console.log("Gesture " + letters[i] + " has probability " + probabilities[i]);
+                    //console.log("Gesture " + letters[i] + " has probability " + probabilities[i]);
                     result[letters[i]] = probabilities[i];
                 }
             }
@@ -215,9 +219,7 @@
     async function loadTF(){
         if(tfModel === undefined) {
             tfModel = await tf.loadLayersModel('models/tfjsmodel/model.json');
-
             // https://github.com/tensorflow/tfjs/tree/master/tfjs-backend-webgpu
-            // await tf.setBackend('webgpu');
         }
     }
 
@@ -237,7 +239,6 @@
 
     export function toggleShowVideo(){
         showVideo = !showVideo;
-        console.log("toggle" + showVideo)
     }
 
 </script>

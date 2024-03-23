@@ -52,6 +52,14 @@
 		displayLetterHandler();
 	}
 
+	function toggleWebcam(){
+		if(webcam && landmarkDetection) {
+			landmarkDetection.disableCam();
+		}
+		webcam = !webcam;
+	}
+
+
 </script>
 
 <div class="mode_container">
@@ -60,7 +68,7 @@
 		<li><button on:click={() => {mode = "translator"; modeButtonOnClick(); }}>Překladač</button></li>
 		<li><button on:click={() => {mode = "practice"; modeButtonOnClick(); }}>Procvičení odezírání</button></li>
 		<li>
-			<button class="webcam_button" on:click={() => {webcam = !webcam}}>
+			<button class="webcam_button" on:click={toggleWebcam}>
 				{webcam ? "Vypnout kameru" : "Zapnnout kameru"}
 			</button>
 		</li>
