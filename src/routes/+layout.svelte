@@ -3,10 +3,10 @@
 		<h1 class="logo">UPA</h1>
 		<nav>
 			<ul>
-				<li><a href="/">Hlavní stránka</a></li>
-				<li><a href="/sign-alphabet">Prstová abeceda</a></li>
+				<li><a href="/">Hlavní&nbsp;stránka</a></li>
+				<li><a href="/sign-alphabet">Prstová&nbsp;abeceda</a></li>
 				<li><a href="/playground">Playground</a></li>
-				<li><a href="/translator">Překladač z texu</a></li>
+				<li><a href="/translator">Překladač&nbsp;z&nbsp;texu</a></li>
 			</ul>
 		</nav>
 		<span><a class="githubLink" href="https://github.com/martinikf/UPA">GitHub</a></span>

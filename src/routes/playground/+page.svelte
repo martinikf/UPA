@@ -105,11 +105,10 @@
 
 	<div class="webcam_container">
 		{#if webcam}
-			<button id="show_video_button" on:click={() => {landmarkDetection.toggleShowVideo();}} >
 				<div class="webcam">
-						<LandmarkDetection bind:this={landmarkDetection} on:gestureRecognized={handleMessage}/>
+					<LandmarkDetection bind:this={landmarkDetection} on:gestureRecognized={handleMessage}/>
+					<button id="toggle_show_video" on:click={() => {landmarkDetection.toggleShowVideo();}}></button>
 				</div>
-			</button>
 		{/if}
 	</div>
 </div>
@@ -173,14 +172,19 @@
 	.webcam{
 		position: relative;
 		margin-top: 5px;
-			border: solid 2px black;
+		border: solid 2px black;
 	}
 
-	#show_video_button{
-			background-color: transparent;
-			border: none;
-			padding: 0;
-			margin: 0;
+	#toggle_show_video{
+		background-color: transparent;
+		border: none;
+		padding: 0;
+		margin: 0;
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: 100%;
+		height: 100%;
 	}
 
 	@media (max-width: 1400px) {
@@ -191,7 +195,7 @@
 		.control_container{
 			min-width: 200px;
 			margin-right: 0;
-				margin-top: 0px;
+			margin-top: 0;
 		}
 
 		.content_container{
@@ -218,7 +222,19 @@
 		}
   }
 
-  @media (max-width: 480px) {
+  @media (max-width: 400px) {
+		.webcam_container {
+			width: 300px;
+		}
 
+		.animation{
+				width: 300px;
+				margin: auto;
+		}
+
+		.animation_canvas{
+			width: 300px;
+			height: 300px;
+		}
   }
 </style>

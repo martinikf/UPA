@@ -35,19 +35,39 @@
 
 <style>
     .control_row{
-        display: flex;
-				flex-direction: row;
-				justify-content: space-between;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
     }
 
-		.control_row > *
-    {
+		.control_row > *{
 			padding: 5px;
 		}
 
 		#speed_slider{
-			min-width: 100px;
-			margin-bottom: -.5rem;
+			margin-bottom: -.4rem;
+		}
+
+		@media (max-width: 400px){
+			.control_row{
+					display: block;
+			}
+
+			.control_row div{
+				display: flex;
+				flex-direction: row;
+				justify-content: end;
+			}
+
+        #speed_slider{
+            margin-bottom: 0;
+						margin-left: 10px;
+        }
+
+			button{
+          margin-left: 10px;
+					padding: 8px;
+			}
 		}
 
 </style>
