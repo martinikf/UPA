@@ -76,17 +76,33 @@
 			display: none;
 		}
 
+		.githubLink{
+				display: none;
+		}
+
 		header{
 			padding: 15px 5px;
 		}
 
-		.githubLink{
-			display: none;
+		nav{
+				margin: auto;
 		}
-
 		nav ul li{
 			margin-right: .5rem;
 		}
 	}
+
+  @media (max-width: 480px) {
+			nav{
+          margin: 0 0 0 auto;
+      }
+
+			nav ul li{
+				display: block;
+				text-align: right;
+					padding: 2px;
+					font-size: 1.1rem;
+		}
+  }
 
 </style>

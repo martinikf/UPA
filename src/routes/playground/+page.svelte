@@ -55,7 +55,10 @@
 	function toggleWebcam(){
 		if(webcam && landmarkDetection) {
 			landmarkDetection.disableCam();
+			mode = "translator";
+			modeButtonOnClick();
 		}
+
 		webcam = !webcam;
 	}
 
@@ -64,21 +67,28 @@
 
 <div class="mode_container">
 	<h3>Režimy UPA</h3>
-	<ul class="mode_list">
-		<li><button on:click={() => {mode = "translator"; modeButtonOnClick(); }}>Překladač</button></li>
-		<li><button on:click={() => {mode = "practice"; modeButtonOnClick(); }}>Procvičení odezírání</button></li>
-		<li>
-			<button class="webcam_button" on:click={toggleWebcam}>
-				{webcam ? "Vypnout kameru" : "Zapnnout kameru"}
-			</button>
-		</li>
-		{#if webcam}
-			<li><button on:click={() => {mode = "practiceWebcam"; modeButtonOnClick(); }}>Procvičení znakování</button></li>
-			<li><button on:click={() => {mode = "transcript"; modeButtonOnClick(); }}>Přepis</button></li>
-			<li><button on:click={() => {mode = "interactive"; modeButtonOnClick(); }}>Interaktivní režim</button></li>
-		{/if}
-	</ul>
+	<div class="mode_flex">
+		<ul class="mode_list left">
+			<li><button on:click={() => {mode = "translator"; modeButtonOnClick(); }}>Překladač</button></li>
+			<li><button on:click={() => {mode = "practice"; modeButtonOnClick(); }}>Procvičení odezírání</button></li>
+		</ul>
+		<ul class="mode_list">
+			<li>
+				<button class="webcam_button" on:click={toggleWebcam}>
+					{webcam ? "Vypnout kameru" : "Zapnnout kameru"}
+				</button>
+			</li>
+		</ul>
+			<ul class="mode_list right">
+			{#if webcam}
+				<li><button on:click={() => {mode = "practiceWebcam"; modeButtonOnClick(); }}>Procvičení znakování</button></li>
+				<li><button on:click={() => {mode = "transcript"; modeButtonOnClick(); }}>Přepis</button></li>
+				<li><button on:click={() => {mode = "interactive"; modeButtonOnClick(); }}>Interaktivní režim</button></li>
+			{/if}
+		</ul>
+	</div>
 </div>
+
 
 
 <div class="content_container">
@@ -124,6 +134,14 @@
 		max-width: 1600px;
   }
 
+	.mode_flex{
+		display: grid;
+		grid-template-columns: 4fr 1fr 4fr;
+	}
+	.right{
+		justify-self: right;
+	}
+
   .mode_list{
 		margin: 0;
 		padding: 0;
@@ -146,8 +164,8 @@
 	}
 
 	.animation{
-			width: 100%;
-			max-width: 400px;
+		width: 100%;
+		max-width: 400px;
 	}
 
 	.animation_canvas{
@@ -192,6 +210,16 @@
 			width: 90%;
 		}
 
+		.mode_flex{
+				grid-template-columns: 1fr;
+		}
+		.mode_flex > *{
+				margin-bottom: 5px;
+		}
+		.right{
+				justify-self: left;
+		}
+
 		.control_container{
 			min-width: 200px;
 			margin-right: 0;
@@ -222,7 +250,12 @@
 		}
   }
 
-  @media (max-width: 400px) {
+  @media (max-width: 480px) {
+
+		.mode_flex > *{
+			justify-self: right;
+		}
+
 		.webcam_container {
 			width: 300px;
 		}

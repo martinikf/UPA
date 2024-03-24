@@ -48,7 +48,7 @@
 			margin-bottom: -.4rem;
 		}
 
-		@media (max-width: 400px){
+		@media (max-width: 480px){
 			.control_row{
 					display: block;
 			}
