@@ -48,7 +48,7 @@
 		text = DEFAULT_STRING;
 
 		if(customString.length > 0){
-			text = customString;
+			text = customString.replace(" ", "");
 		}
 
 		timeout = performance.now() + 2_000 / speed;

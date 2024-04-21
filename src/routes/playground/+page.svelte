@@ -72,7 +72,7 @@
 			<li><button on:click={() => {mode = "translator"; modeButtonOnClick(); }}>Překladač</button></li>
 			<li><button on:click={() => {mode = "practice"; modeButtonOnClick(); }}>Procvičení odezírání</button></li>
 		</ul>
-		<ul class="mode_list">
+		<ul class="mode_list middle">
 			<li>
 				<button class="webcam_button" on:click={toggleWebcam}>
 					{webcam ? "Vypnout kameru" : "Zapnnout kameru"}
@@ -130,8 +130,8 @@
 
   .mode_container{
 		width: 80%;
-		margin: auto auto 2rem;
 		max-width: 1600px;
+		margin: auto auto 2rem;
   }
 
 	.mode_flex{
@@ -148,16 +148,21 @@
 		list-style: none;
   }
 
+	.middle{
+			justify-self: center;
+	}
+
   .mode_list li{
 		display: inline-block;
   }
+
   .mode_list li button{
 		padding: 5px;
   }
 
 	.content_container{
 		display: flex;
-		justify-content: space-around;
+		justify-content: space-between;
 		width: 80%;
 		max-width: 1600px;
 		margin: auto;
@@ -231,6 +236,10 @@
 			display: grid;
 			grid-template-columns: 1fr 1fr;
 		}
+
+      .middle{
+          justify-self: left;
+      }
 	}
 
 	@media (max-width: 768px) {
