@@ -26,11 +26,11 @@
 
 		let currentLetter = randomWord[currentState].toUpperCase();
 		if(currentLetter === 'C' && currentState < randomWord.length - 1 && randomWord[currentState + 1].toUpperCase() === 'H'){
-			currentLetter = "CH";
+			currentLetter = "Ch";
 		}
 
 		if (result[removeDiacritics(currentLetter)]) {
-			if(currentLetter === "CH")
+			if(currentLetter === "Ch")
 				currentState++;
 			currentState++;
 			currentWordDisplay.innerHTML = randomWord.substring(0, currentState);

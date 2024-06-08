@@ -40,9 +40,7 @@
 	let display_char : string = "🕒";
 
 	function start(){
-		if(running){
-			return;
-		}
+
 		running = true;
 
 		text = DEFAULT_STRING;
@@ -51,12 +49,7 @@
 			text = customString.replace(" ", "");
 		}
 
-		timeout = performance.now() + 2_000 / speed;
-
-		char = text[0].toUpperCase();
-		text = text.slice(1);
-		model.playAnimationForText(char);
-
+		nextChar();
 	}
 
 	function replay(){
@@ -76,10 +69,16 @@
 		timeout = performance.now() + 2_000 / speed;
 
 		char = text[0].toUpperCase();
-		if (char =="C" && text.length > 1 && text[1].toUpperCase() == "H"){
+		while (char.toLowerCase() == char.toUpperCase()){
+			char = text[1].toUpperCase();
+			text = text.slice(1);
+		}
+
+		if (char == "C" && text.length > 1 && text[1].toUpperCase() == "H"){
 			char = "Ch";
 			text = text.slice(1);
 		}
+
 		text = text.slice(1);
 
 		model.playAnimationForText(char);

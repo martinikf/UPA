@@ -21,7 +21,7 @@
 		let maxValue: number | null = null;
 
 		for (const key in dict) {
-			if (dict.hasOwnProperty(key)) {
+			if (Object.hasOwn(dict, key)) {
 				const value = dict[key];
 
 				if (maxValue === null || value > maxValue) {
