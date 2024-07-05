@@ -62,7 +62,6 @@
 		webcam = !webcam;
 	}
 
-
 </script>
 
 <div class="mode_container">
@@ -90,26 +89,25 @@
 </div>
 
 
-
 <div class="content_container">
 	<div class="animation">
 		<div class="animation_canvas">
-			<Scene bind:model={model} bind:this={scene} bind:showLetter={displayLetter}/>
+			<Scene bind:model={model} bind:this={scene} showLetter={displayLetter}/>
 		</div>
-		<ControlRow bind:model={model}/>
+		<ControlRow model={model}/>
 	</div>
 
 	<div class="control_container">
 		{#if mode === 'translator'}
-			<Translator bind:model={model} />
+			<Translator model={model} />
 		{:else if mode === 'practice'}
-			<Practice bind:model={model} />
+			<Practice model={model} />
 		{:else if mode === 'interactive'}
-			<Interactive bind:model={model} bind:this={interactive} />
+			<Interactive model={model} bind:this={interactive} />
 		{:else if webcam && mode === 'practiceWebcam'}
-			<SpellActivity bind:this={spellActivity} bind:model={model} />
+			<SpellActivity bind:this={spellActivity} model={model} />
 		{:else if webcam && mode === 'transcript'}
-			<Transcript bind:this={transcript} bind:model={model}/>
+			<Transcript bind:this={transcript} model={model}/>
 		{/if}
 	</div>
 
@@ -138,6 +136,7 @@
 		display: grid;
 		grid-template-columns: 4fr 1fr 4fr;
 	}
+
 	.right{
 		justify-self: right;
 	}

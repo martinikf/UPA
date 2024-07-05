@@ -4,7 +4,7 @@
   import { useGltf, useGltfAnimations, Text } from '@threlte/extras'
 
   const actionOffset = "ActionLetter";
-  const gltf = useGltf('models/Model.glb', {
+  const gltf = useGltf('/models/Model.glb', {
     useDraco: true
   })
 

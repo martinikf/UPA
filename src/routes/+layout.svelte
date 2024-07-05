@@ -7,6 +7,7 @@
 				<li><a href="/sign-alphabet">Prstová&nbsp;abeceda</a></li>
 				<li><a href="/playground">Playground</a></li>
 				<li><a href="/translator">Překladač&nbsp;z&nbsp;texu</a></li>
+				<li><a href="/learn">Učitel</a></li>
 			</ul>
 		</nav>
 		<span><a class="githubLink" href="https://github.com/martinikf/UPA">GitHub</a></span>
