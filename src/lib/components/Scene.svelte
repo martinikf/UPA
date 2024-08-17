@@ -2,7 +2,7 @@
 <script lang="ts">
 
   import { T, Canvas } from '@threlte/core'
-  import { OrbitControls } from '@threlte/extras'
+  import { OrbitControls} from '@threlte/extras'
 
   import Model from './AnimatedModel.svelte'
 
@@ -27,13 +27,7 @@
     />
   </T.PerspectiveCamera>
 
-  <T.DirectionalLight
-    intensity={0.8}
-    position.x={1}
-    position.y={1}
-  />
-
-  <T.AmbientLight intensity={1} />
+  <T.AmbientLight intensity={3.5} />
 
   <Model bind:this={model} bind:letterDisplay={letterDisplay}  />
 

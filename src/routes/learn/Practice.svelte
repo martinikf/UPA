@@ -1,8 +1,6 @@
 <script lang="ts">
 
 	import Model from '$lib/components/AnimatedModel.svelte';
-	import { Checkbox } from 'svelte-tweakpane-ui';
-	import { onMount } from 'svelte';
 	export let model : Model;
 	export let data : any;
 
@@ -23,27 +21,14 @@
 		}
 	}
 
-	let words : string[] = [];
-
-	function loadWords(){
-		// Load words from file
-		fetch("/CzechWords.txt")
-			.then((res) => res.text())
-			.then((text) => {
-				words = text.split("\n");
-			})
-			.catch((e) => console.error(e));
-	}
-
+	//TODO: remake this, doesn't work as intended
 	function createNewSentence(){
 		if(includeFingerAlphabet){
 			let i = Math.random();
 			if(i < 0.5 || !copyData.some((item: any) => item.str.length > 2)){
-				if(!words){
-					loadWords();
-				}
 
-				sentence = words[Math.floor(Math.random() * words.length)].trim();
+
+				sentence = copyData.filter((item: any) => item.str.length == 1)[Math.floor(Math.random() * copyData.length)].str;
 				model.playAnimationForText(sentence);
 
 				return
@@ -54,9 +39,7 @@
 		sentence = copyData[Math.floor(Math.random() * copyData.length)].str;
 		model.playAnimationForText(sentence);
 	}
-	onMount(() => {
-		loadWords();
-	});
+
 
 </script>
 

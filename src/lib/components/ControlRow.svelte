@@ -5,6 +5,8 @@
 	let speed : number = 1;
 	let pauseButtonText = "⏸";
 
+	let languageMode = "1";
+
 
 	function resetOnClick(){
 		if(model === undefined) return;
@@ -20,6 +22,14 @@
 		pauseButtonText = model.isPaused ? "⏵" : "⏸";
 	}
 
+	function toggleLanguageMode(){
+		if(model === undefined) return;
+
+		languageMode = languageMode === "1" ? "2" : "1";
+
+		model.toggleLanguageMode();
+	}
+
 </script>
 
 <div class="control_row">
@@ -28,6 +38,7 @@
 		<input type="range" id="speed_slider" min="0" max="3" step="0.2" bind:value={speed} on:change={() => {model ? model.changeSpeed(speed) : null}} />
 	</div>
 	<div>
+		<button on:click={() => {toggleLanguageMode()}}>{languageMode}</button>
 		<button on:click={() => {resetOnClick()}}>Reset</button>
 		<button on:click={() => {pauseResumeOnClick()}}>{pauseButtonText}</button>
 	</div>
