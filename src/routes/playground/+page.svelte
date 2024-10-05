@@ -25,6 +25,8 @@
 
 	let landmarkDetection: LandmarkDetection;
 
+	let controlRow : ControlRow;
+
 	//Landmark message forwarder to the correct component
 	function handleMessage(msg : any) {
 		//let result = msg.detail;
@@ -47,9 +49,19 @@
 		}
 	}
 
+	function toggleLanguagesModeHandler(){
+		if(mode == "translator" || mode == "practice"){
+			controlRow.enableToggleMode();
+		}
+		else{
+			controlRow.disableToggleMode();
+		}
+	}
+
 	function modeButtonOnClick(){
 		model.resetAnimation();
 		displayLetterHandler();
+		toggleLanguagesModeHandler();
 	}
 
 	function toggleWebcam(){
@@ -94,7 +106,7 @@
 		<div class="animation_canvas">
 			<Scene bind:model={model} bind:this={scene} showLetter={displayLetter}/>
 		</div>
-		<ControlRow model={model}/>
+		<ControlRow bind:this={controlRow} model={model}/>
 	</div>
 
 	<div class="control_container">

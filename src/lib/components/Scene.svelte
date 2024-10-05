@@ -27,7 +27,7 @@
     />
   </T.PerspectiveCamera>
 
-  <T.AmbientLight intensity={3.5} />
+  <T.AmbientLight intensity={4} />
 
   <Model bind:this={model} bind:letterDisplay={letterDisplay}  />
 
