@@ -1,6 +1,7 @@
 <script lang="ts">
 
 	import Model from '$lib/components/AnimatedModel.svelte';
+	import { Language } from '$lib/components/models/word';
 	export let model : Model;
 	export let data : any;
 
@@ -29,7 +30,7 @@
 
 
 				sentence = copyData.filter((item: any) => item.str.length == 1)[Math.floor(Math.random() * copyData.length)].str;
-				model.playAnimationForText(sentence);
+				model.playAnimationForText(sentence, Language.Czech);
 
 				return
 			}
@@ -37,7 +38,7 @@
 
 		//Words
 		sentence = copyData[Math.floor(Math.random() * copyData.length)].str;
-		model.playAnimationForText(sentence);
+		model.playAnimationForText(sentence, Language.Czech);
 	}
 
 
@@ -50,12 +51,50 @@
 
 </p>
 <h3>Ovládání</h3>
-<button on:click={createNewSentence}>Spustit novou větu</button>
+<div class="control_block">
+	<button on:click={createNewSentence}>Spustit novou větu</button>
+	<button on:click={() => {model.playAnimationForText(sentence, Language.Czech)}}>Přehrát znovu</button>
 
-<label for="includeFingerAlph">Zahrnout prstovou abecedu</label>
-<input type="checkbox" name="includeFingerAlph" bind:checked={includeFingerAlphabet}/>
+	<input id="text" class="text_input" type="text" bind:value={userInput} placeholder="Zde napište znakované slovo">
+	<button class="smaller_button" on:click={Check}>Zkontrolovat</button>
+</div>
 
-<button on:click={() => {model.playAnimationForText(sentence)}}>Přehrát znovu</button>
-<input type="text" bind:value={userInput}>
+<style>
+    .control_block {
+        display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 0.5rem;
 
-<button on:click={Check}>Zkontrolovat</button>
+    }
+
+    .control_block button {
+    		padding: 5px;
+				margin-bottom: 0.5rem;
+    }
+
+		.control_block .text_input{
+				border-radius: 3px;
+		}
+
+		.control_block .smaller_button {
+        margin-top: 4px;
+    }
+
+    @media (max-width: 768px) {
+        .control_block{
+            display: flex;
+            flex-direction: column;
+        }
+
+        .control_block .text_input{
+						width: 90%;
+						margin: auto;
+            font-size: 1.15rem;
+        }
+
+        .control_block .smaller_button{
+            width: 80%;
+            margin: 0 auto;
+        }
+    }
+</style>

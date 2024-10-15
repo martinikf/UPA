@@ -4,10 +4,12 @@ Command: npx @threlte/gltf@2.0.3 C:\Users\marti\Documents\GitHub\prstovka\static
 -->
 
 <script lang="ts">
-  import type * as THREE from 'three'
-  import { Group } from 'three'
-  import { T, type Props, type Events, type Slots, forwardEventHandlers } from '@threlte/core'
-  import { useGltf, useGltfAnimations } from '@threlte/extras'
+  import type * as THREE from 'three';
+  import { Group } from 'three';
+  import { type Events, forwardEventHandlers, type Props, type Slots, T } from '@threlte/core';
+  import { useGltf, useGltfAnimations } from '@threlte/extras';
+
+  import { Language } from '$lib/components/models/word';
 
   type $$Props = Props<THREE.Group>
   type $$Events = Events<THREE.Group>
@@ -268,7 +270,19 @@ Command: npx @threlte/gltf@2.0.3 C:\Users\marti\Documents\GitHub\prstovka\static
     }
   }
 
-  export function playAnimationForText(textArg : string){
+  export function playAnimationForText(textArg : string, language : Language){
+
+    if(language === Language.CzechFingerOneHand){
+      actionOffset = "ActionLetter";
+    }
+    else if(language == Language.CzechFingerTwoHand){
+      actionOffset = "CZ2ActionLetter";
+    }
+    else{
+      //TODO
+      actionOffset = "ActionLetter";
+    }
+
     text = textArg.toUpperCase();
     currentChar = '';
     previousChar = '';
@@ -320,6 +334,7 @@ Command: npx @threlte/gltf@2.0.3 C:\Users\marti\Documents\GitHub\prstovka\static
     }
   }
 
+  //TODO, delete this, toggle between language only by passing arg to playAnimation
   export function toggleLanguageMode(){
     if(actionOffset === "ActionLetter"){
       actionOffset = "CZ2ActionLetter";

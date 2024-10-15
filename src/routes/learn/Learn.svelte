@@ -11,12 +11,12 @@
 	}
 
 	function firstUnlearned(){
-		let i = 0;
-		while(data[i].learned){
-			i++;
+		let j = 0;
+		while(data[j].learned){
+			j++;
 		}
-		console.log("First unlearned: ", i);
-		return i;
+		console.log("First unlearned: ", j);
+		return j;
 	}
 
 	let i = -1;
@@ -45,12 +45,29 @@
 
 <h2>Učit</h2>
 <p>
-	Bude vám zobrazeno písmeno a zároveň i jeho zobrazení, zkuste si jej co nejlépe zapomatovat.
+	Bude vám zobrazeno písmeno/znak, zkuste si jej co nejlépe zapomatovat. <br/>
 	Po stisknutí tlačítka "Už umím" jej budete vídat v oblasti procvičování.
 </p>
 
 <h3>Učíte se: {data[i].str}</h3>
 
-<button on:click={play}>Přehrát znovu</button>
+<div class="control_buttons">
+	<button on:click={play}>Přehrát znovu</button>
 
-<button on:click={learned}>Už umím!</button>
+	<button on:click={learned}>Už umím!</button>
+</div>
+
+<style>
+	.control_buttons button{
+			display: block;
+			padding: 5px;
+			margin-bottom: 0.5rem;
+	}
+
+  @media (max-width: 768px) {
+			.control_buttons{
+				display: flex;
+				flex-direction: column;
+			}
+	}
+</style>

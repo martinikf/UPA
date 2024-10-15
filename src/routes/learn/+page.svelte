@@ -10,23 +10,50 @@ import Review from './Review.svelte'
 import Practice from './Practice.svelte'
 import Learn from './Learn.svelte'
 
+import { Language, Word } from '$lib/components/models/word';
 
 let currentMode = 'practice';
 let scene : Scene;
 let model : Model;
+let controlRow : ControlRow;
 
 $: showString = currentMode != 'practice'
 
-//Fetch all signs
-//Fetch user signs
+//Display the option for selecting language in Learn mode
+$: if(controlRow){
+	controlRow.disableToggleMode();
+}
 
-let data = [{str : 'a', learned : true}, {str : 'b', learned : false}, {str : 'c', learned : false}, {str : 'd', learned : false}, {str : 'e', learned : false}, {str : 'f', learned : false}, {str : 'g', learned : false}, {str : 'h', learned : false}, {str : 'ch', learned : false}, {str : 'i', learned : false}, {str : 'j', learned : false}, {str : 'k', learned : false}, {str : 'l', learned : false}, {str : 'm', learned : false}, {str : 'n', learned : false}, {str : 'o', learned : false}, {str : 'p', learned : false}, {str : 'r', learned : false}, {str : 's', learned : false}, {str : 't', learned : false}, {str : 'u', learned : false}, {str : 'v', learned : false}, {str : 'y', learned : false}, {str : 'z', learned : false}, {str : 'zebra', learned : true}, {str : 'auto', learned : false}]
+function buildList() : Word[]{
+	let lettersEng = 'abcdefghijklmnopqrstuvwxyz'.split('');
+	let lettersCz = 'abcdefghijklmnopqrstuvwxyz'.split('');
+	//Add letter 'ch'
+	lettersCz.splice(8, 0, 'ch');
 
+	let words = ["auto", "autobus"];
+
+	let listOfAllWords = [];
+
+	//Build a list of czech alphabet
+	for(let i = 0; i < lettersCz.length; i++) {
+		listOfAllWords.push(new Word(lettersCz[i], Language.CzechFingerOneHand, false));
+		listOfAllWords.push(new Word(lettersCz[i], Language.CzechFingerTwoHand, false));
+	}
+
+	for(let i = 0; i < words.length; i++) {
+		listOfAllWords.push(new Word(words[i], Language.Czech, false));
+	}
+
+	return listOfAllWords;
+}
+
+let data = buildList();
 
 </script>
 
 <div class="learn">
 
+	<h2>Režim učitel</h2>
 	<p>Tento režim slouží k postupnému učení prostové abecedy a poté základních znaků.</p>
 
 	<div class="tabs">
@@ -49,7 +76,7 @@ let data = [{str : 'a', learned : true}, {str : 'b', learned : false}, {str : 'c
 			<div class="animation_canvas">
 				<Scene bind:model={model} bind:this={scene} bind:showLetter={showString}/>
 			</div>
-			<ControlRow model={model}/>
+			<ControlRow model={model} bind:this={controlRow}/>
 		</div>
 
 		<div class="control">
@@ -74,15 +101,44 @@ let data = [{str : 'a', learned : true}, {str : 'b', learned : false}, {str : 'c
 	}
 
 	.content{
-			width: 80%;
 			margin: auto;
 			display: grid;
-			grid-template-columns: 1fr 1fr;
+			grid-template-columns: 1fr 2fr;
 	}
 
   .animation{
       width: 100%;
       max-width: 400px;
+			margin-right: 2rem;
+  }
+
+  .tabs{
+      list-style: none;
+			display: flex;
+
+			justify-content: left;
+      padding: 0;
+      margin: 0 0 2rem;
+  }
+
+	.tabs ul{
+			padding: 0;
+			margin: 0;
+			display: flex;
+      gap: 0.5rem;
+	}
+
+  .tabs li{
+      display: inline-block;
+  }
+
+	.tabs li button{
+      padding: 5px;
+  }
+
+  .tabs li button{
+      padding: 5px;
+			font-size: 1rem;
   }
 
   .animation_canvas{
@@ -91,5 +147,36 @@ let data = [{str : 'a', learned : true}, {str : 'b', learned : false}, {str : 'c
       background: linear-gradient(0deg, rgb(255, 115, 0) 0%, rgb(255, 216, 0) 35%, rgb(0, 86, 184) 100%);
       height: 300px;
       width: 400px;
+  }
+
+  @media (max-width: 1400px) {
+
+  }
+
+
+
+  @media (max-width: 768px) {
+			.content{
+					grid-template-columns: 1fr;
+
+			}
+      .tabs{
+          justify-content: right;
+      }
+
+			.animation{
+					margin: auto;
+			}
+
+			.learn{
+					width: 90%;
+			}
+
+  }
+
+  @media (max-width: 480px) {
+      .learn{
+          width: 95%;
+      }
   }
 </style>

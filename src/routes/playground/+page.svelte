@@ -220,6 +220,8 @@
 		width: 100%;
 		height: 100%;
 	}
+	
+	
 
 	@media (max-width: 1400px) {
 		.mode_container{
@@ -252,6 +254,8 @@
           justify-self: left;
       }
 	}
+	
+	
 
 	@media (max-width: 768px) {
 		.content_container{
@@ -269,15 +273,24 @@
 			margin-top: 15px;
 		}
   }
+	
+	
 
   @media (max-width: 480px) {
 
 		.mode_flex > *{
 			justify-self: right;
 		}
+			
+		.content_container{
+				position: relative;
+		}
 
 		.webcam_container {
-			width: 300px;
+			width: 100px;
+			position: absolute;
+			left: 3%;
+			top: -3%;
 		}
 
 		.animation{
@@ -289,5 +302,6 @@
 			width: 300px;
 			height: 300px;
 		}
+
   }
 </style>
