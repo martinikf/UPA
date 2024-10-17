@@ -1,7 +1,7 @@
 <script lang="ts">
 
 	import Model from '$lib/components/AnimatedModel.svelte';
-	import { Language } from '$lib/components/models/word';
+	import { Language } from '$lib/components/models/Word';
 	export let model : Model;
 	export let data : any;
 

@@ -10,7 +10,7 @@ import Review from './Review.svelte'
 import Practice from './Practice.svelte'
 import Learn from './Learn.svelte'
 
-import { Language, Word } from '$lib/components/models/word';
+import { Language, Word } from '$lib/components/models/Word';
 
 let currentMode = 'practice';
 let scene : Scene;

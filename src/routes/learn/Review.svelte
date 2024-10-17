@@ -6,7 +6,7 @@
 
 	let wordsToShow = [...data];
 
-	import { Language, Word } from '$lib/components/models/word';
+	import { Language, Word } from '$lib/components/models/Word';
 
 	//TODO: play the sign two times
 	function animate(txt : string, language : Language){
