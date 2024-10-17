@@ -2,7 +2,7 @@
 
 	import Model from '$lib/components/AnimatedModel.svelte';
 	export let model : Model;
-	export let data : any;
+	export let data : Word[];
 
 	let wordsToShow = [...data];
 
@@ -26,21 +26,53 @@
 		}
 	}
 
-	console.log(data)
+	let rerender = 0;
+
+	//When a letter is marked as learned, assume that all the previous letters are learned as well
+	//When a word is marked, mark only the word itself
+	function markAsLearned(word : Word){
+		let language = word.language;
+
+		//Handler for words, not finger alphabets. Just mark the word as learned and return
+		if(language == Language.Czech) {
+			word.learned = true;
+			rerender++;
+			return;
+		}
+
+		let words = data.filter((w) => {
+			return w.language == language;
+		});
+
+		//Iterate over filtered words, mark them as learned and break when the word is found
+		for(let i = 0; i < words.length; i++){
+			words[i].learned = true;
+			if(words[i].str == word.str){
+				break;
+			}
+		}
+		rerender++;
+	}
 
 </script>
 
 <h2>Přehled</h2>
 <p>
-	Zde vidíte všechny znaky, nezašedlé položky již umíte.
-	Pro přehrání daného znaku klikněte na něj.
+	Zde vidíte všechny znaky, nezašedlé položky již umíte. <br/>
+	Pro přehrání daného znaku klikněte na něj. <br/>
+	Pokud jste již v minulosti tento režim použili, dvojklikem na slovo se jej rovnou naučíte.
 </p>
 
+{#key rerender}
 <h3>Česká jednoruční prstová abeceda</h3>
 <div class="letters">
 	{#each data as letter}
 		{#if letter.language == Language.CzechFingerOneHand}
-			<span class="letter" class:learned={letter.learned} on:click={() => {animate(letter.str, letter.language)}}>{letter.str}</span>
+			<span class="letter" class:learned={letter.learned}
+						on:dblclick={() => {markAsLearned(letter)}}
+						on:click={() => {animate(letter.str, letter.language)}}>
+				{letter.str}
+			</span>
 		{/if}
 	{/each}
 </div>
@@ -50,7 +82,11 @@
 <div class="letters">
 	{#each data as letter}
 		{#if letter.language == Language.CzechFingerTwoHand}
-			<span class="letter" class:learned={letter.learned} on:click={() => {animate(letter.str, letter.language)}}>{letter.str}</span>
+			<span class="letter" class:learned={letter.learned}
+						on:dblclick={() => {markAsLearned(letter)}}
+						on:click={() => {animate(letter.str, letter.language)}}>
+				{letter.str}
+			</span>
 		{/if}
 	{/each}
 </div>
@@ -63,12 +99,16 @@
 	<div class="words">
 		{#each wordsToShow as word}
 			{#if word.language == Language.Czech}
-				<div class="word" class:learned={word.learned} on:click={() => {animate(word.str, word.language)}}>{word.str}</div>
+				<div class="word" class:learned={word.learned}
+						 on:dblclick={() => {markAsLearned(word)}}
+						 on:click={() => {animate(word.str, word.language)}}>
+					{word.str}
+				</div>
 			{/if}
 		{/each}
 	</div>
 </div>
-
+	{/key}
 
 <style>
 	.letters{
