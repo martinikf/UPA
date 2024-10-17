@@ -9,7 +9,7 @@ Command: npx @threlte/gltf@2.0.3 C:\Users\marti\Documents\GitHub\prstovka\static
   import { type Events, forwardEventHandlers, type Props, type Slots, T } from '@threlte/core';
   import { useGltf, useGltfAnimations } from '@threlte/extras';
 
-  import { Language } from '$lib/components/models/word';
+  import { Language } from '$lib/components/models/Word';
 
   type $$Props = Props<THREE.Group>
   type $$Events = Events<THREE.Group>
