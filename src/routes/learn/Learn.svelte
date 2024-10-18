@@ -111,11 +111,19 @@
 </div>
 
 <style>
+	h2{
+			margin-top: 0;
+	}
+
 	.control_buttons button{
 			display: block;
 			padding: 5px;
 			margin-bottom: 0.5rem;
 	}
+
+  .language_selection select{
+      padding: 5px;
+  }
 
   @media (max-width: 768px) {
 			.control_buttons{

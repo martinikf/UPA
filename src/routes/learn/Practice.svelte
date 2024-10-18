@@ -1,100 +1,111 @@
 <script lang="ts">
 
 	import Model from '$lib/components/AnimatedModel.svelte';
-	import { Language } from '$lib/components/models/Word';
+	import { Word, Language } from '$lib/components/models/Word';
 	export let model : Model;
-	export let data : any;
+	export let data : Word[];
 
-
+	let selectedLanguageSet : Language = Language.CzechFingerOneHand;
 	let userInput = '';
-	let includeFingerAlphabet = true;
-
 	let sentence : string = '';
 
-	let copyData = [...data.filter((item: any) => item.learned)];
+	let copyData = [...data.filter((item: Word) => item.learned)];
 
+	//for each Language create dictionary enty with filtered items by that language
+	let languageSets = {
+		[Language.CzechFingerOneHand]: copyData.filter((item: Word) => item.language === Language.CzechFingerOneHand),
+		[Language.CzechFingerTwoHand]: copyData.filter((item: Word) => item.language === Language.CzechFingerTwoHand),
+		[Language.Czech]: copyData.filter((item: Word) => item.language === Language.Czech),
+	}
 
 	function Check() {
 		if (userInput.trim().toLowerCase() === sentence.trim().toLowerCase()) {
 			alert('Správně!');
+			userInput = '';
 		} else {
 			alert('Špatně!');
 		}
 	}
 
-	//TODO: remake this, doesn't work as intended
 	function createNewSentence(){
-		if(includeFingerAlphabet){
-			let i = Math.random();
-			if(i < 0.5 || !copyData.some((item: any) => item.str.length > 2)){
-
-
-				sentence = copyData.filter((item: any) => item.str.length == 1)[Math.floor(Math.random() * copyData.length)].str;
-				model.playAnimationForText(sentence, Language.Czech);
-
-				return
-			}
+		if(languageSets[selectedLanguageSet].length === 0) {
+			alert('Nemáte žádné slova k procvičení');
+			return;
 		}
 
-		//Words
-		sentence = copyData[Math.floor(Math.random() * copyData.length)].str;
-		model.playAnimationForText(sentence, Language.Czech);
+		let randomIndex = Math.floor(Math.random() * languageSets[selectedLanguageSet].length);
+		sentence = languageSets[selectedLanguageSet][randomIndex].str;
+
+		model.playAnimationForText(sentence, selectedLanguageSet);
 	}
 
+	function onLanguageChange(){
+
+	}
 
 </script>
 
 <h2>Procvičovat</h2>
 <p>
 	Zapište do pole postupně všechny znaky, které vám byly zobrazeny. Poté stiskněte tlačítko zkontrolovat.
-
-
 </p>
-<h3>Ovládání</h3>
-<div class="control_block">
-	<button on:click={createNewSentence}>Spustit novou větu</button>
-	<button on:click={() => {model.playAnimationForText(sentence, Language.Czech)}}>Přehrát znovu</button>
 
+<div class="language">
+	<label for="language" class="select_label">Jazyk:</label>
+	<select id="language" bind:value={selectedLanguageSet} on:change={onLanguageChange}>
+		<option value="{Language.CzechFingerOneHand}">Česká prstová abeceda jednoruční</option>
+		<option value="{Language.CzechFingerTwoHand}">Česká prstová abeceda obouruční</option>
+		<option value="{Language.Czech}">Česká znakový jazyk</option>
+		<!-- <option value="cz">ASL</option> -->
+	</select>
+</div>
+
+<div class="group_control">
+	<button on:click={createNewSentence}>Spustit novou větu</button>
+	<button on:click={() => {model.playAnimationForText(sentence, selectedLanguageSet)}}>Přehrát znovu</button>
+</div>
+
+<div class="group_input">
 	<input id="text" class="text_input" type="text" bind:value={userInput} placeholder="Zde napište znakované slovo">
 	<button class="smaller_button" on:click={Check}>Zkontrolovat</button>
 </div>
 
+
+
 <style>
-    .control_block {
-        display: grid;
-				grid-template-columns: 1fr 1fr;
-				gap: 0.5rem;
-
+    h2{
+        margin-top: 0;
     }
 
-    .control_block button {
-    		padding: 5px;
-				margin-bottom: 0.5rem;
-    }
-
-		.control_block .text_input{
-				border-radius: 3px;
+		.select_label{
+				text-align: right;
 		}
 
-		.control_block .smaller_button {
-        margin-top: 4px;
+		button, input, select{
+				padding: 5px;
+		}
+
+		.language{
+				margin-bottom: 0.5rem;
+		}
+
+		.group_control{
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				margin-bottom: 0.5rem;
+		}
+
+		.group_input{
+				display: grid;
+				grid-template-columns: 2fr 1fr;
     }
 
     @media (max-width: 768px) {
-        .control_block{
+        .group_control, .group_input {
             display: flex;
             flex-direction: column;
-        }
-
-        .control_block .text_input{
-						width: 90%;
-						margin: auto;
-            font-size: 1.15rem;
-        }
-
-        .control_block .smaller_button{
-            width: 80%;
-            margin: 0 auto;
+						gap: 0.5rem;
         }
     }
+
 </style>

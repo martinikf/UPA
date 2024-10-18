@@ -77,7 +77,7 @@
 </script>
 
 <div class="mode_container">
-	<h3>Režimy UPA</h3>
+	<h3>Režimy UPA pro českou prstovou abecedu</h3>
 	<div class="mode_flex">
 		<ul class="mode_list left">
 			<li><button on:click={() => {mode = "translator"; modeButtonOnClick(); }}>Překladač</button></li>
@@ -221,7 +221,6 @@
 		height: 100%;
 	}
 	
-	
 
 	@media (max-width: 1400px) {
 		.mode_container{
@@ -255,7 +254,6 @@
       }
 	}
 	
-	
 
 	@media (max-width: 768px) {
 		.content_container{
@@ -272,16 +270,14 @@
 			width: 100%;
 			margin-top: 15px;
 		}
-  }
-	
-	
-
-  @media (max-width: 480px) {
 
 		.mode_flex > *{
-			justify-self: right;
+				justify-self: right;
 		}
-			
+  }
+
+
+  @media (max-width: 480px) {
 		.content_container{
 				position: relative;
 		}

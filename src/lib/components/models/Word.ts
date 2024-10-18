@@ -3,7 +3,6 @@ export enum Language {
 	CzechFingerOneHand,
 	CzechFingerTwoHand,
 	Czech,
-	ASL
 }
 
 export class Word {

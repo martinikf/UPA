@@ -54,7 +54,7 @@ let data = buildList();
 <div class="learn">
 
 	<h2>Režim učitel</h2>
-	<p>Tento režim slouží k postupnému učení prostové abecedy a poté základních znaků.</p>
+	<p>Tento režim slouží k postupnému učení prostové abecedy a základních znaků.</p>
 
 	<div class="tabs">
 		<ul>

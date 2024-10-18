@@ -111,6 +111,10 @@
 	{/key}
 
 <style>
+    h2{
+        margin-top: 0;
+    }
+
 	.letters{
 			display: flex;
 			flex-wrap: wrap;
