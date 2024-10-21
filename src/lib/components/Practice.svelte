@@ -2,6 +2,7 @@
 <script lang="ts">
 
 	  import Model from './AnimatedModel.svelte';
+		import { Language } from '$lib/components/models/Word';
 
     let words : string[] = [];
 
@@ -9,6 +10,7 @@
 
     let textInput = "";
     let randomWord : string;
+		let selectedLanguageSet : Language;
 
     function newWordOnClick(){
         if (words.length < 1){
@@ -18,7 +20,7 @@
         
         randomWord = words[Math.floor(Math.random() * words.length)].trim();
         console.log(randomWord);
-        model.playAnimationForText(randomWord);
+        model.playAnimationForText(randomWord, selectedLanguageSet);
     }
 
     function checkAnswer(){
@@ -40,7 +42,7 @@
 				return;
 			}
 			model.resetAnimation();
-			setTimeout(()=>{model.playAnimationForText(randomWord)}, 500);
+			setTimeout(()=>{model.playAnimationForText(randomWord, selectedLanguageSet)}, 500);
 		}
 
     function loadWords(){
@@ -57,6 +59,15 @@
 </script>
 
 <div class="controls">
+	<div class="language_selection">
+		<label for="language">Jazyk:</label>
+		<select id="language" bind:value={selectedLanguageSet}>
+			<option value="{Language.CzechFingerOneHand}">Česká prstová abeceda jednoruční</option>
+			<option value="{Language.CzechFingerTwoHand}">Česká prstová abeceda obouruční</option>
+			<option value="{Language.Czech}">Česká znakový jazyk</option>
+		</select>
+	</div>
+
 	<button on:click={() => {newWordOnClick()}}>Vytvořit nové náhodné slovo</button>
 	<input bind:value={textInput} placeholder="Zde napište zobrazené slovo..." />
 	<button on:click={() => {checkAnswer()}}>Zkontrolovat</button>

@@ -334,15 +334,6 @@ Command: npx @threlte/gltf@2.0.3 C:\Users\marti\Documents\GitHub\prstovka\static
     }
   }
 
-  //TODO, delete this, toggle between language only by passing arg to playAnimation
-  export function toggleLanguageMode(){
-    if(actionOffset === "ActionLetter"){
-      actionOffset = "CZ2ActionLetter";
-    }
-    else{
-      actionOffset = "ActionLetter";
-    }
-  }
 </script>
 
 <svelte:options accessors/>
