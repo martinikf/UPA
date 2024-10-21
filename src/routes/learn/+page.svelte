@@ -19,11 +19,6 @@ let controlRow : ControlRow;
 
 $: showString = currentMode != 'practice'
 
-//Display the option for selecting language in Learn mode
-$: if(controlRow){
-	controlRow.disableToggleMode();
-}
-
 function buildList() : Word[]{
 	let lettersEng = 'abcdefghijklmnopqrstuvwxyz'.split('');
 	let lettersCz = 'abcdefghijklmnopqrstuvwxyz'.split('');
