@@ -67,12 +67,12 @@
 <h3>Česká jednoruční prstová abeceda</h3>
 <div class="letters">
 	{#each data as letter}
-		{#if letter.language == Language.CzechFingerOneHand}
-			<span class="letter" class:learned={letter.learned}
+		{#if letter.language === Language.CzechFingerOneHand}
+			<button class="letter" class:learned={letter.learned}
 						on:dblclick={() => {markAsLearned(letter)}}
 						on:click={() => {animate(letter.str, letter.language)}}>
 				{letter.str}
-			</span>
+			</button>
 		{/if}
 	{/each}
 </div>
@@ -81,12 +81,12 @@
 <h3>Česká obouruční prstová abeceda</h3>
 <div class="letters">
 	{#each data as letter}
-		{#if letter.language == Language.CzechFingerTwoHand}
-			<span class="letter" class:learned={letter.learned}
+		{#if letter.language === Language.CzechFingerTwoHand}
+			<button class="letter" class:learned={letter.learned}
 						on:dblclick={() => {markAsLearned(letter)}}
 						on:click={() => {animate(letter.str, letter.language)}}>
 				{letter.str}
-			</span>
+			</button>
 		{/if}
 	{/each}
 </div>
@@ -99,11 +99,11 @@
 	<div class="words">
 		{#each wordsToShow as word}
 			{#if word.language == Language.Czech}
-				<div class="word" class:learned={word.learned}
+				<button class="word" class:learned={word.learned}
 						 on:dblclick={() => {markAsLearned(word)}}
 						 on:click={() => {animate(word.str, word.language)}}>
 					{word.str}
-				</div>
+				</button>
 			{/if}
 		{/each}
 	</div>
@@ -111,20 +111,15 @@
 	{/key}
 
 <style>
-    h2{
-        margin-top: 0;
-    }
+	h2{
+			margin-top: 0;
+	}
 
 	.letters{
 			display: flex;
 			flex-wrap: wrap;
 			padding-left: 0.5rem;
 			padding-right: 0.5rem;
-	}
-
-	.letter{
-			margin-right: 10px;
-      padding: 2px;
 	}
 
 	.words{
@@ -134,12 +129,21 @@
       padding-right: 0.5rem;
 	}
 
-	.word{
-			margin-right: 10px;
-      padding: 2px;
+	.word, .letter{
+			border: none;
+			outline: none;
+			margin-right: 0.25rem;
+			margin-bottom: 0.25rem;
+			padding: 0.5rem;
+			min-width: 2rem;
 	}
+
+	.letter{
+      font-weight: bold;
+	}
+
 	.learned{
-		color: green;
+		background-color: green;
 	}
 
 	.word:hover, .letter:hover{
@@ -149,8 +153,8 @@
 	.text_input{
 			display: block;
 			width: 95%;
-			margin: auto;
-	}
+      margin: auto auto 1rem;
+  }
 
   @media (max-width: 768px) {
       .text_input {

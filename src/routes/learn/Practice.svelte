@@ -29,7 +29,7 @@
 
 	function createNewSentence(){
 		if(languageSets[selectedLanguageSet].length === 0) {
-			alert('Nemáte žádné slova k procvičení');
+			alert('Nemáte žádné slova pro tento jazyk');
 			return;
 		}
 
@@ -61,7 +61,7 @@
 </div>
 
 <div class="group_control">
-	<button on:click={createNewSentence}>Spustit novou větu</button>
+	<button disabled={languageSets[selectedLanguageSet].length == 0} on:click={createNewSentence}>Spustit novou větu</button>
 	<button on:click={() => {model.playAnimationForText(sentence, selectedLanguageSet)}}>Přehrát znovu</button>
 </div>
 

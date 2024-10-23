@@ -90,4 +90,8 @@
 				margin-bottom: 10px;
 		}
 
+    .language_selection select{
+        padding: 5px;
+    }
+
 </style>
