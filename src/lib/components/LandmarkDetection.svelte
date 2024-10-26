@@ -1,301 +1,402 @@
 <script lang="ts">
-    // based on: https://codepen.io/mediapipe-preview/pen/gOKBGPN
-    import { HandLandmarker, FilesetResolver, GestureRecognizer,  DrawingUtils, type HandLandmarkerResult} from "@mediapipe/tasks-vision";
-    import { createEventDispatcher } from 'svelte';
-    import { browser } from '$app/environment';
-    import { onMount } from 'svelte';
-    import * as tf from '@tensorflow/tfjs';
-    import type { LayersModel } from '@tensorflow/tfjs';
+	/**
+	 * Hand Gesture Recognition Component
+	 *
+	 * Svelte component that implements real-time hand gesture recognition using
+	 * MediaPipe for landmark detection and TensorFlow.js for gesture classification.
+	 * Supports recognition of Czech finger alphabet letters A-Z
+	 *
+	 * API:
+	 * - dispatches 'gestureRecognized' event with GestureProbability containing gesture probabilities
+	 * 							this event is dispatched on every gesture recognition
+	 * - provides 'toggleShowVideo()' function to toggle video feed visibility
+	 * - provides 'disableCam()' function to stop webcam stream
+	 * - provides 'gestureConfidenceThreshold' prop to set gesture recognition threshold
+	 * - provides 'msToNextPredict' prop to set minimum time between predictions
+	 */
+	// based on: https://codepen.io/mediapipe-preview/pen/gOKBGPN
+	import {
+		HandLandmarker,
+		FilesetResolver,
+		GestureRecognizer,
+		DrawingUtils,
+		type HandLandmarkerResult
+	} from '@mediapipe/tasks-vision';
+	import { createEventDispatcher, onMount } from 'svelte';
 
-    const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'Ch']
-    const msToNextPredict = 80;
-    let lastVideoTime = -1;
-    let results : HandLandmarkerResult | undefined;
+	// Tensorflow imports
+	import * as tf from '@tensorflow/tfjs';
+	import type { LayersModel } from '@tensorflow/tfjs';
 
-    let handLandmarker : HandLandmarker | undefined;
-    let webcamRunning: boolean = false;
-    let tfModel : LayersModel | undefined;
+	// Local type imports
+	import { Landmark2d, Landmark3d } from '$lib/components/models/Landmark';
+	import type { GestureProbability } from '$lib/components/models/GestureProbability';
 
-    let showVideo : boolean = true;
+	/** Supported letters for gesture recognition */
+	const letters = [
+		'A',
+		'B',
+		'C',
+		'D',
+		'E',
+		'F',
+		'G',
+		'H',
+		'I',
+		'J',
+		'K',
+		'L',
+		'M',
+		'N',
+		'O',
+		'P',
+		'Q',
+		'R',
+		'S',
+		'T',
+		'U',
+		'V',
+		'W',
+		'X',
+		'Y',
+		'Z',
+		'Ch'
+	];
+	/** Minimum time between predictions in milliseconds for performance optimization */
+	export const msToNextPredict = 80;
 
-    let loading_text_html : HTMLElement | null;
+	// Component state variables
+	/** MediaPipe hand landmark detection model */
+	let handLandmarker: HandLandmarker | undefined;
+	/** TensorFlow.js gesture classification model */
+	let tfModel: LayersModel | undefined;
 
-    let video : HTMLVideoElement | null = null;
+	// DOM elements
+	let canvasElement: HTMLCanvasElement;
+	let canvasCtx: CanvasRenderingContext2D;
+	let video: HTMLVideoElement;
 
-    if(browser){
-        onMount(() => {
-            video = document.getElementById("webcam") as HTMLVideoElement;
-            const canvasElement = document.getElementById("output_canvas") as HTMLCanvasElement;
-            const canvasCtx = canvasElement.getContext("2d");
+	/** Flag indicating if webcam is currently active */
+	let webcamRunning: boolean = false;
+	/** Flag controlling video feed visibility */
+	let showVideo: boolean = true;
+	/** Timestamp of last prediction for frame rate control */
+	let lastTimeMs: number = 0; // used for measuring time between frames
+	/** Threshold for gesture recognition [0, 1]*/
+	export let gestureConfidenceThreshold: number = 0.2;
 
-            loading_text_html = document.getElementById("loading_text");
+	/**
+	 * Component initialization logic.
+	 * Sets up DOM elements, checks browser compatibility,
+	 * and initializes video stream and models.
+	 */
+	onMount(() => {
+		// Initialize DOM elements
+		let _video = document.getElementById('webcam') as HTMLVideoElement | null;
+		let _canvasElement = document.getElementById('output_canvas') as HTMLCanvasElement | null;
+		let _canvasCtx = _canvasElement?.getContext('2d') as CanvasRenderingContext2D | null;
 
-            // Check if webcam access is supported.
-            const hasGetUserMedia = () => !!navigator.mediaDevices?.getUserMedia;
+		if (_video == null || _canvasElement == null || _canvasCtx == null) {
+			return;
+		}
 
-            if (!hasGetUserMedia()) {
-                console.warn("getUserMedia() is not supported by your browser");
-            }
+		video = _video;
+		canvasElement = _canvasElement;
+		canvasCtx = _canvasCtx;
 
-            if(video && canvasElement && canvasCtx){
-                createHandLandmarker(canvasElement, canvasCtx, video);
-                loadTF();
-                predictWebcam(canvasElement, canvasCtx, video);
-            }
-        });
-    }
+		// Check if browser supports getUserMedia <=> is compatible
+		if (!navigator.mediaDevices?.getUserMedia) {
+			console.error('getUserMedia() is not supported by your browser');
+			return;
+		}
 
-    // https://stackoverflow.com/questions/50702662/passing-parent-method-to-child-in-svelte
-    const dispatch = createEventDispatcher();
+		enableCamAndStartPredict();
+		createHandLandmarker();
+		loadTF();
+	});
 
-    function gestureRecognized(event : {[key: string]: number}){
-        dispatch('gestureRecognized', event);
-    }
+	// Event handling setup
+	// https://stackoverflow.com/questions/50702662/passing-parent-method-to-child-in-svelte
+	const dispatch = createEventDispatcher();
 
-    async function createHandLandmarker(canvasElement : HTMLCanvasElement, canvasCtx : CanvasRenderingContext2D, video : HTMLVideoElement){
-        const vision = await FilesetResolver.forVisionTasks(
-          "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.0/wasm"
-        );
-        handLandmarker = await HandLandmarker.createFromOptions(vision, {
-            baseOptions: {
-                modelAssetPath: `models/hand_landmarker.task`,
-                delegate: "GPU"
-            },
-            runningMode: "VIDEO",
-            numHands: 1
-        });
+	/**
+	 * Dispatches recognized gesture events to parent component
+	 * @param event Object containing probabilities for each recognized gesture
+	 */
+	function gestureRecognized(event: GestureProbability) {
+		dispatch('gestureRecognized', event);
+	}
 
-        enableCam(canvasElement, canvasCtx, video);
-    }
+	/**
+	 * Initializes MediaPipe HandLandmarker with GPU acceleration
+	 * Must be called before any hand detection can occur
+	 */
+	async function createHandLandmarker() {
+		const vision = await FilesetResolver.forVisionTasks(
+			'./node_modules/@mediapipe/tasks-vision/wasm'
+		);
+		handLandmarker = await HandLandmarker.createFromOptions(vision, {
+			baseOptions: {
+				modelAssetPath: `models/hand_landmarker.task`,
+				delegate: 'GPU'
+			},
+			runningMode: 'VIDEO',
+			numHands: 1
+		});
+	}
 
-    // Enable the live webcam view and start detection.
-    function enableCam(canvasElement : HTMLCanvasElement, canvasCtx : CanvasRenderingContext2D, video : HTMLVideoElement){
-        webcamRunning = true;
-        if (!handLandmarker) {
-            console.log("Wait! objectDetector not loaded yet.");
-            return;
-        }
+	/**
+	 * Initializes webcam stream and starts prediction pipeline
+	 * Requests user permission for camera access
+	 */
+	function enableCamAndStartPredict() {
+		webcamRunning = true;
 
-        // Activate the webcam stream.
-        navigator.mediaDevices.getUserMedia({video: true }).then((stream) => {
-            video.srcObject = stream;
-            video.addEventListener("loadeddata", () => {predictWebcam(canvasElement, canvasCtx, video)});
-        });
-    }
+		// Activate the webcam stream, ask for permission
+		navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
+			video.srcObject = stream;
+			video.addEventListener('loadeddata', () => {
+				predictWebcam();
+			});
+		});
+	}
 
-    export function disableCam() {
-        if (video && video.srcObject) {
-            webcamRunning = false;
-            let tracks = video.srcObject.getTracks();
-            tracks[0].stop();
-        }
-    }
+	/**
+	 * Stops webcam stream
+	 */
+	export function disableCam() {
+		if (video && video.srcObject) {
+			webcamRunning = false;
+			if (video.srcObject instanceof MediaStream) {
+				let tracks = video.srcObject.getTracks();
+				tracks[0].stop();
+			}
+		}
+	}
 
-    function loadingDone(){
-        if(loading_text_html)
-            loading_text_html.style.display = "none";
-    }
+	/**
+	 * Main prediction loop for hand gesture recognition
+	 * Runs continuously while webcam is active
+	 * Controls frame rate and coordinates model inference
+	 */
+	async function predictWebcam() {
+		// Delay prediction if models aren't ready
+		if (!handLandmarker || !tfModel)
+			return setTimeout(() => {
+				predictWebcam();
+			}, 100);
 
+		let startTimeMs = performance.now();
+		// Performance monitoring
+		console.log(startTimeMs - lastTimeMs + ' ms'); // time to render one frame
+		lastTimeMs = startTimeMs;
 
-    let lastTimeMs : number = 0;
-    async function predictWebcam(canvasElement : HTMLCanvasElement, canvasCtx : CanvasRenderingContext2D, video : HTMLVideoElement) {
-        const webcamElement = document.getElementById("webcam");
+		// Run hand detection
+		let results: HandLandmarkerResult = handLandmarker.detectForVideo(video, startTimeMs);
 
-        if(loading_text_html?.style.display !== "none")
-            loadingDone();
+		// Clear previous frame (drawing)
+		canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
 
-        if(canvasCtx === null || handLandmarker === undefined || video === null || webcamElement === null){
-            return;
-        }
+		const drawingUtils = new DrawingUtils(canvasCtx);
 
-        let startTimeMs = performance.now();
-        if(startTimeMs - msToNextPredict < lastTimeMs){
-            return setTimeout(() => {predictWebcam(canvasElement, canvasCtx, video)}, msToNextPredict - (startTimeMs - lastTimeMs));
-        }
+		if (results && results.landmarks && results.landmarks.length > 0) {
+			// Visualize landmarks
+			drawLandmarks(drawingUtils, results);
 
-        if (lastVideoTime !== video.currentTime) {
-            //console.log(startTimeMs - lastTimeMs + " ms"); // time to render one frame
-            lastTimeMs = startTimeMs;
-            lastVideoTime = video.currentTime;
-            results = handLandmarker.detectForVideo(video, startTimeMs);
-        }
+			// Process landmark data through classification pipeline
+			const probabilities = await handGestureClassifier(
+				calcRelativeLandmarks(
+					calcAbsolutePositions(results.landmarks[0], video.videoWidth, video.videoHeight)
+				)
+			);
 
-        canvasCtx.save();
-        canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+			// Filter and report high-confidence predictions
+			let result : GestureProbability = {};
+			for (let i = 0; i < probabilities.length; i++) {
+				if (probabilities[i] > gestureConfidenceThreshold) {
+					result[letters[i]] = probabilities[i];
+				}
+			}
 
-        const drawingUtils = new DrawingUtils(canvasCtx);
+			gestureRecognized(result);
+		}
 
-        if (results && results.landmarks && results.landmarks.length > 0) {
+		// Schedule next frame (prediction) with time limiting
+		if (webcamRunning) {
+			let delay = msToNextPredict - (performance.now() - startTimeMs);
+			if (delay < 0) delay = 0;
+			return setTimeout(() => {
+				predictWebcam();
+			}, delay);
+		}
+	}
 
-            // draw landmarks and connections
-            for (const landmark of results.landmarks) {
-                drawLandmarks(drawingUtils, landmark);
-            }
+	/**
+	 * Renders hand landmarks and connections on canvas
+	 * @param drawingUtils MediaPipe drawing utilities
+	 * @param results  HandLandmarkerResult object containing landmark data
+	 */
+	function drawLandmarks(drawingUtils: DrawingUtils, results: HandLandmarkerResult) {
+		for (const landmark of results.landmarks) {
+			// Draw connections between landmarks
+			drawingUtils.drawConnectors(landmark, GestureRecognizer.HAND_CONNECTIONS, {
+				color: '#00FF00',
+				lineWidth: 5
+			});
+			// Draw landmark points
+			drawingUtils.drawLandmarks(landmark, {
+				color: '#0000FF',
+				lineWidth: 2
+			});
+		}
+	}
 
-            const absoluteLandmarks = calcAbsolutePositions(results.landmarks[0], video.videoWidth, video.videoHeight);
+	// https://github.com/kinivi/hand-gesture-recognition-mediapipe
+	/**
+	 * Converts landmark coordinates to absolute pixel positions
+	 * @param landmarks Array of 3D landmarks
+	 * @param imageWidth Video frame width
+	 * @param imageHeight Video frame height
+	 * @returns Array of 2D landmarks - pixel coordinates
+	 */
+	function calcAbsolutePositions(
+		landmarks: Landmark3d[],
+		imageWidth: number,
+		imageHeight: number
+	): Landmark2d[] {
+		let newLandmarks = [];
 
-            //Convert landmarks to relative normalized coordtinates
-            const relativeLandmarks = calcRelativeLandmarks(absoluteLandmarks);
+		for (const landmark of landmarks) {
+			let x = Math.min(Math.floor(landmark.x * imageWidth), imageWidth - 1);
+			let y = Math.min(Math.floor(landmark.y * imageHeight), imageHeight - 1);
+			//let z = landmark.z;
+			newLandmarks.push(new Landmark2d(x, y));
+		}
 
-            //Run ML model, get for each gesture its probability
-            const probabilities = await handGestureClassifier(relativeLandmarks);
+		return newLandmarks;
+	}
 
-            let result : {[key: string]: number} = {}
-            for(let i = 0; i < probabilities.length; i++){
-                if(probabilities[i] > 0.2){
-                    //console.log("Gesture " + letters[i] + " has probability " + probabilities[i]);
-                    result[letters[i]] = probabilities[i];
-                }
-            }
+	/**
+	 * Normalizes landmarks relative to the base (wrist) position
+	 * Makes the model translation-invariant
+	 * @param landmarks Array of absolute position landmarks
+	 * @returns Flattened array of normalized coordinates
+	 */
+	function calcRelativeLandmarks(landmarks: Landmark2d[]): number[] {
+		const tempLandmarkList = structuredClone(landmarks);
 
-            gestureRecognized(result);
-        }
-        canvasCtx.restore();
+		let baseX: number = 0;
+		let baseY: number = 0;
 
-        // Call this function again to keep predicting when the browser is ready.
-        if (webcamRunning === true) {
-            window.requestAnimationFrame(() => {predictWebcam(canvasElement, canvasCtx, video)});
-        }
-    }
+		// Normalize positions relative to wrist
+		for (let index = 0; index < tempLandmarkList.length; index++) {
+			const landmarkPoint = tempLandmarkList[index];
 
-    function drawLandmarks(drawingUtils : DrawingUtils, landmarks : { x: number, y:number, z:number }[]){
-        drawingUtils.drawConnectors(landmarks, GestureRecognizer.HAND_CONNECTIONS, {
-            color: "#00FF00",
-            lineWidth: 5
-        });
-        drawingUtils.drawLandmarks(landmarks, {
-            color: "#0000FF",
-            lineWidth: 2
-        });
-    }
+			if (index === 0) {
+				baseX = landmarkPoint.x;
+				baseY = landmarkPoint.y;
+			}
 
-    // https://github.com/kinivi/hand-gesture-recognition-mediapipe
-    function calcAbsolutePositions(landmarks : { x: number, y:number, z:number }[], imageWidth : number, imageHeight : number) : { x: number; y: number }[] {
-        let newLandmarks = [];
+			tempLandmarkList[index].x = tempLandmarkList[index].x - baseX;
+			tempLandmarkList[index].y = tempLandmarkList[index].y - baseY;
+		}
 
-        for (const landmark of landmarks){
-            let x = Math.min( Math.floor(landmark.x * imageWidth), imageWidth - 1);
-            let y = Math.min( Math.floor(landmark.y * imageHeight), imageHeight - 1);
-            //let z = landmark.z;
-            newLandmarks.push({x: x, y: y});
-        }
+		// Flatten to 1D array for model input
+		let flattenedLandmarkList = [];
+		for (let index = 0; index < tempLandmarkList.length; index++) {
+			flattenedLandmarkList.push(tempLandmarkList[index].x);
+			flattenedLandmarkList.push(tempLandmarkList[index].y);
+		}
 
-        return newLandmarks;
-    }
+		// Normalize
+		const absValues = flattenedLandmarkList.map(Math.abs);
+		const maxValue: number = Math.max(...absValues);
 
-    function calcRelativeLandmarks(landmarks : { x: number; y: number }[]) : number[]{
-        const tempLandmarkList = structuredClone(landmarks);
+		return flattenedLandmarkList.map((val) => val / maxValue);
+	}
 
-        let baseX: number = 0;
-        let baseY: number = 0;
+	/**
+	 * Loads the TensorFlow.js model for gesture classification
+	 */
+	async function loadTF() {
+		if (tfModel === undefined) {
+			tfModel = await tf.loadLayersModel('models/tfjsmodel/model.json');
+			// https://github.com/tensorflow/tfjs/tree/master/tfjs-backend-webgpu
+		}
+	}
 
-        for (let index = 0; index < tempLandmarkList.length; index++) {
-            const landmarkPoint = tempLandmarkList[index];
+	/**
+	 * Classifies hand gestures using TensorFlow model
+	 * @param landmarks Flattened, normalized landmark coordinates
+	 * @returns Array of probabilities for each supported gesture
+	 */
+	async function handGestureClassifier(landmarks: number[]): Promise<Float32Array> {
+		if (tfModel === undefined) {
+			await loadTF();
+			if (tfModel === undefined) {
+				throw new Error('Model not loaded');
+			}
+		}
 
-            if (index === 0) {
-                baseX = landmarkPoint.x;
-                baseY = landmarkPoint.y;
-            }
+		const input = tf.tensor(landmarks, [1, 42]);
+		const output = tfModel.predict(input) as tf.Tensor;
 
-            tempLandmarkList[index].x = tempLandmarkList[index].x - baseX;
-            tempLandmarkList[index].y = tempLandmarkList[index].y - baseY;
-        }
+		return output.dataSync() as Float32Array;
+	}
 
-
-        // Convert to a one-dimensional list
-        let flattenedLandmarkList = [];
-        for (let index = 0; index < tempLandmarkList.length; index++) {
-            flattenedLandmarkList.push(tempLandmarkList[index].x);
-            flattenedLandmarkList.push(tempLandmarkList[index].y);
-        }
-
-        // Normalization
-        const absValues = flattenedLandmarkList.map(Math.abs);
-        const maxValue: number = Math.max(...absValues);
-
-        return flattenedLandmarkList.map((val) => val / maxValue);
-    }
-
-    async function loadTF(){
-        if(tfModel === undefined) {
-            tfModel = await tf.loadLayersModel('models/tfjsmodel/model.json');
-            // https://github.com/tensorflow/tfjs/tree/master/tfjs-backend-webgpu
-        }
-    }
-
-    async function handGestureClassifier(landmarks : number[]) : Promise<number[]>{
-        if(tfModel === undefined){
-           await loadTF();
-            if (tfModel === undefined){
-                throw new Error("Model not loaded");
-            }
-        }
-
-        const input = tf.tensor(landmarks, [1, 42]);
-        const output = tfModel.predict(input);
-
-        return await output.dataSync();
-    }
-
-    export function toggleShowVideo(){
-        showVideo = !showVideo;
-    }
-
+	/**
+	 * Toggles visibility of video feed
+	 * Note: Recognition continues even when video is hidden
+	 */
+	export function toggleShowVideo() {
+		showVideo = !showVideo;
+	}
 </script>
 
+<!-- Component Template -->
 <div class="webcam_container">
-    <div id="webcam_mirror"> <!--  -->
-        <video id="webcam" autoplay playsinline><track kind="captions" src=""></video>
-        {#if !showVideo}
-            <div class="video_block"></div>
-        {/if}
-        <canvas class="output_canvas" id="output_canvas" width="2000" height="1500"></canvas> <!-- used for drawing of lines, points and bounding box -->
-        <div id="loading_text">Načítání...</div>
-    </div>
+	<div id="webcam_mirror">
+		<!-- Video feed with mirroring -->
+		<video id="webcam" autoplay playsinline><track kind="captions" src="" /></video>
+		{#if !showVideo}
+			<div class="video_block"></div>
+		{/if}
+		<!-- Overlay canvas for landmark visualization -->
+		<canvas class="output_canvas" id="output_canvas" width="2000" height="1500"></canvas>
+	</div>
 </div>
 
 <style>
-    .webcam_container{
-        display: flex;
-        justify-content: left;
-    }
+	.webcam_container {
+		display: flex;
+		justify-content: left;
+	}
 
-    .video_block{
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: #444444;
-    }
+	.video_block {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: #444444;
+	}
 
-    #webcam_mirror{
-        -webkit-transform: scaleX(-1);
-        transform: scaleX(-1);
-        position: relative;
-    }
+	#webcam_mirror {
+		-webkit-transform: scaleX(-1);
+		transform: scaleX(-1);
+		position: relative;
+	}
 
-    #webcam{
-        width: 100%;
-        height: 100%;
-    }
+	#webcam {
+		width: 100%;
+		height: 100%;
+	}
 
-    #output_canvas{
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-    }
-
-    #loading_text{
-        position: absolute;
-        top: 50%;
-        right: 33%;
-        transform: scaleX(-1);
-
-        font-size: 48px;
-        font-weight: bold;
-        color: #d9d9d9;
-    }
+	#output_canvas {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+	}
 </style>

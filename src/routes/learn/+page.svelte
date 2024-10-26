@@ -2,17 +2,15 @@
 
 import Model from '$lib/components/AnimatedModel.svelte';
 import Scene from '$lib/components/Scene.svelte';
-
 import ControlRow from '$lib/components/ControlRow.svelte';
-
+import { Language, Word } from '$lib/components/models/Word';
 
 import Review from './Review.svelte'
 import Practice from './Practice.svelte'
 import Learn from './Learn.svelte'
 
-import { Language, Word } from '$lib/components/models/Word';
 
-let currentMode = 'practice';
+let currentMode = 'review';
 let scene : Scene;
 let model : Model;
 let controlRow : ControlRow;
@@ -20,12 +18,11 @@ let controlRow : ControlRow;
 $: showString = currentMode != 'practice'
 
 function buildList() : Word[]{
-	let lettersEng = 'abcdefghijklmnopqrstuvwxyz'.split('');
 	let lettersCz = 'abcdefghijklmnopqrstuvwxyz'.split('');
 	//Add letter 'ch'
 	lettersCz.splice(8, 0, 'ch');
 
-	let words = ["auto", "autobus"];
+	let words = ["auto", "autobus"]; //TODO, load dynamically from model
 
 	let listOfAllWords = [];
 
@@ -147,8 +144,6 @@ let data = buildList();
   @media (max-width: 1400px) {
 
   }
-
-
 
   @media (max-width: 768px) {
 			.content{

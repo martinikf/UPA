@@ -1,56 +1,65 @@
-<!-- Controller for translator logic -->
 <script lang="ts">
+	/**
+	 * Svelte component for controlling the animation for the purpose of translation
+	 * Plays animation for given text and selected language set
+	 *
+	 * Requires the AnimatedModel component to be passed as a prop
+	 */
+	import Model from './AnimatedModel.svelte';
+	import { Language } from '$lib/components/models/Word';
 
-    import Model from './AnimatedModel.svelte';
-		import { Language } from '$lib/components/models/Word';
+	export let model: Model;
 
-    export let model : Model;
+	let textInput: string = '';
+	let selectedLanguageSet: Language = Language.CzechFingerOneHand;
 
-    let textInput = "";
-		let selectedLanguageSet : Language;
-
-		function translate(){
-			if(textInput.trim() != "")
-				model.playAnimationForText(textInput.trim(), selectedLanguageSet);
-			else{
-				alert("Textové pole je prázdné!");
-			}
-		}
-
+	/**
+	 * Plays animation for the given text and selected language set
+	 */
+	function translate() {
+		if (textInput.trim().length > 0)
+			model.playAnimationForText(textInput.trim(), selectedLanguageSet);
+	}
 </script>
 
-
+<!-- Control block with language selection, text input and translate button -->
 <div class="controls">
 	<div class="language_selection">
 		<label for="language">Jazyk:</label>
 		<select id="language" bind:value={selectedLanguageSet}>
-			<option value="{Language.CzechFingerOneHand}">Česká prstová abeceda jednoruční</option>
-			<option value="{Language.CzechFingerTwoHand}">Česká prstová abeceda obouruční</option>
-			<option value="{Language.Czech}">Česká znakový jazyk</option>
+			<option value={Language.CzechFingerOneHand}>Česká prstová abeceda jednoruční</option>
+			<option value={Language.CzechFingerTwoHand}>Česká prstová abeceda obouruční</option>
+			<option value={Language.Czech}>Český znakový jazyk</option>
 		</select>
 	</div>
 
-	<input bind:value={textInput} placeholder="Text..." />
-	<button on:click={() => {translate()}}>Přeložit</button>
+	<input bind:value={textInput} placeholder="Zde napište text k přehrání" />
+	<button
+		on:click={() => {
+			translate();
+		}}
+	>
+		Přeložit
+	</button>
 </div>
 
 <style>
-    :global(body) {
-        margin: 0;
-    }
+	:global(body) {
+		margin: 0;
+	}
 
-    .controls{
-        display: grid;
-        grid-template-columns: 1fr;
-				padding: 5px;
-    }
+	.controls {
+		display: grid;
+		grid-template-columns: 1fr;
+		padding: 5px;
+	}
 
-    .controls > * {
-        padding: 5px;
-        margin-bottom: 10px;
-    }
+	.controls > * {
+		padding: 5px;
+		margin-bottom: 10px;
+	}
 
-    .language_selection select{
-        padding: 5px;
-    }
+	.language_selection select {
+		padding: 5px;
+	}
 </style>

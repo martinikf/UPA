@@ -49,19 +49,9 @@
 		}
 	}
 
-	function toggleLanguagesModeHandler(){
-		if(mode == "translator" || mode == "practice"){
-			controlRow.enableToggleMode();
-		}
-		else{
-			controlRow.disableToggleMode();
-		}
-	}
-
 	function modeButtonOnClick(){
 		model.resetAnimation();
 		displayLetterHandler();
-		toggleLanguagesModeHandler();
 	}
 
 	function toggleWebcam(){

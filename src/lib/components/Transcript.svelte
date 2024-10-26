@@ -1,17 +1,14 @@
 <script lang="ts">
-
 	import Model from './AnimatedModel.svelte';
-
 	import { browser } from '$app/environment';
 	import { onMount } from 'svelte';
 
 	export let model: Model;
 
-	let wordDisplay : HTMLElement | null = null;
-	let winner : string | null = "-";
+	let wordDisplay: HTMLElement | null = null;
+	let winner: string | null = '-';
 
-
-	export function handleMessage(msg : any) {
+	export function handleMessage(msg: any) {
 		let result = msg.detail;
 		winner = findKeyWithMaxValue(result);
 	}
@@ -35,24 +32,22 @@
 	}
 
 	function confirm() {
-		if(wordDisplay && winner != null && winner != "-"){
+		if (wordDisplay && winner != null && winner != '-') {
 			wordDisplay.innerHTML += winner;
 		}
 	}
 
-	function playText(){
-		if(wordDisplay && model && wordDisplay.innerHTML.length > 0 )
+	function playText() {
+		if (wordDisplay && model && wordDisplay.innerHTML.length > 0)
 			model.playAnimationForText(wordDisplay.innerHTML);
-		else
-			alert("Není co přehrát.");
+		else alert('Není co přehrát.');
 	}
 
-	if(browser){
+	if (browser) {
 		onMount(() => {
-			wordDisplay = document.getElementById("word");
+			wordDisplay = document.getElementById('word');
 		});
 	}
-
 </script>
 
 <div class="controls">
@@ -62,13 +57,12 @@
 </div>
 
 <style>
-	.controls{
+	.controls {
 		padding: 5px;
 	}
 
-	button{
+	button {
 		width: 100%;
 		padding: 5px;
 	}
-
 </style>
