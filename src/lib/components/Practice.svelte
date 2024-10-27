@@ -19,7 +19,7 @@
 	// Internal state variables
 	/** Variable for storing loaded list of words */
 	let words: string[] = [];
-	/** Randomly selected words */
+	/** Randomly selected word */
 	let randomWord: string = '';
 
 	/** User's text input (word guess) */

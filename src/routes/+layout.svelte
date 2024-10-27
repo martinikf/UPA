@@ -13,7 +13,7 @@
 	</div>
 </header>
 
-<slot></slot>
+<slot />
 
 <style>
 	:global(body) {
@@ -21,19 +21,19 @@
 		color: #e6e6e6;
 	}
 
-	header{
+	header {
 		background-color: #2e2e2e;
 		padding: 20px;
 	}
 
-	.headerContent{
+	.headerContent {
 		max-width: 1600px;
 		margin: auto;
 		display: flex;
 		justify-content: space-between;
 	}
 
-	header h1{
+	header h1 {
 		display: inline;
 		padding: 0;
 		margin: 0 3rem 0 0;
@@ -41,18 +41,18 @@
 		color: #cccccc;
 	}
 
-	nav ul{
+	nav ul {
 		list-style: none;
 		margin: 0;
 		padding: 0;
 	}
 
-	nav ul li{
+	nav ul li {
 		display: inline;
 		margin-right: 1.2rem;
 	}
 
-	nav ul li a{
+	nav ul li a {
 		color: #cccccc;
 		text-decoration: none;
 	}
@@ -62,47 +62,46 @@
 		text-decoration: underline;
 	}
 
-	.githubLink{
+	.githubLink {
 		text-decoration: none;
 		color: dimgrey;
 	}
 
-	.githubLink:hover{
+	.githubLink:hover {
 		text-decoration: underline;
 	}
 
 	@media (max-width: 768px) {
-		.logo{
+		.logo {
 			display: none;
 		}
 
-		.githubLink{
-				display: none;
+		.githubLink {
+			display: none;
 		}
 
-		header{
+		header {
 			padding: 15px 5px;
 		}
 
-		nav{
-				margin: auto;
+		nav {
+			margin: auto;
 		}
-		nav ul li{
-			margin-right: .5rem;
+		nav ul li {
+			margin-right: 0.5rem;
 		}
 	}
 
-  @media (max-width: 480px) {
-			nav{
-          margin: 0 0 0 auto;
-      }
-
-			nav ul li{
-				display: block;
-				text-align: right;
-					padding: 2px;
-					font-size: 1.1rem;
+	@media (max-width: 480px) {
+		nav {
+			margin: 0 0 0 auto;
 		}
-  }
 
+		nav ul li {
+			display: block;
+			text-align: right;
+			padding: 2px;
+			font-size: 1.1rem;
+		}
+	}
 </style>

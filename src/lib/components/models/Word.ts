@@ -1,11 +1,13 @@
-// src/models/word.ts
 export enum Language {
 	CzechFingerOneHand,
 	CzechFingerTwoHand,
-	Czech,
+	Czech
 }
 
 export class Word {
-	constructor(public str: string, public language: Language, public learned: boolean) {
-	}
+	constructor(
+		public str: string,
+		public language: Language,
+		public learned: boolean
+	) {}
 }

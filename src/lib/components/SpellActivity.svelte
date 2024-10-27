@@ -1,91 +1,172 @@
 <script lang="ts">
-	import Model from './AnimatedModel.svelte';
-	import { browser } from '$app/environment';
-	import { onMount } from 'svelte';
+	/**
+	 * Svelte component for controlling sign language animation and webcam recognition.
+	 * Handles word generation, gesture recognition, and animation playback.
+	 * This component supports only Czech one hand finger alphabet.
+	 *
+	 * Used for practicing signing.
+	 * User tries to sign the created word and webcam recognition tries to detect it.
+	 *
+	 * Requires the AnimatedModel component to be passed as a prop
+	 */
 
+	import Model from './AnimatedModel.svelte';
+	import type { GestureProbability } from '$lib/components/models/GestureProbability';
+	import { Language } from '$lib/components/models/Word';
+
+	// Component props
 	export let model: Model;
 
-	let currentState = 0;
-	let currentWordDisplay: HTMLElement | null = null;
-	let wordDisplay: HTMLElement | null = null;
-	let timeout = 0;
+	// Constants
+	const DETECTION_DELAY = 750; // ms
+	const WORDS_FILE_PATH = '/CzechWords.txt';
+	const SUCCESS_MESSAGE_DURATION = 3000;
 
-	//
-	export function handleMessage(msg: any) {
-		if (randomWord.length < 1 || currentWordDisplay == null) return;
+	// User input
+	let customWord: string = '';
 
-		let result = msg.detail;
-		if (currentState >= randomWord.length) {
-			alert('Word recognized!');
-			currentState = 0;
-		}
+	// State variable to control visibility of success message
+	let successMessageVisible: boolean = false;
 
-		if (performance.now() < timeout) return;
+	// Container for loaded words from external source
+	let words: string[] = [];
 
-		let currentLetter = randomWord[currentState].toUpperCase();
-		if (
-			currentLetter === 'C' &&
-			currentState < randomWord.length - 1 &&
-			randomWord[currentState + 1].toUpperCase() === 'H'
-		) {
-			currentLetter = 'Ch';
-		}
+	// State management
+	interface State {
+		currentLetterIndex: number;
+		guessedLetters: string;
+		lastDetectionTime: number;
+		wordToGuess: string;
+	}
+
+	// Initialize state with default values
+	const state: State = {
+		currentLetterIndex: 0,
+		guessedLetters: '',
+		lastDetectionTime: 0,
+		wordToGuess: ''
+	};
+
+	/**
+	 * Displays a success message for a few seconds
+	 */
+	function displaySuccessMessage() {
+		successMessageVisible = true;
+		setTimeout(() => {
+			successMessageVisible = false;
+		}, SUCCESS_MESSAGE_DURATION);
+	}
+
+	/**
+	 * Handles gesture recognition results from webcam
+	 * Validates detected gestures against the current letter being tested
+	 * @param msg CustomEvent containing gesture probability data
+	 */
+	export function handleMessage(msg: CustomEvent<GestureProbability>) {
+		if (!state.wordToGuess) return;
+
+		const result = msg.detail;
+		if (performance.now() < state.lastDetectionTime + DETECTION_DELAY) return;
+
+		const currentLetter = getCurrentLetter();
+		if (!currentLetter) return;
 
 		if (result[removeDiacritics(currentLetter)]) {
-			if (currentLetter === 'Ch') currentState++;
-			currentState++;
-			currentWordDisplay.innerHTML = randomWord.substring(0, currentState);
-			timeout = performance.now() + 500;
+			updateProgress(currentLetter);
+			checkCompletion();
 		}
 	}
 
-	// Auxiliary function to remove diacritics from string
+	/**
+	 * Gets the current letter to be recognized, handling special cases like 'Ch'
+	 */
+	function getCurrentLetter(): string {
+		const letter = state.wordToGuess[state.currentLetterIndex]?.toUpperCase();
+		if (!letter) return '';
+
+		// Handle special case for 'Ch' digraph
+		if (
+			letter === 'C' &&
+			state.currentLetterIndex < state.wordToGuess.length - 1 &&
+			state.wordToGuess[state.currentLetterIndex + 1].toUpperCase() === 'H'
+		) {
+			return 'Ch';
+		}
+		return letter;
+	}
+
+	/**
+	 * Updates progress after successful letter recognition
+	 * @param recognizedLetter The letter that was successfully recognized
+	 */
+	function updateProgress(recognizedLetter: string) {
+		if (recognizedLetter === 'Ch') state.currentLetterIndex++;
+		state.currentLetterIndex++;
+		state.guessedLetters = state.wordToGuess.substring(0, state.currentLetterIndex);
+		state.lastDetectionTime = performance.now();
+	}
+
+	/**
+	 * Checks if the word has been completely recognized
+	 */
+	function checkCompletion() {
+		if (state.currentLetterIndex >= state.wordToGuess.length) {
+			resetProgress();
+			displaySuccessMessage();
+		}
+	}
+
+	/**
+	 * Resets progress tracking
+	 */
+	function resetProgress() {
+		state.currentLetterIndex = 0;
+		state.guessedLetters = '';
+	}
+
+	/**
+	 * Removes diacritical marks from input string
+	 * @param inputString String to process
+	 * @returns String without diacritical marks
+	 */
 	function removeDiacritics(inputString: string): string {
 		return inputString.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 	}
 
-	let words: string[] = [];
-	let randomWord: string;
-	let customWord: string = '';
-
-	function newWordOnClick() {
-		randomWord = '';
-		currentState = 0;
-		if (currentWordDisplay) currentWordDisplay.innerHTML = '';
-
+	/**
+	 * Generates a new random word from the loaded word list
+	 */
+	async function newWordOnClick() {
+		resetWord();
 		if (words.length < 1) {
 			console.log('Loading words');
-			return loadWords();
+			await loadWords();
 		}
-
-		randomWord = words[Math.floor(Math.random() * words.length)].trim();
-		console.log(randomWord);
-
-		if (wordDisplay) {
-			wordDisplay.innerHTML = randomWord;
-			console.log('Nastaveno slovo: ' + randomWord);
-		}
+		state.wordToGuess = words[Math.floor(Math.random() * words.length)]?.trim() ?? '';
 	}
 
+	/**
+	 * Sets a custom word for practice
+	 */
 	function customWordOnClick() {
-		if (customWord.length < 1) {
-			alert('Zadejte prosím slovo.');
-			return;
-		}
-
-		currentState = 0;
-		if (currentWordDisplay) currentWordDisplay.innerHTML = '';
-		randomWord = customWord;
-
-		if (wordDisplay) {
-			wordDisplay.innerHTML = randomWord;
-			console.log('Nastaveno slovo: ' + randomWord);
-		}
+		resetWord();
+		state.wordToGuess = customWord;
 	}
 
-	function loadWords() {
+	/**
+	 * Resets the current word state
+	 */
+	function resetWord() {
+		state.wordToGuess = '';
+		resetProgress();
+	}
+
+	/**
+	 * Loads word list from file
+	 */
+	async function loadWords() {
 		// Load words from file
-		fetch('/CzechWords.txt')
+		fetch(WORDS_FILE_PATH)
 			.then((res) => res.text())
 			.then((text) => {
 				words = text.split('\n');
@@ -94,31 +175,42 @@
 			.catch((e) => console.error(e));
 	}
 
+	/**
+	 * Triggers animation playback for current word
+	 */
 	function showWord() {
-		model.playAnimationForText(randomWord);
-	}
-
-	if (browser) {
-		onMount(() => {
-			currentWordDisplay = document.getElementById('currentWord');
-			wordDisplay = document.getElementById('word');
-
-			newWordOnClick();
-		});
+		model.playAnimationForText(state.wordToGuess, Language.CzechFingerOneHand);
 	}
 </script>
 
-<div class="controls">
-	<p>Aktuální slovo: <strong id="word"></strong></p>
-	<p>Správně znakovaná písmena: <strong id="currentWord"></strong></p>
-	<div class="controls_grid">
-		<button on:click={newWordOnClick}>Vytvořit nové náhodné slovo</button>
-		<div class="gap"></div>
-		<input type="text" placeholder="Vlastní slovo..." bind:value={customWord} />
-		<button on:click={customWordOnClick}>Nastavit vlastní slovo</button>
-		<div class="gap"></div>
-		<button on:click={showWord}>Ukázat slovo</button>
+<!-- Success message overlay, visible when user guesses correctly -->
+<div class="container">
+	<div class="controls">
+		<p>Aktuální slovo: <strong id="word">{state.wordToGuess}</strong></p>
+		<p>Správně znakovaná písmena: <strong id="currentWord">{state.guessedLetters}</strong></p>
+
+		<div class="controls_grid">
+			<button on:click={newWordOnClick}>Vytvořit nové náhodné slovo</button>
+
+			<div class="gap"></div>
+
+			<input type="text" placeholder="Vlastní slovo..." bind:value={customWord} />
+			<button on:click={customWordOnClick} disabled={customWord.length < 1}>
+				Nastavit vlastní slovo
+			</button>
+
+			<div class="gap"></div>
+
+			<button on:click={showWord}> Ukázat slovo v animaci </button>
+		</div>
 	</div>
+
+	<!-- Notification message signaling success -->
+	{#if successMessageVisible}
+		<div class="success-overlay">
+			<p>Slovo bylo správně vyznakováno!</p>
+		</div>
+	{/if}
 </div>
 
 <style>
@@ -136,5 +228,23 @@
 	.gap {
 		height: 5px;
 		border-bottom: solid black 3px;
+	}
+
+	.container {
+		position: relative;
+	}
+
+	.success-overlay {
+		position: absolute;
+		top: -1rem;
+		right: -1rem;
+	}
+
+	@media (max-width: 768px) {
+		.success-overlay {
+			position: absolute;
+			top: -1rem;
+			right: 0;
+		}
 	}
 </style>

@@ -1,13 +1,16 @@
 <script lang="ts">
 	/**
-	 * Svelte component for creating a canvas with the AnimatedModel inside
-	 * based on three.js
+	 * Svelte component for rendering a 3D animated model on a canvas with
+	 * Orbit controls, a perspective camera, and ambient light. This component
+	 * is built using Threlte (a Svelte wrapper for Three.js).
 	 *
-	 * Creates a canvas with Orbit controls, Perspective camera and Ambient light
-	 * Text display in right top corner for displaying the currently played letter
+	 * The component includes:
+	 * - A 'model' reference to an instance of AnimatedModel.
+	 * - A 'showLetter' boolean to control the visibility of the currently
+	 *   displayed letter in the animation.
 	 *
-	 * Provides 'model' reference to AnimatedModel
-	 * Provides 'showLetter' boolean for controlling the display of a playing letter in the animation
+	 * The displayed letter updates dynamically in the top-right corner of the
+	 * screen based on the letter being played by the model.
 	 */
 
 	import { T, Canvas } from '@threlte/core';

@@ -10,6 +10,7 @@
 
 	export let model: Model;
 
+	// User input variables
 	let textInput: string = '';
 	let selectedLanguageSet: Language = Language.CzechFingerOneHand;
 
