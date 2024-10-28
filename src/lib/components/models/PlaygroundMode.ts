@@ -1,4 +1,4 @@
-export enum PlaygroundModes {
+export enum PlaygroundMode {
 	Translator,
 	Practice,
 	Transcript,

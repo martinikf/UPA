@@ -1,67 +1,102 @@
 <script lang="ts">
+	/**
+	 * Sign Language Playground page
+	 *
+	 * Learning and practicing Czech finger alphabet with multiple modes:
+	 * - Translator: Convert text to sign language
+	 * - Practice: Practice sign reading
+	 * - Spelling Practice: Practice signing with webcam
+	 * - Transcription: Real-time sign language transcription TODO: needs to be reworked
+	 * - Interactive: Interactive learning with webcam
+	 *
+	 */
+
 	import LandmarkDetection from '$lib/components/LandmarkDetection.svelte';
 	import Scene from '$lib/components/Scene.svelte';
 	import Model from '$lib/components/AnimatedModel.svelte';
 	import ControlRow from '$lib/components/ControlRow.svelte';
 
+	// Import modes
 	import Translator from '$lib/components/Translator.svelte';
 	import Practice from '$lib/components/Practice.svelte';
-
 	import SpellActivity from '$lib/components/SpellActivity.svelte';
 	import Transcript from '$lib/components/Transcript.svelte';
 	import Interactive from '$lib/components/Interactive.svelte';
 
+	// Import types
 	import type { GestureProbability } from '$lib/components/models/GestureProbability';
-	import { PlaygroundModes } from '$lib/components/models/PlaygroundModes';
+	import { PlaygroundMode } from '$lib/components/models/PlaygroundMode';
 
-	let mode: PlaygroundModes = PlaygroundModes.Translator;
+	// State
+	let mode: PlaygroundMode = PlaygroundMode.Translator;
 	let webcam: boolean = false;
-
-	let scene: Scene;
-	let model: Model;
 	let displayLetter: boolean = true;
 
+	// References
+	let scene: Scene;
+	let model: Model;
 	let transcript: Transcript;
 	let spellActivity: SpellActivity;
 	let interactive: Interactive;
-
 	let landmarkDetection: LandmarkDetection;
-
 	let controlRow: ControlRow;
 
-	//Landmark message forwarder to the correct component
+	/**
+	 * Routes landmark detection messages to appropriate components based on current mode
+	 * @param msg - Custom event containing gesture probability data
+	 */
 	function handleMessage(msg: CustomEvent<GestureProbability>) {
-		//let result = msg.detail;
-		if (webcam && mode === PlaygroundModes.Spelling) {
-			spellActivity.handleMessage(msg);
-		} else if (webcam && mode === PlaygroundModes.Transcript) {
-			transcript.handleMessage(msg);
-		} else if (webcam && mode === PlaygroundModes.Interactive) {
-			interactive.handleMessage(msg);
+		if (!webcam) return;
+
+		switch (mode) {
+			case PlaygroundMode.Spelling:
+				spellActivity.handleMessage(msg);
+				break;
+			case PlaygroundMode.Transcript:
+				transcript.handleMessage(msg);
+				break;
+			case PlaygroundMode.Interactive:
+				interactive.handleMessage(msg);
+				break;
 		}
 	}
 
-	function displayLetterHandler() {
-		if (mode == PlaygroundModes.Practice) {
-			displayLetter = false;
-		} else {
-			displayLetter = true;
-		}
+	/**
+	 * Updates letter display based on current mode
+	 * Letters are hidden in practice mode
+	 */
+	function updateLetterDisplay(): void {
+		displayLetter = mode !== PlaygroundMode.Practice;
 	}
 
-	function modeButtonOnClick() {
+	/**
+	 * Handles mode changes by resetting animation and updating letter display
+	 */
+	function handleModeChange() {
 		model.resetAnimation();
-		displayLetterHandler();
+		updateLetterDisplay();
 	}
 
+	/**
+	 * Toggles webcam state and handles related mode changes
+	 */
 	function toggleWebcam() {
 		if (webcam && landmarkDetection) {
 			landmarkDetection.disableCam();
-			mode = PlaygroundModes.Translator;
-			modeButtonOnClick();
+			mode = PlaygroundMode.Translator;
+			handleModeChange();
 		}
 
 		webcam = !webcam;
+	}
+
+	/**
+	 * Changes playground mode and updates component state
+	 * @param newMode - The mode to switch to
+	 */
+	function changeMode(newMode: PlaygroundMode): void {
+		mode = newMode;
+		handleModeChange();
 	}
 </script>
 
@@ -73,8 +108,7 @@
 			<li>
 				<button
 					on:click={() => {
-						mode = PlaygroundModes.Translator;
-						modeButtonOnClick();
+						changeMode(PlaygroundMode.Translator);
 					}}
 				>
 					Překladač
@@ -83,8 +117,7 @@
 			<li>
 				<button
 					on:click={() => {
-						mode = PlaygroundModes.Practice;
-						modeButtonOnClick();
+						changeMode(PlaygroundMode.Practice);
 					}}
 				>
 					Procvičení odezírání
@@ -103,8 +136,7 @@
 				<li>
 					<button
 						on:click={() => {
-							mode = PlaygroundModes.Spelling;
-							modeButtonOnClick();
+							changeMode(PlaygroundMode.Spelling);
 						}}
 					>
 						Procvičení znakování
@@ -113,8 +145,7 @@
 				<li>
 					<button
 						on:click={() => {
-							mode = PlaygroundModes.Transcript;
-							modeButtonOnClick();
+							changeMode(PlaygroundMode.Transcript);
 						}}
 					>
 						Přepis
@@ -123,10 +154,9 @@
 				<li>
 					<button
 						on:click={() => {
-							mode = PlaygroundModes.Interactive;
-							modeButtonOnClick();
+							changeMode(PlaygroundMode.Interactive);
 						}}
-						>
+					>
 						Interaktivní režim
 					</button>
 				</li>
@@ -146,15 +176,15 @@
 
 	<!-- CONTROLS -->
 	<div class="control_container">
-		{#if mode === PlaygroundModes.Translator}
+		{#if mode === PlaygroundMode.Translator}
 			<Translator {model} />
-		{:else if mode === PlaygroundModes.Practice}
+		{:else if mode === PlaygroundMode.Practice}
 			<Practice {model} />
-		{:else if mode === PlaygroundModes.Interactive}
+		{:else if mode === PlaygroundMode.Interactive}
 			<Interactive {model} bind:this={interactive} />
-		{:else if webcam && mode === PlaygroundModes.Spelling}
+		{:else if webcam && mode === PlaygroundMode.Spelling}
 			<SpellActivity bind:this={spellActivity} {model} />
-		{:else if webcam && mode === PlaygroundModes.Transcript}
+		{:else if webcam && mode === PlaygroundMode.Transcript}
 			<Transcript bind:this={transcript} {model} />
 		{/if}
 	</div>
