@@ -29,8 +29,8 @@
 	import type { LayersModel } from '@tensorflow/tfjs';
 
 	// Local type imports
-	import { Landmark2d, Landmark3d } from '$lib/components/models/Landmark';
-	import type { GestureProbability } from '$lib/components/models/GestureProbability';
+	import { Landmark2d, Landmark3d } from '$lib/models/Landmark';
+	import type { GestureProbability } from '$lib/models/GestureProbability';
 
 	/** Supported letters for gesture recognition */
 	const letters = [
@@ -211,7 +211,7 @@
 			);
 
 			// Filter and report high-confidence predictions
-			let result : GestureProbability = {};
+			let result: GestureProbability = {};
 			for (let i = 0; i < probabilities.length; i++) {
 				if (probabilities[i] > gestureConfidenceThreshold) {
 					result[letters[i]] = probabilities[i];
@@ -382,7 +382,6 @@
 	}
 
 	#webcam_mirror {
-		-webkit-transform: scaleX(-1);
 		transform: scaleX(-1);
 		position: relative;
 	}

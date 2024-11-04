@@ -12,8 +12,8 @@
 	import Model from '$lib/components/AnimatedModel.svelte';
 	import Scene from '$lib/components/Scene.svelte';
 	import ControlRow from '$lib/components/ControlRow.svelte';
-	import { Language, Word } from '$lib/components/models/Word';
-	import { LearnMode } from '$lib/components/models/LearnMode';
+	import { Language, Word } from '$lib/models/Word';
+	import { LearnMode } from '$lib/models/LearnMode';
 
 	import Review from './Review.svelte';
 	import Practice from './Practice.svelte';

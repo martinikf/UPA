@@ -7,8 +7,8 @@
 	 * Requires the AnimatedModel component to be passed as a prop
 	 */
 	import Model from './AnimatedModel.svelte';
-	import { Language } from '$lib/components/models/Word';
-	import type { GestureProbability } from '$lib/components/models/GestureProbability';
+	import { Language } from '$lib/models/Word';
+	import type { GestureProbability } from '$lib/models/GestureProbability';
 
 	// Component props
 	export let model: Model;

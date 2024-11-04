@@ -11,8 +11,8 @@
 	 */
 
 	import Model from './AnimatedModel.svelte';
-	import type { GestureProbability } from '$lib/components/models/GestureProbability';
-	import { Language } from '$lib/components/models/Word';
+	import type { GestureProbability } from '$lib/models/GestureProbability';
+	import { Language } from '$lib/models/Word';
 
 	// Component props
 	export let model: Model;

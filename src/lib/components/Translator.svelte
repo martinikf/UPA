@@ -6,7 +6,7 @@
 	 * Requires the AnimatedModel component to be passed as a prop
 	 */
 	import Model from './AnimatedModel.svelte';
-	import { Language } from '$lib/components/models/Word';
+	import { Language } from '$lib/models/Word';
 
 	export let model: Model;
 

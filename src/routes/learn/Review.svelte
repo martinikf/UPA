@@ -11,7 +11,7 @@
 	 */
 
 	import Model from '$lib/components/AnimatedModel.svelte';
-	import { Language, Word } from '$lib/components/models/Word';
+	import { Language, Word } from '$lib/models/Word';
 
 	export let model: Model;
 	export let data: Word[];

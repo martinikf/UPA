@@ -35,9 +35,9 @@ Command: npx @threlte/gltf@2.0.3 path\Model.glb --root /models/ --types --printw
 	import { useGltf, useGltfAnimations } from '@threlte/extras';
 
 	// Import custom types and enums
-	import type { ActionName, GLTFResult } from '$lib/components/models/AnimationTypes';
-	import { Language } from '$lib/components/models/Word';
-	import { ActionOffset } from '$lib/components/models/ActionOffset';
+	import type { ActionName, GLTFResult } from '$lib/models/AnimationTypes';
+	import { Language } from '$lib/models/Word';
+	import { ActionOffset } from '$lib/models/ActionOffset';
 
 	type $$Props = Props<THREE.Group>;
 	type $$Events = Events<THREE.Group>;

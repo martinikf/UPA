@@ -24,8 +24,8 @@
 	import Interactive from '$lib/components/Interactive.svelte';
 
 	// Import types
-	import type { GestureProbability } from '$lib/components/models/GestureProbability';
-	import { PlaygroundMode } from '$lib/components/models/PlaygroundMode';
+	import type { GestureProbability } from '$lib/models/GestureProbability';
+	import { PlaygroundMode } from '$lib/models/PlaygroundMode';
 
 	// State
 	let mode: PlaygroundMode = PlaygroundMode.Translator;
