@@ -3,14 +3,24 @@ import os
 import cv2
 import mediapipe as mp
 
+
+# MediaPipe Hands constants
 STATIC_IMAGE_MODE = False
 MAX_NUM_HANDS = 1
 MIN_DETECTION_CONFIDENCE = 0.6
 MIN_TRACKING_CONFIDENCE = 0.6
 
-FRAME_BUFFER_SIZE = 5
+# BUFFER constants
+FRAME_BUFFER_SIZE = 5  # Capacity of buffer, when key is pressed the most recent usable frame is used
 frame_buffer = []
 
+# CROP constants
+CROP = True  # If True, crop the hand region and resize to target size. If False, use the whole frame
+TARGET_SIZE = (250, 250)  # Target size for cropped image
+PADDING = 50  # Padding around hand in pixels
+
+
+# Global variable for MediaPipe Hands
 hands = None
 
 
@@ -23,18 +33,30 @@ def setup_mediapipe():
         min_tracking_confidence=MIN_TRACKING_CONFIDENCE,
     )
 
+    if hands is None:
+        raise "Error: Could not initialize MediaPipe Hands"
+
 
 def keydown(key):
     global hands
 
     label = key_to_label(key)
+    print(f"Key pressed: {key} ({label})")
 
     # Find most recent frame where hands are detected
     best_frame = None
+
     for frame in reversed(frame_buffer):  # Reverse to get the most recent frame
         results = process_frame(frame)
         if results.multi_hand_landmarks:
             best_frame = frame
+
+            if CROP:
+                best_frame = crop_frame(best_frame, results)
+                if best_frame is None:
+                    continue  # Skip this frame if hand is not in cropped image
+                print("Hand detected in cropped image")
+
             break
 
     if best_frame is None:
@@ -42,6 +64,53 @@ def keydown(key):
 
     # Save image
     save(best_frame, label)
+
+
+def crop_frame(frame, best_results):
+    x_min, y_min, x_max, y_max = get_box(frame, best_results)
+    cropped = frame[y_min:y_max, x_min:x_max]
+    resized = cv2.resize(cropped, TARGET_SIZE)
+
+    # Check if hand is detected in the cropped image
+    result = hands.process(resized)
+    if not result.multi_hand_landmarks:
+        print("Hand detected, but not in the cropped image")
+        return None
+
+    return resized
+
+
+def get_box(frame, results):
+    frame_height, frame_width, _ = frame.shape
+    x_coordinates = []
+    y_coordinates = []
+
+    # Get all landmark coordinates
+    for landmark in results.multi_hand_landmarks[0].landmark:
+        x_coordinates.append(min(int(landmark.x * frame_width), frame_width - 1))
+        y_coordinates.append(min(int(landmark.y * frame_height), frame_height - 1))
+
+    # Calculate bounding box with padding
+    x_min = max(min(x_coordinates) - PADDING, 0)
+    x_max = min(max(x_coordinates) + PADDING, frame_width)
+    y_min = max(min(y_coordinates) - PADDING, 0)
+    y_max = min(max(y_coordinates) + PADDING, frame_height)
+
+    # Make the crop square
+    width = x_max - x_min
+    height = y_max - y_min
+    size = max(width, height)
+
+    # Adjust coordinates to make square crop
+    x_center = (x_min + x_max) // 2
+    y_center = (y_min + y_max) // 2
+
+    x_min = max(x_center - size // 2, 0)
+    x_max = min(x_center + size // 2, frame_width)
+    y_min = max(y_center - size // 2, 0)
+    y_max = min(y_center + size // 2, frame_height)
+
+    return x_min, y_min, x_max, y_max
 
 
 def key_to_label(key):
@@ -65,12 +134,11 @@ def save(frame, label):
 
     cv2.imwrite(f"{directory}/{file_count + 1}.jpg", frame)
 
+    print(f"Saved image to {directory}/{file_count + 1}.jpg")
+
 
 def process_frame(frame):
     global hands
-    # Flip frame
-    frame = cv2.flip(frame, 1)
-
     # Convert frame to RGB for mediapipe
     frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
@@ -87,6 +155,10 @@ def loop():
 
     while True:
         ret, frame = cap.read()
+
+        # Flip frame
+        frame = cv2.flip(frame, 1)
+
         if not ret:
             print("Error: Could not read frame.")
             break
