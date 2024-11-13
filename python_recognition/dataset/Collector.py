@@ -172,7 +172,7 @@ def loop():
         key = cv2.waitKey(1)
         if key == 27:  # ESC key
             break
-        elif (65 <= key <= 90) or (97 <= key <= 122) or key == 43 or key == 45:
+        elif (65 <= key <= 90) or (97 <= key <= 122) or key == 43 or key == 45:  # A-Z, a-z, +, -
             keydown(chr(key))
 
     cap.release()

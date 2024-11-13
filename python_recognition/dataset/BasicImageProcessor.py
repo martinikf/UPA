@@ -6,7 +6,14 @@ import cv2
 import mediapipe as mp
 
 
-labels = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'ch', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+# MediaPipe Hands constants
+STATIC_IMAGE_MODE = False
+MAX_NUM_HANDS = 1
+MIN_DETECTION_CONFIDENCE = 0.6
+MIN_TRACKING_CONFIDENCE = 0.6
+
+
+LABELS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'ch', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
           'v', 'w', 'x', 'y', 'z', 'none']
 
 
@@ -16,7 +23,7 @@ def run():
     hands = setup()
 
     with open(output_file, "w") as f:
-        for i, letter in enumerate(labels):
+        for i, letter in enumerate(LABELS):
             if not os.path.exists(offset_path + letter):
                 continue
             for file in get_files(offset_path + letter):
@@ -33,10 +40,10 @@ def run():
 def setup():
     mp_hands = mp.solutions.hands
     hands = mp_hands.Hands(
-        static_image_mode=False,
-        max_num_hands=1,
-        min_detection_confidence=0.6,
-        min_tracking_confidence=0.6,
+        static_image_mode=STATIC_IMAGE_MODE,
+        max_num_hands=MAX_NUM_HANDS,
+        min_detection_confidence=MIN_DETECTION_CONFIDENCE,
+        min_tracking_confidence=MIN_TRACKING_CONFIDENCE,
     )
     return hands
 
