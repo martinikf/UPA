@@ -42,6 +42,7 @@
 		'F',
 		'G',
 		'H',
+		'Ch',
 		'I',
 		'J',
 		'K',
@@ -60,7 +61,7 @@
 		'X',
 		'Y',
 		'Z',
-		'Ch'
+		'None'
 	];
 	/** Minimum time between predictions in milliseconds for performance optimization */
 	export const msToNextPredict = 80;
