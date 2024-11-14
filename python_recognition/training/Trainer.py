@@ -1,3 +1,7 @@
+"""
+    Use keras version 2, tensorflow <= 2.15
+"""
+
 import numpy as np
 import tensorflow as tf
 import tensorflowjs as tfjs
@@ -12,6 +16,22 @@ TRAIN_SIZE = 0.75
 
 NUM_OF_FEATURES = 42
 
+def create_confusing_matrix(pred_labels, top_pred):
+    import pandas as pd
+    import seaborn as sns
+    import matplotlib.pyplot as plt
+    from sklearn.metrics import confusion_matrix, classification_report
+
+    labels = sorted(list(set(pred_labels)))
+    cmx_data = confusion_matrix(pred_labels, top_pred, labels=labels)
+
+    df_cmx = pd.DataFrame(cmx_data, index=labels, columns=labels)
+
+    fig, ax = plt.subplots(figsize=(7, 6))
+    sns.heatmap(df_cmx, annot=True, fmt='g', square=False)
+    ax.set_ylim(len(set(pred_labels)), 0)
+    plt.show()
+
 
 def run():
     # Load dataset
@@ -21,15 +41,16 @@ def run():
 
     num_of_classes = len(set(labels))
 
-    features_train, features_test, labels_train, labels_test = train_test_split(features, labels, TRAIN_SIZE, random_state=RANDOM_SEED)
+    # Split dataset
+    features_train, features_test, labels_train, labels_test = train_test_split(features, labels, train_size=TRAIN_SIZE, random_state=RANDOM_SEED)
 
     # Model definition
     model = tf.keras.models.Sequential([
         tf.keras.layers.Input(shape=(NUM_OF_FEATURES,)),
         tf.keras.layers.Dropout(0.2, name="d1"),
-        tf.keras.layers.Dense(20, activation='relu', name="dense1"),
-        tf.keras.layers.Dropout(0.4, name="d2"),
-        tf.keras.layers.Dense(10, activation='relu', name="dense2"),
+        tf.keras.layers.Dense(42, activation='relu', name="dense1"),
+        tf.keras.layers.Dropout(0.2, name="d2"),
+        tf.keras.layers.Dense(42, activation='relu', name="dense2"),
         tf.keras.layers.Dense(num_of_classes, activation='softmax', name="dense3")
     ])
     model.summary()
@@ -49,9 +70,15 @@ def run():
         features_train,
         labels_train,
         epochs=1000,
-        batch_size=128,
+        batch_size=4,
         validation_data=(features_test, labels_test),
         callbacks=[es_callback]
+    )
+
+    # Show confusion matrix
+    create_confusing_matrix(
+        labels_test,
+        np.argmax(model.predict(features_test), axis=1)
     )
 
     # Save model
