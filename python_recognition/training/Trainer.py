@@ -16,7 +16,8 @@ TRAIN_SIZE = 0.75
 
 NUM_OF_FEATURES = 42
 
-def create_confusing_matrix(pred_labels, top_pred):
+
+def create_confusion_matrix(pred_labels, top_pred):
     import pandas as pd
     import seaborn as sns
     import matplotlib.pyplot as plt
@@ -76,7 +77,7 @@ def run():
     )
 
     # Show confusion matrix
-    create_confusing_matrix(
+    create_confusion_matrix(
         labels_test,
         np.argmax(model.predict(features_test), axis=1)
     )
