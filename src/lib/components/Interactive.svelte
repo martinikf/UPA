@@ -29,13 +29,15 @@
 	 * Handles gesture recognition events from webcam
 	 * @param msg CustomEvent containing gesture probability data
 	 */
-	export function handleMessage(msg: CustomEvent<GestureProbability>) {
+	export function handleMessage(msg: CustomEvent<GestureProbability[]>) {
 		if (performance.now() < timeout) return;
 
 		displayChar = currentChar || WAITING_EMOJI;
 
+		const currentCharSanitized = removeDiacritics(currentChar)
 		const result = msg.detail;
-		if (currentChar && result[removeDiacritics(currentChar)]) {
+
+		if (currentChar && result.filter(x=> x.letter === currentCharSanitized).length > 0) {
 			handleSuccessfulRecognition();
 		}
 

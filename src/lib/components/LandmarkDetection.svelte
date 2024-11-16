@@ -23,54 +23,23 @@
 		type HandLandmarkerResult
 	} from '@mediapipe/tasks-vision';
 	import { createEventDispatcher, onMount } from 'svelte';
-
-	// Tensorflow imports
-	import * as tf from '@tensorflow/tfjs';
-	import type { LayersModel } from '@tensorflow/tfjs';
+	import '$lib/handlers/ImageProcessor'
+	import '$lib/handlers/ClassificatorNN'
 
 	// Local type imports
-	import { Landmark2d, Landmark3d } from '$lib/models/Landmark';
 	import type { GestureProbability } from '$lib/models/GestureProbability';
-
-	/** Supported letters for gesture recognition */
-	const letters = [
-		'A',
-		'B',
-		'C',
-		'D',
-		'E',
-		'F',
-		'G',
-		'H',
-		'Ch',
-		'I',
-		'J',
-		'K',
-		'L',
-		'M',
-		'N',
-		'O',
-		'P',
-		'Q',
-		'R',
-		'S',
-		'T',
-		'U',
-		'V',
-		'W',
-		'X',
-		'Y',
-		'Z',
-		'None'
-	];
-	/** Minimum time between predictions in milliseconds for performance optimization */
-	export const msToNextPredict = 80;
+	import type {Classificator} from '$lib/handlers/Classificator'
+	import { processLandmarks } from '$lib/handlers/ImageProcessor';
+	import { ClassificatorNN } from '$lib/handlers/ClassificatorNN';
 
 	// Component state variables
 	/** MediaPipe hand landmark detection model */
 	let handLandmarker: HandLandmarker | undefined;
-	/** TensorFlow.js gesture classification model */
-	let tfModel: LayersModel | undefined;
+	/** Classificator */
+	const classificator : Classificator = new ClassificatorNN();
+
+	/** Minimum time between predictions in milliseconds for performance optimization */
+	export const msToNextPredict = 80;
 
 	// DOM elements
 	let canvasElement: HTMLCanvasElement;
@@ -124,7 +93,7 @@
 	 * Dispatches recognized gesture events to parent component
 	 * @param event Object containing probabilities for each recognized gesture
 	 */
-	function gestureRecognized(event: GestureProbability) {
+	function gestureRecognized(event: GestureProbability[]) {
 		dispatch('gestureRecognized', event);
 	}
 
@@ -182,7 +151,7 @@
 	 */
 	async function predictWebcam() {
 		// Delay prediction if models aren't ready
-		if (!handLandmarker || !tfModel)
+		if (!handLandmarker || !classificator.ready())
 			return setTimeout(() => {
 				predictWebcam();
 			}, 100);
@@ -204,18 +173,16 @@
 			// Visualize landmarks
 			drawLandmarks(drawingUtils, results);
 
+
 			// Process landmark data through classification pipeline
-			const probabilities = await handGestureClassifier(
-				calcRelativeLandmarks(
-					calcAbsolutePositions(results.landmarks[0], video.videoWidth, video.videoHeight)
-				)
-			);
+			const processedLandmarks = processLandmarks(results.landmarks[0], video.videoWidth, video.videoHeight);
+			const gestureProbabilities = await handGestureClassifier(processedLandmarks);
 
 			// Filter and report high-confidence predictions
-			let result: GestureProbability = {};
-			for (let i = 0; i < probabilities.length; i++) {
-				if (probabilities[i] > gestureConfidenceThreshold) {
-					result[letters[i]] = probabilities[i];
+			let result: GestureProbability[] = [];
+			for (let i = 0; i < gestureProbabilities.length; i++) {
+				if (gestureProbabilities[i].probability > gestureConfidenceThreshold) {
+					result.push(gestureProbabilities[i])
 				}
 			}
 
@@ -252,97 +219,20 @@
 		}
 	}
 
-	// https://github.com/kinivi/hand-gesture-recognition-mediapipe
 	/**
-	 * Converts landmark coordinates to absolute pixel positions
-	 * @param landmarks Array of 3D landmarks
-	 * @param imageWidth Video frame width
-	 * @param imageHeight Video frame height
-	 * @returns Array of 2D landmarks - pixel coordinates
-	 */
-	function calcAbsolutePositions(
-		landmarks: Landmark3d[],
-		imageWidth: number,
-		imageHeight: number
-	): Landmark2d[] {
-		let newLandmarks = [];
-
-		for (const landmark of landmarks) {
-			let x = Math.min(Math.floor(landmark.x * imageWidth), imageWidth - 1);
-			let y = Math.min(Math.floor(landmark.y * imageHeight), imageHeight - 1);
-			//let z = landmark.z;
-			newLandmarks.push(new Landmark2d(x, y));
-		}
-
-		return newLandmarks;
-	}
-
-	/**
-	 * Normalizes landmarks relative to the base (wrist) position
-	 * Makes the model translation-invariant
-	 * @param landmarks Array of absolute position landmarks
-	 * @returns Flattened array of normalized coordinates
-	 */
-	function calcRelativeLandmarks(landmarks: Landmark2d[]): number[] {
-		const tempLandmarkList = structuredClone(landmarks);
-
-		let baseX: number = 0;
-		let baseY: number = 0;
-
-		// Normalize positions relative to wrist
-		for (let index = 0; index < tempLandmarkList.length; index++) {
-			const landmarkPoint = tempLandmarkList[index];
-
-			if (index === 0) {
-				baseX = landmarkPoint.x;
-				baseY = landmarkPoint.y;
-			}
-
-			tempLandmarkList[index].x = tempLandmarkList[index].x - baseX;
-			tempLandmarkList[index].y = tempLandmarkList[index].y - baseY;
-		}
-
-		// Flatten to 1D array for model input
-		let flattenedLandmarkList = [];
-		for (let index = 0; index < tempLandmarkList.length; index++) {
-			flattenedLandmarkList.push(tempLandmarkList[index].x);
-			flattenedLandmarkList.push(tempLandmarkList[index].y);
-		}
-
-		// Normalize
-		const absValues = flattenedLandmarkList.map(Math.abs);
-		const maxValue: number = Math.max(...absValues);
-
-		return flattenedLandmarkList.map((val) => val / maxValue);
-	}
-
-	/**
-	 * Loads the TensorFlow.js model for gesture classification
+	 * Loads the classification method
 	 */
 	async function loadTF() {
-		if (tfModel === undefined) {
-			tfModel = await tf.loadLayersModel('models/tfjsmodel/model.json');
-			// https://github.com/tensorflow/tfjs/tree/master/tfjs-backend-webgpu
-		}
+		await classificator.load();
 	}
 
 	/**
-	 * Classifies hand gestures using TensorFlow model
+	 * Classifies hand gestures using classification method
 	 * @param landmarks Flattened, normalized landmark coordinates
 	 * @returns Array of probabilities for each supported gesture
 	 */
-	async function handGestureClassifier(landmarks: number[]): Promise<Float32Array> {
-		if (tfModel === undefined) {
-			await loadTF();
-			if (tfModel === undefined) {
-				throw new Error('Model not loaded');
-			}
-		}
-
-		const input = tf.tensor(landmarks, [1, 42]);
-		const output = tfModel.predict(input) as tf.Tensor;
-
-		return output.dataSync() as Float32Array;
+	async function handGestureClassifier(landmarks: number[]): Promise<GestureProbability[]> {
+		return await classificator.predict(landmarks);
 	}
 
 	/**

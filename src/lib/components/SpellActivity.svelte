@@ -62,16 +62,18 @@
 	 * Validates detected gestures against the current letter being tested
 	 * @param msg CustomEvent containing gesture probability data
 	 */
-	export function handleMessage(msg: CustomEvent<GestureProbability>) {
+	export function handleMessage(msg: CustomEvent<GestureProbability[]>) {
 		if (!state.wordToGuess) return;
 
 		const result = msg.detail;
+		console.log(result)
 		if (performance.now() < state.lastDetectionTime + DETECTION_DELAY) return;
 
 		const currentLetter = getCurrentLetter();
 		if (!currentLetter) return;
 
-		if (result[removeDiacritics(currentLetter)]) {
+		const currentLetterSanitized = removeDiacritics(currentLetter)
+		if (result.filter(x=> x.letter === currentLetterSanitized).length > 0) {
 			updateProgress(currentLetter);
 			checkCompletion();
 		}
