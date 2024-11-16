@@ -31,12 +31,14 @@
 	import type {Classificator} from '$lib/handlers/Classificator'
 	import { processLandmarks } from '$lib/handlers/ImageProcessor';
 	import { ClassificatorNN } from '$lib/handlers/ClassificatorNN';
+	import { ClassificatorDF } from '$lib/handlers/ClassificatorDF';
 
 	// Component state variables
 	/** MediaPipe hand landmark detection model */
 	let handLandmarker: HandLandmarker | undefined;
 	/** Classificator */
-	const classificator : Classificator = new ClassificatorNN();
+	// const classificator : Classificator = new ClassificatorNN();
+	const classificator : Classificator = new ClassificatorDF();
 
 	/** Minimum time between predictions in milliseconds for performance optimization */
 	export const msToNextPredict = 80;

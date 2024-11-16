@@ -1,5 +1,5 @@
 """
-    Use keras version 2, tensorflow <= 2.15
+    Use keras version 2, tensorflow <= 2.15 (linux only)
 """
 
 import numpy as np
