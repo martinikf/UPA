@@ -1,6 +1,7 @@
 import numpy as np
 import xgboost as xgb
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
 
 
 DATASET_FILENAME = 'dataset.csv'
@@ -68,6 +69,16 @@ def run():
         early_stopping_rounds=20,
         verbose_eval=10
     )
+
+
+    # Evaluate and display results
+    predictions = model.predict(dtest)
+    predicted_labels = np.argmax(predictions, axis=1)
+
+    # Calculate accuracy
+    accuracy = accuracy_score(labels_test, predicted_labels) * 100
+    print(f"Accuracy: {accuracy:.2f}%")
+
 
     # Evaluate and display results
     predictions = model.predict(dtest)
