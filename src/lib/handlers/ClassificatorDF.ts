@@ -1,7 +1,5 @@
 import type { Classificator } from '$lib/handlers/Classificator';
 import * as tf from '@tensorflow/tfjs-core';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
 import * as tfdf from '@tensorflow/tfjs-tfdf';
 import { GestureProbability } from '$lib/models/GestureProbability';
 
@@ -37,7 +35,6 @@ const letters = [
 	'None'
 ];
 
-//TODO: on reload, throws error: "Cannot use import statement outside a module:
 export class ClassificatorDF implements Classificator {
 	model: tfdf.TFDFModel | undefined = undefined;
 
