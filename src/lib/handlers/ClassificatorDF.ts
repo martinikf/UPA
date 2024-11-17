@@ -55,12 +55,14 @@ export class ClassificatorDF implements Classificator {
 	 * Loads
 	 */
 	async load() {
+		const baseURL = `${window.location.protocol}//${window.location.host}`;
+
 		tfdf.setLocateFile(() => {
-			return 'https://localhost:5173/inference.wasm';
+			return `${baseURL}/inference.wasm`;
 		});
 
 		if (this.model == undefined)
-			this.model = await tfdf.loadTFDFModel('https://localhost:5173/models/tfjsDF/model.json');
+			this.model = await tfdf.loadTFDFModel(`${baseURL}/models/tfjsDF/model.json`);
 	}
 
 	/**
