@@ -1,5 +1,7 @@
 import type { Classificator } from '$lib/handlers/Classificator';
 import * as tf from '@tensorflow/tfjs-core';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
 import * as tfdf from '@tensorflow/tfjs-tfdf';
 import { GestureProbability } from '$lib/models/GestureProbability';
 
@@ -53,7 +55,7 @@ export class ClassificatorDF implements Classificator {
 	 * Loads
 	 */
 	async load() {
-		tfdf.setLocateFile((path, base) => {
+		tfdf.setLocateFile(() => {
 			return 'https://localhost:5173/inference.wasm';
 		});
 
@@ -74,56 +76,17 @@ export class ClassificatorDF implements Classificator {
 			}
 		}
 
-		const inputDict = {
-			f1: tf.tensor([landmarks[0]]),
-			f2: tf.tensor([landmarks[1]]),
-			f3: tf.tensor([landmarks[2]]),
-			f4: tf.tensor([landmarks[3]]),
-			f5: tf.tensor([landmarks[4]]),
-			f6: tf.tensor([landmarks[5]]),
-			f7: tf.tensor([landmarks[6]]),
-			f8: tf.tensor([landmarks[7]]),
-			f9: tf.tensor([landmarks[8]]),
-			f10: tf.tensor([landmarks[9]]),
-			f11: tf.tensor([landmarks[10]]),
-			f12: tf.tensor([landmarks[11]]),
-			f13: tf.tensor([landmarks[12]]),
-			f14: tf.tensor([landmarks[13]]),
-			f15: tf.tensor([landmarks[14]]),
-			f16: tf.tensor([landmarks[15]]),
-			f17: tf.tensor([landmarks[16]]),
-			f18: tf.tensor([landmarks[17]]),
-			f19: tf.tensor([landmarks[18]]),
-			f20: tf.tensor([landmarks[19]]),
-			f21: tf.tensor([landmarks[20]]),
-			f22: tf.tensor([landmarks[21]]),
-			f23: tf.tensor([landmarks[22]]),
-			f24: tf.tensor([landmarks[23]]),
-			f25: tf.tensor([landmarks[24]]),
-			f26: tf.tensor([landmarks[25]]),
-			f27: tf.tensor([landmarks[26]]),
-			f28: tf.tensor([landmarks[27]]),
-			f29: tf.tensor([landmarks[28]]),
-			f30: tf.tensor([landmarks[29]]),
-			f31: tf.tensor([landmarks[30]]),
-			f32: tf.tensor([landmarks[31]]),
-			f33: tf.tensor([landmarks[32]]),
-			f34: tf.tensor([landmarks[33]]),
-			f35: tf.tensor([landmarks[34]]),
-			f36: tf.tensor([landmarks[35]]),
-			f37: tf.tensor([landmarks[36]]),
-			f38: tf.tensor([landmarks[37]]),
-			f39: tf.tensor([landmarks[38]]),
-			f40: tf.tensor([landmarks[39]]),
-			f41: tf.tensor([landmarks[40]]),
-			f42: tf.tensor([landmarks[41]])
-		};
+		// Build input
+		const inputDict: { [key: string]: tf.Tensor } = {};
+		for (let i = 0; i < 42; i++) {
+			inputDict[`f${i + 1}`] = tf.tensor([landmarks[i]]);
+		}
 
+		// TODO: Throws console warning that it should use only execute, yet execute throws error
 		const output = (await this.model.executeAsync(inputDict)) as tf.Tensor;
 
-		const probabilitiesOff = output.dataSync() as Float32Array;
-
 		// TODO: Figure out why the output is shifted by 28 places (num of categories)
+		const probabilitiesOff = (await output.data()) as Float32Array;
 		const probabilities = probabilitiesOff.slice(28, 28 + 28);
 
 		const gestureProbabilities: GestureProbability[] = [];
