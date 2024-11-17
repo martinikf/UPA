@@ -104,9 +104,7 @@
 	 * Must be called before any hand detection can occur
 	 */
 	async function createHandLandmarker() {
-		const vision = await FilesetResolver.forVisionTasks(
-			'./node_modules/@mediapipe/tasks-vision/wasm'
-		);
+		const vision = await FilesetResolver.forVisionTasks('wasm-taskvision');
 		handLandmarker = await HandLandmarker.createFromOptions(vision, {
 			baseOptions: {
 				modelAssetPath: `models/hand_landmarker.task`,
