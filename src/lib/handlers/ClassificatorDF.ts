@@ -1,6 +1,5 @@
 import type { Classificator } from '$lib/handlers/Classificator';
 import * as tf from '@tensorflow/tfjs-core';
-import * as tfdf from '@tensorflow/tfjs-tfdf';
 import { GestureProbability } from '$lib/models/GestureProbability';
 
 /** Supported letters for gesture recognition */
@@ -53,7 +52,7 @@ export class ClassificatorDF implements Classificator {
 	 */
 	async load() {
 		const baseURL = `${window.location.protocol}//${window.location.host}`;
-
+		const tfdf = await import('@tensorflow/tfjs-tfdf');
 		tfdf.setLocateFile(() => {
 			return `${baseURL}/inference.wasm`;
 		});
