@@ -24,7 +24,6 @@
 	} from '@mediapipe/tasks-vision';
 	import { createEventDispatcher, onMount } from 'svelte';
 	import '$lib/handlers/ImageProcessor'
-	import '$lib/handlers/ClassificatorNN'
 
 	// Local type imports
 	import type { GestureProbability } from '$lib/models/GestureProbability';
@@ -55,7 +54,7 @@
 	/** Timestamp of last prediction for frame rate control */
 	let lastTimeMs: number = 0; // used for measuring time between frames
 	/** Threshold for gesture recognition [0, 1]*/
-	export let gestureConfidenceThreshold: number = 0.2;
+	export let gestureConfidenceThreshold: number = 0.8;
 
 	/**
 	 * Component initialization logic.
@@ -158,7 +157,7 @@
 
 		let startTimeMs = performance.now();
 		// Performance monitoring
-		console.log(startTimeMs - lastTimeMs + ' ms'); // time to render one frame
+		// console.log(startTimeMs - lastTimeMs + ' ms'); // time to render one frame
 		lastTimeMs = startTimeMs;
 
 		// Run hand detection
