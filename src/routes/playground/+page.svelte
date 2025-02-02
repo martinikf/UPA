@@ -194,12 +194,6 @@
 		{#if webcam}
 			<div class="webcam">
 				<LandmarkDetection bind:this={landmarkDetection} on:gestureRecognized={handleMessage} />
-				<button
-					id="toggle_show_video"
-					on:click={() => {
-						landmarkDetection.toggleShowVideo();
-					}}
-				></button>
 			</div>
 		{/if}
 	</div>
@@ -284,18 +278,6 @@
 		position: relative;
 		margin-top: 5px;
 		border: solid 2px black;
-	}
-
-	#toggle_show_video {
-		background-color: transparent;
-		border: none;
-		padding: 0;
-		margin: 0;
-		position: absolute;
-		top: 0;
-		right: 0;
-		width: 100%;
-		height: 100%;
 	}
 
 	@media (max-width: 1400px) {

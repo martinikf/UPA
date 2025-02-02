@@ -256,12 +256,19 @@
 		<!-- Overlay canvas for landmark visualization -->
 		<canvas class="output_canvas" id="output_canvas" width="2000" height="1500"></canvas>
 	</div>
+	<button
+		id="toggle_show_video"
+		on:click={() => {
+						toggleShowVideo();
+					}}
+	></button>
 </div>
 
 <style>
 	.webcam_container {
 		display: flex;
 		justify-content: left;
+    position: relative;
 	}
 
 	.video_block {
@@ -290,4 +297,16 @@
 		width: 100%;
 		height: 100%;
 	}
+
+  #toggle_show_video {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+  }
 </style>
