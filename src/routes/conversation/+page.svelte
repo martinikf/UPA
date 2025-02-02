@@ -17,6 +17,12 @@
 	// References
 	let landmarkDetection: LandmarkDetection;
 
+	// Configuration constants
+	const MIN_GROUP_LENGTH = 6;
+	const SPACE_INSERT_THRESHOLD = 20;
+	const MULTI_CHAR_TOKENS = ['Ch'];
+	const ERROR_CONTEXT_SIZE = 1; // Characters to check around mismatches
+
 	let systemPrompt = `You are a conversation assistant. Follow these rules:
 	1. Answer in a language based on language in which was the previous message written.
 	2. Your responses must be of maximum length of one sentence (around 10 words).
@@ -154,12 +160,6 @@
 	}
 
 	function convertToFrequencyFormat(input: string): string {
-		// Configuration constants
-		const MIN_GROUP_LENGTH = 6;
-		const SPACE_INSERT_THRESHOLD = 20;
-		const MULTI_CHAR_TOKENS = ['Ch'];
-		const ERROR_CONTEXT_SIZE = 1; // Characters to check around mismatches
-
 		// Tokenize input with multi-character support
 		const tokens: string[] = [];
 		let i = 0;
@@ -211,7 +211,40 @@
 
 		return result;
 	}
+
+	function handleKeyPress(event: KeyboardEvent) {
+		if (event.code === "Space") {
+			console.log("space")
+			// Prevent default space scrolling behavior
+			event.preventDefault();
+			str += " ".repeat(MIN_GROUP_LENGTH);
+			parsed = convertToFrequencyFormat(str)
+
+		} else if (event.code === "Backspace") {
+			// Prevent default backspace behavior
+			event.preventDefault();
+
+			const lastParsedChar = parsed[parsed.length - 1];
+
+			const indexOfLast = str.lastIndexOf(lastParsedChar);
+			str = str.slice(0, indexOfLast)
+
+			if (str.length > 0) {
+				// Remove all trailing characters that match the last one
+				while (str.endsWith(lastParsedChar)) {
+					str = str.slice(0, -1);
+				}
+			}
+			parsed = convertToFrequencyFormat(str)
+		} else if(event.code === "Enter"){
+			send()
+		}
+
+	}
 </script>
+
+<!-- Attach the event listener to the window -->
+<svelte:window on:keydown={handleKeyPress} />
 
 <p class="text_input_display">
 	Rozpoznaný vstup: {parsed}
@@ -292,10 +325,17 @@
 
 <hr>
 <h3>Jak používat tento režim</h3>
+Obecné informace
 <ul>
 	<li>Kvalita odpovědí velmi závisí na použitém LLM. Menší/nenáročné modely nemusí rozumět českému jazyku, obzvlášt při nedokonalém vstupu dat.</li>
 	<li>Pro vytvoření mezery zobrazuje poslední znak slova po doby jedné sekundy. (Podobně jako 3D animace)</li>
 	<li>Chcete-li znakovat stejný znak dvakrát zasebou, ukažte znak, uvolněte ruku do neurčitého stavu a zobrazte znak znovu.</li>
+</ul>
+Klávesové zkratky
+<ul>
+	<li>Enter - odešle zprávu asistentovi</li>
+	<li>Space - vytvoří mezeru</li>
+	<li>Backspace - smaže poslední registrovaný znak</li>
 </ul>
 
 <h3>Jak zprovoznit ollama API k funkčnosti tohoto režimu:</h3>
