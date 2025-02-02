@@ -37,7 +37,7 @@
 	let handLandmarker: HandLandmarker | undefined;
 	/** Classificator */
 	// const classificator : Classificator = new ClassificatorNN();
-	const classificator : Classificator = new ClassificatorDF();
+	let classificator : Classificator;
 
 	/** Minimum time between predictions in milliseconds for performance optimization */
 	export const msToNextPredict = 80;
@@ -74,6 +74,8 @@
 		video = _video;
 		canvasElement = _canvasElement;
 		canvasCtx = _canvasCtx;
+
+		classificator = new ClassificatorDF();
 
 		// Check if browser supports getUserMedia <=> is compatible
 		if (!navigator.mediaDevices?.getUserMedia) {
