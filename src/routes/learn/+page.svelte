@@ -69,8 +69,7 @@
 </script>
 
 <div class="learn">
-	<h2>Režim učitel</h2>
-	<p>Tento režim slouží k postupnému učení prostové abecedy a základních znaků.</p>
+	<h2>Učitel</h2>
 
 	<div class="tabs">
 		<ul>

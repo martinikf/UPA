@@ -25,7 +25,7 @@
 
 	let systemPrompt = `You are a conversation assistant. Follow these rules:
 	1. Answer in a language based on language in which was the previous message written.
-	2. Your responses must be of maximum length of one sentence (around 10 words).
+	2. Your responses must be of maximum length of one sentence (around 6 words).
 	3. Focus on clear, simple communication, go straight to the point.
 	4. Keep the user engaged, continue in the conversation, bring new ideas, ask questions.`
 
@@ -106,7 +106,6 @@
 		str = "";
 		parsed = "";
 	}
-
 
 	async function sendPrompt(txt : string) {
 		chatHistory = [
@@ -306,101 +305,107 @@
 <!-- Attach the event listener to the window -->
 <svelte:window on:keydown={handleKeyPress} />
 
-<p class="text_input_display">
-	Rozpoznaný vstup: {parsed}
-</p>
+<main>
+	<p class="text_input_display">
+		Rozpoznaný vstup: {parsed}
+	</p>
 
-<!-- Layout -->
-<div class="layout">
+	<!-- Layout -->
+	<div class="layout">
 
-	<!-- Controls -->
-	<div class="left_column">
-		<div class="webcam_container">
-			<div class="webcam">
-				<LandmarkDetection bind:this={landmarkDetection} on:gestureRecognized={handleMessage} />
+		<!-- Controls -->
+		<div class="left_column">
+			<div class="webcam_container">
+				<div class="webcam">
+					<LandmarkDetection bind:this={landmarkDetection} on:gestureRecognized={handleMessage} />
+				</div>
+			</div>
+
+			<div class="controls__flow column">
+				<button on:click={send}>Odeslat zprávu</button>
+				<button on:click={reset}>Odstranit aktuální zprávu</button>
+				<button on:click={resetChat}>Restartovat histori konverzace</button>
+				<div>
+					<label for="show_chat">Zobrazit přehrávaný znak: </label>
+					<input type="checkbox" id="show_chat" bind:checked={showLetter} />
+				</div>
+				<div>
+					<label for="show_chat">Zobrazit konverzaci: </label>
+					<input type="checkbox" id="show_chat" bind:checked={showChat} />
+				</div>
+			</div>
+
+			<hr/>
+
+			<!-- AI API settings -->
+			<div class="controls__api column">
+				<div>
+					<label for="use_openAi">Use OpenAI API: </label>
+					<input id="use_openAi" type="checkbox" bind:checked={useOpenAi} />
+				</div>
+				{#if useOpenAi}
+					<span>OpenAI API settings</span>
+					<label for="model_name">Model name</label>
+					<input id="model_name" type="text" bind:value={modelNameOpenAI} />
+
+					<label for="request_url">Request url</label>
+					<input id="request_url" type="text" bind:value={requestUrlOpenAI} />
+
+					<label for="api_key">OpenAI API key:</label>
+					<input id="api_key" type="text" bind:value={openAiAPIKey}/>
+				{:else}
+					<span>Ollama API settings</span>
+
+					<label for="model_name">Model name</label>
+					<input id="model_name" type="text" bind:value={modelNameOllama} />
+
+					<label for="request_url">Request url</label>
+					<input id="request_url" type="text" bind:value={requestUrlOllama} />
+				{/if}
 			</div>
 		</div>
 
-		<div class="controls__flow column">
-			<button on:click={send}>Odeslat zprávu</button>
-			<button on:click={reset}>Odstranit aktuální zprávu</button>
-			<button on:click={resetChat}>Restartovat histori konverzace.</button>
-			<div>
-				<label for="show_chat">Zobrazit přehrávaný znak: </label>
-				<input type="checkbox" id="show_chat" bind:checked={showLetter} />
+		<!-- Animation -->
+		<div class="animation">
+			<div class="animation_canvas">
+				<Scene bind:model bind:this={scene} bind:showLetter={showLetter}/>
 			</div>
-			<div>
-				<label for="show_chat">Zobrazit konverzaci: </label>
-				<input type="checkbox" id="show_chat" bind:checked={showChat} />
-			</div>
+			<ControlRow bind:this={controlRow} {model} />
 		</div>
 
-		<hr/>
-
-		<!-- AI API settings -->
-		<div class="controls__api column">
-			<div>
-				<label for="use_openAi">Use OpenAI: </label>
-				<input id="use_openAi" type="checkbox" bind:checked={useOpenAi} />
-			</div>
-			{#if useOpenAi}
-				<label for="model_name">Model name</label>
-				<input id="model_name" type="text" bind:value={modelNameOpenAI} />
-
-				<label for="request_url">Request url</label>
-				<input id="request_url" type="text" bind:value={requestUrlOpenAI} />
-
-				<label for="api_key">OpenAI API key:</label>
-				<input id="api_key" type="text" bind:value={openAiAPIKey}/>
-			{:else}
-				<label for="model_name">Model name</label>
-				<input id="model_name" type="text" bind:value={modelNameOllama} />
-
-				<label for="request_url">Request url</label>
-				<input id="request_url" type="text" bind:value={requestUrlOllama} />
-			{/if}
-		</div>
-	</div>
-
-	<!-- Animation -->
-	<div class="animation">
-		<div class="animation_canvas">
-			<Scene bind:model bind:this={scene} bind:showLetter={showLetter}/>
-		</div>
-		<ControlRow bind:this={controlRow} {model} />
-	</div>
-
-	<!-- WEBCAM with chat log -->
-	<div class="column__left">
+		<!-- WEBCAM with chat log -->
+		<div class="column__left">
 
 
-		<div class="chat_log">
-			<div class="messages">
-				{#each chatHistory.slice(1) as message}
-					<div
-						transition:fade
-						class="message {message.role}">
-						<div class="header">
-							<span class="role">{message.role === 'user' ? 'Vy' : 'Asistent'}</span>
+			<div class="chat_log">
+				<div class="messages">
+					{#each chatHistory.slice(1) as message}
+						<div
+							transition:fade
+							class="message {message.role}">
+							<div class="header">
+								<span class="role">{message.role === 'user' ? 'Vy' : 'Asistent'}</span>
+							</div>
+							<div class="content">
+								{#if showChat}
+									{message.content}
+								{:else}
+									{message.content.replace(/\S/g, '*')}
+								{/if}
+							</div>
 						</div>
-						<div class="content">
-							{#if showChat}
-								{message.content}
-							{:else}
-								{message.content.replace(/\S/g, '*')}
-							{/if}
-						</div>
-					</div>
-				{/each}
+					{/each}
+				</div>
 			</div>
+
 		</div>
 
 	</div>
-
-</div>
+</main>
 
 <hr>
-<h3>Jak používat tento režim</h3>
+<h3> TBD - Jak používat tento režim</h3>
+
 Obecné informace
 <ul>
 	<li>Kvalita odpovědí velmi závisí na použitém LLM. Menší/nenáročné modely nemusí rozumět českému jazyku, obzvlášt při nedokonalém vstupu dat.</li>
@@ -414,15 +419,25 @@ Klávesové zkratky
 	<li>Backspace - smaže poslední registrovaný znak</li>
 </ul>
 
-<h3>Jak zprovoznit ollama API k funkčnosti tohoto režimu:</h3>
+<h3>Ollama API</h3>
 SET OLLAMA_ORIGINS='*'
 
-<h3>Jak použít nekompatibilní API:</h3>
+<h3>OpenAI API</h3>
+TBD
+
+<h3>Nekompatibilní API</h3>
 <p>
-Pro programátory, ve zdrojovém kodu naleznete podobu API dotazů. Poté stačí naprogramovat Adaptér - překládající dotazy pro Vaši API.
-<a href="https://github.com/martinikf/UPA/blob/main/src/routes/conversation/%2Bpage.svelte">Zdrojový kod</a>
+	Pro programátory, ve zdrojovém kodu naleznete podobu API dotazů. Poté stačí naprogramovat Adaptér - překládající dotazy pro Vaši API.
+	<a href="https://github.com/martinikf/UPA/blob/main/src/routes/conversation/%2Bpage.svelte">Zdrojový kod</a>
 </p>
+
 <style>
+	main{
+    width: 80%;
+    max-width: 1600px;
+    margin: auto auto 2rem;
+	}
+
 	.text_input_display{
 		text-align: center;
 	}
