@@ -38,8 +38,15 @@
 	let showChat = false;
 	let showLetter = false;
 
-	let modelName : string = "llama3.1";
-	let requestUrl : string = "http://localhost:11434/api/chat";
+	let useOpenAi : boolean = false;
+
+	let openAiAPIKey : string = "";
+	let modelNameOpenAI : string = "gpt-4o-mini";
+	let requestUrlOpenAI : string = "https://api.openai.com/v1/chat/completions";
+
+	let modelNameOllama : string = "llama3.1"
+	let requestUrlOllama : string = "http://localhost:11434/api/chat"
+
 	let chatHistory: Array<{ role: string, content: string }> = [
 		{
 			role: 'system',
@@ -97,6 +104,7 @@
 
 		await sendPrompt(parsed.trim().toLowerCase());
 		str = "";
+		parsed = "";
 	}
 
 
@@ -109,14 +117,25 @@
 			}
 		];
 
+		if(useOpenAi) {
+			await sendOpenAiPrompt();
+		}
+		else {
+			await sendOllamaPrompt();
+		}
+
+		scrollChatToBottom();
+	}
+
+	async function sendOllamaPrompt(){
 		const data = {
-			model: modelName,
+			model: modelNameOllama,
 			stream: false,
 			messages: chatHistory
 		};
 
 		try {
-			const res = await fetch(requestUrl, {
+			const res = await fetch(requestUrlOllama, {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify(data)
@@ -124,7 +143,7 @@
 
 			const resp = await res.json();
 			const assistantReply = resp.message?.content || "No response";
-			console.log(assistantReply)
+
 			// Add assistant response to history
 			chatHistory = [
 				...chatHistory,
@@ -145,8 +164,48 @@
 				}
 			];
 		}
+	}
 
-		scrollChatToBottom();
+	async function sendOpenAiPrompt(){
+		const data = {
+			model: modelNameOpenAI,
+			messages: chatHistory
+		};
+
+		try {
+			const res = await fetch(requestUrlOpenAI, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'Authorization': `Bearer ${openAiAPIKey}`
+				},
+				body: JSON.stringify(data)
+			});
+
+			const resp = await res.json();
+			console.log(resp)
+			const assistantReply = resp.choices[0].message.content || "No response";
+
+			// Add assistant response to history
+			chatHistory = [
+				...chatHistory,
+				{
+					role: 'assistant',
+					content: assistantReply
+				}
+			];
+
+			model.playAnimationForText(assistantReply, Language.CzechFingerOneHand);
+		} catch (error) {
+			console.error("API Error:", error);
+			chatHistory = [
+				...chatHistory,
+				{
+					role: 'assistant',
+					content: "Error connecting to AI service"
+				}
+			];
+		}
 	}
 
 	function scrollChatToBottom() {
@@ -224,6 +283,8 @@
 			// Prevent default backspace behavior
 			event.preventDefault();
 
+			while(parsed[parsed.length -1] == " ") parsed = parsed.slice(0, -1);
+
 			const lastParsedChar = parsed[parsed.length - 1];
 
 			const indexOfLast = str.lastIndexOf(lastParsedChar);
@@ -232,14 +293,13 @@
 			if (str.length > 0) {
 				// Remove all trailing characters that match the last one
 				while (str.endsWith(lastParsedChar)) {
-					str = str.slice(0, -1);
+					str = str.slice(0, str.length - 2);
 				}
 			}
 			parsed = convertToFrequencyFormat(str)
 		} else if(event.code === "Enter"){
 			send()
 		}
-
 	}
 </script>
 
@@ -279,10 +339,26 @@
 
 		<!-- AI API settings -->
 		<div class="controls__api column">
-			<label for="model_name">Model name</label>
-			<input id="model_name" type="text" bind:value={modelName} />
-			<label for="request_url">Request url</label>
-			<input id="request_url" type="text" bind:value={requestUrl} />
+			<div>
+				<label for="use_openAi">Use OpenAI: </label>
+				<input id="use_openAi" type="checkbox" bind:checked={useOpenAi} />
+			</div>
+			{#if useOpenAi}
+				<label for="model_name">Model name</label>
+				<input id="model_name" type="text" bind:value={modelNameOpenAI} />
+
+				<label for="request_url">Request url</label>
+				<input id="request_url" type="text" bind:value={requestUrlOpenAI} />
+
+				<label for="api_key">OpenAI API key:</label>
+				<input id="api_key" type="text" bind:value={openAiAPIKey}/>
+			{:else}
+				<label for="model_name">Model name</label>
+				<input id="model_name" type="text" bind:value={modelNameOllama} />
+
+				<label for="request_url">Request url</label>
+				<input id="request_url" type="text" bind:value={requestUrlOllama} />
+			{/if}
 		</div>
 	</div>
 
@@ -339,7 +415,7 @@ Klávesové zkratky
 </ul>
 
 <h3>Jak zprovoznit ollama API k funkčnosti tohoto režimu:</h3>
-
+SET OLLAMA_ORIGINS='*'
 
 <h3>Jak použít nekompatibilní API:</h3>
 <p>
