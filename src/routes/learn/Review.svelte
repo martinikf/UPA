@@ -120,7 +120,7 @@
 		{/each}
 	</div>
 
-	<h3>Česká obouruční prstová abeceda</h3>
+	<h3>Česká dvouruční prstová abeceda</h3>
 	<div class="letters">
 		{#each data as letter}
 			{#if letter.language === Language.CzechFingerTwoHand}

@@ -68,6 +68,9 @@ Command: npx @threlte/gltf@2.0.3 path\Model.glb --root /models/ --types --printw
 	let previousChar: string = '';
 	let isPaused: boolean = false;
 
+	// Word animations
+	let sentence: string = '';
+
 	// Animation timing variables
 	let speed: number = 1;
 	let delayOnNewWord: number = 1000 / speed;
@@ -116,6 +119,8 @@ Command: npx @threlte/gltf@2.0.3 path\Model.glb --root /models/ --types --printw
 		Ž: 'Z'
 	};
 
+	const animatedWords = ["Ahoj", "Mama"];
+
 	// Reactive statement to play animation when currentActionName changes
 	$: $actions[currentActionName]?.play();
 
@@ -126,6 +131,11 @@ Command: npx @threlte/gltf@2.0.3 path\Model.glb --root /models/ --types --printw
 			setTimeout(() => {
 				playAnimationRec();
 			}, delayOnNewLetter);
+		}
+		else if(currentActionName.includes('Word')){
+			setTimeout(() => {
+				playSentenceRec();
+			}, delayOnNewWord);
 		}
 	});
 
@@ -178,7 +188,7 @@ Command: npx @threlte/gltf@2.0.3 path\Model.glb --root /models/ --types --printw
 		const nextAction = $actions[nextActionName as ActionName];
 
 		// Configure the animation
-		if (nextAction && nextActionName.includes('Letter')) {
+		if (nextAction && (nextActionName.includes('Letter') || nextActionName.includes('Word'))) {
 			nextAction.setLoop(2200, 1); // 2200 - LoopOnce
 			nextAction.clampWhenFinished = true;
 			nextAction.reset();
@@ -206,8 +216,13 @@ Command: npx @threlte/gltf@2.0.3 path\Model.glb --root /models/ --types --printw
 	function playAnimationRec() {
 		// Check if animation sequence is complete
 		if (text.length == 0) {
-			letterDisplay = '-';
-			transitionTo(restAction, 0.6);
+			if(sentence.length > 0){
+				playSentenceRec();
+			}
+			else {
+				letterDisplay = '-';
+				transitionTo(restAction, 0.6);
+			}
 			return;
 		}
 
@@ -245,17 +260,51 @@ Command: npx @threlte/gltf@2.0.3 path\Model.glb --root /models/ --types --printw
 		}
 	}
 
+	function playSentenceRec() {
+		console.log(sentence)
+
+		const actionOffset = "ActionWord"
+
+		const trimmed = sentence.trim();
+		const words = trimmed.split(/\s+/);
+		const firstWord = words.shift() || null;
+		if (firstWord === null) {
+			transitionTo(restAction, 0.6);
+			return;
+		}
+		const lower = firstWord.toLowerCase();
+		const transformedWord = lower.charAt(0).toUpperCase() + lower.slice(1);
+
+		sentence = sentence.trim().slice(firstWord.length);
+
+		if (animatedWords.includes(transformedWord)) {
+			transitionTo((actionOffset.toString() + transformedWord) as ActionName, transitionSpeed)
+		}
+		else{
+			// play finger alphabet for that world
+			playAnimationForText(transformedWord, Language.CzechFingerOneHand);
+		}
+	}
+
 	/**
 	 * Initiates animation for given text in specified language
 	 */
 	export function playAnimationForText(textArg: string, language: Language) {
 		actionOffset = getActionOffset(language);
 
-		text = textArg.trim().toUpperCase();
-		currentChar = '';
-		previousChar = '';
+		if (language == Language.Czech) {
+			// Handle sign language differently to finger alphabet
+			sentence = textArg;
+			playSentenceRec()
+		}
+		else {
 
-		playAnimationRec();
+			text = textArg.trim().toUpperCase();
+			currentChar = '';
+			previousChar = '';
+
+			playAnimationRec();
+		}
 	}
 
 	/**

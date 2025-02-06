@@ -37,7 +37,7 @@
 		//Add letter 'ch' after 'h'
 		lettersCz.splice(8, 0, 'ch');
 
-		let words = ['auto', 'autobus']; //TODO, load dynamically from model
+		let words = ['Mama', 'Ahoj']; //TODO, load dynamically from model
 
 		let listOfAllWords: Word[] = [];
 

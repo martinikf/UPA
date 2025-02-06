@@ -184,7 +184,8 @@
 			// Filter and report high-confidence predictions
 			let result: GestureProbability[] = [];
 			for (let i = 0; i < gestureProbabilities.length; i++) {
-				if (gestureProbabilities[i].probability > gestureConfidenceThreshold) {
+				if (gestureProbabilities[i].probability > gestureConfidenceThreshold)
+				{
 					result.push(gestureProbabilities[i])
 				}
 			}

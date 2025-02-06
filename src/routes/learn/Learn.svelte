@@ -123,7 +123,7 @@
 	<label for="language">Jazyk:</label>
 	<select id="language" bind:value={selectedLanguageSet} on:change={onLanguageChange}>
 		<option value={Language.CzechFingerOneHand}>Česká prstová abeceda jednoruční</option>
-		<option value={Language.CzechFingerTwoHand}>Česká prstová abeceda obouruční</option>
+		<option value={Language.CzechFingerTwoHand}>Česká prstová abeceda dvouruční</option>
 		<option value={Language.Czech}>Český znakový jazyk</option>
 	</select>
 </div>

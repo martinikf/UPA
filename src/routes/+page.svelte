@@ -7,8 +7,10 @@
 	<h3>Filip Martiník</h3>
 
 	<hr>
+	Obraz kamery se zpracovává pouze na vašem zařízení a nikde se neodesílá.
+
 	<h3>Seznam a krátký popis nabízených režimů</h3>
-	<h4>PLayground</h4>
+	<h4>Playground</h4>
 	<p>TBD</p>
 
 	<h4>Učitel</h4>

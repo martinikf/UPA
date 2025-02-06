@@ -27,7 +27,8 @@
 	1. Answer in a language based on language in which was the previous message written.
 	2. Your responses must be of maximum length of one sentence (around 6 words).
 	3. Focus on clear, simple communication, go straight to the point.
-	4. Keep the user engaged, continue in the conversation, bring new ideas, ask questions.`
+	4. Keep the user engaged, continue in the conversation, bring new ideas, ask questions.
+	5. There might be often typing errors, try to ignore them.`
 
 
 	let letterFrequency : {[letter: string] : number} = createDict();
@@ -324,7 +325,7 @@
 			<div class="controls__flow column">
 				<button on:click={send}>Odeslat zprávu</button>
 				<button on:click={reset}>Odstranit aktuální zprávu</button>
-				<button on:click={resetChat}>Restartovat histori konverzace</button>
+				<button on:click={resetChat}>Restartovat historii konverzace</button>
 				<div>
 					<label for="show_chat">Zobrazit přehrávaný znak: </label>
 					<input type="checkbox" id="show_chat" bind:checked={showLetter} />
@@ -340,11 +341,11 @@
 			<!-- AI API settings -->
 			<div class="controls__api column">
 				<div>
-					<label for="use_openAi">Use OpenAI API: </label>
+					<label for="use_openAi">Použít OpenAI API: </label>
 					<input id="use_openAi" type="checkbox" bind:checked={useOpenAi} />
 				</div>
 				{#if useOpenAi}
-					<span>OpenAI API settings</span>
+					<span>OpenAI API nastavení</span>
 					<label for="model_name">Model name</label>
 					<input id="model_name" type="text" bind:value={modelNameOpenAI} />
 
@@ -354,7 +355,7 @@
 					<label for="api_key">OpenAI API key:</label>
 					<input id="api_key" type="text" bind:value={openAiAPIKey}/>
 				{:else}
-					<span>Ollama API settings</span>
+					<span>Ollama API nastavení</span>
 
 					<label for="model_name">Model name</label>
 					<input id="model_name" type="text" bind:value={modelNameOllama} />
@@ -401,35 +402,39 @@
 		</div>
 
 	</div>
+
+	<hr>
+	<h3> TBD - Jak používat tento režim</h3>
+
+	Obecné informace
+	<ul>
+		<li>Kvalita odpovědí velmi závisí na použitém LLM. Běžně dostupné menší/nenáročné modely nemusí rozumět českému jazyku, obzvlášt při nedokonalém vstupu dat.</li>
+		<li>Pro vytvoření mezery zobrazuje poslední znak slova po dobu zhruba dvou sekund. (Podobně jako 3D animace)</li>
+		<li>Chcete-li znakovat stejný znak dvakrát zasebou, ukažte znak, uvolněte ruku do neurčitého stavu a zobrazte znak znovu.</li>
+	</ul>
+	Klávesové zkratky
+	<ul>
+		<li>Enter - odešle zprávu asistentovi</li>
+		<li>Space - vytvoří mezeru</li>
+		<li>Backspace - smaže poslední registrovaný znak</li>
+	</ul>
+
+	<h3>Ollama API</h3>
+	<ul>
+		<li><a href="https://ollama.com/">https://ollama.com/</a></li>
+		<li>Cors nastavení: SET OLLAMA_ORIGINS='*'</li>
+	</ul>
+
+	<h3>OpenAI API</h3>
+	TBD
+
+
+	<h3>Nekompatibilní API</h3>
+	<p>
+		Pro programátory, ve zdrojovém kodu naleznete podobu API dotazů. Poté stačí naprogramovat Adaptér - překládající dotazy pro Vaši API.
+		<a href="https://github.com/martinikf/UPA/blob/main/src/routes/conversation/%2Bpage.svelte">Zdrojový kod</a>
+	</p>
 </main>
-
-<hr>
-<h3> TBD - Jak používat tento režim</h3>
-
-Obecné informace
-<ul>
-	<li>Kvalita odpovědí velmi závisí na použitém LLM. Menší/nenáročné modely nemusí rozumět českému jazyku, obzvlášt při nedokonalém vstupu dat.</li>
-	<li>Pro vytvoření mezery zobrazuje poslední znak slova po doby jedné sekundy. (Podobně jako 3D animace)</li>
-	<li>Chcete-li znakovat stejný znak dvakrát zasebou, ukažte znak, uvolněte ruku do neurčitého stavu a zobrazte znak znovu.</li>
-</ul>
-Klávesové zkratky
-<ul>
-	<li>Enter - odešle zprávu asistentovi</li>
-	<li>Space - vytvoří mezeru</li>
-	<li>Backspace - smaže poslední registrovaný znak</li>
-</ul>
-
-<h3>Ollama API</h3>
-SET OLLAMA_ORIGINS='*'
-
-<h3>OpenAI API</h3>
-TBD
-
-<h3>Nekompatibilní API</h3>
-<p>
-	Pro programátory, ve zdrojovém kodu naleznete podobu API dotazů. Poté stačí naprogramovat Adaptér - překládající dotazy pro Vaši API.
-	<a href="https://github.com/martinikf/UPA/blob/main/src/routes/conversation/%2Bpage.svelte">Zdrojový kod</a>
-</p>
 
 <style>
 	main{
@@ -541,4 +546,9 @@ TBD
       transform: translateY(0);
     }
   }
+
+	a{
+		text-decoration: none;
+		color: white;
+	}
 </style>
