@@ -375,30 +375,25 @@
 		</div>
 
 		<!-- WEBCAM with chat log -->
-		<div class="column__left">
-
-
-			<div class="chat_log">
-				<div class="messages">
-					{#each chatHistory.slice(1) as message}
-						<div
-							transition:fade
-							class="message {message.role}">
-							<div class="header">
-								<span class="role">{message.role === 'user' ? 'Vy' : 'Asistent'}</span>
-							</div>
-							<div class="content">
-								{#if showChat}
-									{message.content}
-								{:else}
-									{message.content.replace(/\S/g, '*')}
-								{/if}
-							</div>
+		<div class="chat_log">
+			<div class="messages">
+				{#each chatHistory.slice(1) as message}
+					<div
+						transition:fade
+						class="message {message.role}">
+						<div class="header">
+							<span class="role">{message.role === 'user' ? 'Vy' : 'Asistent'}</span>
 						</div>
-					{/each}
-				</div>
+						<div class="content">
+							{#if showChat}
+								{message.content}
+							{:else}
+								{message.content.replace(/\S/g, '*')}
+							{/if}
+						</div>
+					</div>
+				{/each}
 			</div>
-
 		</div>
 
 	</div>
@@ -438,7 +433,6 @@
 
 <style>
 	main{
-    width: 80%;
     max-width: 1600px;
     margin: auto auto 2rem;
 	}
@@ -454,7 +448,7 @@
 
 	.left_column{
 		margin: auto;
-		width: 80%;
+
 	}
 
 	.column{
@@ -471,9 +465,9 @@
 	}
 
   .animation {
-    width: 100%;
-    max-width: 80%;
 		margin: auto;
+		width: 80%;
+    height: 100%;
   }
 
   .animation_canvas {
@@ -485,14 +479,12 @@
         rgb(255, 216, 0) 35%,
         rgb(0, 86, 184) 100%
     );
-		height: 63vh;
+    height: 80%;
   }
 
   .chat_log {
     display: flex;
     flex-direction: column-reverse;
-
-		max-height: 63vh;
   }
 
   .messages {
@@ -551,4 +543,35 @@
 		text-decoration: none;
 		color: white;
 	}
+
+
+
+  @media (max-width: 768px) {
+
+		main{
+			width: 96%;
+		}
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;        /* two equal columns */
+      grid-template-rows: auto auto;         /* rows adjust height automatically */
+      gap: 20px;                            /* optional gap between grid items */
+    }
+
+    .animation {
+			width: 100%;
+      grid-column: 1 / -1;                  /* span from the first to the last column */
+      grid-row: 1;
+
+			min-height: 50vh;
+    }
+
+    .left_column {
+      grid-column: 1;                      /* left column in the second row */
+    }
+
+    .chat_log {
+      grid-column: 2;                      /* right column in the second row */
+    }
+  }
 </style>
