@@ -1,108 +1,42 @@
-<header>
-	<div class="headerContent">
-		<h1 class="logo">UPA</h1>
-		<nav>
-			<ul>
-				<li><a href="/">Hlavní&nbsp;stránka</a></li>
-				<li><a href="/sign-alphabet">Prstová&nbsp;abeceda</a></li>
-				<li><a href="/playground">Playground</a></li>
-				<li><a href="/learn">Učitel</a></li>
-				<li><a href="/conversation">Konverzace</a></li>
-			</ul>
-		</nav>
-		<span><a class="githubLink" href="https://github.com/martinikf/UPA">GitHub</a></span>
-	</div>
+<script>
+	import '../app.css';
+	import { DarkMode, Navbar, NavBrand, NavHamburger, NavLi, NavUl } from 'flowbite-svelte';
+	import { page } from '$app/stores';
+
+	$: activeUrl = $page.url.pathname;
+	let activeClass = 'text-green-600 dark:text-green-400 font-semibold border-b-2 border-green-600 dark:border-green-400';
+	let nonActiveClass = 'text-gray-700 hover:text-green-600 dark:text-gray-300 dark:hover:text-green-400 transition-colors duration-200';
+</script>
+
+<header class="top-0 z-50">
+	<Navbar
+		fluid={true}
+		class="backdrop-blur-sm border-b border-gray-200 dark:border-gray-700"
+	>
+		<NavBrand class="flex items-center space-x-3 rtl:space-x-reverse">
+			<span class="self-center text-2xl font-bold whitespace-nowrap dark:text-white">
+				UPA
+			</span>
+		</NavBrand>
+
+		<div class="flex md:order-2 gap-2">
+			<DarkMode class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg" />
+			<NavHamburger class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg" />
+		</div>
+
+		<NavUl
+			{activeUrl}
+			{activeClass}
+			{nonActiveClass}
+			class="md:bg-transparent p-4 md:p-0 mt-4 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0"
+		>
+			<NavLi href="/" class="py-2 px-3 md:p-0 text-lg">Úvod</NavLi>
+			<NavLi href="/sign-alphabet" class="py-2 px-3 md:p-0 text-lg">Prstová abeceda</NavLi>
+			<NavLi href="/learn" class="py-2 px-3 md:p-0 text-lg">Učitel</NavLi>
+			<NavLi href="/conversation" class="py-2 px-3 md:p-0 text-lg">Konverzace</NavLi>
+			<NavLi href="/playground" class="py-2 px-3 md:p-0 text-lg">Playground</NavLi>
+		</NavUl>
+	</Navbar>
 </header>
 
-<slot />
-
-<style>
-	:global(body) {
-		background-color: #444444;
-		color: #e6e6e6;
-	}
-
-	header {
-		background-color: #2e2e2e;
-		padding: 20px;
-	}
-
-	.headerContent {
-		max-width: 1600px;
-		margin: auto;
-		display: flex;
-		justify-content: space-between;
-	}
-
-	header h1 {
-		display: inline;
-		padding: 0;
-		margin: 0 3rem 0 0;
-		font-size: 1rem;
-		color: #cccccc;
-	}
-
-	nav ul {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-	}
-
-	nav ul li {
-		display: inline;
-		margin-right: 1.2rem;
-	}
-
-	nav ul li a {
-		color: #cccccc;
-		text-decoration: none;
-	}
-
-	nav ul li a:hover {
-		color: #cccccc;
-		text-decoration: underline;
-	}
-
-	.githubLink {
-		text-decoration: none;
-		color: dimgrey;
-	}
-
-	.githubLink:hover {
-		text-decoration: underline;
-	}
-
-	@media (max-width: 768px) {
-		.logo {
-			display: none;
-		}
-
-		.githubLink {
-			display: none;
-		}
-
-		header {
-			padding: 15px 5px;
-		}
-
-		nav {
-			margin: auto;
-		}
-		nav ul li {
-			margin-right: 0.5rem;
-		}
-	}
-
-	@media (max-width: 480px) {
-		nav {
-			margin: 0 0 0 auto;
-		}
-
-		nav ul li {
-			display: block;
-			text-align: right;
-			padding: 2px;
-			font-size: 1.1rem;
-		}
-	}
-</style>
+<slot class="min-h-[calc(100vh-4rem)] max-w-screen-2xl m-auto" />

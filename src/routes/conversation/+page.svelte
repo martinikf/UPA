@@ -254,7 +254,7 @@
 			if (isValidExtension) {
 				count++;
 			} else {
-				if (count >= MIN_GROUP_LENGTH) {
+				if (count >= MIN_GROUP_LENGTH || (currentToken.toLowerCase() === "g" || currentToken.toLowerCase() === "f") && count >= MIN_GROUP_LENGTH / 2) {
 					result += currentToken;
 					if (count >= SPACE_INSERT_THRESHOLD) {
 						result += ' ';
