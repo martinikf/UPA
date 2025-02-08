@@ -55,6 +55,7 @@
 		}
 	];
 
+
 	/**
 	 * Routes landmark detection messages to appropriate components based on current mode
 	 * @param msg - Custom event containing gesture probability data
@@ -254,7 +255,7 @@
 			if (isValidExtension) {
 				count++;
 			} else {
-				if (count >= MIN_GROUP_LENGTH) {
+				if (count >= MIN_GROUP_LENGTH || (currentToken.toLowerCase() === "g" || currentToken.toLowerCase() === "f") && count >= MIN_GROUP_LENGTH / 2) {
 					result += currentToken;
 					if (count >= SPACE_INSERT_THRESHOLD) {
 						result += ' ';
@@ -543,8 +544,6 @@
 		text-decoration: none;
 		color: white;
 	}
-
-
 
   @media (max-width: 768px) {
 
