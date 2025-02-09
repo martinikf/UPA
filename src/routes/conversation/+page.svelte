@@ -9,7 +9,21 @@
 	// Import types
 	import type { GestureProbability } from '$lib/models/GestureProbability';
 	import { Language } from '$lib/models/Word';
-	import { fade } from 'svelte/transition';
+	import {
+		A,
+		Accordion,
+		AccordionItem,
+		Button,
+		Checkbox,
+		Heading,
+		Hr,
+		Input,
+		Label,
+		Li,
+		List,
+		P,
+		Toggle
+	} from 'flowbite-svelte';
 	let scene: Scene;
 	let model: Model;
 	let controlRow: ControlRow;
@@ -306,272 +320,136 @@
 <!-- Attach the event listener to the window -->
 <svelte:window on:keydown={handleKeyPress} />
 
-<main>
-	<p class="text_input_display">
-		Rozpoznaný vstup: {parsed}
-	</p>
+<main class="max-w-7xl mx-auto px-4 pb-8">
+	<div class="grid grid-cols-1 md:gap-3 md:grid-cols-5">
+		<!-- Left Column - Controls -->
+		<div class="space-y-6 flex flex-col md:mt-12 mt-0">
 
-	<!-- Layout -->
-	<div class="layout">
-
-		<!-- Controls -->
-		<div class="left_column">
-			<div class="webcam_container">
-				<div class="webcam">
+			<div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm order-2 md:order-1">
+				<div class="aspect-video mb-4 border-2 border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
 					<LandmarkDetection bind:this={landmarkDetection} on:gestureRecognized={handleMessage} />
 				</div>
-			</div>
 
-			<div class="controls__flow column">
-				<button on:click={send}>Odeslat zprávu</button>
-				<button on:click={reset}>Odstranit aktuální zprávu</button>
-				<button on:click={resetChat}>Restartovat historii konverzace</button>
-				<div>
-					<label for="show_chat">Zobrazit přehrávaný znak: </label>
-					<input type="checkbox" id="show_chat" bind:checked={showLetter} />
-				</div>
-				<div>
-					<label for="show_chat">Zobrazit konverzaci: </label>
-					<input type="checkbox" id="show_chat" bind:checked={showChat} />
+				<div class="space-y-3">
+					<Button class="w-full" color="blue" on:click={send}>Odeslat zprávu</Button>
+					<Button class="w-full" color="red" on:click={reset}>Odstranit aktuální zprávu</Button>
+					<Button class="w-full" color="red" on:click={resetChat}>Restartovat historii</Button>
+
+					<div class="flex flex-col space-y-3">
+						<Checkbox bind:checked={showLetter} class="text-gray-700 dark:text-gray-300">Zobrazit přehrávaný znak</Checkbox>
+						<Checkbox bind:checked={showChat} class="text-gray-700 dark:text-gray-300">Zobrazit konverzaci</Checkbox>
+					</div>
 				</div>
 			</div>
 
-			<hr/>
+			<!-- API Settings -->
+			<Accordion class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm space-y-4 order-1 md:order-2">
+				<AccordionItem open>
+					<span slot="header">Nastavení modelu</span>
+					<Toggle bind:checked={useOpenAi} class="w-full text-sm">Použít OpenAI API</Toggle>
+					{#if useOpenAi}
+						<div class="space-y-4">
+							<Heading class="block text-sm">OpenAI Nastavení</Heading>
+							<div>
+								<Label for="model_name_openai">Model name</Label>
+								<Input id="model_name_openai" placeholder="Model name" size="sm" bind:value={modelNameOpenAI} />
+							</div>
+							<div>
+								<Label for="request_url_openai">Request URL</Label>
+								<Input id="request_url_openai" placeholder="Request url" size="sm" bind:value={requestUrlOpenAI} />
+							</div>
+							<div>
+								<Label for="api_key_openai">API Key</Label>
+								<Input id="api_key_openai" placeholder="OpenAI API key" size="sm" bind:value={openAiAPIKey} />
+							</div>
+						</div>
+					{:else}
+						<div class="space-y-4">
+							<Heading class="block text-sm">Ollama Nastavení</Heading>
+							<div>
+								<Label for="model_name_ollama">Model name</Label>
+								<Input id="model_name_ollama" placeholder="Model name" size="sm" bind:value={modelNameOllama} />
+							</div>
+							<div>
+								<Label for="request_url_ollama">Request URL</Label>
+								<Input id="request_url_ollama" placeholder="Request url" size="sm" bind:value={requestUrlOllama} />
+							</div>
+						</div>
+					{/if}
 
-			<!-- AI API settings -->
-			<div class="controls__api column">
-				<div>
-					<label for="use_openAi">Použít OpenAI API: </label>
-					<input id="use_openAi" type="checkbox" bind:checked={useOpenAi} />
-				</div>
-				{#if useOpenAi}
-					<span>OpenAI API nastavení</span>
-					<label for="model_name">Model name</label>
-					<input id="model_name" type="text" bind:value={modelNameOpenAI} />
-
-					<label for="request_url">Request url</label>
-					<input id="request_url" type="text" bind:value={requestUrlOpenAI} />
-
-					<label for="api_key">OpenAI API key:</label>
-					<input id="api_key" type="text" bind:value={openAiAPIKey}/>
-				{:else}
-					<span>Ollama API nastavení</span>
-
-					<label for="model_name">Model name</label>
-					<input id="model_name" type="text" bind:value={modelNameOllama} />
-
-					<label for="request_url">Request url</label>
-					<input id="request_url" type="text" bind:value={requestUrlOllama} />
-				{/if}
-			</div>
+				</AccordionItem>
+			</Accordion>
 		</div>
 
-		<!-- Animation -->
-		<div class="animation">
-			<div class="animation_canvas">
-				<Scene bind:model bind:this={scene} bind:showLetter={showLetter}/>
+		<!-- Middle Column - Animation -->
+		<div class="col-span-3 md:col-span-3">
+			<P class="text-center mb-3 mt-3 text-gray-600 dark:text-gray-400">Rozpoznaný vstup: {parsed}</P>
+			<div class="bg-gradient-to-b from-blue-400 to-yellow-600 h-[600px] rounded-xl border-2 border-gray-200 dark:border-gray-700 shadow-lg">
+				<Scene bind:model bind:this={scene} bind:showLetter={showLetter} />
 			</div>
 			<ControlRow bind:this={controlRow} {model} />
 		</div>
 
-		<!-- WEBCAM with chat log -->
-		<div class="chat_log">
-			<div class="messages">
-				{#each chatHistory.slice(1) as message}
-					<div
-						transition:fade
-						class="message {message.role}">
-						<div class="header">
-							<span class="role">{message.role === 'user' ? 'Vy' : 'Asistent'}</span>
+		<!-- Right Column - Chat -->
+		<div class="md:mt-12 mt-0">
+			<div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm h-[625px] flex flex-col">
+				<div class="overflow-y-auto flex-1 space-y-4">
+					{#each chatHistory.slice(1) as message}
+						<div class="p-4 rounded-lg {message.role === 'user' ? 'bg-blue-50 dark:bg-gray-700 ml-6' : 'bg-gray-50 dark:bg-gray-700 mr-6'}">
+							<Heading tag="h5" class="text-sm font-medium mb-2">{message.role === 'user' ? 'Vy' : 'Asistent'}</Heading>
+							<P class="text-gray-700 dark:text-gray-300">
+								{#if showChat}
+									{message.content}
+								{:else}
+									{message.content.replace(/\S/g, '*')}
+								{/if}
+							</P>
 						</div>
-						<div class="content">
-							{#if showChat}
-								{message.content}
-							{:else}
-								{message.content.replace(/\S/g, '*')}
-							{/if}
-						</div>
-					</div>
-				{/each}
+					{/each}
+				</div>
 			</div>
 		</div>
-
 	</div>
 
-	<hr>
-	<h3> TBD - Jak používat tento režim</h3>
+	<Hr class="my-8" />
 
-	Obecné informace
-	<ul>
-		<li>Kvalita odpovědí velmi závisí na použitém LLM. Běžně dostupné menší/nenáročné modely nemusí rozumět českému jazyku, obzvlášt při nedokonalém vstupu dat.</li>
-		<li>Pro vytvoření mezery zobrazuje poslední znak slova po dobu zhruba dvou sekund. (Podobně jako 3D animace)</li>
-		<li>Chcete-li znakovat stejný znak dvakrát zasebou, ukažte znak, uvolněte ruku do neurčitého stavu a zobrazte znak znovu.</li>
-	</ul>
-	Klávesové zkratky
-	<ul>
-		<li>Enter - odešle zprávu asistentovi</li>
-		<li>Space - vytvoří mezeru</li>
-		<li>Backspace - smaže poslední registrovaný znak</li>
-	</ul>
+	<div class="prose dark:prose-invert max-w-4xl mx-auto">
+		<Heading tag="h2" class="mb-6">Jak používat tento režim</Heading>
 
-	<h3>Ollama API</h3>
-	<ul>
-		<li><a href="https://ollama.com/">https://ollama.com/</a></li>
-		<li>Cors nastavení: SET OLLAMA_ORIGINS='*'</li>
-	</ul>
+		<Heading tag="h3" class="mb-4">Obecné informace</Heading>
+		<List class="space-y-3">
+			<Li>Kvalita odpovědí velmi závisí na použitém LLM...</Li>
+			<Li>Pro vytvoření mezery zobrazuje poslední znak...</Li>
+			<Li>Chcete-li znakovat stejný znak dvakrát...</Li>
+		</List>
 
-	<h3>OpenAI API</h3>
-	TBD
+		<Heading tag="h3" class="mt-6 mb-4">Klávesové zkratky</Heading>
+		<List class="space-y-2">
+			<Li><strong>Enter</strong> - odešle zprávu asistentovi</Li>
+			<Li><strong>Space</strong> - vytvoří mezeru</Li>
+			<Li><strong>Backspace</strong> - smaže poslední registrovaný znak</Li>
+		</List>
 
+		<Heading tag="h3" class="mt-6 mb-4">API</Heading>
+		<Heading tag="h4" class="mb-3">Ollama API</Heading>
+		<List class="space-y-2">
+			<Li><A href="https://ollama.com/" class="text-blue-600 dark:text-blue-400">https://ollama.com/</A></Li>
+			<Li>Cors nastavení: SET OLLAMA_ORIGINS='*'</Li>
+		</List>
 
-	<h3>Nekompatibilní API</h3>
-	<p>
-		Pro programátory, ve zdrojovém kodu naleznete podobu API dotazů. Poté stačí naprogramovat Adaptér - překládající dotazy pro Vaši API.
-		<a href="https://github.com/martinikf/UPA/blob/main/src/routes/conversation/%2Bpage.svelte">Zdrojový kod</a>
-	</p>
+		<Heading tag="h4" class="mt-4 mb-3">Nekompatibilní API</Heading>
+		<P class="mb-4">
+			Pro programátory, ve zdrojovém kodu naleznete podobu API dotazů.<br>
+			<A href="https://github.com/martinikf/UPA/blob/main/src/routes/conversation/%2Bpage.svelte" class="text-blue-600 dark:text-blue-400">Zdrojový kód</A>
+		</P>
+	</div>
 </main>
 
 <style>
-	main{
-    max-width: 1600px;
-    margin: auto auto 2rem;
-	}
-
-	.text_input_display{
-		text-align: center;
-	}
-
-	.layout{
-		display: grid;
-		grid-template-columns: 1fr 3fr 1fr;
-	}
-
-	.left_column{
-		margin: auto;
-
-	}
-
-	.column{
-		display: flex;
-		flex-direction: column;
-	}
-
-	.column *{
-    margin: 0.25rem;
-	}
-
-	.controls__flow button{
-		padding: 10px;
-	}
-
-  .animation {
-		margin: auto;
-		width: 80%;
-    height: 100%;
-  }
-
-  .animation_canvas {
-    border: solid 2px black;
-    position: relative;
-    background: linear-gradient(
-        0deg,
-        rgb(255, 115, 0) 0%,
-        rgb(255, 216, 0) 35%,
-        rgb(0, 86, 184) 100%
-    );
-    height: 80%;
-  }
-
-  .chat_log {
-    display: flex;
-    flex-direction: column-reverse;
-  }
-
-  .messages {
-    overflow-y: scroll;
-    flex-grow: 1;
-    padding-right: 5px;
-  }
-
-  .message {
-    margin-bottom: 1rem;
-    padding: 0.8rem;
-    border-radius: 6px;
-    animation: slideIn 0.2s ease-out;
-  }
-
-  .message.user {
-    background: #2e2e2e;
-    margin-left: 20%;
-    border: 1px solid #bbdefb;
-  }
-
-  .message.assistant {
-    background: #2e2e2e;
-    margin-right: 20%;
-    border: 1px solid #eee;
-  }
-
-  .header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 0.5rem;
-    font-size: 0.8em;
-  }
-
-  .role {
-    font-weight: 800;
-  }
-
-  .content {
-    white-space: pre-wrap;
-    word-break: break-word;
-  }
-
+  /* Custom animations */
   @keyframes slideIn {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
-	a{
-		text-decoration: none;
-		color: white;
-	}
-
-
-
-  @media (max-width: 768px) {
-
-		main{
-			width: 96%;
-		}
-    .layout {
-      display: grid;
-      grid-template-columns: 1fr 1fr;        /* two equal columns */
-      grid-template-rows: auto auto;         /* rows adjust height automatically */
-      gap: 20px;                            /* optional gap between grid items */
-    }
-
-    .animation {
-			width: 100%;
-      grid-column: 1 / -1;                  /* span from the first to the last column */
-      grid-row: 1;
-
-			min-height: 50vh;
-    }
-
-    .left_column {
-      grid-column: 1;                      /* left column in the second row */
-    }
-
-    .chat_log {
-      grid-column: 2;                      /* right column in the second row */
-    }
-  }
 </style>

@@ -7,6 +7,7 @@
 	 * Requires the AnimatedModel component to be passed as a prop
 	 */
 	import Model from './AnimatedModel.svelte';
+	import { Button, Label, Range } from 'flowbite-svelte';
 
 	export let model: Model | undefined = undefined;
 	let speed: number = 1;
@@ -37,37 +38,25 @@
 <div class="control_row">
 	<!-- Speed slider -->
 	<div>
-		<label for="speed_slider">Rychlost</label>
-		<input
-			type="range"
-			id="speed_slider"
-			min="0"
-			max="3"
-			step="0.2"
-			bind:value={speed}
-			on:change={() => {
-				model ? model.changeSpeed(speed) : null;
-			}}
-		/>
+		<Label for="animation_speed_slider">Rychlost</Label>
+
+		<Range  id = "animation_speed_slider"
+						min = "0"
+						max = "4"
+						step = "0.2"
+						bind:value = {speed}
+						size="md"/>
 	</div>
 
 	<!-- Reset and pause/resume buttons-->
 	<div>
-		<button
-			on:click={() => {
-				resetOnClick();
-			}}
-		>
+		<Button on:click={() => {	resetOnClick(); }}>
 			Reset
-		</button>
+		</Button>
 
-		<button
-			on:click={() => {
-				pauseResumeOnClick();
-			}}
-		>
+		<Button on:click={() => { pauseResumeOnClick();	}}>
 			{pauseButtonText}
-		</button>
+		</Button>
 	</div>
 </div>
 
@@ -82,10 +71,6 @@
 		padding: 5px;
 	}
 
-	#speed_slider {
-		margin-bottom: -0.4rem;
-	}
-
 	@media (max-width: 480px) {
 		.control_row {
 			display: block;
@@ -95,16 +80,6 @@
 			display: flex;
 			flex-direction: row;
 			justify-content: end;
-		}
-
-		#speed_slider {
-			margin-bottom: 0;
-			margin-left: 10px;
-		}
-
-		button {
-			margin-left: 10px;
-			padding: 8px;
 		}
 	}
 </style>
