@@ -18,6 +18,7 @@
 	import Review from './Review.svelte';
 	import Practice from './Practice.svelte';
 	import Learn from './Learn.svelte';
+	import { TabItem, Tabs } from 'flowbite-svelte';
 
 	let scene: Scene;
 	let model: Model;
@@ -68,145 +69,44 @@
 	}
 </script>
 
-<div class="learn">
-	<h2>Učitel</h2>
+	<div class="mt-8 max-w-7xl mx-auto px-4 pb-8 dark:bg-gray-900">
+		<div class="grid grid-cols-1 md:grid-cols-5 md:gap-6">
 
-	<div class="tabs">
-		<ul>
-			<li class:highlight={currentMode === LearnMode.Practice}>
-				<button
-					on:click={() => {
-						changeMode(LearnMode.Practice);
-					}}
-				>
-					Procvičovat
-				</button>
-			</li>
-			<li>
-				<button
-					on:click={() => {
-						changeMode(LearnMode.Learn);
-					}}
-				>
-					Učit
-				</button>
-			</li>
-			<li>
-				<button
-					on:click={() => {
-						changeMode(LearnMode.Review);
-					}}
-				>
-					Znaky
-				</button>
-			</li>
-		</ul>
-	</div>
-
-	<div class="content">
-		<div class="animation">
-			<div class="animation_canvas">
-				<Scene bind:model bind:this={scene} bind:showLetter={showString} />
+			<!-- Animation Column -->
+			<div class="col-span-3">
+				<div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm">
+					<div class="bg-gradient-to-b from-blue-400 to-yellow-600 h-[454px] rounded-xl border-2 border-gray-200 dark:border-gray-700 shadow-lg relative">
+						<Scene bind:model bind:this={scene} bind:showLetter={showString} />
+					</div>
+					<ControlRow {model} bind:this={controlRow} />
+				</div>
 			</div>
-			<ControlRow {model} bind:this={controlRow} />
-		</div>
 
-		<div class="control">
-			{#if currentMode === LearnMode.Practice}
-				<Practice {model} {data} />
-			{:else if currentMode === LearnMode.Learn}
-				<Learn {model} {data} />
-			{:else if currentMode === LearnMode.Review}
-				<Review {model} {data} />
-			{/if}
+
+			<div class="md:mt-0 mt-4 col-span-1 md:col-span-2">
+				<Tabs>
+					<TabItem
+						title="Procvičovat"
+						on:click={() => changeMode(LearnMode.Practice)}
+					>
+						<Practice {model} {data} />
+					</TabItem>
+
+					<TabItem
+						title="Učit"
+						on:click={() => changeMode(LearnMode.Learn)}
+					>
+						<Learn {model} {data} />
+					</TabItem>
+
+					<TabItem
+						title="Znaky"
+						on:click={() => changeMode(LearnMode.Review)}
+						open
+					>
+						<Review {model} {data} />
+					</TabItem>
+				</Tabs>
+			</div>
 		</div>
 	</div>
-</div>
-
-<style>
-	.learn {
-		width: 80%;
-		max-width: 1600px;
-		margin: auto auto 2rem;
-	}
-
-	.content {
-		margin: auto;
-		display: grid;
-		grid-template-columns: 1fr 2fr;
-	}
-
-	.animation {
-		width: 100%;
-		max-width: 400px;
-		margin-right: 2rem;
-	}
-
-	.tabs {
-		list-style: none;
-		display: flex;
-
-		justify-content: left;
-		padding: 0;
-		margin: 0 0 2rem;
-	}
-
-	.tabs ul {
-		padding: 0;
-		margin: 0;
-		display: flex;
-		gap: 0.5rem;
-	}
-
-	.tabs li {
-		display: inline-block;
-	}
-
-	.tabs li button {
-		padding: 5px;
-	}
-
-	.tabs li button {
-		padding: 5px;
-		font-size: 1rem;
-	}
-
-	.animation_canvas {
-		border: solid 2px black;
-		position: relative;
-		background: linear-gradient(
-			0deg,
-			rgb(255, 115, 0) 0%,
-			rgb(255, 216, 0) 35%,
-			rgb(0, 86, 184) 100%
-		);
-		height: 300px;
-		width: 400px;
-	}
-
-	@media (max-width: 1400px) {
-	}
-
-	@media (max-width: 768px) {
-		.content {
-			grid-template-columns: 1fr;
-		}
-		.tabs {
-			justify-content: right;
-		}
-
-		.animation {
-			margin: auto;
-		}
-
-		.learn {
-			width: 90%;
-		}
-	}
-
-	@media (max-width: 480px) {
-		.learn {
-			width: 95%;
-		}
-	}
-</style>

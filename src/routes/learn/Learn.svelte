@@ -16,6 +16,7 @@
 
 	import Model from '$lib/components/AnimatedModel.svelte';
 	import { Language, Word } from '$lib/models/Word';
+	import { Button, Heading, Label, P, Select } from 'flowbite-svelte';
 
 	// Component props
 	export let model: Model;
@@ -112,55 +113,56 @@
 
 	play();
 </script>
+<div class="max-w-7xl mx-auto px-4 pb-8 space-y-6">
+	<Heading tag="h2" class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Učit</Heading>
 
-<h2>Učit</h2>
-<p>
-	Bude vám zobrazeno písmeno/znak, zkuste si jej co nejlépe zapomatovat. <br />
-	Po stisknutí tlačítka "Už umím" jej budete vídat v oblasti procvičování.
-</p>
+	<P class="text-gray-600 dark:text-gray-400 mb-6">
+		Bude vám zobrazeno písmeno/znak, zkuste si jej co nejlépe zapamatovat.<br>
+		Po stisknutí tlačítka "Už umím" jej budete vídat v oblasti procvičování.
+	</P>
 
-<div class="language_selection">
-	<label for="language">Jazyk:</label>
-	<select id="language" bind:value={selectedLanguageSet} on:change={onLanguageChange}>
-		<option value={Language.CzechFingerOneHand}>Česká prstová abeceda jednoruční</option>
-		<option value={Language.CzechFingerTwoHand}>Česká prstová abeceda dvouruční</option>
-		<option value={Language.Czech}>Český znakový jazyk</option>
-	</select>
+	<div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm mb-6">
+		<div class="space-y-4">
+			<div>
+				<Label for="language" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Jazyk:</Label>
+				<Select id="language"
+								bind:value={selectedLanguageSet} on:change={onLanguageChange}
+								placeholder="Prosím zvolte jeden jazyk">
+					<option value={Language.CzechFingerOneHand}>Česká prstová abeceda jednoruční</option>
+					<option value={Language.CzechFingerTwoHand}>Česká prstová abeceda dvouruční</option>
+					<option value={Language.Czech}>Český znakový jazyk</option>
+				</Select>
+			</div>
+
+			{#if everythingLearned}
+				<Heading tag="h3" class="text-lg font-semibold text-green-600 dark:text-green-400 mb-4">
+					Všechno jste se naučili!
+				</Heading>
+			{:else}
+				<Heading tag="h3" class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">
+					Učíte se: {languageSet[currentIndex].str}
+				</Heading>
+			{/if}
+
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+				<Button
+					color="blue"
+					on:click={play}
+					disabled={everythingLearned}
+					class="w-full {everythingLearned ? 'opacity-50 cursor-not-allowed' : ''}"
+				>
+					Přehrát znovu
+				</Button>
+
+				<Button
+					color="green"
+					on:click={markAsLearned}
+					disabled={everythingLearned}
+					class="w-full {everythingLearned ? 'opacity-50 cursor-not-allowed' : ''}"
+				>
+					Už umím!
+				</Button>
+			</div>
+		</div>
+	</div>
 </div>
-
-{#if everythingLearned}
-	<h3>Všechno jste se naučili!</h3>
-{/if}
-
-{#if !everythingLearned}
-	<h3>Učíte se: {languageSet[currentIndex].str}</h3>
-{/if}
-
-<div class="control_buttons">
-	<button on:click={play} disabled={everythingLearned}>Přehrát znovu</button>
-
-	<button on:click={markAsLearned} disabled={everythingLearned}>Už umím!</button>
-</div>
-
-<style>
-	h2 {
-		margin-top: 0;
-	}
-
-	.control_buttons button {
-		display: block;
-		padding: 5px;
-		margin-bottom: 0.5rem;
-	}
-
-	.language_selection select {
-		padding: 5px;
-	}
-
-	@media (max-width: 768px) {
-		.control_buttons {
-			display: flex;
-			flex-direction: column;
-		}
-	}
-</style>

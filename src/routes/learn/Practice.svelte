@@ -7,6 +7,7 @@
 
 	import Model from '$lib/components/AnimatedModel.svelte';
 	import { Word, Language } from '$lib/models/Word';
+	import { Button, Heading, Input, Label, P, Select } from 'flowbite-svelte';
 
 	// Component props
 	export let model: Model;
@@ -74,76 +75,67 @@
 	}
 </script>
 
-<h2>Procvičovat</h2>
-<p>
-	Zapište do pole postupně všechny znaky, které vám byly zobrazeny. Poté stiskněte tlačítko
-	zkontrolovat.
-</p>
+<div class="max-w-7xl mx-auto px-4 pb-8 space-y-6">
+	<Heading tag="h2" class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Procvičovat</Heading>
 
-<div class="language">
-	<label for="language" class="select_label">Jazyk:</label>
-	<select id="language" bind:value={selectedLanguageSet}>
-		<option value={Language.CzechFingerOneHand}>Česká prstová abeceda jednoruční</option>
-		<option value={Language.CzechFingerTwoHand}>Česká prstová abeceda dvouruční</option>
-		<option value={Language.Czech}>Český znakový jazyk</option>
-	</select>
+	<P class="text-gray-600 dark:text-gray-400 mb-6">
+		Zapište do pole postupně všechny znaky, které vám byly zobrazeny. Poté stiskněte tlačítko
+		zkontrolovat.
+	</P>
+
+	<div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm space-y-6">
+		<!-- Language Selection -->
+		<div>
+			<Label for="language" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Jazyk:</Label>
+			<Select
+				id="language"
+				bind:value={selectedLanguageSet}
+				class="w-full"
+			>
+				<option value={Language.CzechFingerOneHand}>Česká prstová abeceda jednoruční</option>
+				<option value={Language.CzechFingerTwoHand}>Česká prstová abeceda dvouruční</option>
+				<option value={Language.Czech}>Český znakový jazyk</option>
+			</Select>
+		</div>
+
+		<!-- Control Buttons -->
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+			<Button
+				color="primary"
+				class="w-full"
+				disabled={languageSets[selectedLanguageSet].length === 0}
+				on:click={createNewSentence}
+			>
+				Spustit novou větu
+			</Button>
+
+			<Button
+				color="blue"
+				class="w-full"
+				on:click={replayAnimation}
+			>
+				Přehrát znovu
+			</Button>
+		</div>
+
+		<!-- Input Group -->
+		<div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+			<div class="md:col-span-3">
+				<Input
+					id="text"
+					type="text"
+					bind:value={userInput}
+					placeholder="Zde napište znakované slovo"
+					class="w-full"
+				/>
+			</div>
+			<Button
+				color="green"
+				class="w-full md:col-span-2"
+				on:click={checkAnswer}
+			>
+				Zkontrolovat
+			</Button>
+		</div>
+	</div>
 </div>
-
-<div class="group_control">
-	<button disabled={languageSets[selectedLanguageSet].length === 0} on:click={createNewSentence}>
-		Spustit novou větu
-	</button>
-
-	<button on:click={replayAnimation}>Přehrát znovu </button>
-</div>
-
-<div class="group_input">
-	<input
-		id="text"
-		class="text_input"
-		type="text"
-		bind:value={userInput}
-		placeholder="Zde napište znakované slovo"
-	/>
-	<button class="smaller_button" on:click={checkAnswer}>Zkontrolovat</button>
-</div>
-
-<style>
-	h2 {
-		margin-top: 0;
-	}
-
-	.select_label {
-		text-align: right;
-	}
-
-	button,
-	input,
-	select {
-		padding: 5px;
-	}
-
-	.language {
-		margin-bottom: 0.5rem;
-	}
-
-	.group_control {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		margin-bottom: 0.5rem;
-	}
-
-	.group_input {
-		display: grid;
-		grid-template-columns: 2fr 1fr;
-	}
-
-	@media (max-width: 768px) {
-		.group_control,
-		.group_input {
-			display: flex;
-			flex-direction: column;
-			gap: 0.5rem;
-		}
-	}
-</style>

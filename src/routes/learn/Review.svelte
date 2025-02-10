@@ -12,6 +12,7 @@
 
 	import Model from '$lib/components/AnimatedModel.svelte';
 	import { Language, Word } from '$lib/models/Word';
+	import { Heading, Hr, Input, P } from 'flowbite-svelte';
 
 	export let model: Model;
 	export let data: Word[];
@@ -92,142 +93,98 @@
 	}
 </script>
 
-<h2>Přehled</h2>
-<p>
-	Zde vidíte všechny znaky, nezašedlé položky již umíte. <br />
-	Pro přehrání daného znaku klikněte na něj. <br />
-	Pokud jste již v minulosti tento režim použili, dvojklikem na slovo se jej rovnou naučíte.
-</p>
+<div class="max-w-7xl mx-auto px-4 pb-8 space-y-6">
+	<Heading tag="h2" class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Přehled</Heading>
 
-{#key rerender}
-	<h3>Česká jednoruční prstová abeceda</h3>
-	<div class="letters">
-		{#each data as letter}
-			{#if letter.language === Language.CzechFingerOneHand}
-				<button
-					class="letter"
-					class:learned={letter.learned}
-					on:dblclick={() => {
-						markAsLearned(letter);
-					}}
-					on:click={() => {
-						animate(letter.str, letter.language);
-					}}
-				>
-					{letter.str}
-				</button>
-			{/if}
-		{/each}
+	<P class="text-gray-600 dark:text-gray-400 mb-6">
+		Zde vidíte všechny znaky, nezašedlé položky již umíte.<br>
+		Pro přehrání daného znaku klikněte na něj.<br>
+		Pokud jste již v minulosti tento režim použili, dvojklikem na slovo se jej rovnou naučíte.
+	</P>
+
+	<div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm space-y-6">
+		{#key rerender}
+			<!-- Czech One-Handed Alphabet -->
+			<div class="space-y-4">
+				<Heading tag="h3" class="text-xl font-semibold text-gray-800 dark:text-gray-200">
+					Česká jednoruční prstová abeceda
+				</Heading>
+				<div class="flex flex-wrap gap-2">
+					{#each data as letter}
+						{#if letter.language === Language.CzechFingerOneHand}
+							<button
+								class="px-4 py-2 rounded-lg font-semibold transition-colors
+                                    {letter.learned
+                                        ? 'bg-green-600 text-white'
+                                        : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200'}
+                                    hover:bg-green-500 dark:hover:bg-gray-600"
+								on:dblclick={() => markAsLearned(letter)}
+								on:click={() => animate(letter.str, letter.language)}
+							>
+								{letter.str}
+							</button>
+						{/if}
+					{/each}
+				</div>
+			</div>
+
+			<!-- Czech Two-Handed Alphabet -->
+			<div class="space-y-4">
+				<Heading tag="h3" class="text-xl font-semibold text-gray-800 dark:text-gray-200">
+					Česká dvouruční prstová abeceda
+				</Heading>
+				<div class="flex flex-wrap gap-2">
+					{#each data as letter}
+						{#if letter.language === Language.CzechFingerTwoHand}
+							<button
+								class="px-4 py-2 rounded-lg font-semibold transition-colors
+                                    {letter.learned
+                                        ? 'bg-green-600 text-white'
+                                        : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200'}
+                                    hover:bg-green-500 dark:hover:bg-gray-600"
+								on:dblclick={() => markAsLearned(letter)}
+								on:click={() => animate(letter.str, letter.language)}
+							>
+								{letter.str}
+							</button>
+						{/if}
+					{/each}
+				</div>
+			</div>
+
+			<Hr class="my-6" />
+
+			<!-- Basic CZJ Signs -->
+			<div class="space-y-4">
+				<Heading tag="h3" class="text-xl font-semibold text-gray-800 dark:text-gray-200">
+					Základní znaky ČZJ
+				</Heading>
+				<Input
+					type="text"
+					placeholder="Vyhledávač..."
+					bind:value={searchInput}
+					on:keyup={SearchInputOnChange}
+					class="w-full mb-4"
+				/>
+
+				<div class="flex flex-wrap gap-2">
+					{#each wordsToShow as word}
+						{#if word.language == Language.Czech}
+							<button
+								class="px-4 py-2 rounded-lg transition-colors
+                                    {word.learned
+                                        ? 'bg-green-600 text-white'
+                                        : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200'}
+                                    hover:bg-green-500 dark:hover:bg-gray-600"
+								on:dblclick={() => markAsLearned(word)}
+								on:click={() => animate(word.str, word.language)}
+							>
+								{word.str}
+							</button>
+						{/if}
+					{/each}
+				</div>
+			</div>
+		{/key}
 	</div>
-
-	<h3>Česká dvouruční prstová abeceda</h3>
-	<div class="letters">
-		{#each data as letter}
-			{#if letter.language === Language.CzechFingerTwoHand}
-				<button
-					class="letter"
-					class:learned={letter.learned}
-					on:dblclick={() => {
-						markAsLearned(letter);
-					}}
-					on:click={() => {
-						animate(letter.str, letter.language);
-					}}
-				>
-					{letter.str}
-				</button>
-			{/if}
-		{/each}
-	</div>
-
-	<hr />
-	<div>
-		<h3>Základní znaky ČZJ</h3>
-		<input
-			type="text"
-			class="text_input"
-			placeholder="Vyhledávač..."
-			on:keyup={SearchInputOnChange}
-			bind:value={searchInput}
-		/>
-
-		<div class="words">
-			{#each wordsToShow as word}
-				{#if word.language == Language.Czech}
-					<button
-						class="word"
-						class:learned={word.learned}
-						on:dblclick={() => {
-							markAsLearned(word);
-						}}
-						on:click={() => {
-							animate(word.str, word.language);
-						}}
-					>
-						{word.str}
-					</button>
-				{/if}
-			{/each}
-		</div>
-	</div>
-{/key}
-
-<style>
-	h2 {
-		margin-top: 0;
-	}
-
-	.letters {
-		display: flex;
-		flex-wrap: wrap;
-		padding-left: 0.5rem;
-		padding-right: 0.5rem;
-	}
-
-	.words {
-		display: flex;
-		flex-wrap: wrap;
-		padding-left: 0.5rem;
-		padding-right: 0.5rem;
-	}
-
-	.word,
-	.letter {
-		border: none;
-		outline: none;
-		margin-right: 0.25rem;
-		margin-bottom: 0.25rem;
-		padding: 0.5rem;
-		min-width: 2rem;
-	}
-
-	.letter {
-		font-weight: bold;
-	}
-
-	.learned {
-		background-color: green;
-	}
-
-	.word:hover,
-	.letter:hover {
-		cursor: pointer;
-	}
-
-	.text_input {
-		display: block;
-		width: 95%;
-		margin: auto auto 1rem;
-	}
-
-	@media (max-width: 768px) {
-		.text_input {
-			margin-bottom: 1rem;
-		}
-
-		.word,
-		.letter {
-			padding: 5px;
-		}
-	}
-</style>
+</div>
