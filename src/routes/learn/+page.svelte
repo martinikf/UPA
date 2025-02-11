@@ -86,24 +86,20 @@
 			<div class="md:mt-0 mt-4 col-span-1 md:col-span-2">
 				<Tabs>
 					<TabItem
-						title="Procvičovat"
-						on:click={() => changeMode(LearnMode.Practice)}
-					>
+						on:click={() => changeMode(LearnMode.Practice)}	>
+						<span slot="title" class="text-xl">Procvičovat</span>
 						<Practice {model} {data} />
 					</TabItem>
 
 					<TabItem
-						title="Učit"
-						on:click={() => changeMode(LearnMode.Learn)}
-					>
+						on:click={() => changeMode(LearnMode.Learn)}>
+						<span slot="title" class="text-xl">Učit</span>
 						<Learn {model} {data} />
 					</TabItem>
 
 					<TabItem
-						title="Znaky"
-						on:click={() => changeMode(LearnMode.Review)}
-						open
-					>
+						on:click={() => changeMode(LearnMode.Review)}	open>
+						<span slot="title" class="text-xl">Znaky</span>
 						<Review {model} {data} />
 					</TabItem>
 				</Tabs>

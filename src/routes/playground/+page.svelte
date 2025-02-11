@@ -26,6 +26,7 @@
 	// Import types
 	import type { GestureProbability } from '$lib/models/GestureProbability';
 	import { PlaygroundMode } from '$lib/models/PlaygroundMode';
+	import { Button, Toggle } from 'flowbite-svelte';
 
 	// State
 	let mode: PlaygroundMode = PlaygroundMode.Translator;
@@ -100,259 +101,101 @@
 	}
 </script>
 
-<!-- MODE SELECTION -->
-<div class="mode_container">
-	<h3>Režimy UPA pro českou prstovou abecedu</h3>
-	<div class="mode_flex">
-		<ul class="mode_list left">
-			<li>
-				<button
-					on:click={() => {
-						changeMode(PlaygroundMode.Translator);
-					}}
+
+<div class="max-w-7xl mx-auto px-4 pb-8 dark:bg-gray-900">
+	<!-- Mode Selection -->
+	<div class="mx-auto mb-8 mt-8">
+		<div class="grid grid-cols-3 gap-4">
+			<!-- Left Modes -->
+			<div class="flex flex-wrap gap-2">
+				<Button
+					color={mode === PlaygroundMode.Translator ? 'blue' : 'dark'}
+					on:click={() => changeMode(PlaygroundMode.Translator)}
 				>
 					Překladač
-				</button>
-			</li>
-			<li>
-				<button
-					on:click={() => {
-						changeMode(PlaygroundMode.Practice);
-					}}
+				</Button>
+				<Button
+					color={mode === PlaygroundMode.Practice ? 'blue' : 'dark'}
+					on:click={() => changeMode(PlaygroundMode.Practice)}
 				>
 					Procvičení odezírání
-				</button>
-			</li>
-		</ul>
-		<ul class="mode_list middle">
-			<li>
-				<button class="webcam_button" on:click={toggleWebcam}>
-					{webcam ? 'Vypnout kameru' : 'Zapnout kameru'}
-				</button>
-			</li>
-		</ul>
-		<ul class="mode_list right">
-			{#if webcam}
-				<li>
-					<button
-						on:click={() => {
-							changeMode(PlaygroundMode.Spelling);
-						}}
+				</Button>
+			</div>
+
+			<!-- Middle Webcam Toggle -->
+			<div class="flex justify-center items-center gap-2">
+				<div class="flex flex-col">
+				<Toggle
+					color="red"
+					checked={webcam}
+					on:change={toggleWebcam}
+					class="mx-auto"
+				/>
+				<span class="text-sm text-gray-600 dark:text-gray-300">
+					{webcam ? 'Kamera zapnuta' : 'Kamera vypnuta'}
+				</span>
+				</div>
+			</div>
+
+			<!-- Right Modes -->
+				<div class="flex flex-nowrap gap-2 justify-end">
+					<Button
+						color={mode === PlaygroundMode.Spelling ? 'blue' : 'dark'}
+						on:click={() => changeMode(PlaygroundMode.Spelling)}
+						disabled={!webcam}
 					>
 						Procvičení znakování
-					</button>
-				</li>
-				<li>
-					<button
-						on:click={() => {
-							changeMode(PlaygroundMode.Transcript);
-						}}
+					</Button>
+					<Button
+						color={mode === PlaygroundMode.Transcript ? 'blue' : 'dark'}
+						on:click={() => changeMode(PlaygroundMode.Transcript)}
+						disabled={!webcam}
 					>
 						Přepis
-					</button>
-				</li>
-				<li>
-					<button
-						on:click={() => {
-							changeMode(PlaygroundMode.Interactive);
-						}}
+					</Button>
+					<Button
+						color={mode === PlaygroundMode.Interactive ? 'blue' : 'dark'}
+						on:click={() => changeMode(PlaygroundMode.Interactive)}
+						disabled={!webcam}
 					>
 						Interaktivní režim
-					</button>
-				</li>
-			{/if}
-		</ul>
-	</div>
-</div>
-
-<!-- ANIMATION and ControlRow -->
-<div class="content_container">
-	<div class="animation">
-		<div class="animation_canvas">
-			<Scene bind:model bind:this={scene} showLetter={displayLetter} />
+					</Button>
+				</div>
 		</div>
-		<ControlRow bind:this={controlRow} {model} />
 	</div>
 
-	<!-- CONTROLS -->
-	<div class="control_container">
-		{#if mode === PlaygroundMode.Translator}
-			<Translator {model} />
-		{:else if mode === PlaygroundMode.Practice}
-			<Practice {model} />
-		{:else if mode === PlaygroundMode.Interactive}
-			<Interactive {model} bind:this={interactive} />
-		{:else if webcam && mode === PlaygroundMode.Spelling}
-			<SpellActivity bind:this={spellActivity} {model} />
-		{:else if webcam && mode === PlaygroundMode.Transcript}
-			<Transcript bind:this={transcript} {model} />
-		{/if}
-	</div>
+	<!-- Content Container -->
+	<div class="grid md:grid-cols-3 gap-6 max-w-7xl mx-auto">
+		<!-- Animation -->
+		<div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm">
+			<div class="bg-gradient-to-b from-blue-400 to-yellow-600 h-64 rounded-xl border-2 border-gray-200 dark:border-gray-700 relative">
+				<Scene bind:model bind:this={scene} showLetter={displayLetter} />
+			</div>
+			<ControlRow bind:this={controlRow} {model} class="mt-4" />
+		</div>
 
-	<!-- WEBCAM -->
-	<div class="webcam_container">
+		<!-- Controls -->
+		<div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm md:col-span-1">
+			{#if mode === PlaygroundMode.Translator}
+				<Translator {model} />
+			{:else if mode === PlaygroundMode.Practice}
+				<Practice {model} />
+			{:else if mode === PlaygroundMode.Interactive}
+				<Interactive {model} bind:this={interactive} />
+			{:else if webcam && mode === PlaygroundMode.Spelling}
+				<SpellActivity bind:this={spellActivity} {model} />
+			{:else if webcam && mode === PlaygroundMode.Transcript}
+				<Transcript bind:this={transcript} {model} />
+			{/if}
+		</div>
+
+		<!-- Webcam -->
 		{#if webcam}
-			<div class="webcam">
-				<LandmarkDetection bind:this={landmarkDetection} on:gestureRecognized={handleMessage} />
+			<div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm h-fit">
+				<div class="aspect-video border-2 border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+					<LandmarkDetection bind:this={landmarkDetection} on:gestureRecognized={handleMessage} />
+				</div>
 			</div>
 		{/if}
 	</div>
 </div>
-
-<style>
-	:global(body) {
-		margin: 0;
-	}
-
-	.mode_container {
-		width: 80%;
-		max-width: 1600px;
-		margin: auto auto 2rem;
-	}
-
-	.mode_flex {
-		display: grid;
-		grid-template-columns: 4fr 1fr 4fr;
-	}
-
-	.right {
-		justify-self: right;
-	}
-
-	.mode_list {
-		margin: 0;
-		padding: 0;
-		list-style: none;
-	}
-
-	.middle {
-		justify-self: center;
-	}
-
-	.mode_list li {
-		display: inline-block;
-	}
-
-	.mode_list li button {
-		padding: 5px;
-	}
-
-	.content_container {
-		display: flex;
-		justify-content: space-between;
-		width: 80%;
-		max-width: 1600px;
-		margin: auto;
-	}
-
-	.animation {
-		width: 100%;
-		max-width: 400px;
-	}
-
-	.animation_canvas {
-		border: solid 2px black;
-		position: relative;
-		background: linear-gradient(
-			0deg,
-			rgb(255, 115, 0) 0%,
-			rgb(255, 216, 0) 35%,
-			rgb(0, 86, 184) 100%
-		);
-		height: 300px;
-		width: 400px;
-	}
-
-	.control_container {
-		min-width: 400px;
-		margin-left: 2rem;
-		margin-right: 2rem;
-		margin-top: 50px;
-	}
-
-	.webcam_container {
-		width: 400px;
-	}
-
-	.webcam {
-		position: relative;
-		margin-top: 5px;
-		border: solid 2px black;
-	}
-
-	@media (max-width: 1400px) {
-		.mode_container {
-			width: 90%;
-		}
-
-		.mode_flex {
-			grid-template-columns: 1fr;
-		}
-		.mode_flex > * {
-			margin-bottom: 5px;
-		}
-		.right {
-			justify-self: left;
-		}
-
-		.control_container {
-			min-width: 200px;
-			margin-right: 0;
-			margin-top: 0;
-		}
-
-		.content_container {
-			width: 90%;
-			display: grid;
-			grid-template-columns: 1fr 1fr;
-		}
-
-		.middle {
-			justify-self: left;
-		}
-	}
-
-	@media (max-width: 768px) {
-		.content_container {
-			display: grid;
-			grid-template-columns: 1fr;
-			width: 95%;
-		}
-
-		.content_container > * {
-			margin: auto;
-		}
-
-		.control_container {
-			width: 100%;
-			margin-top: 15px;
-		}
-
-		.mode_flex > * {
-			justify-self: right;
-		}
-	}
-
-	@media (max-width: 480px) {
-		.content_container {
-			position: relative;
-		}
-
-		.webcam_container {
-			width: 100px;
-			position: absolute;
-			left: 3%;
-			top: -3%;
-		}
-
-		.animation {
-			width: 300px;
-			margin: auto;
-		}
-
-		.animation_canvas {
-			width: 300px;
-			height: 300px;
-		}
-	}
-</style>

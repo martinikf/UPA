@@ -4,6 +4,7 @@
 	import { onMount } from 'svelte';
 	import type { GestureProbability } from '$lib/models/GestureProbability';
 	import { Language } from '$lib/models/Word';
+	import { Button } from 'flowbite-svelte';
 
 	export let model: Model;
 
@@ -48,19 +49,18 @@
 	}
 </script>
 
-<div class="controls">
-	<button on:click={confirm}>Potvrdit</button>
-	<p>Přepis znakování: <strong id="word"> </strong></p>
-	<button on:click={playText}>Přehrát zadaný text</button>
+<div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm space-y-4">
+	<div class="space-y-3">
+		<Button color="primary" class="w-full" on:click={confirm}>
+			Potvrdit
+		</Button>
+
+		<p class="text-gray-700 dark:text-gray-300">
+			Přepis znakování: <strong class="font-semibold text-gray-900 dark:text-white" id="word"></strong>
+		</p>
+
+		<Button color="blue" class="w-full" on:click={playText}>
+			Přehrát zadaný text
+		</Button>
+	</div>
 </div>
-
-<style>
-	.controls {
-		padding: 5px;
-	}
-
-	button {
-		width: 100%;
-		padding: 5px;
-	}
-</style>

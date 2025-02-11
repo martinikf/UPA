@@ -7,6 +7,7 @@
 	 */
 	import Model from './AnimatedModel.svelte';
 	import { Language } from '$lib/models/Word';
+	import { Button, Input, Label, Select } from 'flowbite-svelte';
 
 	export let model: Model;
 
@@ -22,45 +23,35 @@
 			model.playAnimationForText(textInput.trim(), selectedLanguageSet);
 	}
 </script>
+<div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm space-y-6">
+	<div class="space-y-4">
+		<!-- Language Selection -->
+		<div>
+			<Label for="language" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Jazyk:</Label>
 
-<!-- Control block with language selection, text input and translate button -->
-<div class="controls">
-	<div class="language_selection">
-		<label for="language">Jazyk:</label>
-		<select id="language" bind:value={selectedLanguageSet}>
-			<option value={Language.CzechFingerOneHand}>Česká prstová abeceda jednoruční</option>
-			<option value={Language.CzechFingerTwoHand}>Česká prstová abeceda dvouruční</option>
-			<option value={Language.Czech}>Český znakový jazyk</option>
-		</select>
+			<Select id="language"
+							bind:value={selectedLanguageSet}
+							placeholder="Prosím zvolte jeden jazyk">
+				<option value={Language.CzechFingerOneHand}>Česká prstová abeceda jednoruční</option>
+				<option value={Language.CzechFingerTwoHand}>Česká prstová abeceda dvouruční</option>
+				<option value={Language.Czech}>Český znakový jazyk</option>
+			</Select>
+		</div>
+
+		<!-- Text Input -->
+		<Input
+			bind:value={textInput}
+			placeholder="Zde napište text k přehrání"
+			class="w-full"
+		/>
+
+		<!-- Translate Button -->
+		<Button
+			color="blue"
+			class="w-full"
+			on:click={translate}
+		>
+			Přeložit
+		</Button>
 	</div>
-
-	<input bind:value={textInput} placeholder="Zde napište text k přehrání" />
-	<button
-		on:click={() => {
-			translate();
-		}}
-	>
-		Přeložit
-	</button>
 </div>
-
-<style>
-	:global(body) {
-		margin: 0;
-	}
-
-	.controls {
-		display: grid;
-		grid-template-columns: 1fr;
-		padding: 5px;
-	}
-
-	.controls > * {
-		padding: 5px;
-		margin-bottom: 10px;
-	}
-
-	.language_selection select {
-		padding: 5px;
-	}
-</style>

@@ -10,6 +10,7 @@
 	 */
 	import Model from './AnimatedModel.svelte';
 	import { Language } from '$lib/models/Word';
+	import { Button, Input, Label, Select } from 'flowbite-svelte';
 
 	export let model: Model;
 
@@ -83,61 +84,53 @@
 	}
 </script>
 
-<!-- Control block with language selection, text input and buttons -->
-<div class="controls">
-	<div class="language_selection">
-		<label for="language">Jazyk:</label>
-		<select id="language" bind:value={selectedLanguageSet}>
+<div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm space-y-4">
+	<!-- Language Selection -->
+	<div>
+		<Label for="language" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Jazyk:</Label>
+
+		<Select id="language"
+						bind:value={selectedLanguageSet}
+						placeholder="Prosím zvolte jeden jazyk">
 			<option value={Language.CzechFingerOneHand}>Česká prstová abeceda jednoruční</option>
 			<option value={Language.CzechFingerTwoHand}>Česká prstová abeceda dvouruční</option>
-			<!-- <option value={Language.Czech}>Český znakový jazyk</option> -->
-		</select>
+			<option value={Language.Czech}>Český znakový jazyk</option>
+		</Select>
 	</div>
 
-	<button
-		on:click={() => {
-			newWordOnClick();
-		}}
-	>
-		Vytvořit nové náhodné slovo
-	</button>
 
-	<input bind:value={textInput} placeholder="Zde napište zobrazené slovo..." />
+	<!-- Control Buttons -->
+	<div class="space-y-3">
+		<Button
+			color="primary"
+			class="w-full"
+			on:click={newWordOnClick}
+		>
+			Vytvořit nové náhodné slovo
+		</Button>
 
-	<button
-		on:click={() => {
-			checkAnswer();
-		}}
-	>
-		Zkontrolovat
-	</button>
+		<Input
+			bind:value={textInput}
+			placeholder="Zde napište zobrazené slovo..."
+			class="w-full"
+		/>
 
-	<button
-		on:click={() => {
-			replay();
-		}}
-	>
-		Přehrát slovo znovu
-	</button>
+		<div class="grid grid-cols-2 gap-3">
+			<Button
+				color="green"
+				class="w-full"
+				on:click={checkAnswer}
+			>
+				Zkontrolovat
+			</Button>
+
+			<Button
+				color="blue"
+				class="w-full"
+				on:click={replay}
+			>
+				Přehrát slovo znovu
+			</Button>
+		</div>
+	</div>
 </div>
-
-<style>
-	:global(body) {
-		margin: 0;
-	}
-
-	.controls {
-		display: grid;
-		grid-template-columns: 1fr;
-		padding: 5px;
-	}
-
-	.controls > * {
-		padding: 5px;
-		margin-bottom: 10px;
-	}
-
-	.language_selection select {
-		padding: 5px;
-	}
-</style>

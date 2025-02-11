@@ -9,6 +9,7 @@
 	import Model from './AnimatedModel.svelte';
 	import { Language } from '$lib/models/Word';
 	import type { GestureProbability } from '$lib/models/GestureProbability';
+	import { Button, Input } from 'flowbite-svelte';
 
 	// Component props
 	export let model: Model;
@@ -127,37 +128,34 @@
 	}
 </script>
 
-<div class="controls">
-	<p class="instruction-text">Pro správnou funkčnost držte stále zobrazenou dlaň na kameře.</p>
-	<input type="text" bind:value={customString} placeholder={DEFAULT_STRING} />
-	<button on:click={start}>Spustit</button>
-	<button on:click={replay}>Přehrát znovu</button>
+<div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm space-y-4">
+	<!-- Controls -->
+	<div class="space-y-3">
+		<p class="text-sm text-gray-600 dark:text-gray-400">
+			Pro správnou funkčnost držte stále zobrazenou dlaň na kameře.
+		</p>
+
+		<Input
+			type="text"
+			bind:value={customString}
+			placeholder={DEFAULT_STRING}
+			class="w-full"
+		/>
+
+		<div class="grid grid-cols-2 gap-3">
+			<Button color="primary" class="w-full" on:click={start}>
+				Spustit
+			</Button>
+			<Button color="blue" class="w-full" on:click={replay}>
+				Přehrát znovu
+			</Button>
+		</div>
+	</div>
+
+	<!-- Character Display -->
+	<p class="text-center">
+		<strong class="text-6xl font-bold text-gray-900 dark:text-white block mt-4">
+			{displayChar}
+		</strong>
+	</p>
 </div>
-
-<p class="text">
-	<strong class="char_to_show">
-		{displayChar}
-	</strong>
-</p>
-
-<style>
-	.controls {
-		padding: 5px;
-		display: grid;
-		grid-template-columns: 1fr;
-	}
-
-	.controls > * {
-		padding: 5px;
-		margin-bottom: 10px;
-	}
-
-	.text {
-		text-align: center;
-	}
-
-	.char_to_show {
-		font-size: 3em;
-		font-weight: bold;
-	}
-</style>

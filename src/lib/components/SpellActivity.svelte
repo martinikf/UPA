@@ -13,6 +13,7 @@
 	import Model from './AnimatedModel.svelte';
 	import type { GestureProbability } from '$lib/models/GestureProbability';
 	import { Language } from '$lib/models/Word';
+	import { Alert, Button, Input } from 'flowbite-svelte';
 
 	// Component props
 	export let model: Model;
@@ -185,68 +186,52 @@
 	}
 </script>
 
-<!-- Success message overlay, visible when user guesses correctly -->
-<div class="container">
-	<div class="controls">
-		<p>Aktuální slovo: <strong id="word">{state.wordToGuess}</strong></p>
-		<p>Správně znakovaná písmena: <strong id="currentWord">{state.guessedLetters}</strong></p>
+<div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm relative">
+	<!-- Content -->
+	<div class="space-y-4">
+		<div class="text-gray-700 dark:text-gray-300">
+			<p class="mb-2">Aktuální slovo: <strong class="font-semibold text-gray-900 dark:text-white">{state.wordToGuess}</strong></p>
+			<p>Správně znakovaná písmena: <strong class="font-semibold text-gray-900 dark:text-white">{state.guessedLetters}</strong></p>
+		</div>
 
-		<div class="controls_grid">
-			<button on:click={newWordOnClick}>Vytvořit nové náhodné slovo</button>
+		<div class="grid grid-cols-1 gap-4">
+			<Button color="primary" class="w-full" on:click={newWordOnClick}>
+				Vytvořit nové náhodné slovo
+			</Button>
 
-			<div class="gap"></div>
+			<div class="border-b border-gray-200 dark:border-gray-700 my-2"></div>
 
-			<input type="text" placeholder="Vlastní slovo..." bind:value={customWord} />
-			<button on:click={customWordOnClick} disabled={customWord.length < 1}>
-				Nastavit vlastní slovo
-			</button>
+			<div>
+				<Input
+					type="text"
+					placeholder="Vlastní slovo..."
+					bind:value={customWord}
+					class="w-full"
+				/>
+				<Button
+					color="green"
+					class="w-full mt-2"
+					on:click={customWordOnClick}
+					disabled={customWord.length < 1}
+				>
+					Nastavit vlastní slovo
+				</Button>
+			</div>
 
-			<div class="gap"></div>
+			<div class="border-b border-gray-200 dark:border-gray-700 my-2"></div>
 
-			<button on:click={showWord}> Ukázat slovo v animaci </button>
+			<Button color="blue" class="w-full" on:click={showWord}>
+				Ukázat slovo v animaci
+			</Button>
 		</div>
 	</div>
 
-	<!-- Notification message signaling success -->
+	<!-- Success Message -->
 	{#if successMessageVisible}
-		<div class="success-overlay">
-			<p>Slovo bylo správně vyznakováno!</p>
+		<div class="absolute top-4 right-4 md:top-6 md:right-6">
+			<Alert color="green" class="shadow-lg">
+				<span class="font-medium">Úspěch!</span> Slovo bylo správně vyznakováno!
+			</Alert>
 		</div>
 	{/if}
 </div>
-
-<style>
-	.controls {
-		padding: 5px;
-	}
-	.controls_grid {
-		display: grid;
-		grid-template-columns: 1fr;
-	}
-	.controls_grid > * {
-		padding: 5px;
-		margin-bottom: 10px;
-	}
-	.gap {
-		height: 5px;
-		border-bottom: solid black 3px;
-	}
-
-	.container {
-		position: relative;
-	}
-
-	.success-overlay {
-		position: absolute;
-		top: -1rem;
-		right: -1rem;
-	}
-
-	@media (max-width: 768px) {
-		.success-overlay {
-			position: absolute;
-			top: -1rem;
-			right: 0;
-		}
-	}
-</style>
