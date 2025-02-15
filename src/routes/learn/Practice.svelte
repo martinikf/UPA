@@ -7,7 +7,7 @@
 
 	import Model from '$lib/components/AnimatedModel.svelte';
 	import { Word, Language } from '$lib/models/Word';
-	import { Button, Heading, Input, P } from 'flowbite-svelte';
+	import { Alert, Button, Checkbox, Heading, Input, P } from 'flowbite-svelte';
 	import { replaceCzechDiacriticsAndNormalize } from '$lib/helpers/TextHelper';
 	import LanguageSelector from '$lib/components/shared/LanguageSelector.svelte';
 
@@ -19,11 +19,16 @@
 	let sentence: string = '';
 	let copyData = [...data.filter((item: Word) => item.learned)];
 
+	let practiceAllSigns: boolean = false;
+
+	let messageVisible : boolean = false;
+	let messageString : string = '';
+
 	/**
 	 * Organizes words by language type for easier filtering and access
 	 * Creates a dictionary with language types as keys and filtered word arrays as values
 	 */
-	const languageSets = {
+	const learnedLanguageSets = {
 		[Language.CzechFingerOneHand]: copyData.filter(
 			(item: Word) => item.language === Language.CzechFingerOneHand
 		),
@@ -31,6 +36,16 @@
 			(item: Word) => item.language === Language.CzechFingerTwoHand
 		),
 		[Language.Czech]: copyData.filter((item: Word) => item.language === Language.Czech)
+	};
+
+	const allLanguageSets = {
+		[Language.CzechFingerOneHand]: data.filter(
+			(item: Word) => item.language === Language.CzechFingerOneHand
+		),
+		[Language.CzechFingerTwoHand]: data.filter(
+			(item: Word) => item.language === Language.CzechFingerTwoHand
+		),
+		[Language.Czech]: data.filter((item: Word) => item.language === Language.Czech)
 	};
 
 	// User input
@@ -46,25 +61,49 @@
 		const normalizedSentence = replaceCzechDiacriticsAndNormalize(sentence);
 
 		if (normalizedInput === normalizedSentence) {
-			alert('Správně!');
+			displayMessage("Správně");
 			userInput = '';
 		} else {
-			alert('Špatně!');
+			displayMessage("Špatně");
 		}
+	}
+
+	function displayMessage(str: string){
+		messageString = str;
+
+		messageVisible = true;
+		setTimeout(() => {
+			messageVisible = false;
+		}, 3000);
+	}
+
+
+	function createNewSentence(){
+		if (practiceAllSigns) {
+			createNewAllSignsSentence();
+		} else {
+			createNewLearnedSentence();
+		}
+	}
+
+	function createNewAllSignsSentence() {
+		let randomIndex = Math.floor(Math.random() * allLanguageSets[selectedLanguageSet].length);
+		sentence = allLanguageSets[selectedLanguageSet][randomIndex].str;
+
+		model.playAnimationForText(sentence, selectedLanguageSet);
 	}
 
 	/**
 	 * Generates a new random sentence from the selected language set
 	 * Plays the corresponding animation
 	 */
-	function createNewSentence() {
-		if (languageSets[selectedLanguageSet].length === 0) {
-			alert('Nemáte žádné slova pro tento jazyk');
+	function createNewLearnedSentence() {
+		if (learnedLanguageSets[selectedLanguageSet].length === 0) {
 			return;
 		}
 
-		let randomIndex = Math.floor(Math.random() * languageSets[selectedLanguageSet].length);
-		sentence = languageSets[selectedLanguageSet][randomIndex].str;
+		let randomIndex = Math.floor(Math.random() * learnedLanguageSets[selectedLanguageSet].length);
+		sentence = learnedLanguageSets[selectedLanguageSet][randomIndex].str;
 
 		model.playAnimationForText(sentence, selectedLanguageSet);
 	}
@@ -94,10 +133,10 @@
 			<Button
 				color="primary"
 				class="w-full"
-				disabled={languageSets[selectedLanguageSet].length === 0}
+				disabled={(learnedLanguageSets[selectedLanguageSet].length === 0 && !practiceAllSigns)}
 				on:click={createNewSentence}
 			>
-				Spustit novou větu
+				Spustit
 			</Button>
 
 			<Button
@@ -107,6 +146,10 @@
 			>
 				Přehrát znovu
 			</Button>
+		</div>
+
+		<div>
+			<Checkbox bind:checked={practiceAllSigns}>Zahrnout nenaučené znaky</Checkbox>
 		</div>
 
 		<!-- Input Group -->
@@ -129,4 +172,14 @@
 			</Button>
 		</div>
 	</div>
+
+	{#if messageVisible}
+		<div class="m-auto w-fit">
+			<Alert color="green" class="shadow-lg text-xl" >
+				{messageString}
+			</Alert>
+		</div>
+	{/if}
 </div>
+
+
