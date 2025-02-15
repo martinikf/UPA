@@ -26,5 +26,3 @@ export function replaceCzechDiacriticsAndNormalize(input: string): string {
 export function removeFormating(str: string) {
 	return str.trim().toLowerCase();
 }
-
-export function czechAlphabet() {}

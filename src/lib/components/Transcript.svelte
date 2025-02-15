@@ -1,21 +1,39 @@
 <script lang="ts">
 	import Model from './AnimatedModel.svelte';
-	import { Button, Heading, P } from 'flowbite-svelte';
+	import { Button, P } from 'flowbite-svelte';
 	import type { GestureProbability } from '$lib/models/GestureProbability';
 	import { Language } from '$lib/models/Word';
+	import { convertToFrequencyFormat } from '$lib/helpers/CSLR';
 
 	export let model: Model;
 
 	let str: string = "";
+	let parsedStr :string = "";
 	let winner: GestureProbability | null = null;
 	let automaticMode = true;
+
+	const WINNER_BUFFER_SIZE = 5;
+	let winnerBuffer: { letter: string, timestamp: number }[] = [];
 
 	export function handleMessage(msg: CustomEvent<GestureProbability[]>) {
 		const result = msg.detail;
 		winner = findKeyWithMaxValue(result);
 
-		if (automaticMode && winner && winner.letter != 'None') {
+		removeOldRecords();
+
+		if(!winner || winner.letter === 'None'){ return;}
+
+		if (automaticMode) {
 			str += winner.letter;
+			parsedStr = convertToFrequencyFormat(str);
+		}
+		if(!automaticMode) {
+			const currentTime = Date.now();
+			winnerBuffer.push({ letter: winner.letter, timestamp: currentTime });
+			if (winnerBuffer.length > WINNER_BUFFER_SIZE) {
+				winnerBuffer.shift();
+			}
+			console.log(winnerBuffer);
 		}
 	}
 
@@ -25,30 +43,46 @@
 	}
 
 	function confirm() {
-		if (winner?.letter) {
-			str += winner.letter;
-		}
+		if(winnerBuffer.length < 1) return;
+
+		// Find the most appearing letter in the buffer
+		let mostFrequentLetter = winnerBuffer.reduce<Record<string, number>>((prev, current) => {
+			prev[current.letter] = (prev[current.letter] || 0) + 1;
+			return prev;
+		}, {});
+		let maxLetter = Object.keys(mostFrequentLetter).reduce((a, b) => mostFrequentLetter[a] > mostFrequentLetter[b] ? a : b);
+
+		if(mostFrequentLetter[maxLetter] > 2)
+		str += maxLetter;
+		winnerBuffer = [];
 	}
 
 	function playText() {
-		if (model && str.length > 0) {
-			model.playAnimationForText(str, Language.CzechFingerOneHand);
-		} else {
-			alert('Není co přehrát.');
+		if (model) {
+			if(automaticMode)
+				model.playAnimationForText(parsedStr, Language.CzechFingerOneHand);
+			else
+				model.playAnimationForText(str, Language.CzechFingerOneHand);
 		}
 	}
 
 	function deleteText() {
-			str = '';
+		str = '';
+		parsedStr = "";
 	}
 
 	function automatic(){
 		automaticMode = true;
-		deleteText();
+		resetState();
 	}
 
 	function manual(){
 		automaticMode = false;
+		resetState();
+	}
+
+	function resetState(){
+		winnerBuffer = []
 		deleteText();
 	}
 
@@ -60,6 +94,12 @@
 			str = str.slice(0, -1);
 		}
 	}
+
+	function removeOldRecords() {
+		const currentTime = Date.now();
+		winnerBuffer = winnerBuffer.filter(record => currentTime - record.timestamp <= 1000);
+	}
+
 </script>
 
 <svelte:window on:keydown={handleKeyPress} />
@@ -85,6 +125,14 @@
 
 	<div class="border-b border-gray-200 dark:border-gray-700 my-2"></div>
 
+	<div class="flex gap-2">
+		<Button color="red" class="flex-1" on:click={deleteText}>
+			Smazat text
+		</Button>
+		<Button color="blue" class="flex-1" on:click={playText}>
+			Přehrát text
+		</Button>
+	</div>
 
 	{#if !automaticMode}
 		<div class="space-y-3">
@@ -93,21 +141,12 @@
 			</Button>
 		</div>
 	{/if}
+</div>
 
-	<div class="space-y-3">
-		<P class="text-gray-700 dark:text-gray-300">
-			Přepis znakování: <strong class="font-semibold text-gray-900 dark:text-white">{str}</strong>
-		</P>
+<div class="border-b border-gray-200 dark:border-gray-700 my-2"></div>
 
-		<div class="border-b border-gray-200 dark:border-gray-700 my-2"></div>
-
-		<div class="flex gap-2">
-			<Button color="red" class="flex-1" on:click={deleteText}>
-				Smazat text
-			</Button>
-			<Button color="blue" class="flex-1" on:click={playText}>
-				Přehrát text
-			</Button>
-		</div>
-	</div>
+<div class="space-y-3">
+	<P class="text-gray-700 dark:text-gray-300 break-words">
+		Text: <br> <strong class="font-semibold text-gray-900 dark:text-white">{automaticMode ? parsedStr : str}</strong>
+	</P>
 </div>
