@@ -7,7 +7,9 @@
 
 	import Model from '$lib/components/AnimatedModel.svelte';
 	import { Word, Language } from '$lib/models/Word';
-	import { Button, Heading, Input, Label, P, Select } from 'flowbite-svelte';
+	import { Button, Heading, Input, P } from 'flowbite-svelte';
+	import { replaceCzechDiacriticsAndNormalize } from '$lib/helpers/TextHelper';
+	import LanguageSelector from '$lib/components/shared/LanguageSelector.svelte';
 
 	// Component props
 	export let model: Model;
@@ -40,8 +42,8 @@
 	 * Shows success/failure message and clears input on success
 	 */
 	function checkAnswer() {
-		const normalizedInput = userInput.trim().toLowerCase();
-		const normalizedSentence = sentence.trim().toLowerCase();
+		const normalizedInput = replaceCzechDiacriticsAndNormalize(userInput);
+		const normalizedSentence = replaceCzechDiacriticsAndNormalize(sentence);
 
 		if (normalizedInput === normalizedSentence) {
 			alert('Správně!');
@@ -85,18 +87,7 @@
 
 	<div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm space-y-6">
 		<!-- Language Selection -->
-		<div>
-			<Label for="language" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Jazyk:</Label>
-			<Select
-				id="language"
-				bind:value={selectedLanguageSet}
-				class="w-full"
-			>
-				<option value={Language.CzechFingerOneHand}>Česká prstová abeceda jednoruční</option>
-				<option value={Language.CzechFingerTwoHand}>Česká prstová abeceda dvouruční</option>
-				<option value={Language.Czech}>Český znakový jazyk</option>
-			</Select>
-		</div>
+		<LanguageSelector bind:selectedLanguageSet={selectedLanguageSet} />
 
 		<!-- Control Buttons -->
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-4">

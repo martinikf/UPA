@@ -191,8 +191,8 @@
 
 		<!-- Webcam -->
 		{#if webcam}
-			<div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm h-fit">
-				<div class="aspect-video border-2 border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+			<div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm h-fit h-full">
+				<div class="aspect-auto border-2 border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
 					<LandmarkDetection bind:this={landmarkDetection} on:gestureRecognized={handleMessage} />
 				</div>
 			</div>

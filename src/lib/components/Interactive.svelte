@@ -128,7 +128,7 @@
 	}
 </script>
 
-<div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm space-y-4">
+<div class="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm space-y-4">
 	<!-- Controls -->
 	<div class="space-y-3">
 		<p class="text-sm text-gray-600 dark:text-gray-400">

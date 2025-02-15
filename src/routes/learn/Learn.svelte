@@ -16,7 +16,8 @@
 
 	import Model from '$lib/components/AnimatedModel.svelte';
 	import { Language, Word } from '$lib/models/Word';
-	import { Button, Heading, Label, P, Select } from 'flowbite-svelte';
+	import { Button, Heading, P } from 'flowbite-svelte';
+	import LanguageSelector from '$lib/components/shared/LanguageSelector.svelte';
 
 	// Component props
 	export let model: Model;
@@ -123,16 +124,8 @@
 
 	<div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm mb-6">
 		<div class="space-y-4">
-			<div>
-				<Label for="language" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Jazyk:</Label>
-				<Select id="language"
-								bind:value={selectedLanguageSet} on:change={onLanguageChange}
-								placeholder="Prosím zvolte jeden jazyk">
-					<option value={Language.CzechFingerOneHand}>Česká prstová abeceda jednoruční</option>
-					<option value={Language.CzechFingerTwoHand}>Česká prstová abeceda dvouruční</option>
-					<option value={Language.Czech}>Český znakový jazyk</option>
-				</Select>
-			</div>
+
+			<LanguageSelector bind:selectedLanguageSet={selectedLanguageSet} onChange={onLanguageChange}/>
 
 			{#if everythingLearned}
 				<Heading tag="h3" class="text-lg font-semibold text-green-600 dark:text-green-400 mb-4">
@@ -155,7 +148,7 @@
 				</Button>
 
 				<Button
-					color="green"
+					color="primary"
 					on:click={markAsLearned}
 					disabled={everythingLearned}
 					class="w-full {everythingLearned ? 'opacity-50 cursor-not-allowed' : ''}"

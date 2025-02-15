@@ -10,7 +10,9 @@
 	 */
 	import Model from './AnimatedModel.svelte';
 	import { Language } from '$lib/models/Word';
-	import { Button, Input, Label, Select } from 'flowbite-svelte';
+	import { Alert, Button, Input } from 'flowbite-svelte';
+	import { replaceCzechDiacriticsAndNormalize } from '$lib/helpers/TextHelper';
+	import LanguageSelector from '$lib/components/shared/LanguageSelector.svelte';
 
 	export let model: Model;
 
@@ -27,6 +29,10 @@
 	let textInput: string = '';
 	/** Selected language set */
 	let selectedLanguageSet: Language = Language.CzechFingerOneHand;
+
+	let messageVisible: boolean = false;
+	const SUCCESS_MESSAGE_DURATION = 3000;
+	let alertMessage : string = "";
 
 	/**
 	 * Selects random word from words list and plays animation
@@ -49,14 +55,16 @@
 	 */
 	function checkAnswer() {
 		if (textInput.length < 1) {
-			alert('Napište slovo, které jste viděli.');
+			displayMessage("Napište slovo, které jste viděli");
 			return;
 		}
 
-		if (textInput.trim().toUpperCase() === randomWord.toUpperCase()) {
-			alert('Správně!');
+		if(replaceCzechDiacriticsAndNormalize(textInput) === replaceCzechDiacriticsAndNormalize(randomWord)) {
+			displayMessage("Správně!");
+			textInput = '';
+			randomWord = '';
 		} else {
-			alert('Špatně!');
+			displayMessage("Chyba, zkuste to znovu.")
 		}
 	}
 
@@ -82,27 +90,31 @@
 			})
 			.catch((e) => console.error(e));
 	}
+
+	function giveUp(){
+		displayMessage(`Správné slovo bylo: ${randomWord}`);
+	}
+
+	/**
+	 * Displays a success message for a few seconds
+	 */
+	function displayMessage(msg : string) {
+		alertMessage = msg;
+		messageVisible = true;
+		setTimeout(() => {
+			messageVisible = false;
+		}, SUCCESS_MESSAGE_DURATION);
+	}
 </script>
 
-<div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm space-y-4">
-	<!-- Language Selection -->
-	<div>
-		<Label for="language" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Jazyk:</Label>
+<div class="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm space-y-4 relative">
 
-		<Select id="language"
-						bind:value={selectedLanguageSet}
-						placeholder="Prosím zvolte jeden jazyk">
-			<option value={Language.CzechFingerOneHand}>Česká prstová abeceda jednoruční</option>
-			<option value={Language.CzechFingerTwoHand}>Česká prstová abeceda dvouruční</option>
-			<option value={Language.Czech}>Český znakový jazyk</option>
-		</Select>
-	</div>
-
+	<LanguageSelector bind:selectedLanguageSet={selectedLanguageSet}/>
 
 	<!-- Control Buttons -->
 	<div class="space-y-3">
 		<Button
-			color="primary"
+			color="green"
 			class="w-full"
 			on:click={newWordOnClick}
 		>
@@ -111,15 +123,16 @@
 
 		<Input
 			bind:value={textInput}
-			placeholder="Zde napište zobrazené slovo..."
+			placeholder="Zde napište zobrazené slovo"
 			class="w-full"
 		/>
 
 		<div class="grid grid-cols-2 gap-3">
 			<Button
-				color="green"
-				class="w-full"
+				color="primary"
+				class="w-full col-span-2"
 				on:click={checkAnswer}
+				disabled={randomWord.length < 1}
 			>
 				Zkontrolovat
 			</Button>
@@ -128,9 +141,28 @@
 				color="blue"
 				class="w-full"
 				on:click={replay}
+				disabled={randomWord.length < 1}
 			>
-				Přehrát slovo znovu
+				Přehrát znovu
+			</Button>
+
+			<Button
+				color="red"
+				class="w-full"
+				on:click={giveUp}
+				disabled={randomWord.length < 1}
+			>
+				Prozradit
 			</Button>
 		</div>
 	</div>
+
+	<!-- Success Message -->
+	{#if messageVisible}
+		<div class="absolute top-0 left-0 m-auto w-fit">
+			<Alert color="green" class="shadow-lg text-xl" >
+				{alertMessage}
+			</Alert>
+		</div>
+	{/if}
 </div>

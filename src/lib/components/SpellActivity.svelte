@@ -186,7 +186,7 @@
 	}
 </script>
 
-<div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm relative">
+<div class="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm relative">
 	<!-- Content -->
 	<div class="space-y-4">
 		<div class="text-gray-700 dark:text-gray-300">
@@ -221,7 +221,7 @@
 			<div class="border-b border-gray-200 dark:border-gray-700 my-2"></div>
 
 			<Button color="blue" class="w-full" on:click={showWord}>
-				Ukázat slovo v animaci
+				Ukázat aktuální slovo v animaci
 			</Button>
 		</div>
 	</div>

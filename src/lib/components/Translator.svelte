@@ -7,7 +7,8 @@
 	 */
 	import Model from './AnimatedModel.svelte';
 	import { Language } from '$lib/models/Word';
-	import { Button, Input, Label, Select } from 'flowbite-svelte';
+	import { Button, Input } from 'flowbite-svelte';
+	import LanguageSelector from '$lib/components/shared/LanguageSelector.svelte';
 
 	export let model: Model;
 
@@ -23,20 +24,10 @@
 			model.playAnimationForText(textInput.trim(), selectedLanguageSet);
 	}
 </script>
-<div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm space-y-6">
+<div class="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm space-y-6">
 	<div class="space-y-4">
-		<!-- Language Selection -->
-		<div>
-			<Label for="language" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Jazyk:</Label>
 
-			<Select id="language"
-							bind:value={selectedLanguageSet}
-							placeholder="Prosím zvolte jeden jazyk">
-				<option value={Language.CzechFingerOneHand}>Česká prstová abeceda jednoruční</option>
-				<option value={Language.CzechFingerTwoHand}>Česká prstová abeceda dvouruční</option>
-				<option value={Language.Czech}>Český znakový jazyk</option>
-			</Select>
-		</div>
+		<LanguageSelector bind:selectedLanguageSet={selectedLanguageSet}/>
 
 		<!-- Text Input -->
 		<Input
@@ -47,9 +38,10 @@
 
 		<!-- Translate Button -->
 		<Button
-			color="blue"
+			color="primary"
 			class="w-full"
 			on:click={translate}
+			disabled="{textInput.trim().length < 1}"
 		>
 			Přeložit
 		</Button>

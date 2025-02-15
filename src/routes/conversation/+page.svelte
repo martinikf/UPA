@@ -326,13 +326,13 @@
 		<div class="space-y-6 flex flex-col md:mt-12 mt-0">
 
 			<div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm order-2 md:order-1">
-				<div class="aspect-video mb-4 border-2 border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+				<div class="aspect-auto mb-4 border-2 border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
 					<LandmarkDetection bind:this={landmarkDetection} on:gestureRecognized={handleMessage} />
 				</div>
 
 				<div class="space-y-3">
-					<Button class="w-full" color="blue" on:click={send}>Odeslat zprávu</Button>
-					<Button class="w-full" color="red" on:click={reset}>Odstranit aktuální zprávu</Button>
+					<Button class="w-full" color="primary" on:click={send}>Odeslat zprávu</Button>
+					<Button class="w-full" color="blue" on:click={reset}>Odstranit aktuální zprávu</Button>
 					<Button class="w-full" color="red" on:click={resetChat}>Restartovat historii</Button>
 
 					<div class="flex flex-col space-y-3">
@@ -343,13 +343,13 @@
 			</div>
 
 			<!-- API Settings -->
-			<Accordion class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm space-y-4 order-1 md:order-2">
+			<Accordion class="bg-white dark:bg-gray-800 p-2 rounded-lg shadow-sm space-y-4 order-1 md:order-2">
 				<AccordionItem open>
 					<span slot="header">Nastavení modelu</span>
-					<Toggle bind:checked={useOpenAi} class="w-full text-sm">Použít OpenAI API</Toggle>
+					<Toggle bind:checked={useOpenAi} class="w-full text-sm">OpenAI API</Toggle>
 					{#if useOpenAi}
 						<div class="space-y-4">
-							<Heading class="block text-sm">OpenAI Nastavení</Heading>
+							<Heading class="block text-sm mt-2">OpenAI Nastavení</Heading>
 							<div>
 								<Label for="model_name_openai">Model name</Label>
 								<Input id="model_name_openai" placeholder="Model name" size="sm" bind:value={modelNameOpenAI} />
@@ -365,7 +365,7 @@
 						</div>
 					{:else}
 						<div class="space-y-4">
-							<Heading class="block text-sm">Ollama Nastavení</Heading>
+							<Heading class="block text-sm mt-2">Ollama Nastavení</Heading>
 							<div>
 								<Label for="model_name_ollama">Model name</Label>
 								<Input id="model_name_ollama" placeholder="Model name" size="sm" bind:value={modelNameOllama} />
