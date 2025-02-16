@@ -141,7 +141,7 @@
 			webcamRunning = false;
 			if (video.srcObject instanceof MediaStream) {
 				let tracks = video.srcObject.getTracks();
-				tracks[0].stop();
+				tracks.forEach(track => track.stop());
 			}
 		}
 	}

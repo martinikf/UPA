@@ -27,6 +27,7 @@
 	import type { GestureProbability } from '$lib/models/GestureProbability';
 	import { PlaygroundMode } from '$lib/models/PlaygroundMode';
 	import { Button, Toggle } from 'flowbite-svelte';
+	import { beforeNavigate } from '$app/navigation';
 
 	// State
 	let mode: PlaygroundMode = PlaygroundMode.Translator;
@@ -78,17 +79,30 @@
 		updateLetterDisplay();
 	}
 
+
+	let disabledToggle = false;
+
 	/**
 	 * Toggles webcam state and handles related mode changes
 	 */
 	function toggleWebcam() {
 		if (webcam && landmarkDetection) {
 			landmarkDetection.disableCam();
-			mode = PlaygroundMode.Translator;
-			handleModeChange();
+
+			if(mode != PlaygroundMode.Translator && mode != PlaygroundMode.Practice) {
+				mode = PlaygroundMode.Translator;
+				handleModeChange();
+			}
 		}
 
 		webcam = !webcam;
+
+		if(webcam){
+			disabledToggle = true;
+			setTimeout(() => {
+				disabledToggle = false;
+			}, 2000);
+		}
 	}
 
 	/**
@@ -99,6 +113,12 @@
 		mode = newMode;
 		handleModeChange();
 	}
+
+	beforeNavigate(() => {
+		if(landmarkDetection){
+			landmarkDetection.disableCam();
+		}
+	});
 </script>
 
 
@@ -125,15 +145,16 @@
 			<!-- Middle Webcam Toggle -->
 			<div class="flex justify-center items-center gap-2">
 				<div class="flex flex-col">
-				<Toggle
-					color="red"
-					checked={webcam}
-					on:change={toggleWebcam}
-					class="mx-auto"
-				/>
-				<span class="text-sm text-gray-600 dark:text-gray-300">
-					{webcam ? 'Kamera zapnuta' : 'Kamera vypnuta'}
-				</span>
+					<Toggle
+						color="red"
+						checked={webcam}
+						on:change={toggleWebcam}
+						class="mx-auto"
+						disabled={disabledToggle}
+					/>
+					<span class="text-sm text-gray-600 dark:text-gray-300">
+						{webcam ? 'Kamera zapnuta' : 'Kamera vypnuta'}
+					</span>
 				</div>
 			</div>
 
@@ -171,7 +192,7 @@
 			<div class="bg-gradient-to-b from-blue-400 to-yellow-600 h-64 rounded-xl border-2 border-gray-200 dark:border-gray-700 relative">
 				<Scene bind:model bind:this={scene} showLetter={displayLetter} />
 			</div>
-			<ControlRow bind:this={controlRow} {model} class="mt-4" />
+			<ControlRow bind:this={controlRow} {model} />
 		</div>
 
 		<!-- Controls -->

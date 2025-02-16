@@ -1,5 +1,7 @@
 <script lang="ts">
 
+	import { beforeNavigate } from '$app/navigation';
+
 	import LandmarkDetection from '$lib/components/LandmarkDetection.svelte';
 
 	import Scene from '$lib/components/Scene.svelte';
@@ -31,6 +33,7 @@
 
 	// References
 	let landmarkDetection: LandmarkDetection;
+	let webcamOn : boolean = false;
 
 	let systemPrompt = `You are a conversation assistant. Follow these rules:
 	1. Answer in a language based on language in which was the previous message written.
@@ -257,6 +260,29 @@
 			send()
 		}
 	}
+
+	let disabledToggle = false;
+
+	function webcamToggle() {
+		if (webcamOn) {
+			landmarkDetection.disableCam();
+		}
+
+		webcamOn = !webcamOn;
+
+		if (webcamOn) {
+			disabledToggle = true;
+			setTimeout(() => {
+				disabledToggle = false;
+			}, 2000)
+		}
+	}
+
+	beforeNavigate(() => {
+		if(landmarkDetection){
+			landmarkDetection.disableCam();
+		}
+	});
 </script>
 
 <!-- Attach the event listener to the window -->
@@ -268,12 +294,23 @@
 		<div class="space-y-6 flex flex-col md:mt-12 mt-0">
 
 			<div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm order-2 md:order-1">
+
+				<div class="flex justify-center">
+					<Toggle checked={webcamOn} on:change={webcamToggle} class="mb-2" color="red" disabled={disabledToggle}>
+						<span class="text-sm text-gray-600 dark:text-gray-300">
+							{webcamOn ? 'Kamera zapnuta' : 'Kamera vypnuta'}
+						</span>
+					</Toggle>
+				</div>
+
 				<div class="aspect-auto mb-4 border-2 border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
-					<LandmarkDetection bind:this={landmarkDetection} on:gestureRecognized={handleMessage} />
+					{#if webcamOn}
+						<LandmarkDetection bind:this={landmarkDetection} on:gestureRecognized={handleMessage} />
+					{/if}
 				</div>
 
 				<div class="space-y-3">
-					<Button class="w-full" color="primary" on:click={send}>Odeslat zprávu</Button>
+					<Button class="w-full" color="primary" on:click={send} disabled={!webcamOn}>Odeslat zprávu</Button>
 					<Button class="w-full" color="blue" on:click={reset}>Odstranit aktuální zprávu</Button>
 					<Button class="w-full" color="red" on:click={resetChat}>Restartovat historii</Button>
 
