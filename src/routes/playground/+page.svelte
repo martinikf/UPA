@@ -125,7 +125,7 @@
 <div class="max-w-7xl mx-auto px-4 pb-8 dark:bg-gray-900">
 	<!-- Mode Selection -->
 	<div class="mx-auto mb-8 mt-8">
-		<div class="grid grid-cols-3 gap-4">
+		<div class="grid md:grid-cols-3 grid-cols-1 gap-4  md:justify-items-stretch justify-items-center">
 			<!-- Left Modes -->
 			<div class="flex flex-wrap gap-2">
 				<Button
@@ -212,7 +212,7 @@
 
 		<!-- Webcam -->
 		{#if webcam}
-			<div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm h-fit h-full">
+			<div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm h-full">
 				<div class="aspect-auto border-2 border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
 					<LandmarkDetection bind:this={landmarkDetection} on:gestureRecognized={handleMessage} />
 				</div>

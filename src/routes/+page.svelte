@@ -13,7 +13,7 @@
 			<P class="text-lg text-gray-500 dark:text-gray-500">
 				Autor: Filip Martiník
 			</P>
-			<A href="#" class="">Zdrojový kód na GitHubu</A>
+			<A href="https://github.com/martinikf/upa" class="">Zdrojový kód na GitHubu</A>
 		</div>
 	</Card>
 

@@ -11,7 +11,7 @@ export function convertToFrequencyFormat(input: string): string {
 	while (i < input.length) {
 		let matched = false;
 		for (const token of MULTI_CHAR_TOKENS) {
-			if (input.substring(i, token.length) === token) {
+			if (input.substring(i, i + token.length) === token) {
 				tokens.push(token);
 				i += token.length;
 				matched = true;
