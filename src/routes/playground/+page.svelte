@@ -138,7 +138,7 @@
 					color={mode === PlaygroundMode.Practice ? 'blue' : 'dark'}
 					on:click={() => changeMode(PlaygroundMode.Practice)}
 				>
-					Procvičení odezírání
+					Odezírání
 				</Button>
 			</div>
 
@@ -165,7 +165,7 @@
 						on:click={() => changeMode(PlaygroundMode.Spelling)}
 						disabled={!webcam}
 					>
-						Procvičení znakování
+						Znakování
 					</Button>
 					<Button
 						color={mode === PlaygroundMode.Transcript ? 'blue' : 'dark'}
@@ -179,7 +179,7 @@
 						on:click={() => changeMode(PlaygroundMode.Interactive)}
 						disabled={!webcam}
 					>
-						Interaktivní režim
+						Procvičování
 					</Button>
 				</div>
 		</div>
@@ -187,16 +187,25 @@
 
 	<!-- Content Container -->
 	<div class="grid md:grid-cols-3 gap-6 max-w-7xl mx-auto">
-		<!-- Animation -->
-		<div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm">
+		<!-- Webcam - Mobile first -->
+		{#if webcam}
+			<div class="order-first md:order-3 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm h-full">
+				<div class="aspect-auto border-2 border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+					<LandmarkDetection bind:this={landmarkDetection} on:gestureRecognized={handleMessage} />
+				</div>
+			</div>
+		{/if}
+
+		<!-- Animation - Mobile second -->
+		<div class="order-2 md:order-1 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm">
 			<div class="bg-gradient-to-b from-blue-400 to-yellow-600 h-64 rounded-xl border-2 border-gray-200 dark:border-gray-700 relative">
 				<Scene bind:model bind:this={scene} showLetter={displayLetter} />
 			</div>
 			<ControlRow bind:this={controlRow} {model} />
 		</div>
 
-		<!-- Controls -->
-		<div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm md:col-span-1">
+		<!-- Controls - Mobile third -->
+		<div class="order-3 md:order-2 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm md:col-span-1">
 			{#if mode === PlaygroundMode.Translator}
 				<Translator {model} />
 			{:else if mode === PlaygroundMode.Practice}
@@ -209,14 +218,5 @@
 				<Transcript bind:this={transcript} {model} />
 			{/if}
 		</div>
-
-		<!-- Webcam -->
-		{#if webcam}
-			<div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm h-full">
-				<div class="aspect-auto border-2 border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
-					<LandmarkDetection bind:this={landmarkDetection} on:gestureRecognized={handleMessage} />
-				</div>
-			</div>
-		{/if}
 	</div>
 </div>

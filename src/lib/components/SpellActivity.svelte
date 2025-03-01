@@ -14,6 +14,7 @@
 	import type { GestureProbability } from '$lib/models/GestureProbability';
 	import { Language } from '$lib/models/Word';
 	import { Alert, Button, Input } from 'flowbite-svelte';
+	import { keepOnlyLetters, removeFormating } from '$lib/helpers/TextHelper';
 
 	// Component props
 	export let model: Model;
@@ -153,7 +154,7 @@
 	 */
 	function customWordOnClick() {
 		resetWord();
-		state.wordToGuess = customWord;
+		state.wordToGuess = keepOnlyLetters(removeFormating(customWord));
 	}
 
 	/**
@@ -229,8 +230,8 @@
 	<!-- Success Message -->
 	{#if successMessageVisible}
 		<div class="absolute top-4 right-4 md:top-6 md:right-6">
-			<Alert color="green" class="shadow-lg">
-				<span class="font-medium">Úspěch!</span> Slovo bylo správně vyznakováno!
+			<Alert color="green" class="shadow-lg text-xl">
+				Správně!
 			</Alert>
 		</div>
 	{/if}

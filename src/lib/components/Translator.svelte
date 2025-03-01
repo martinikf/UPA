@@ -9,6 +9,7 @@
 	import { Language } from '$lib/models/Word';
 	import { Button, Input } from 'flowbite-svelte';
 	import LanguageSelector from '$lib/components/shared/LanguageSelector.svelte';
+	import { keepOnlyLetters, removeFormating } from '$lib/helpers/TextHelper';
 
 	export let model: Model;
 
@@ -20,8 +21,10 @@
 	 * Plays animation for the given text and selected language set
 	 */
 	function translate() {
-		if (textInput.trim().length > 0)
-			model.playAnimationForText(textInput.trim(), selectedLanguageSet);
+		let sanitizedInput = keepOnlyLetters(removeFormating(textInput));
+		console.log(sanitizedInput);
+		if (sanitizedInput.length > 0)
+			model.playAnimationForText(sanitizedInput, selectedLanguageSet);
 	}
 </script>
 <div class="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm space-y-6">

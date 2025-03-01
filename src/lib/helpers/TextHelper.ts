@@ -26,3 +26,7 @@ export function replaceCzechDiacriticsAndNormalize(input: string): string {
 export function removeFormating(str: string) {
 	return str.trim().toLowerCase();
 }
+
+export function keepOnlyLetters(input: string): string {
+	return input.replace(/[^\p{L}]/gu, '');
+}

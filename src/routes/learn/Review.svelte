@@ -47,9 +47,10 @@
 	 * Is fired on change of search input
 	 */
 	function SearchInputOnChange() {
-		if (searchInput.length > 0) {
+		let sanitizedSearchInput = searchInput.toLowerCase().trim();
+		if (sanitizedSearchInput.length > 0) {
 			wordsToShow = data.filter((word) => {
-				return word.str.includes(searchInput);
+				return word.str.toLowerCase().includes(sanitizedSearchInput);
 			});
 		} else {
 			wordsToShow = [...data];

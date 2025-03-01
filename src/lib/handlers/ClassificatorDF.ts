@@ -74,6 +74,7 @@ export class ClassificatorDF implements Classificator {
 			}
 		}
 
+		console.log(landmarks);
 		// Build input
 		const inputDict: { [key: string]: tf.Tensor } = {};
 		for (let i = 0; i < 42; i++) {

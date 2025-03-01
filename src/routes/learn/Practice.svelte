@@ -116,7 +116,7 @@
 	}
 </script>
 
-<div class="max-w-7xl mx-auto px-4 pb-8 space-y-6">
+<div class="max-w-7xl mx-auto px-4 pb-8 space-y-6 relative">
 	<Heading tag="h2" class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Procvičovat</Heading>
 
 	<P class="text-gray-600 dark:text-gray-400 mb-6">
@@ -174,7 +174,7 @@
 	</div>
 
 	{#if messageVisible}
-		<div class="m-auto w-fit">
+		<div class="m-auto w-fit absolute top-1/4 left-1/4">
 			<Alert color="green" class="shadow-lg text-xl" >
 				{messageString}
 			</Alert>

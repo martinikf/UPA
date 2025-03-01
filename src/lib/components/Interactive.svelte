@@ -9,7 +9,8 @@
 	import Model from './AnimatedModel.svelte';
 	import { Language } from '$lib/models/Word';
 	import type { GestureProbability } from '$lib/models/GestureProbability';
-	import { Button, Input } from 'flowbite-svelte';
+	import { Alert, Button, Input } from 'flowbite-svelte';
+	import { keepOnlyLetters } from '$lib/helpers/TextHelper';
 
 	// Component props
 	export let model: Model;
@@ -25,6 +26,10 @@
 	let text: string;
 	let speed = 1;
 	let timeout = 0;
+
+	let messageVisible: boolean = false;
+	const SUCCESS_MESSAGE_DURATION = 3000;
+	let alertMessage : string = "";
 
 	/**
 	 * Handles gesture recognition events from webcam
@@ -70,6 +75,7 @@
 	 * Starts the recognition process with either default or custom text
 	 */
 	function start() {
+		customString = keepOnlyLetters(customString);
 		text = customString.length > 0 ? customString.replace(' ', '') : DEFAULT_STRING;
 
 		nextChar();
@@ -88,7 +94,7 @@
 	 */
 	function nextChar() {
 		if (text.length == 0) {
-			alert('Konec');
+			displayMessage("Správně!");
 			return;
 		}
 
@@ -126,9 +132,17 @@
 
 		return char;
 	}
+
+	function displayMessage(msg : string) {
+		alertMessage = msg;
+		messageVisible = true;
+		setTimeout(() => {
+			messageVisible = false;
+		}, SUCCESS_MESSAGE_DURATION);
+	}
 </script>
 
-<div class="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm space-y-4">
+<div class="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm space-y-4 relative">
 	<!-- Controls -->
 	<div class="space-y-3">
 		<p class="text-sm text-gray-600 dark:text-gray-400">
@@ -158,4 +172,13 @@
 			{displayChar}
 		</strong>
 	</p>
+
+	<!-- Success Message -->
+	{#if messageVisible}
+		<div class="absolute top-0 left-0 m-auto w-fit">
+			<Alert color="green" class="shadow-lg text-xl" >
+				{alertMessage}
+			</Alert>
+		</div>
+	{/if}
 </div>
