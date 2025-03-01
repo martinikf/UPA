@@ -18,28 +18,33 @@ LABELS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'ch', 'i', 'j', 'k', 'l', 'm',
 
 
 def run():
-    offset_path = "./dataset_mannie_right_25perSign/"
-    #output_file = offset_path + "processed_dataset.csv"
+    datasets = ["./dataset_left_100perSign/",
+                "./dataset_right_100perSign/",
+                "./dataset_m_left_25perSign/",
+                "./dataset_m_right_25perSign/"]
+
     output_file = "./processed_dataset.csv"
     hands = setup()
 
-    with open(output_file, "a") as f:
-        #f.write("label,f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f22,f23,f24,f25,f26,f27,f28,f29,f30,f31,f32,f33,f34,f35,f36,f37,f38,f39,f40,f41,f42\n")
-        for i, letter in enumerate(LABELS):
-            if not os.path.exists(offset_path + letter):
-                continue
-            for file in get_files(offset_path + letter):
-                data = process_image(hands, offset_path + letter + '/' + file)
-                print(data)
-                if data:
-                    f.write(f"{i},")
-                    for index, num in enumerate(data):
-                        if(index == len(data) - 1):
-                            f.write(f"{num}")
-                        else:
-                            f.write(f"{num},")
-                    f.write("\n")
-                print(f"Processed {letter}/{file}")
+    with open(output_file, "w") as f:
+        f.write("label,f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f22,f23,f24,f25,f26,f27,f28,f29,f30,f31,f32,f33,f34,f35,f36,f37,f38,f39,f40,f41,f42\n")
+
+        for offset_path in datasets:
+            for i, letter in enumerate(LABELS):
+                if not os.path.exists(offset_path + letter):
+                    continue
+                for file in get_files(offset_path + letter):
+                    data = process_image(hands, offset_path + letter + '/' + file)
+                    print(data)
+                    if data:
+                        f.write(f"{i},")
+                        for index, num in enumerate(data):
+                            if(index == len(data) - 1):
+                                f.write(f"{num}")
+                            else:
+                                f.write(f"{num},")
+                        f.write("\n")
+                    print(f"Processed {letter}/{file}")
 
 
 def setup():
