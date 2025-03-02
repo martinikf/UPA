@@ -13,6 +13,7 @@
 	let automaticMode = true;
 
 	const WINNER_BUFFER_SIZE = 5;
+	const TIME_BUFFER_WINDOW = 1000;
 	let winnerBuffer: { letter: string, timestamp: number }[] = [];
 
 	export function handleMessage(msg: CustomEvent<GestureProbability[]>) {
@@ -97,7 +98,7 @@
 
 	function removeOldRecords() {
 		const currentTime = Date.now();
-		winnerBuffer = winnerBuffer.filter(record => currentTime - record.timestamp <= 1000);
+		winnerBuffer = winnerBuffer.filter(record => currentTime - record.timestamp <= TIME_BUFFER_WINDOW);
 	}
 
 </script>

@@ -188,13 +188,14 @@
 	<!-- Content Container -->
 	<div class="grid md:grid-cols-3 gap-6 max-w-7xl mx-auto">
 		<!-- Webcam - Mobile first -->
-		{#if webcam}
+
 			<div class="order-first md:order-3 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm h-full">
-				<div class="aspect-auto border-2 border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
-					<LandmarkDetection bind:this={landmarkDetection} on:gestureRecognized={handleMessage} />
-				</div>
+				{#if webcam}
+					<div class="aspect-auto border-2 border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+							<LandmarkDetection bind:this={landmarkDetection} on:gestureRecognized={handleMessage} />
+					</div>
+				{/if}
 			</div>
-		{/if}
 
 		<!-- Animation - Mobile second -->
 		<div class="order-2 md:order-1 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm">
