@@ -32,6 +32,7 @@
 	import { processLandmarks } from '$lib/handlers/ImageProcessor';
 	import { ClassificatorNN } from '$lib/handlers/ClassificatorNN';
 	import { ClassificatorDF } from '$lib/handlers/ClassificatorDF';
+	import AbsoluteCenteredLoadingCircle from '$lib/components/shared/AbsoluteCenteredLoadingCircle.svelte';
 
 	// Component state variables
 	/** MediaPipe hand landmark detection model */
@@ -56,6 +57,8 @@
 	let lastTimeMs: number = 0; // used for measuring time between frames
 	/** Threshold for gesture recognition [0, 1]*/
 	export let gestureConfidenceThreshold: number = 0.8;
+
+	let loaded : boolean = false;
 
 	/**
 	 * Component initialization logic.
@@ -128,6 +131,7 @@
 		navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
 			video.srcObject = stream;
 			video.addEventListener('loadeddata', () => {
+				loaded = true;
 				predictWebcam();
 			});
 		});
@@ -139,6 +143,7 @@
 	export function disableCam() {
 		if (video && video.srcObject) {
 			webcamRunning = false;
+			loaded = false;
 			if (video.srcObject instanceof MediaStream) {
 				let tracks = video.srcObject.getTracks();
 				tracks.forEach(track => track.stop());
@@ -247,8 +252,9 @@
 	}
 </script>
 
+
 <!-- Component Template -->
-<div class="webcam_container">
+<div class="webcam_container relative">
 	<div id="webcam_mirror">
 		<!-- Video feed with mirroring -->
 		<video id="webcam" autoplay playsinline><track kind="captions" src="" /></video>
@@ -264,6 +270,11 @@
 						toggleShowVideo();
 					}}
 	></button>
+
+	<!-- Loading circle -->
+	{#if !loaded}
+		<AbsoluteCenteredLoadingCircle />
+	{/if}
 </div>
 
 <style>
