@@ -365,7 +365,7 @@ Command: npx @threlte/gltf@2.0.3 path\Model.glb --root /models/ --types --printw
 </script>
 
 <!-- Main 3D component render -->
-<T is={ref} dispose={false} {...$$restProps} bind:this={$component} position={[0, -1.5, 0]}>
+<T is={ref} dispose={true} {...$$restProps} bind:this={$component} position={[0, -1.5, 0]}>
 	{#await gltf}
 		<slot name="fallback" />
 	{:then gltf}

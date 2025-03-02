@@ -17,20 +17,34 @@
 	import { OrbitControls } from '@threlte/extras';
 
 	import Model from './AnimatedModel.svelte';
+	import AbsoluteCenteredLoadingCircle from '$lib/components/shared/AbsoluteCenteredLoadingCircle.svelte';
+	import { onMount } from 'svelte';
 
 	export let model: Model;
 	export let showLetter = true;
 
 	/** Bound variable for displaying the currently played letter */
 	let letterDisplay: string = '';
+
+	let initDelay = true;
+
+	onMount(() => {
+		setTimeout(() => {
+			initDelay = false;
+		}, 500)});
+
 </script>
+
+{#if !model || initDelay}
+	<AbsoluteCenteredLoadingCircle />
+{/if}
 
 <Canvas>
 	<T.PerspectiveCamera makeDefault position={[0, 0, 0.8]} fov={60}>
 		<OrbitControls autoRotate={false} enableZoom={true} enableDamping={false} />
 	</T.PerspectiveCamera>
 
-	<T.AmbientLight intensity={4} />
+	<T.AmbientLight intensity={5} />
 
 	<Model bind:this={model} bind:letterDisplay />
 </Canvas>
