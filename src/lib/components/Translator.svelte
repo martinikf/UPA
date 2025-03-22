@@ -22,10 +22,11 @@
 	 */
 	function translate() {
 		let sanitizedInput = keepOnlyLetters(removeFormating(textInput));
-		console.log(sanitizedInput);
+
 		if (sanitizedInput.length > 0)
 			model.playAnimationForText(sanitizedInput, selectedLanguageSet);
 	}
+
 </script>
 <div class="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm space-y-6">
 	<div class="space-y-4">

@@ -45,7 +45,9 @@
 		}
 
 		randomWord = words[Math.floor(Math.random() * words.length)].trim();
+
 		console.log(randomWord);
+
 		model.playAnimationForText(randomWord, selectedLanguageSet);
 	}
 

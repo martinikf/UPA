@@ -363,7 +363,7 @@
 		<!-- Middle Column - Animation -->
 		<div class="col-span-3 md:col-span-3">
 			<P class="text-center mb-3 mt-3 text-gray-600 dark:text-gray-400">Rozpoznaný vstup: <span class="font-bold">{parsed}</span></P>
-			<div class="bg-gradient-to-b from-blue-400 to-yellow-600 h-[600px] rounded-xl border-2 border-gray-200 dark:border-gray-700 shadow-lg">
+			<div class="bg-gradient-to-b from-blue-400 to-yellow-600 h-[600px] rounded-xl border-2 border-gray-200 dark:border-gray-700 shadow-lg relative">
 				<Scene bind:model bind:this={scene} bind:showLetter={showLetter} />
 			</div>
 			<ControlRow bind:this={controlRow} {model} />

@@ -28,5 +28,5 @@ export function removeFormating(str: string) {
 }
 
 export function keepOnlyLetters(input: string): string {
-	return input.replace(/[^\p{L}]/gu, '');
+	return input.replace(/[^\p{L} ]/gu, '');
 }

@@ -281,7 +281,7 @@ Command: npx @threlte/gltf@2.0.3 path\Model.glb --root /models/ --types --printw
 			transitionTo((actionOffset.toString() + transformedWord) as ActionName, transitionSpeed)
 		}
 		else{
-			// play finger alphabet for that world
+			// play finger alphabet for that word
 			playAnimationForText(transformedWord, Language.CzechFingerOneHand);
 		}
 	}
