@@ -94,6 +94,7 @@
 	 */
 	function nextChar() {
 		if (text.length == 0) {
+			customString = "";
 			displayMessage("Správně!");
 			return;
 		}
@@ -160,7 +161,7 @@
 			<Button color="primary" class="w-full" on:click={start}>
 				Spustit
 			</Button>
-			<Button color="blue" class="w-full" on:click={replay}>
+			<Button color="blue" class="w-full" on:click={replay} disabled="{currentChar.length < 1}">
 				Přehrát znovu
 			</Button>
 		</div>
