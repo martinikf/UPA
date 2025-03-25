@@ -288,7 +288,7 @@
 <!-- Attach the event listener to the window -->
 <svelte:window on:keydown={handleKeyPress} />
 
-<main class="max-w-7xl mx-auto px-4 pb-8">
+<main class="max-w-7xl mx-auto px-4 pb-8 relative">
 	<div class="grid grid-cols-1 md:gap-3 md:grid-cols-5">
 		<!-- Left Column - Controls -->
 		<div class="space-y-6 flex flex-col md:mt-12 mt-0">
@@ -303,14 +303,14 @@
 					</Toggle>
 				</div>
 
-				<div class="aspect-auto mb-4 border-2 border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+				<div class="aspect-auto mb-4 border-2 border-gray-200 md:dark:border-gray-700 md:w-full rounded-lg overflow-hidden md:relative fixed md:top-0 md:left-0 top-2 left-2 w-1/4 z-40">
 					{#if webcamOn}
 						<LandmarkDetection bind:this={landmarkDetection} on:gestureRecognized={handleMessage} />
 					{/if}
 				</div>
 
 				<div class="space-y-3">
-					<Button class="w-full" color="primary" on:click={send} disabled={!webcamOn}>Odeslat zprávu</Button>
+					<Button class="md:w-full md:relative fixed md:bottom-0 bottom-2 md:right-0 right-2 w-1/4 z-40 h-16 md:h-auto" color="primary" on:click={send} disabled={!webcamOn}>Odeslat zprávu</Button>
 					<Button class="w-full" color="blue" on:click={reset}>Odstranit aktuální zprávu</Button>
 					<Button class="w-full" color="red" on:click={resetChat}>Restartovat historii</Button>
 
@@ -361,9 +361,9 @@
 		</div>
 
 		<!-- Middle Column - Animation -->
-		<div class="col-span-3 md:col-span-3">
+		<div class="col-span-3 md:col-span-3 md:w-full w-11/12 mx-auto">
 			<P class="text-center mb-3 mt-3 text-gray-600 dark:text-gray-400">Rozpoznaný vstup: <span class="font-bold">{parsed}</span></P>
-			<div class="bg-gradient-to-b from-blue-400 to-yellow-600 h-[600px] rounded-xl border-2 border-gray-200 dark:border-gray-700 shadow-lg relative">
+			<div class="bg-gradient-to-b from-blue-400 to-yellow-600 md:h-[600px] h-[400px] rounded-xl border-2 border-gray-200 dark:border-gray-700 shadow-lg relative">
 				<Scene bind:model bind:this={scene} bind:showLetter={showLetter} />
 			</div>
 			<ControlRow bind:this={controlRow} {model} />
