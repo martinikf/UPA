@@ -50,16 +50,6 @@
 </Canvas>
 
 {#if showLetter && model}
-	<div class="text" id="text">{letterDisplay}</div>
+	<div class="absolute top-4 right-6 text-5xl font-bold" id="text">{letterDisplay}</div>
 {/if}
 
-<style>
-	.text {
-		position: absolute;
-		top: 5%;
-		left: 80%;
-		font-size: 48px;
-		font-family: Arial, Helvetica, sans-serif;
-		font-weight: bold;
-	}
-</style>
