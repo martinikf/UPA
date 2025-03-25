@@ -257,15 +257,15 @@
 
 
 <!-- Component Template -->
-<div class="webcam_container relative">
-	<div id="webcam_mirror">
+<div class="webcam_container relative flex justify-start">
+	<div id="webcam_mirror" class="-scale-x-100 relative">
 		<!-- Video feed with mirroring -->
-		<video class="{showVideo ? '' : 'opacity-0'}" id="webcam" autoplay playsinline><track kind="captions" src="" /></video>
+		<video class="{showVideo ? '' : 'opacity-0'} h-full w-full" id="webcam" autoplay playsinline><track kind="captions" src="" /></video>
 		<!-- Overlay canvas for landmark visualization -->
-		<canvas class="output_canvas" id="output_canvas" width="2000" height="1500"></canvas>
+		<canvas class="output_canvas absolute left-0 top-0 w-full h-full" id="output_canvas" width="2000" height="1500"></canvas>
 	</div>
 	<button
-		id="toggle_show_video"
+		id="toggle_show_video" class="bg-transparent border-0 p-0 m-0 absolute top-0 right-0 w-full h-full"
 		on:click={() => {
 						toggleShowVideo();
 					}}
@@ -276,41 +276,3 @@
 		<AbsoluteCenteredLoadingCircle />
 	{/if}
 </div>
-
-<style>
-	.webcam_container {
-		display: flex;
-		justify-content: left;
-    position: relative;
-	}
-
-	#webcam_mirror {
-		transform: scaleX(-1);
-		position: relative;
-	}
-
-	#webcam {
-		width: 100%;
-		height: 100%;
-	}
-
-	#output_canvas {
-		position: absolute;
-		left: 0;
-		top: 0;
-		width: 100%;
-		height: 100%;
-	}
-
-  #toggle_show_video {
-    background-color: transparent;
-    border: none;
-    padding: 0;
-    margin: 0;
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-  }
-</style>
