@@ -185,28 +185,18 @@
 		</div>
 	</div>
 
-	<!-- Content Container -->
-	<div class="grid md:grid-cols-3 gap-6 max-w-7xl mx-auto">
-		<!-- Webcam - Mobile first -->
-
-			<div class="order-first md:order-3 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm h-full">
-				{#if webcam}
-					<div class="aspect-auto border-2 border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
-							<LandmarkDetection bind:this={landmarkDetection} on:gestureRecognized={handleMessage} />
-					</div>
-				{/if}
-			</div>
-
-		<!-- Animation - Mobile second -->
-		<div class="order-2 md:order-1 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm">
+	<!-- Animation + Controls + Webcam -->
+	<div class="relative md:grid md:grid-cols-3 md:gap-3">
+			<!-- Animation -->
+		<div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm ">
 			<div class="bg-gradient-to-b from-blue-400 to-yellow-600 h-64 rounded-xl border-2 border-gray-200 dark:border-gray-700 relative">
 				<Scene bind:model bind:this={scene} showLetter={displayLetter} />
 			</div>
 			<ControlRow bind:this={controlRow} {model} />
 		</div>
 
-		<!-- Controls - Mobile third -->
-		<div class="order-3 md:order-2 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm md:col-span-1">
+		<!-- Controls -->
+		<div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm ">
 			{#if mode === PlaygroundMode.Translator}
 				<Translator {model} />
 			{:else if mode === PlaygroundMode.Practice}
@@ -217,6 +207,16 @@
 				<SpellActivity bind:this={spellActivity} {model} />
 			{:else if webcam && mode === PlaygroundMode.Transcript}
 				<Transcript bind:this={transcript} {model} />
+			{/if}
+		</div>
+
+
+		<!-- Webcam -->
+		<div class="rounded-lg shadow-sm absolute w-1/4 top-0 left-0 md:relative md:p-4 md:w-full md:bg-white md:dark:bg-gray-800">
+			{#if webcam}
+				<div class="aspect-auto border-2 border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+					<LandmarkDetection bind:this={landmarkDetection} on:gestureRecognized={handleMessage} />
+				</div>
 			{/if}
 		</div>
 	</div>
