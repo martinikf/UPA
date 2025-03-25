@@ -143,6 +143,7 @@
 				color="blue"
 				class="w-full"
 				on:click={replayAnimation}
+				disabled={sentence.length < 1}
 			>
 				Přehrát znovu
 			</Button>
@@ -167,6 +168,7 @@
 				color="green"
 				class="w-full md:col-span-2"
 				on:click={checkAnswer}
+				disabled={userInput.length < 1 || sentence.length < 1}
 			>
 				Zkontrolovat
 			</Button>

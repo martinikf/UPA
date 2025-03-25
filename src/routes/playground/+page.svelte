@@ -188,7 +188,7 @@
 	<!-- Animation + Controls + Webcam -->
 	<div class="relative md:grid md:grid-cols-3 md:gap-3">
 			<!-- Animation -->
-		<div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm ">
+		<div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm md:w-full w-11/12 mx-auto">
 			<div class="bg-gradient-to-b from-blue-400 to-yellow-600 h-64 rounded-xl border-2 border-gray-200 dark:border-gray-700 relative">
 				<Scene bind:model bind:this={scene} showLetter={displayLetter} />
 			</div>
@@ -196,7 +196,7 @@
 		</div>
 
 		<!-- Controls -->
-		<div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm ">
+		<div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm md:mt-0 mt-2">
 			{#if mode === PlaygroundMode.Translator}
 				<Translator {model} />
 			{:else if mode === PlaygroundMode.Practice}

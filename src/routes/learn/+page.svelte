@@ -69,13 +69,13 @@
 	}
 </script>
 
-	<div class="mt-8 max-w-7xl mx-auto px-4 pb-8 dark:bg-gray-900">
+	<div class="md:mt-8 mt-2 max-w-7xl mx-auto px-4 pb-8 dark:bg-gray-900 relative">
 		<div class="grid grid-cols-1 md:grid-cols-5 md:gap-6">
 
 			<!-- Animation Column -->
-			<div class="col-span-3">
-				<div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm">
-					<div class="bg-gradient-to-b from-blue-400 to-yellow-600 h-[454px] rounded-xl border-2 border-gray-200 dark:border-gray-700 shadow-lg relative">
+			<div class="col-span-3 md:relative fixed bottom-4 left-1 z-50">
+				<div class="md:bg-white bg-gray-300 md:dark:bg-gray-800 dark:bg-gray-600 md:p-4 p-2 rounded-lg shadow-sm md:w-full w-8/12">
+					<div class="bg-gradient-to-b from-blue-400 to-yellow-600 md:h-[454px] h-[250px] rounded-xl border-2 border-gray-200 dark:border-gray-700 shadow-lg relative">
 						<Scene bind:model bind:this={scene} bind:showLetter={showString} />
 					</div>
 					<ControlRow {model} bind:this={controlRow} />
@@ -83,7 +83,7 @@
 			</div>
 
 
-			<div class="md:mt-0 mt-4 col-span-1 md:col-span-2">
+			<div class="md:mt-0 mb-[320px] col-span-1 md:col-span-2">
 				<Tabs>
 					<TabItem
 						on:click={() => changeMode(LearnMode.Practice)}	>

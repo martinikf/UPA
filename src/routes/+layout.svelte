@@ -14,9 +14,9 @@
 		class="backdrop-blur-sm border-b border-gray-200 dark:border-gray-700"
 	>
 		<NavBrand class="flex items-center space-x-3 rtl:space-x-reverse">
-			<span class="self-center text-3xl font-bold whitespace-nowrap dark:text-white gradient-text">
+			<a class="self-center text-3xl font-bold whitespace-nowrap dark:text-white gradient-text" href="/">
 				PUPA
-			</span>
+			</a>
 		</NavBrand>
 
 		<div class="flex md:order-2 gap-2">

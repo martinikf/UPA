@@ -17,9 +17,6 @@
 	export let model: Model;
 	export let data: Word[];
 
-	// Constants
-	const MOBILE_BREAKPOINT = 768;
-	const MOBILE_DELAY = 500;
 
 	// State
 	let wordsToShow = [...data];
@@ -32,14 +29,7 @@
 	 * @param language Language enum value
 	 */
 	function animate(txt: string, language: Language) {
-		// delay the animation on mobile size screens
-		// assume that users has to scroll
-		let delay = 0;
-		if (window.innerWidth < MOBILE_BREAKPOINT) delay = MOBILE_DELAY;
-
-		setTimeout(() => {
-			model.playAnimationForText(txt, language);
-		}, delay);
+		model.playAnimationForText(txt, language);
 	}
 
 	/**

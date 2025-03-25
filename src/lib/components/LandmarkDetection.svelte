@@ -213,16 +213,19 @@
 	 * @param results  HandLandmarkerResult object containing landmark data
 	 */
 	function drawLandmarks(drawingUtils: DrawingUtils, results: HandLandmarkerResult) {
+
+		const widthMultiplier = showVideo ? 1 : 2.5;
+
 		for (const landmark of results.landmarks) {
 			// Draw connections between landmarks
 			drawingUtils.drawConnectors(landmark, GestureRecognizer.HAND_CONNECTIONS, {
 				color: '#00FF00',
-				lineWidth: 5
+				lineWidth: (5 * widthMultiplier)
 			});
 			// Draw landmark points
 			drawingUtils.drawLandmarks(landmark, {
 				color: '#0000FF',
-				lineWidth: 2
+				lineWidth: (2 * widthMultiplier)
 			});
 		}
 	}
