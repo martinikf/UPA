@@ -257,10 +257,7 @@
 <div class="webcam_container relative">
 	<div id="webcam_mirror">
 		<!-- Video feed with mirroring -->
-		<video id="webcam" autoplay playsinline><track kind="captions" src="" /></video>
-		{#if !showVideo}
-			<div class="video_block"></div>
-		{/if}
+		<video class="{showVideo ? '' : 'opacity-0'}" id="webcam" autoplay playsinline><track kind="captions" src="" /></video>
 		<!-- Overlay canvas for landmark visualization -->
 		<canvas class="output_canvas" id="output_canvas" width="2000" height="1500"></canvas>
 	</div>
@@ -282,15 +279,6 @@
 		display: flex;
 		justify-content: left;
     position: relative;
-	}
-
-	.video_block {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background-color: #444444;
 	}
 
 	#webcam_mirror {
