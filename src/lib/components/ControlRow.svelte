@@ -37,10 +37,10 @@
 </script>
 
 <!-- Control row with speed slider, reset and pause/resume buttons -->
-<div class="control_row">
+<div class="flex flex-row justify-between gap-4 mt-2">
 	<!-- Speed slider -->
-	<div class="mt-2 ml-4 mr-2">
-		<Label for="animation_speed_slider">Rychlost</Label>
+	<div>
+		<Label for="animation_speed_slider" class="md:text-base text-xs">Rychlost</Label>
 		<Range id = "animation_speed_slider"
 					min = "0"
 					max = "4"
@@ -52,42 +52,19 @@
 	</div>
 
 	<!-- Reset and pause/resume buttons-->
-	<ButtonGroup class="mt-2 mr-4">
-		<Button size="xs" on:click={() => {	resetOnClick(); }}>
-			<RefreshOutline />
-		</Button>
+	<div>
+		<ButtonGroup>
+			<Button size="xs" on:click={() => {	resetOnClick(); }}>
+				<RefreshOutline />
+			</Button>
 
-		<Button size="xs" on:click={() => { pauseResumeOnClick();	}} >
-			{#if paused}
-				<PlayOutline />
-			{:else}
-				<PauseOutline />
-			{/if}
-		</Button>
-	</ButtonGroup>
+			<Button size="xs" on:click={() => { pauseResumeOnClick();	}} >
+				{#if paused}
+					<PlayOutline />
+				{:else}
+					<PauseOutline />
+				{/if}
+			</Button>
+		</ButtonGroup>
+	</div>
 </div>
-
-
-<style>
-	.control_row {
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-	}
-
-	.control_row > * {
-		padding: 5px;
-	}
-
-	@media (max-width: 480px) {
-		.control_row {
-			display: block;
-		}
-
-		.control_row div {
-			display: flex;
-			flex-direction: row;
-			justify-content: end;
-		}
-	}
-</style>

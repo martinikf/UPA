@@ -309,14 +309,15 @@
 					{/if}
 				</div>
 
-				<div class="space-y-3">
-					<Button class="md:w-full md:relative fixed md:bottom-0 bottom-2 md:right-0 right-2 w-1/4 z-40 h-16 md:h-auto" color="primary" on:click={send} disabled={!webcamOn}>Odeslat zprávu</Button>
-					<Button class="w-full" color="blue" on:click={reset}>Odstranit aktuální zprávu</Button>
-					<Button class="w-full" color="red" on:click={resetChat}>Restartovat historii</Button>
-
+				<div class="space-y-3 flex flex-col-reverse md:flex-col">
+					<div class="space-y-3">
+						<Button class="md:w-full md:relative fixed md:bottom-0 bottom-2 md:right-0 right-2 w-1/4 z-40 h-16 md:h-auto" color="primary" on:click={send} disabled={!webcamOn}>Odeslat zprávu</Button>
+						<Button class="w-full" color="blue" on:click={reset}>Odstranit aktuální zprávu</Button>
+						<Button class="w-full" color="red" on:click={resetChat}>Restartovat historii</Button>
+					</div>
 					<div class="flex flex-col space-y-3">
-						<Checkbox bind:checked={showLetter} class="text-gray-700 dark:text-gray-300">Zobrazit přehrávaný znak</Checkbox>
-						<Checkbox bind:checked={showChat} class="text-gray-700 dark:text-gray-300">Zobrazit konverzaci</Checkbox>
+						<Checkbox bind:checked={showLetter} class="text-gray-700 dark:text-gray-300 flex flex-row justify-end md:justify-start">Zobrazit přehrávaný znak</Checkbox>
+						<Checkbox bind:checked={showChat} class="text-gray-700 dark:text-gray-300 flex-row justify-end md:justify-start">Zobrazit konverzaci</Checkbox>
 					</div>
 				</div>
 			</div>
@@ -370,7 +371,7 @@
 		</div>
 
 		<!-- Right Column - Chat -->
-		<div class="md:mt-12 mt-0">
+		<div class="md:mt-12 mt-2">
 			<div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm h-[625px] flex flex-col">
 				<div class="overflow-y-auto flex-1 space-y-4">
 					{#each chatHistory.slice(1) as message}
