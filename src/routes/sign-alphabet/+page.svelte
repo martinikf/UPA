@@ -22,7 +22,7 @@
 			<Heading tag="h3" class="text-2xl font-semibold dark:text-white mb-2">Jednoruční prstová abeceda:</Heading>
 			<P class="text-gray-600 dark:text-gray-400">
 				Každé písmeno je tvořeno specifickým postavením prstů jedné ruky.
-				Tato varianta je méně častá a používá se spíše v některých regionech nebo v kombinaci s dvouruční variantou.
+				Tato varianta je méně častá a náročnější.
 			</P>
 		</Li>
 
@@ -39,14 +39,15 @@
 		<Heading tag="h2" class="text-3xl font-bold dark:text-white mb-6 border-b border-gray-200 dark:border-gray-700 pb-2">Český znakový jazyk</Heading>
 		<P class="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
 			Český znakový jazyk je plnohodnotný jazyk s vlastní gramatikou a slovní zásobou.
-			Prstová abeceda je jeho součástí a slouží k doplnění slov, pro která neexistuje znak, nebo k vyjádření jmen, cizích slov a dalších pojmů.
+			Prstová abeceda je jeho součástí a slouží k doplnění slov, pro která neexistuje vlastní znak.
 		</P>
 
 		<Heading tag="h3" class="text-2xl font-semibold dark:text-white mb-4">Rozdíly mezi znakovými jazyky</Heading>
 		<P class="text-gray-600 dark:text-gray-400">
-			Je důležité si uvědomit, že znakové jazyky se mezi různými zeměmi liší.
+			Znakové jazyky se mezi různými zeměmi liší.
 			Stejně tak i prstové abecedy se mohou v různých zemích lišit.
 			Například americká prstová abeceda se používá v USA a je odlišná od české prstové abecedy.
+			Ve většině znakových jazicích je využívína prstová abeceda jednoruční a většinou sdílí podobné znaky s ostatními jazyky.
 		</P>
 	</div>
 </main>

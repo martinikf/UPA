@@ -83,7 +83,7 @@
 			</div>
 
 
-			<div class="md:mt-0 mb-[320px] col-span-1 md:col-span-2">
+			<div class="md:mt-0 md:mb-0 mb-[320px] col-span-1 md:col-span-2">
 				<Tabs>
 					<TabItem
 						on:click={() => changeMode(LearnMode.Practice)}	>

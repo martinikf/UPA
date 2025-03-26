@@ -120,8 +120,7 @@
 	<Heading tag="h2" class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Procvičovat</Heading>
 
 	<P class="text-gray-600 dark:text-gray-400 mb-6">
-		Zapište do pole postupně všechny znaky, které vám byly zobrazeny. Poté stiskněte tlačítko
-		zkontrolovat.
+		Zapište do pole text, který Vám byl zobrazen. Poté stiskněte tlačítko zkontrolovat.
 	</P>
 
 	<div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm space-y-6">

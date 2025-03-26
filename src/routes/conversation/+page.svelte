@@ -398,13 +398,11 @@
 	<Hr class="my-8" />
 
 	<div class="prose dark:prose-invert max-w-4xl mx-auto">
-		<Heading tag="h2" class="mb-6">Jak používat tento režim</Heading>
-
 		<Heading tag="h3" class="mb-4">Obecné informace</Heading>
 		<List class="space-y-3">
-			<Li>Kvalita odpovědí velmi závisí na použitém LLM...</Li>
-			<Li>Pro vytvoření mezery zobrazuje poslední znak...</Li>
-			<Li>Chcete-li znakovat stejný znak dvakrát...</Li>
+			<Li>Kvalita odpovědí velmi závisí na použitém modelu.</Li>
+			<Li>Pro vytvoření mezery zobrazuje poslední znak slova déle a poté pokračujte prvním znakem dalšího slova.</Li>
+			<Li>Chcete-li znakovat stejný znak dvakrát za sebou, zobrazte znak, plynule ukažte jiné gesto a hned poté opět daný znak.</Li>
 		</List>
 
 		<Heading tag="h3" class="mt-6 mb-4">Klávesové zkratky</Heading>
@@ -415,17 +413,20 @@
 		</List>
 
 		<Heading tag="h3" class="mt-6 mb-4">API</Heading>
+		<P>Pro funkčnost režimu je nutné, aby aplikace byla propojena s nějaká LLM modelem. Aplikace nabízí dvě rozhraní:</P>
 		<Heading tag="h4" class="mb-3">Ollama API</Heading>
 		<List class="space-y-2">
-			<Li><A href="https://ollama.com/" class="text-blue-600 dark:text-blue-400">https://ollama.com/</A></Li>
-			<Li>Cors nastavení: SET OLLAMA_ORIGINS='*'</Li>
+			<Li>Nainstalujte program ollama z: <A href="https://ollama.com/" class="text-blue-600 dark:text-blue-400">https://ollama.com/</A>.</Li>
+			<Li>CORS nastavení: SET OLLAMA_ORIGINS='adresa-webové-aplikace' a restartujte aplikaci ollama.</Li>
+			<Li>Nainstalujte si libovolný model, seznam modelů lze nalézt na webové stránce programu ollama.</Li>
+			<Li>Model spusťte a napište název modelu do pole pro název modelu.</Li>
 		</List>
 
-		<Heading tag="h4" class="mt-4 mb-3">Nekompatibilní API</Heading>
-		<P class="mb-4">
-			Pro programátory, ve zdrojovém kódu naleznete podobu API dotazů.<br>
-			<A href="https://github.com/martinikf/UPA/blob/main/src/routes/conversation/%2Bpage.svelte" class="text-blue-600 dark:text-blue-400">Zdrojový kód</A>
-		</P>
+		<Heading tag="h4" class="mb-3">OpenAI API</Heading>
+		<List class="space-y-2">
+			<Li>Získejte klíč k platformě OpenAI a vložte do pole.</Li>
+			<Li>Zadejte název Vámi zvoleného modelu.</Li>
+		</List>
 	</div>
 </main>
 
