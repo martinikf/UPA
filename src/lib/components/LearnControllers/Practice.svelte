@@ -5,11 +5,11 @@
 	 * Requires model and data
 	 */
 
-	import Model from '$lib/components/AnimatedModel.svelte';
+	import Model from '$lib/components/Animation/AnimatedModel.svelte';
 	import { Word, Language } from '$lib/models/Word';
 	import { Alert, Button, Checkbox, Heading, Input, P } from 'flowbite-svelte';
 	import { replaceCzechDiacriticsAndNormalize } from '$lib/helpers/TextHelper';
-	import LanguageSelector from '$lib/components/shared/LanguageSelector.svelte';
+	import LanguageSelector from '$lib/components/Shared/LanguageSelector.svelte';
 
 	// Component props
 	export let model: Model;

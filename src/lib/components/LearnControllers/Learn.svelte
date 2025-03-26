@@ -14,10 +14,10 @@
 	 * Requires Model and Data
 	 */
 
-	import Model from '$lib/components/AnimatedModel.svelte';
+	import Model from '$lib/components/Animation/AnimatedModel.svelte';
 	import { Language, Word } from '$lib/models/Word';
 	import { Button, Heading, P } from 'flowbite-svelte';
-	import LanguageSelector from '$lib/components/shared/LanguageSelector.svelte';
+	import LanguageSelector from '$lib/components/Shared/LanguageSelector.svelte';
 
 	// Component props
 	export let model: Model;

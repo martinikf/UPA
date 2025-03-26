@@ -32,7 +32,7 @@
 	import { processLandmarks } from '$lib/handlers/ImageProcessor';
 	import { ClassificatorNN } from '$lib/handlers/ClassificatorNN';
 	import { ClassificatorDF } from '$lib/handlers/ClassificatorDF';
-	import AbsoluteCenteredLoadingCircle from '$lib/components/shared/AbsoluteCenteredLoadingCircle.svelte';
+	import AbsoluteCenteredLoadingCircle from '$lib/components/Shared/AbsoluteCenteredLoadingCircle.svelte';
 
 	// Component state variables
 	/** MediaPipe hand landmark detection model */

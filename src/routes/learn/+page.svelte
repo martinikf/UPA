@@ -9,15 +9,15 @@
 	 *
 	 */
 
-	import Model from '$lib/components/AnimatedModel.svelte';
-	import Scene from '$lib/components/Scene.svelte';
-	import ControlRow from '$lib/components/ControlRow.svelte';
+	import Model from '$lib/components/Animation/AnimatedModel.svelte';
+	import Scene from '$lib/components/Animation/Scene.svelte';
+	import ControlRow from '$lib/components/Animation/ControlRow.svelte';
 	import { Language, Word } from '$lib/models/Word';
 	import { LearnMode } from '$lib/models/LearnMode';
 
-	import Review from './Review.svelte';
-	import Practice from './Practice.svelte';
-	import Learn from './Learn.svelte';
+	import Review from '$lib/components/LearnControllers/Review.svelte';
+	import Practice from '$lib/components/LearnControllers/Practice.svelte';
+	import Learn from '$lib/components/LearnControllers/Learn.svelte';
 	import { TabItem, Tabs } from 'flowbite-svelte';
 
 	let scene: Scene;
@@ -38,7 +38,7 @@
 		//Add letter 'ch' after 'h'
 		lettersCz.splice(8, 0, 'ch');
 
-		let words = ['Mama', 'Ahoj']; //TODO, load dynamically from model
+		let words = ['Mama', 'Ahoj']; //TODO, load dynamically from AnimatedModel - duplication!
 
 		let listOfAllWords: Word[] = [];
 

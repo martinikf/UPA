@@ -1,10 +1,10 @@
 <script lang="ts">
 
-	import LandmarkDetection from '$lib/components/LandmarkDetection.svelte';
+	import LandmarkDetection from '$lib/components/Recognition/LandmarkDetection.svelte';
 
-	import Scene from '$lib/components/Scene.svelte';
-	import Model from '$lib/components/AnimatedModel.svelte';
-	import ControlRow from '$lib/components/ControlRow.svelte';
+	import Scene from '$lib/components/Animation/Scene.svelte';
+	import Model from '$lib/components/Animation/AnimatedModel.svelte';
+	import ControlRow from '$lib/components/Animation/ControlRow.svelte';
 
 	// Import types
 	import type { GestureProbability } from '$lib/models/GestureProbability';

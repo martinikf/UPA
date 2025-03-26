@@ -11,8 +11,7 @@
 <header class="top-0 z-50">
 	<Navbar
 		fluid={true}
-		class="backdrop-blur-sm border-b border-gray-200 dark:border-gray-700"
-	>
+		class="backdrop-blur-sm border-b border-gray-200 dark:border-gray-700">
 		<NavBrand class="flex items-center space-x-3 rtl:space-x-reverse">
 			<a class="self-center text-3xl font-bold whitespace-nowrap dark:text-white gradient-text" href="/">
 				PUPA

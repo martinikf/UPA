@@ -10,7 +10,7 @@
 	 * Requires the AnimatedModel component to be passed as a prop
 	 */
 
-	import Model from './AnimatedModel.svelte';
+	import Model from '$lib/components/Animation/AnimatedModel.svelte';
 	import type { GestureProbability } from '$lib/models/GestureProbability';
 	import { Language } from '$lib/models/Word';
 	import { Alert, Button, Input } from 'flowbite-svelte';

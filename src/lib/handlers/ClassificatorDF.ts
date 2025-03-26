@@ -52,6 +52,7 @@ export class ClassificatorDF implements Classificator {
 	 */
 	async load() {
 		const baseURL = `${window.location.protocol}//${window.location.host}`;
+		// @ts-expect-error -- Ignore error of import not being found
 		const tfdf = await import('@tensorflow/tfjs-tfdf');
 		tfdf.setLocateFile(() => {
 			return `${baseURL}/inference.wasm`;
@@ -74,7 +75,6 @@ export class ClassificatorDF implements Classificator {
 			}
 		}
 
-		console.log(landmarks);
 		// Build input
 		const inputDict: { [key: string]: tf.Tensor } = {};
 		for (let i = 0; i < 42; i++) {

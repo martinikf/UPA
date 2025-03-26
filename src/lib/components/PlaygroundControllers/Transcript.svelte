@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Model from './AnimatedModel.svelte';
+	import Model from '$lib/components/Animation/AnimatedModel.svelte';
 	import { Button, P } from 'flowbite-svelte';
 	import type { GestureProbability } from '$lib/models/GestureProbability';
 	import { Language } from '$lib/models/Word';

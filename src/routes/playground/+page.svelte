@@ -11,17 +11,17 @@
 	 *
 	 */
 
-	import LandmarkDetection from '$lib/components/LandmarkDetection.svelte';
-	import Scene from '$lib/components/Scene.svelte';
-	import Model from '$lib/components/AnimatedModel.svelte';
-	import ControlRow from '$lib/components/ControlRow.svelte';
+	import LandmarkDetection from '$lib/components/Recognition/LandmarkDetection.svelte';
+	import Scene from '$lib/components/Animation/Scene.svelte';
+	import Model from '$lib/components/Animation/AnimatedModel.svelte';
+	import ControlRow from '$lib/components/Animation/ControlRow.svelte';
 
 	// Import modes
-	import Translator from '$lib/components/Translator.svelte';
-	import Practice from '$lib/components/Practice.svelte';
-	import SpellActivity from '$lib/components/SpellActivity.svelte';
-	import Transcript from '$lib/components/Transcript.svelte';
-	import Interactive from '$lib/components/Interactive.svelte';
+	import Translator from '$lib/components/PlaygroundControllers/Translator.svelte';
+	import Practice from '$lib/components/PlaygroundControllers/Practice.svelte';
+	import SpellActivity from '$lib/components/PlaygroundControllers/SpellActivity.svelte';
+	import Transcript from '$lib/components/PlaygroundControllers/Transcript.svelte';
+	import Interactive from '$lib/components/PlaygroundControllers/Interactive.svelte';
 
 	// Import types
 	import type { GestureProbability } from '$lib/models/GestureProbability';
@@ -47,7 +47,7 @@
 	 * Routes landmark detection messages to appropriate components based on current mode
 	 * @param msg - Custom event containing gesture probability data
 	 */
-	function handleMessage(msg: CustomEvent<GestureProbability>) {
+	function handleMessage(msg: CustomEvent<GestureProbability[]>) {
 		if (!webcam) return;
 
 		switch (mode) {
@@ -114,6 +114,9 @@
 		handleModeChange();
 	}
 
+	/**
+	 * Disable webcam before page leave
+	 */
 	beforeNavigate(() => {
 		if(landmarkDetection){
 			landmarkDetection.disableCam();

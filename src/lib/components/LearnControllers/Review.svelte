@@ -10,7 +10,7 @@
 	 * Requires data - list of Words
 	 */
 
-	import Model from '$lib/components/AnimatedModel.svelte';
+	import Model from '$lib/components/Animation/AnimatedModel.svelte';
 	import { Language, Word } from '$lib/models/Word';
 	import { Heading, Hr, Input, P } from 'flowbite-svelte';
 

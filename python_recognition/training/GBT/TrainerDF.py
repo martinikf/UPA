@@ -40,7 +40,7 @@ def run():
 
     model_1 = tfdf.keras.GradientBoostedTreesModel(verbose=2)
     model_1.fit(train_ds)
-    model_1.compile(metrics=["accuracy", "Precision", "Recall"])
+    model_1.compile(metrics=["accuracy", "Precision", "Recall", "F1Score"])
     evaluation = model_1.evaluate(test_ds, return_dict=True)
     print()
     for name, value in evaluation.items():

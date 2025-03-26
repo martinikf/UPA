@@ -17,7 +17,7 @@
 	import { OrbitControls } from '@threlte/extras';
 
 	import Model from './AnimatedModel.svelte';
-	import AbsoluteCenteredLoadingCircle from '$lib/components/shared/AbsoluteCenteredLoadingCircle.svelte';
+	import AbsoluteCenteredLoadingCircle from '$lib/components/Shared/AbsoluteCenteredLoadingCircle.svelte';
 	import { onMount } from 'svelte';
 
 	export let model: Model;

@@ -2,7 +2,7 @@
 	import { A, Card, Heading, P } from 'flowbite-svelte';
 </script>
 
-<main class="min-h-screen py-8">
+<main class="py-8">
 	<!-- Hero Section -->
 	<Card class="max-w-4xl mx-auto mb-16 p-12 shadow-xl dark:shadow-gray-800/30" size="lg">
 		<div class="space-y-6">
@@ -19,7 +19,7 @@
 
 	<!-- About Section -->
 	<div class="max-w-7xl mx-auto px-4 mb-16">
-		<Heading tag="h2" align="center" class="text-3xl font-bold dark:text-white mb-12">O aplikaci</Heading>
+		<Heading tag="h2" class="text-3xl font-bold dark:text-white mb-12 text-center">O aplikaci</Heading>
 		<div class="grid md:grid-cols-2 justify-items-center gap-8">
 			<Card size="sm" class="hover:shadow-lg transition-shadow duration-200 dark:bg-gray-800">
 				<div class="p-6 space-y-4">
@@ -41,7 +41,7 @@
 
 	<!-- Modes Section -->
 	<div class="max-w-7xl mx-auto px-4">
-		<Heading tag="h2" align="center" class="text-3xl font-bold dark:text-white mb-12">Režimy</Heading>
+		<Heading tag="h2" class="text-3xl font-bold dark:text-white mb-12 text-center">Režimy</Heading>
 		<div class="grid md:grid-cols-3 justify-items-center gap-8">
 			<Card class="hover:shadow-lg transition-shadow duration-200 dark:bg-gray-800" size="xs">
 				<div class="p-6 space-y-4">

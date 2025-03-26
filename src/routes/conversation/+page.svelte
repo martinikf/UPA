@@ -2,11 +2,11 @@
 
 	import { beforeNavigate } from '$app/navigation';
 
-	import LandmarkDetection from '$lib/components/LandmarkDetection.svelte';
+	import LandmarkDetection from '$lib/components/Recognition/LandmarkDetection.svelte';
 
-	import Scene from '$lib/components/Scene.svelte';
-	import Model from '$lib/components/AnimatedModel.svelte';
-	import ControlRow from '$lib/components/ControlRow.svelte';
+	import Scene from '$lib/components/Animation/Scene.svelte';
+	import Model from '$lib/components/Animation/AnimatedModel.svelte';
+	import ControlRow from '$lib/components/Animation/ControlRow.svelte';
 
 	// Import types
 	import type { GestureProbability } from '$lib/models/GestureProbability';
@@ -27,6 +27,7 @@
 		Toggle
 	} from 'flowbite-svelte';
 	import { convertToFrequencyFormat, MIN_GROUP_LENGTH } from '$lib/helpers/CSLR';
+
 	let scene: Scene;
 	let model: Model;
 	let controlRow: ControlRow;
@@ -59,6 +60,8 @@
 
 	let modelNameOllama : string = "llama3.1"
 	let requestUrlOllama : string = "http://localhost:11434/api/chat"
+
+	let disabledToggle = false;
 
 	let chatHistory: Array<{ role: string, content: string }> = [
 		{
@@ -232,7 +235,6 @@
 
 	function handleKeyPress(event: KeyboardEvent) {
 		if (event.code === "Space") {
-			console.log("space")
 			// Prevent default space scrolling behavior
 			event.preventDefault();
 			str += " ".repeat(MIN_GROUP_LENGTH);
@@ -261,8 +263,6 @@
 		}
 	}
 
-	let disabledToggle = false;
-
 	function webcamToggle() {
 		if (webcamOn) {
 			landmarkDetection.disableCam();
@@ -278,6 +278,9 @@
 		}
 	}
 
+	/**
+	 * Disable webcam before page leave
+	 */
 	beforeNavigate(() => {
 		if(landmarkDetection){
 			landmarkDetection.disableCam();
@@ -287,6 +290,7 @@
 
 <!-- Attach the event listener to the window -->
 <svelte:window on:keydown={handleKeyPress} />
+
 
 <main class="max-w-7xl mx-auto px-4 pb-8 relative">
 	<div class="grid grid-cols-1 md:gap-3 md:grid-cols-5">
@@ -419,7 +423,7 @@
 
 		<Heading tag="h4" class="mt-4 mb-3">Nekompatibilní API</Heading>
 		<P class="mb-4">
-			Pro programátory, ve zdrojovém kodu naleznete podobu API dotazů.<br>
+			Pro programátory, ve zdrojovém kódu naleznete podobu API dotazů.<br>
 			<A href="https://github.com/martinikf/UPA/blob/main/src/routes/conversation/%2Bpage.svelte" class="text-blue-600 dark:text-blue-400">Zdrojový kód</A>
 		</P>
 	</div>

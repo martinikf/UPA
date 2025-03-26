@@ -68,7 +68,7 @@ Command: npx @threlte/gltf@2.0.3 path\Model.glb --root /models/ --types --printw
 	let previousChar: string = '';
 	let isPaused: boolean = false;
 
-	// Word animations
+	// Word animations - ugly ugly ugly mess. I'm sorry. Needs refactoring! Support for words was implemented in a hurry.
 	let sentence: string = '';
 
 	// Animation timing variables
@@ -119,6 +119,7 @@ Command: npx @threlte/gltf@2.0.3 path\Model.glb --root /models/ --types --printw
 		Ž: 'Z'
 	};
 
+	/* List of supported words, todo: load this dynamically from the model */
 	const animatedWords = ["Ahoj", "Mama"];
 
 	// Reactive statement to play animation when currentActionName changes
@@ -242,15 +243,16 @@ Command: npx @threlte/gltf@2.0.3 path\Model.glb --root /models/ --types --printw
 		//Forget first char from text
 		text = text.substring(1);
 
+		//Next action name
+		const nextActionName = actionOffset.toString() + normalizeActionKey(currentChar, currentChar === previousChar) as ActionName
+		const nextAction = $actions[nextActionName as ActionName];
+		console.log(nextAction);
+
 		// Handle letters vs non-letters
-		if (currentChar.toLowerCase() != currentChar.toUpperCase()) {
+		if (currentChar.toLowerCase() != currentChar.toUpperCase() && nextAction) {
 			// If char is a letter
 			letterDisplay = currentChar;
-			transitionTo(
-				(actionOffset.toString() +
-					normalizeActionKey(currentChar, currentChar === previousChar)) as ActionName,
-				transitionSpeed
-			);
+			transitionTo(nextActionName, transitionSpeed);
 		} else {
 			// Space or other non-letter character
 			// Assume that it is a space for a new word
@@ -260,6 +262,9 @@ Command: npx @threlte/gltf@2.0.3 path\Model.glb --root /models/ --types --printw
 		}
 	}
 
+	/**
+	 * Recursive function to play animations for words
+	 */
 	function playSentenceRec() {
 		console.log(sentence)
 

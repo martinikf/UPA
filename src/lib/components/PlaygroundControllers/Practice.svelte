@@ -8,11 +8,11 @@
 	 *
 	 * Requires the AnimatedModel component to be passed as a prop
 	 */
-	import Model from './AnimatedModel.svelte';
+	import Model from '$lib/components/Animation/AnimatedModel.svelte';
 	import { Language } from '$lib/models/Word';
 	import { Alert, Button, Input } from 'flowbite-svelte';
 	import { replaceCzechDiacriticsAndNormalize } from '$lib/helpers/TextHelper';
-	import LanguageSelector from '$lib/components/shared/LanguageSelector.svelte';
+	import LanguageSelector from '$lib/components/Shared/LanguageSelector.svelte';
 
 	export let model: Model;
 
