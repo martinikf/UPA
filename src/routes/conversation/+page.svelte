@@ -462,6 +462,10 @@
 		<Heading tag="h3" class="mb-4">Obecné informace</Heading>
 		<List class="space-y-3">
 			<Li>Kvalita odpovědí velmi závisí na použitém modelu.</Li>
+			<Li>
+				V závislosti na zvoleném modelu, lze ignorovat chyby vzniklé nedokonalostí ropoznání textu, nebo chybně zobrazeným znakem v textu Vaší odpovědi a není potřeba takové chyby opravovat.
+				Vaše odpověď bude nejspíše modelem pochopena správně. Obecně řečeno, čím kvalitnější/větší model a čím delší text odpovědi a historie chatu, tím méně záleží na bezchybnosti Vaší odpovědi.
+			</Li>
 			<Li>Pro vytvoření mezery zobrazuje poslední znak slova déle a poté pokračujte prvním znakem dalšího slova.</Li>
 			<Li>Chcete-li znakovat stejný znak dvakrát za sebou, zobrazte znak, plynule ukažte jiné gesto a hned poté opět daný znak.</Li>
 		</List>
