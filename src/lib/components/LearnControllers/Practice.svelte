@@ -1,8 +1,13 @@
 <script lang="ts">
 	/**
-	 * Component for practicing learned signs
+	 * Svelte component for the "Procvičovat" (Practice/Review) mode within the Learn section.
 	 *
-	 * Requires model and data
+	 * Allows users to practice recognizing signs or words they have previously learned (or all signs).
+	 * Displays an animation for a randomly selected word/sign from the chosen language set.
+	 * The user types their answer, and the component provides feedback on correctness.
+	 *
+	 * @prop {Model} model - Instance of the AnimatedModel component for displaying animations.
+	 * @prop {Word[]} data - Array containing all available Word objects (signs/vocabulary).
 	 */
 
 	import Model from '$lib/components/Animation/AnimatedModel.svelte';
@@ -12,7 +17,9 @@
 	import LanguageSelector from '$lib/components/Shared/LanguageSelector.svelte';
 
 	// Component props
+	/** Instance of the AnimatedModel component, passed as a prop. */
 	export let model: Model;
+	/** Array containing all available Word objects, passed as a prop. */
 	export let data: Word[];
 
 	// State variables
@@ -25,8 +32,8 @@
 	let messageString : string = '';
 
 	/**
-	 * Organizes words by language type for easier filtering and access
-	 * Creates a dictionary with language types as keys and filtered word arrays as values
+	 * Pre-filtered dictionary containing only the learned words, organized by language.
+	 * Used for efficient random selection when practicing only learned items.
 	 */
 	const learnedLanguageSets = {
 		[Language.CzechFingerOneHand]: copyData.filter(
@@ -38,6 +45,10 @@
 		[Language.Czech]: copyData.filter((item: Word) => item.language === Language.Czech)
 	};
 
+	/**
+	 * Pre-filtered dictionary containing all words (learned and unlearned), organized by language.
+	 * Used for efficient random selection when practicing all items.
+	 */
 	const allLanguageSets = {
 		[Language.CzechFingerOneHand]: data.filter(
 			(item: Word) => item.language === Language.CzechFingerOneHand
@@ -48,13 +59,14 @@
 		[Language.Czech]: data.filter((item: Word) => item.language === Language.Czech)
 	};
 
-	// User input
+	// User input state
 	let selectedLanguageSet: Language = Language.CzechFingerOneHand;
 	let userInput: string = '';
 
 	/**
-	 * Validates user input against the current sentence
-	 * Shows success/failure message and clears input on success
+	 * Validates the user's input against the currently displayed sentence.
+	 * Normalizes both strings (removes diacritics, converts to lowercase) before comparison.
+	 * Shows a temporary success or failure message. Clears input field on success.
 	 */
 	function checkAnswer() {
 		const normalizedInput = replaceCzechDiacriticsAndNormalize(userInput);
@@ -68,6 +80,10 @@
 		}
 	}
 
+	/**
+	 * Displays a feedback message (Alert) for a short duration.
+	 * @param str - The message string to display.
+	 */
 	function displayMessage(str: string){
 		messageString = str;
 
@@ -77,7 +93,10 @@
 		}, 3000);
 	}
 
-
+	/**
+	 * Selects and displays a new word/sign based on the current settings.
+	 * Chooses either from all signs or only learned signs depending on the `practiceAllSigns` flag.
+	 */
 	function createNewSentence(){
 		if (practiceAllSigns) {
 			createNewAllSignsSentence();
@@ -86,6 +105,10 @@
 		}
 	}
 
+	/**
+	 * Selects a random word/sign from all available items in the selected language set,
+	 * updates the `sentence` state, and plays its animation.
+	 */
 	function createNewAllSignsSentence() {
 		let randomIndex = Math.floor(Math.random() * allLanguageSets[selectedLanguageSet].length);
 		sentence = allLanguageSets[selectedLanguageSet][randomIndex].str;
@@ -94,8 +117,9 @@
 	}
 
 	/**
-	 * Generates a new random sentence from the selected language set
-	 * Plays the corresponding animation
+	 * Selects a random word/sign from the learned items in the selected language set,
+	 * updates the `sentence` state, and plays its animation.
+	 * Handles the case where no items have been learned yet for the selected language.
 	 */
 	function createNewLearnedSentence() {
 		if (learnedLanguageSets[selectedLanguageSet].length === 0) {
@@ -109,7 +133,8 @@
 	}
 
 	/**
-	 * Replays the current sentence animation
+	 * Replays the animation for the currently active sentence.
+	 * Does nothing if no sentence is currently active.
 	 */
 	function replayAnimation(): void {
 		model.playAnimationForText(sentence, selectedLanguageSet);

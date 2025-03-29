@@ -1,4 +1,9 @@
 <script>
+	/**
+	 * A simple Svelte component that displays a centered loading spinner.
+	 * Uses the Spinner component from Flowbite Svelte.
+	 * Intended to be used as a visual indicator while content is loading.
+	 */
 	import { Spinner } from 'flowbite-svelte';
 </script>
 

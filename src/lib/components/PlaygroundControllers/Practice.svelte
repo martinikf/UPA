@@ -93,12 +93,16 @@
 			.catch((e) => console.error(e));
 	}
 
+	/**
+	 * Reveals the correct word
+	 */
 	function giveUp(){
 		displayMessage(`Správné slovo bylo: ${randomWord}`);
 	}
 
 	/**
-	 * Displays a success message for a few seconds
+	 * Displays a message for a short duration
+	 * @param msg - Message to display
 	 */
 	function displayMessage(msg : string) {
 		alertMessage = msg;

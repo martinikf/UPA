@@ -6,7 +6,7 @@
 	 * - Translator: Convert text to sign language
 	 * - Practice: Practice sign reading
 	 * - Spelling Practice: Practice signing with webcam
-	 * - Transcription: Real-time sign language transcription TODO: needs to be reworked
+	 * - Transcription: Real-time sign language transcription
 	 * - Interactive: Interactive learning with webcam
 	 *
 	 */
@@ -42,6 +42,8 @@
 	let interactive: Interactive;
 	let landmarkDetection: LandmarkDetection;
 	let controlRow: ControlRow;
+
+	let disabledToggle = false;
 
 	/**
 	 * Routes landmark detection messages to appropriate components based on current mode
@@ -80,8 +82,6 @@
 	}
 
 
-	let disabledToggle = false;
-
 	/**
 	 * Toggles webcam state and handles related mode changes
 	 */
@@ -115,7 +115,8 @@
 	}
 
 	/**
-	 * Disable webcam before page leave
+	 * Svelte lifecycle function called before navigating away from the page.
+	 * Ensures the webcam is disabled to release the resource.
 	 */
 	beforeNavigate(() => {
 		if(landmarkDetection){

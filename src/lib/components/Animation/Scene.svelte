@@ -1,16 +1,13 @@
 <script lang="ts">
 	/**
-	 * Svelte component for rendering a 3D animated model on a canvas with
-	 * Orbit controls, a perspective camera, and ambient light. This component
-	 * is built using Threlte (a Svelte wrapper for Three.js).
+	 * Svelte component for rendering the main 3D scene using Threlte.
+	 * Sets up the Canvas, PerspectiveCamera, OrbitControls for user interaction,
+	 * AmbientLight, and embeds the AnimatedModel component.
+	 * Optionally displays the letter currently being animated by the model.
+	 * Shows an initial loading indicator.
 	 *
-	 * The component includes:
-	 * - A 'model' reference to an instance of AnimatedModel.
-	 * - A 'showLetter' boolean to control the visibility of the currently
-	 *   displayed letter in the animation.
-	 *
-	 * The displayed letter updates dynamically in the top-right corner of the
-	 * screen based on the letter being played by the model.
+	 * @prop {Model | undefined} model - Output binding providing access to the instance of the embedded AnimatedModel component once it's mounted.
+	 * @prop {boolean} [showLetter=true] - Controls whether the currently animated letter is displayed in the top-right corner.
 	 */
 
 	import { T, Canvas } from '@threlte/core';
@@ -20,14 +17,22 @@
 	import AbsoluteCenteredLoadingCircle from '$lib/components/Shared/AbsoluteCenteredLoadingCircle.svelte';
 	import { onMount } from 'svelte';
 
+	/** Output binding that holds the instance of the child AnimatedModel component. */
 	export let model: Model;
+	/** Controls the visibility of the letter display overlay. Defaults to true. */
 	export let showLetter = true;
 
-	/** Bound variable for displaying the currently played letter */
+	/** Input binding receiving the currently played letter from the AnimatedModel child component. */
 	let letterDisplay: string = '';
 
+	/** State variable to manage the initial loading indicator visibility. */
 	let initDelay = true;
 
+	/**
+	 * Svelte lifecycle function runs after the component mounts.
+	 * Used here to hide the initial loading indicator after a short delay,
+	 * allowing time for the 3D model to potentially load/initialize.
+	 */
 	onMount(() => {
 		setTimeout(() => {
 			initDelay = false;

@@ -1,14 +1,24 @@
 <script lang="ts">
+	/**
+	 * Svelte component for the Conversation mode.
+	 *
+	 * Allows users to interact with an LLM (Ollama or OpenAI) by signing
+	 * using the Czech one-handed finger alphabet via webcam. The user's input
+	 * is transcribed in real-time, sent to the LLM, and the LLM's response
+	 * is displayed as a 3D animation using the AnimatedModel component.
+	 * Provides settings for API endpoints and model selection.
+	 */
 
 	import { beforeNavigate } from '$app/navigation';
 
 	import LandmarkDetection from '$lib/components/Recognition/LandmarkDetection.svelte';
 
+	// Import required components
 	import Scene from '$lib/components/Animation/Scene.svelte';
 	import Model from '$lib/components/Animation/AnimatedModel.svelte';
 	import ControlRow from '$lib/components/Animation/ControlRow.svelte';
 
-	// Import types
+	// Import types and helpers
 	import type { GestureProbability } from '$lib/models/GestureProbability';
 	import { Language } from '$lib/models/Word';
 	import {
@@ -28,41 +38,40 @@
 	} from 'flowbite-svelte';
 	import { convertToFrequencyFormat, MIN_GROUP_LENGTH } from '$lib/helpers/CSLR';
 
+	// Component references
 	let scene: Scene;
 	let model: Model;
 	let controlRow: ControlRow;
-
-	// References
 	let landmarkDetection: LandmarkDetection;
-	let webcamOn : boolean = false;
 
+	// Component state
+	let webcamOn : boolean = false;
+	let disabledToggle = false;
+
+
+	// LLM Configuration state
 	let systemPrompt = `You are a conversation assistant. Follow these rules:
 	1. Answer in a language based on language in which was the previous message written.
 	2. Your responses must be of maximum length of one sentence (around 6 words).
 	3. Focus on clear, simple communication, go straight to the point.
 	4. Keep the user engaged, continue in the conversation, bring new ideas, ask questions.
 	5. There might be often typing errors, try to ignore them.`
-
-
-	let letterFrequency : {[letter: string] : number} = createDict();
-
-	let str: string = "";
-	let parsed : string = "";
-
-	let showChat = false;
-	let showLetter = false;
-
 	let useOpenAi : boolean = false;
-
 	let openAiAPIKey : string = "";
 	let modelNameOpenAI : string = "gpt-4o-mini";
 	let requestUrlOpenAI : string = "https://api.openai.com/v1/chat/completions";
-
 	let modelNameOllama : string = "llama3.1"
 	let requestUrlOllama : string = "http://localhost:11434/api/chat"
 
-	let disabledToggle = false;
+	// Input and Transcription state
+	let str: string = "";
+	let parsed : string = "";
 
+	// UI state
+	let showChat = false;
+	let showLetter = false;
+
+	// Chat history - Stores the conversation messages
 	let chatHistory: Array<{ role: string, content: string }> = [
 		{
 			role: 'system',
@@ -71,41 +80,38 @@
 	];
 
 	/**
-	 * Routes landmark detection messages to appropriate components based on current mode
-	 * @param msg - Custom event containing gesture probability data
+	 * Handles gesture recognition events from the LandmarkDetection component.
+	 * Updates the raw input string, parsed string using CSLR, and letter frequency count.
+	 * @param msg - Custom event containing an array of gesture probability data. Only the most probable gesture (index 0) is used.
 	 */
 	function handleMessage(msg: CustomEvent<GestureProbability[]>) {
+		// Ignore if no gesture probabilities are received
+		if (!msg.detail || msg.detail.length === 0) return;
+
 		for(let i = 0; i < msg.detail.length; i++){
 			const letter = msg.detail[i].letter;
+			// Ignore 'None' gesture
 			if(letter == 'None') return;
-			if(i == 0){
-				str += letter;
-				parsed = convertToFrequencyFormat(str)
-			}
 
-			letterFrequency[letter]++;
+			// Process only the most probable letter (first in the array)
+			if(i == 0){
+				str += letter; // Append recognized letter to the raw string
+				parsed = convertToFrequencyFormat(str) // Update the parsed string using CSLR logic
+			}
 		}
 	}
 
-	function createDict() : {[letter: string] : number}{
-		let lettersCz = 'abcdefghijklmnopqrstuvwxyz'.toUpperCase().split('');
-		//Add letter 'ch' after 'h'
-		lettersCz.splice(8, 0, 'Ch');
-
-		let frequency : {[letter: string] : number} = {}
-		lettersCz.forEach((letter) => {
-			frequency[letter] = 0;
-		});
-
-		return  frequency;
-	}
-
+	/**
+	 * Resets the current user input state (raw string, parsed string).
+	 */
 	function reset(){
-		letterFrequency = createDict();
 		str = "";
 		parsed = "";
 	}
 
+	/**
+	 * Resets the chat history to only contain the initial system prompt.
+	 */
 	function resetChat(){
 		chatHistory = [
 			{
@@ -115,15 +121,29 @@
 		];
 	}
 
+	/**
+	 * Finalizes the parsed input string and sends it to the LLM.
+	 * Clears the input state afterward.
+	 */
 	async function send(){
+		// Ensure the final parsed string is up-to-date before sending
 		parsed = convertToFrequencyFormat(str);
 
+		// Trim whitespace and convert to lowercase before sending to LLM
 		await sendPrompt(parsed.trim().toLowerCase());
+
+		// Reset input fields after sending
 		str = "";
 		parsed = "";
 	}
 
+	/**
+	 * Adds the user's message to the chat history and triggers the appropriate LLM API call.
+	 * Scrolls the chat view after the response is processed.
+	 * @param txt - The user's message text to send.
+	 */
 	async function sendPrompt(txt : string) {
+		// Add user message to history
 		chatHistory = [
 			...chatHistory,
 			{
@@ -132,6 +152,7 @@
 			}
 		];
 
+		// Call the selected LLM API
 		if(useOpenAi) {
 			await sendOpenAiPrompt();
 		}
@@ -139,9 +160,16 @@
 			await sendOllamaPrompt();
 		}
 
+		// Scroll chat to show the latest messages
 		scrollChatToBottom();
 	}
 
+
+	/**
+	 * Sends the current chat history to the configured Ollama API endpoint.
+	 * Handles the API response, updates chat history with the assistant's reply,
+	 * triggers the animation of the reply, and manages potential errors.
+	 */
 	async function sendOllamaPrompt(){
 		const data = {
 			model: modelNameOllama,
@@ -168,9 +196,11 @@
 				}
 			];
 
+			// Animate the assistant's reply
 			model.playAnimationForText(assistantReply, Language.CzechFingerOneHand);
 		} catch (error) {
 			console.error("API Error:", error);
+			// Add error message to chat history
 			chatHistory = [
 				...chatHistory,
 				{
@@ -181,6 +211,12 @@
 		}
 	}
 
+	/**
+	 * Sends the current chat history to the configured OpenAI API endpoint.
+	 * Handles the API response, updates chat history with the assistant's reply,
+	 * triggers the animation of the reply, and manages potential errors.
+	 * Requires a valid API key.
+	 */
 	async function sendOpenAiPrompt(){
 		const data = {
 			model: modelNameOpenAI,
@@ -198,7 +234,7 @@
 			});
 
 			const resp = await res.json();
-			console.log(resp)
+			// Extract assistant's message from the response structure
 			const assistantReply = resp.choices[0].message.content || "No response";
 
 			// Add assistant response to history
@@ -210,9 +246,11 @@
 				}
 			];
 
+			// Animate the assistant's reply
 			model.playAnimationForText(assistantReply, Language.CzechFingerOneHand);
 		} catch (error) {
 			console.error("API Error:", error);
+			// Add error message to chat history
 			chatHistory = [
 				...chatHistory,
 				{
@@ -223,6 +261,10 @@
 		}
 	}
 
+	/**
+	 * Scrolls the chat message container to the bottom to show the latest messages.
+	 * Uses a short timeout to ensure rendering is complete before scrolling.
+	 */
 	function scrollChatToBottom() {
 		const container = document.getElementsByClassName('messages')[0];
 
@@ -233,16 +275,26 @@
 		}, 250);
 	}
 
+	/**
+	 * Handles key press events for keyboard shortcuts.
+	 * Space: Adds spaces to the input string for CSLR processing.
+	 * Backspace: Removes the last recognized character group from the input string.
+	 * Enter: Sends the current message.
+	 * @param event - The keyboard event object.
+	 */
 	function handleKeyPress(event: KeyboardEvent) {
 		if (event.code === "Space") {
 			// Prevent default space scrolling behavior
 			event.preventDefault();
+
+			// Add multiple spaces to simulate holding a pause for CSLR
 			str += " ".repeat(MIN_GROUP_LENGTH);
-			parsed = convertToFrequencyFormat(str)
+			parsed = convertToFrequencyFormat(str) // Update parsed view
 
 		} else if (event.code === "Backspace") {
 			// Prevent default backspace behavior
 			event.preventDefault();
+
 
 			while(parsed[parsed.length -1] == " ") parsed = parsed.slice(0, -1);
 
@@ -257,12 +309,18 @@
 					str = str.slice(0, str.length - 2);
 				}
 			}
+
 			parsed = convertToFrequencyFormat(str)
 		} else if(event.code === "Enter"){
-			send()
+			event.preventDefault(); // Prevent default form submission if applicable
+			send() // Send the message
 		}
 	}
 
+	/**
+	 * Toggles the webcam stream on or off.
+	 * Includes a short delay to prevent rapid toggling.
+	 */
 	function webcamToggle() {
 		if (webcamOn) {
 			landmarkDetection.disableCam();
@@ -271,6 +329,8 @@
 		webcamOn = !webcamOn;
 
 		if (webcamOn) {
+			// Briefly disable the toggle button to prevent immediate re-clicks
+			// while the camera might be initializing.
 			disabledToggle = true;
 			setTimeout(() => {
 				disabledToggle = false;
@@ -279,7 +339,8 @@
 	}
 
 	/**
-	 * Disable webcam before page leave
+	 * Svelte lifecycle function called before navigating away from the page.
+	 * Ensures the webcam is disabled to release the resource.
 	 */
 	beforeNavigate(() => {
 		if(landmarkDetection){
