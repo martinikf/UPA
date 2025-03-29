@@ -31,10 +31,10 @@ LABELS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'ch', 'i', 'j', 'k', 'l', 'm',
 
 
 def run():
-     """
-        Main function to orchestrate the dataset processing pipeline.
-        Iterates through datasets, processes images, and writes features to CSV.
-     """
+    """
+       Main function to orchestrate the dataset processing pipeline.
+       Iterates through datasets, processes images, and writes features to CSV.
+    """
      # List of directories containing the input image datasets
     datasets = ["./dataset_f_left_100perSign/",
                 "./dataset_f_right_100perSign/",
@@ -77,7 +77,7 @@ def run():
 
 
 def setup():
-     """
+    """
         Initializes and returns the MediaPipe Hands solution object.
         Uses constants defined at the module level for configuration.
     """
@@ -92,7 +92,7 @@ def setup():
 
 
 def get_files(directory):
-     """
+    """
         Generator function to yield filenames ending with '.jpg' from a given directory.
 
         Args:
@@ -134,7 +134,7 @@ def calc_landmark_list(image, landmarks):
 
 
 def pre_process_landmark(landmark_list):
-     """
+    """
         Preprocesses the list of landmark pixel coordinates.
         1. Calculates coordinates relative to the wrist (landmark 0) for translation invariance.
         2. Flattens the list of [x, y] pairs into a single vector [x0, y0, x1, y1, ...].
@@ -173,7 +173,7 @@ def pre_process_landmark(landmark_list):
 
 
 def process_image(hands_arg, file_path):
-     """
+    """
         Loads an image file, detects hand landmarks using MediaPipe, calculates
         pixel coordinates, preprocesses them (relative coords, normalization),
         and returns the final feature vector.

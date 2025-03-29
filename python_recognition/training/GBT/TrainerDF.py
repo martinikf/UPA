@@ -36,16 +36,16 @@ np.random.seed(RANDOM_SEED)
 
 
 def split_dataset(dataset, test_ratio=0.10):
-  """
-    Splits a Pandas DataFrame into training and testing sets based on a ratio.
-
-    Args:
-        dataset: The input Pandas DataFrame.
-        test_ratio: The proportion of the dataset to allocate to the test set.
-
-    Returns:
-        A tuple containing the training DataFrame and the testing DataFrame.
     """
+        Splits a Pandas DataFrame into training and testing sets based on a ratio.
+
+        Args:
+            dataset: The input Pandas DataFrame.
+            test_ratio: The proportion of the dataset to allocate to the test set.
+
+        Returns:
+            A tuple containing the training DataFrame and the testing DataFrame.
+        """
 
     test_indices = np.random.rand(len(dataset)) < test_ratio
     return dataset[~test_indices], dataset[test_indices]
@@ -79,7 +79,6 @@ def run():
     model_1.compile(metrics=["accuracy", "Precision", "Recall", "F1Score"])
     # Evaluate the trained model on the test dataset
     evaluation = model_1.evaluate(test_ds, return_dict=True)
-
 
     print()
     for name, value in evaluation.items():

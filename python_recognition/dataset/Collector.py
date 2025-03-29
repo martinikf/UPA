@@ -56,7 +56,7 @@ def setup_mediapipe():
 
 
 def keydown(key):
-     """
+    """
         Handles key press events. Finds the most recent valid frame from the buffer,
         optionally crops it, and saves it to the dataset with the corresponding label.
 
@@ -95,7 +95,7 @@ def keydown(key):
 
 
 def crop_frame(frame, best_results):
-     """
+    """
         Crops the input frame around the detected hand, resizes it, and verifies
         if the hand is still detectable in the cropped image.
 
@@ -121,7 +121,7 @@ def crop_frame(frame, best_results):
 
 
 def get_box(frame, results):
-      """
+    """
         Calculates a square bounding box around the detected hand landmarks,
         including padding, while staying within the frame boundaries.
 
@@ -132,7 +132,7 @@ def get_box(frame, results):
         Returns:
             A tuple containing the coordinates (x_min, y_min, x_max, y_max)
             of the calculated square bounding box.
-      """
+    """
     frame_height, frame_width, _ = frame.shape
     x_coordinates = []
     y_coordinates = []
@@ -166,7 +166,7 @@ def get_box(frame, results):
 
 
 def key_to_label(key):
-     """
+    """
         Converts a keyboard key character to a label string for directory naming.
         Handles special mappings ('+' -> 'ch', '-' -> 'none').
 
@@ -191,13 +191,13 @@ def key_to_label(key):
 
 
 def save(frame, label):
-     """
-        Saves the given frame to a subdirectory named after the label within 'dataset'.
-        Files are named sequentially (1.jpg, 2.jpg, ...).
+    """
+       Saves the given frame to a subdirectory named after the label within 'dataset'.
+       Files are named sequentially (1.jpg, 2.jpg, ...).
 
-        Args:
-            frame: The image frame (NumPy array) to save.
-            label: The label (directory name) for this gesture/character.
+       Args:
+           frame: The image frame (NumPy array) to save.
+           label: The label (directory name) for this gesture/character.
     """
     directory = f"dataset/{label}"
     os.makedirs(directory, exist_ok=True)
@@ -211,20 +211,21 @@ def save(frame, label):
 
 
 def process_frame(frame):
-     """
-        Processes a single frame using the initialized MediaPipe Hands solution.
+    """
+       Processes a single frame using the initialized MediaPipe Hands solution.
 
-        Args:
-            frame: The input frame (NumPy array in BGR format).
+       Args:
+           frame: The input frame (NumPy array in BGR format).
 
-        Returns:
-            The MediaPipe Hands results object, or None if processing fails.
+       Returns:
+           The MediaPipe Hands results object, or None if processing fails.
     """
     global hands
     # Convert frame to RGB for mediapipe
     frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
     results = hands.process(frame_rgb)
+    print(results.multi_hand_landmarks)
     return results
 
 
@@ -269,7 +270,7 @@ def loop():
 
 
 def add_to_buffer(frame):
-     """
+    """
         Adds a copy of the frame to the end of the frame buffer and removes
         the oldest frame if the buffer exceeds its maximum size.
 
