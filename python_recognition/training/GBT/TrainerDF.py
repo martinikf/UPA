@@ -29,7 +29,6 @@ OUTPUT_TFDF_MODEL_PATH = 'model' # Directory to save the trained TFDF SavedModel
 OUTPUT_TFJS_MODEL_PATH = 'tfjs' # Directory to save the converted TensorFlow.js model
 RANDOM_SEED = 42
 TRAIN_SIZE = 0.9
-NUM_OF_FEATURES = 42
 
 # Set the random seed for NumPy operations (like dataset splitting
 np.random.seed(RANDOM_SEED)
@@ -68,27 +67,40 @@ def run():
     train_ds = tfdf.keras.pd_dataframe_to_tf_dataset(train_ds_pd, label="label")
     test_ds = tfdf.keras.pd_dataframe_to_tf_dataset(test_ds_pd, label="label")
 
+    # Configure the tuner.
+    tuner = tfdf.tuner.RandomSearch(num_trials=100)
+    tuner.choice("num_candidate_attributes_ratio", [1.0, 0.8, 0.6])
+    tuner.choice("use_hessian_gain", [True, False])
+    tuner.choice("num_trees", [100, 200, 300, 400, 500])
+
+    local_search_space = tuner.choice("growing_strategy", ["LOCAL"])
+    local_search_space.choice("max_depth", [-1, 1, 3, 4, 5, 6, 7])
+
+    global_search_space = tuner.choice(
+        "growing_strategy", ["BEST_FIRST_GLOBAL"], merge=True)
+    global_search_space.choice("max_num_nodes", [-1, 16, 32, 64, 128])
+
     # Initialize the Gradient Boosted Trees model from TFDF
     # verbose=2 provides detailed logs during training
-    model_1 = tfdf.keras.GradientBoostedTreesModel(verbose=2)
+    model = tfdf.keras.GradientBoostedTreesModel(verbose=2, tuner=tuner)
 
     # Train the model on the training dataset
-    model_1.fit(train_ds)
+    model.fit(train_ds)
 
     # Compile the model with desired evaluation metrics
-    model_1.compile(metrics=["accuracy", "Precision", "Recall", "F1Score"])
+    model.compile(metrics=["accuracy"])
     # Evaluate the trained model on the test dataset
-    evaluation = model_1.evaluate(test_ds, return_dict=True)
+    evaluation = model.evaluate(test_ds, return_dict=True)
 
     print()
     for name, value in evaluation.items():
         print(f"{name}: {value:.4f}")
 
     # Save the trained model in TensorFlow's SavedModel format
-    model_1.save(OUTPUT_TFDF_MODEL_PATH)
+    model.save(OUTPUT_TFDF_MODEL_PATH)
 
     # Convert the SavedModel to TensorFlow.js format
-    tfjs.converters.tf_saved_model_conversion_v2.convert_tf_saved_model(OUTPUT_TFDF_MODEL_PATH, OUTPUT_TFJS_MODEL_PATH)
+    #tfjs.converters.tf_saved_model_conversion_v2.convert_tf_saved_model(OUTPUT_TFDF_MODEL_PATH, OUTPUT_TFJS_MODEL_PATH)
 
 
 if __name__ == "__main__":

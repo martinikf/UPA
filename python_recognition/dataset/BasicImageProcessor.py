@@ -187,7 +187,7 @@ def process_image(hands_arg, file_path):
             otherwise None.
     """
     img = cv2.imread(file_path)
-    img = cv2.flip(img, 1)
+    # img = cv2.flip(img, 1) # its already flipped
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
     results = hands_arg.process(img)
