@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { page } from '$app/state';
+	import { page } from '$app/stores';
 </script>
 
 <div style="margin: auto; width: 50vw; text-align: center; margin-top: 1rem;">

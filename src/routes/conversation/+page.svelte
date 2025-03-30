@@ -475,8 +475,8 @@
 		<Heading tag="h3" class="mt-6 mb-4">Klávesové zkratky v režimu Konverzace</Heading>
 		<List class="space-y-2">
 			<Li><strong>Enter:</strong> Odešle aktuálně rozpoznaný text (zobrazený pod 3D modelem) jako vaši zprávu jazykovému modelu.</Li>
-			<Li><strong>Mezerník (Space):</strong> Manuálně vloží mezeru do rozpoznávaného textu. Užitečné, pokud automatická detekce mezery (delším podržením znaku) selhala nebo chcete slova oddělit dříve.</Li>
-			<Li><strong>Backspace:</strong> Smaže poslední rozpoznaný znak z aktuálně sestavované zprávy (z textu zobrazeného pod 3D modelem).</Li>
+			<Li><strong>Mezerník (Space):</strong> Manuálně vloží mezeru do rozpoznávaného textu.</Li>
+			<Li><strong>Backspace:</strong> Smaže poslední rozpoznaný znak z aktuálně sestavované zprávy.</Li>
 		</List>
 
 		<Heading tag="h3" class="mt-6 mb-4">Propojení s jazykovým modelem (API)</Heading>
