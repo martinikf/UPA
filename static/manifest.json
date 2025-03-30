@@ -1,0 +1,18 @@
+{
+  "lang": "cs-CZ",
+  "name": "Praktický učitel prstové abecedy",
+  "description": "Aplikace pro podporu výuky a procvičování české jednoruční prstové abecedy.",
+  "short_name": "PUPA",
+  "display": "standalone",
+  "start_url": "/",
+  "background_color": "#808080",
+  "theme_color": "#fb9238",
+  "icons": [
+    {
+      "src": "icon512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
