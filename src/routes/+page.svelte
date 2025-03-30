@@ -8,12 +8,15 @@
 		<div class="space-y-6">
 			<Heading tag="h1" class="text-5xl font-extrabold dark:text-white mb-6">Praktický učitel prstové abecedy</Heading>
 			<P class="text-xl text-gray-600 dark:text-gray-400">
-				Diplomová práce: Program na podporu výuky prstové abecedy
+				Diplomová práce: Program na&nbsp;podporu výuky prstové abecedy
 			</P>
 			<P class="text-lg text-gray-500 dark:text-gray-500">
 				Autor: Filip Martiník
 			</P>
-			<A href="https://github.com/martinikf/upa" class="">Zdrojový kód na GitHubu</A>
+			<P>
+				<A href="/text.pdf" class="">Text diplomové práce</A>, ve&nbsp;kterém se lze dočíst jak celá webová aplikace funguje a podrobněji zjistit, jaké všechny funkcionality aplikace nabízí.
+				Zdrojový kód aplikace se nachází veřejně <A href="https://github.com/martinikf/upa"> na&nbsp;GitHubu</A>.
+			</P>
 		</div>
 	</Card>
 
@@ -24,7 +27,7 @@
 			<Card size="sm" class="hover:shadow-lg transition-shadow duration-200 dark:bg-gray-800">
 				<div class="p-6 space-y-4">
 					<P class="text-gray-600 dark:text-gray-400">
-						Tato aplikace slouží jako nástroj k podpoře učení české prstové abecedy. Nabízí různé režimy, ze kterých si můžete vybrat takový, jaký Vám bude nejvíce vyhovovat.
+						Tato aplikace slouží jako nástroj k&nbsp;podpoře učení české prstové abecedy. Nabízí různé režimy, ze&nbsp;kterých si&nbsp;můžete vybrat takový, jaký Vám bude nejvíce vyhovovat.
 					</P>
 				</div>
 			</Card>
@@ -32,7 +35,7 @@
 			<Card size="sm" class="hover:shadow-lg transition-shadow duration-200 dark:bg-gray-800">
 				<div class="p-6 space-y-4">
 					<P class="text-gray-600 dark:text-gray-400">
-						Aplikace využívá obraz vaší kamery, ale nemusíte mít strach o Vaše soukromí. Obraz kamery se zpracovává pouze v prohlížeči a není nikam odesílán.
+						Aplikace využívá obraz vaší kamery, ale nemusíte mít strach o&nbsp;Vaše soukromí. Obraz kamery se&nbsp;zpracovává pouze v&nbsp;prohlížeči a&nbsp;není nikam odesílán.
 					</P>
 				</div>
 			</Card>
@@ -47,7 +50,7 @@
 				<div class="p-6 space-y-4">
 					<Heading tag="h3" class="text-xl font-semibold dark:text-white">Učitel</Heading>
 					<P class="text-gray-600 dark:text-gray-400">
-						Systematický přístup k postupnému učení. Sledování postupu a procvičování na naučených znacích.
+						Systematický přístup k&nbsp;postupnému učení. Sledování postupu a&nbsp;procvičování na&nbsp;naučených znacích.
 					</P>
 				</div>
 			</Card>
@@ -56,7 +59,7 @@
 				<div class="p-6 space-y-4">
 					<Heading tag="h3" class="text-xl font-semibold dark:text-white">Konverzace</Heading>
 					<P class="text-gray-600 dark:text-gray-400">
-						Tohle stojí za to vyzkoušet! Povídejte si a přitom procvičujte jak odezírání tak znakování.
+						Tohle stojí za&nbsp;to&nbsp;vyzkoušet! Povídejte si&nbsp;a&nbsp;přitom procvičujte odezírání i&nbsp;znakování.
 					</P>
 				</div>
 			</Card>
@@ -65,7 +68,7 @@
 				<div class="p-6 space-y-4">
 					<Heading tag="h3" class="text-xl font-semibold dark:text-white">Playground</Heading>
 					<P class="text-gray-600 dark:text-gray-400">
-						Souhrn různých režimů na jednom místě. Zde si můžete vyzkoušet co Vás napadne.
+						Souhrn různých režimů na&nbsp;jednom místě. Zde si&nbsp;můžete vyzkoušet co&nbsp;Vás napadne.
 					</P>
 				</div>
 			</Card>

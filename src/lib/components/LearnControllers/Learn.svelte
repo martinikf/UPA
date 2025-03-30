@@ -118,8 +118,8 @@
 	<Heading tag="h2" class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Učit</Heading>
 
 	<P class="text-gray-600 dark:text-gray-400 mb-6">
-		Bude vám zobrazen znak, zkuste si jej co nejlépe zapamatovat.<br>
-		Po stisknutí tlačítka "Už umím!" budete znak vídat v oblasti procvičování a bude považován za již naučený.
+		Bude vám zobrazen znak, zkuste si&nbsp;jej co nejlépe zapamatovat.<br>
+		Po stisknutí tlačítka "Už&nbsp;umím!" budete znak vídat v&nbsp;oblasti procvičování a&nbsp;bude považován za již naučený.
 	</P>
 
 	<div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm mb-6">

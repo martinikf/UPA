@@ -30,6 +30,7 @@
 
 	let messageVisible : boolean = false;
 	let messageString : string = '';
+	let messageColor : string = '';
 
 	/**
 	 * Pre-filtered dictionary containing only the learned words, organized by language.
@@ -73,10 +74,10 @@
 		const normalizedSentence = replaceCzechDiacriticsAndNormalize(sentence);
 
 		if (normalizedInput === normalizedSentence) {
-			displayMessage("Správně");
+			displayMessage("Správně", "green");
 			userInput = '';
 		} else {
-			displayMessage("Špatně");
+			displayMessage("Špatně", "red");
 		}
 	}
 
@@ -84,8 +85,9 @@
 	 * Displays a feedback message (Alert) for a short duration.
 	 * @param str - The message string to display.
 	 */
-	function displayMessage(str: string){
+	function displayMessage(str: string, color: string){
 		messageString = str;
+		messageColor = color;
 
 		messageVisible = true;
 		setTimeout(() => {
@@ -145,7 +147,7 @@
 	<Heading tag="h2" class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Procvičovat</Heading>
 
 	<P class="text-gray-600 dark:text-gray-400 mb-6">
-		Zapište do pole text, který Vám byl zobrazen. Poté stiskněte tlačítko zkontrolovat.
+		Zapište do&nbsp;pole text, který Vám byl zobrazen. Poté stiskněte tlačítko zkontrolovat.
 	</P>
 
 	<div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm space-y-6">
@@ -201,7 +203,7 @@
 
 	{#if messageVisible}
 		<div class="m-auto w-fit absolute top-1/4 left-1/4">
-			<Alert color="green" class="shadow-lg text-xl" >
+			<Alert color="{messageColor}" class="shadow-lg text-xl" >
 				{messageString}
 			</Alert>
 		</div>

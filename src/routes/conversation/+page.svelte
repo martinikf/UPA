@@ -459,38 +459,93 @@
 	<Hr class="my-8" />
 
 	<div class="prose dark:prose-invert max-w-4xl mx-auto">
-		<Heading tag="h3" class="mb-4">Obecné informace</Heading>
+		<Heading tag="h3" class="mt-6 mb-4">Tipy pro režim Konverzace</Heading>
 		<List class="space-y-3">
-			<Li>Kvalita odpovědí velmi závisí na použitém modelu.</Li>
 			<Li>
-				V závislosti na zvoleném modelu, lze ignorovat chyby vzniklé nedokonalostí ropoznání textu, nebo chybně zobrazeným znakem v textu Vaší odpovědi a není potřeba takové chyby opravovat.
-				Vaše odpověď bude nejspíše modelem pochopena správně. Obecně řečeno, čím kvalitnější/větší model a čím delší text odpovědi a historie chatu, tím méně záleží na bezchybnosti Vaší odpovědi.
+				<strong>Kvalita modelu ovlivňuje odpovědi:</strong> Pamatujte, že srozumitelnost, relevance a celková kvalita odpovědí virtuálního asistenta přímo závisí na tom, jaký jazykový model (LLM) máte v nastavení zvolený a spuštěný. Výkonnější modely (např. větší modely přes OpenAI API) mohou poskytovat zajímavější a přesnější odpovědi.
 			</Li>
-			<Li>Pro vytvoření mezery zobrazuje poslední znak slova déle a poté pokračujte prvním znakem dalšího slova.</Li>
-			<Li>Chcete-li znakovat stejný znak dvakrát za sebou, zobrazte znak, plynule ukažte jiné gesto a hned poté opět daný znak.</Li>
+			<Li>
+				<strong>Nebojte se chyb v přepisu:</strong> Velkou výhodou moderních LLM je, že si často poradí i s textem, který obsahuje drobné chyby nebo překlepy vzniklé při automatickém rozpoznávání vašeho znakování. Nemusíte se tedy stresovat tím, že přepis není 100% dokonalý. Zaměřte se na plynulé znakování a LLM pravděpodobně pochopí, co máte na mysli.
+			</Li>
+			<Li>
+				<strong>Technika znakování pro přepis:</strong> Pro správné vkládání mezer mezi slovy - podržte znak spoledního písmena slova déle a pro zadávání stejných písmen za sebou - krátce změňte gesto mezi znaky.
+			</Li>
 		</List>
 
-		<Heading tag="h3" class="mt-6 mb-4">Klávesové zkratky</Heading>
+		<Heading tag="h3" class="mt-6 mb-4">Klávesové zkratky v režimu Konverzace</Heading>
 		<List class="space-y-2">
-			<Li><strong>Enter</strong> - odešle zprávu asistentovi</Li>
-			<Li><strong>Space</strong> - vytvoří mezeru</Li>
-			<Li><strong>Backspace</strong> - smaže poslední registrovaný znak</Li>
+			<Li><strong>Enter:</strong> Odešle aktuálně rozpoznaný text (zobrazený pod 3D modelem) jako vaši zprávu jazykovému modelu.</Li>
+			<Li><strong>Mezerník (Space):</strong> Manuálně vloží mezeru do rozpoznávaného textu. Užitečné, pokud automatická detekce mezery (delším podržením znaku) selhala nebo chcete slova oddělit dříve.</Li>
+			<Li><strong>Backspace:</strong> Smaže poslední rozpoznaný znak z aktuálně sestavované zprávy (z textu zobrazeného pod 3D modelem).</Li>
 		</List>
 
-		<Heading tag="h3" class="mt-6 mb-4">API</Heading>
-		<P>Pro funkčnost režimu je nutné, aby aplikace byla propojena s nějaká LLM modelem. Aplikace nabízí dvě rozhraní:</P>
-		<Heading tag="h4" class="mb-3">Ollama API</Heading>
-		<List class="space-y-2">
-			<Li>Nainstalujte program ollama z: <A href="https://ollama.com/" class="text-blue-600 dark:text-blue-400">https://ollama.com/</A>.</Li>
-			<Li>CORS nastavení: SET OLLAMA_ORIGINS='adresa-webové-aplikace' a restartujte aplikaci ollama.</Li>
-			<Li>Nainstalujte si libovolný model, seznam modelů lze nalézt na webové stránce programu ollama.</Li>
-			<Li>Model spusťte a napište název modelu do pole pro název modelu.</Li>
+		<Heading tag="h3" class="mt-6 mb-4">Propojení s jazykovým modelem (API)</Heading>
+		<P>Aby režim "Konverzace" fungoval, potřebuje aplikace komunikovat s nějakým velkým jazykovým modelem (LLM), který bude generovat odpovědi. Můžete si vybrat jednu ze dvou možností:</P>
+
+		<Heading tag="h4" class="mb-3">Možnost 1: Ollama (Spouštění modelů na vašem počítači)</Heading>
+		<P class="mb-3">Ollama je bezplatný nástroj, který vám umožní stahovat a spouštět různé open-source jazykové modely přímo na vašem vlastním počítači. Výhodou je soukromí (data neopouštějí váš PC) a nulové náklady na použití modelů. Nevýhodou může být náročnost na výkon počítače (zejména RAM a případně grafickou kartu) a nutnost technického nastavení.</P>
+		<List tag="ol" class="space-y-3">
+			<Li>
+				<strong>Instalace Ollama:</strong> Stáhněte a nainstalujte Ollama pro váš operační systém z oficiální stránky: <A href="https://ollama.com/download" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:underline">https://ollama.com/download</A>.
+			</Li>
+			<Li>
+				<strong>Stažení a spuštění modelu:</strong>
+				<ul class="list-disc list-inside pl-5 space-y-1 mt-1">
+					<li>Otevřete si terminál nebo příkazovou řádku vašeho systému.</li>
+					<li>Vyberte si model, který chcete použít (seznam najdete na <A href="https://ollama.com/library" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:underline">ollama.com/library</A>).</li>
+					<li>Stáhněte a spusťte model zadáním příkazu: <code class="text-sm bg-gray-100 dark:bg-gray-700 p-1 rounded">ollama run název_modelu</code> (např. <code class="text-sm bg-gray-100 dark:bg-gray-700 p-1 rounded">ollama run llama3.1</code>). Při prvním spuštění se model stáhne, což může chvíli trvat.</li>
+				</ul>
+			</Li>
+			<Li>
+				<strong>Nastavení CORS (Povolení komunikace pro prohlížeč):</strong>
+				<ul class="list-disc list-inside pl-5 space-y-1 mt-1">
+					<li>Prohlížeč z bezpečnostních důvodů potřebuje explicitní povolení, aby mohl komunikovat s programem ollama běžící na vašem počítači. To se nastavuje pomocí systémové proměnné OLLAMA_ORIGINS.</li>
+					<li>Hodnota této proměnné musí být adresa, na které běží tato webová aplikace.
+					</li>
+					<li>Jak nastavit proměnnou (PŘED spuštěním ollama run):
+						<ul class="list-circle list-inside pl-5 space-y-1 mt-1">
+							<li>Windows (v příkazové řádce/terminálu): Zadejte set OLLAMA_ORIGINS=adresa_webové_aplikace (např. set OLLAMA_ORIGINS=http://localhost:5173 nebo set "OLLAMA_ORIGINS=https://158.194.92.104") a stiskněte Enter. Toto nastavení platí jen pro daný terminál. Pro trvalé nastavení hledejte "environment variables" v nastavení Windows.</li>
+						</ul>
+					</li>
+					<li>Po nastavení proměnné (a případném restartu terminálu/služby Ollama, pokud běžela) spusťte model pomocí ollama run</li>
+				</ul>
+			</Li>
+			<Li>
+				<strong>Nastavení v Aplikaci:</strong>
+				<ul class="list-disc list-inside pl-5 space-y-1 mt-1">
+					<li>V nastavení režimu Konverzace (rozbalovací sekce "Nastavení modelu") se ujistěte, že nemáte zaškrtnuto "OpenAI API".</li>
+					<li>Do pole "Model name" zadejte přesně ten název modelu, který jste spustili příkazem ollama run (např. llama3.1).</li>
+					<li>Pole "Request URL" by mělo být nastaveno na výchozí http://localhost:11434/api/chat, což je standardní adresa pro lokálně běžící Ollama.</li>
+				</ul>
+			</Li>
+			<Li>
+				<strong>Ukončení modelu:</strong> Až skončíte s používáním konverzace, můžete model v terminálu zastavit napsáním /bye a stiskem Enter. Tím se uvolní systémové prostředky.
+			</Li>
 		</List>
 
-		<Heading tag="h4" class="mb-3">OpenAI API</Heading>
-		<List class="space-y-2">
-			<Li>Získejte klíč k platformě OpenAI a vložte do pole.</Li>
-			<Li>Zadejte název Vámi zvoleného modelu.</Li>
+		<Heading tag="h4" class="mt-4 mb-3">Možnost 2: OpenAI API</Heading>
+		<P class="mb-3">Tato možnost využívá modely provozované společností OpenAI (např. GPT-4o). Výhodou je přístup k velmi výkonným modelům bez nároků na váš počítač a jednodušší nastavení. Nevýhodou je nutnost mít účet u OpenAI a fakt, že používání API je placené.</P>
+		<List tag="ol" class="space-y-3">
+			<Li>
+				<strong>Získání API klíče:</strong>
+				<ul class="list-disc list-inside pl-5 space-y-1 mt-1">
+					<li>Vytvořte si účet (nebo se přihlaste) na <A href="https://platform.openai.com/" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:underline">platform.openai.com</A>.</li>
+					<li>V nastavení účtu najděte sekci "API keys".</li>
+					<li>Vygenerujte si nový tajný klíč ("secret key"). Tento klíč si ihned bezpečně zkopírujte a uložte, protože ho nelze zobrazit znovu. Nikdy ho nesdílejte veřejně.</li>
+				</ul>
+			</Li>
+			<Li>
+				<strong>Výběr modelu:</strong> Zjistěte si názvy dostupných modelů ve vašem účtu (např. gpt-4o-mini, gpt-4o, gpt-3.5-turbo). Informace najdete v dokumentaci OpenAI.
+			</Li>
+			<Li>
+				<strong>Nastavení v Aplikaci:</strong>
+				<ul class="list-disc list-inside pl-5 space-y-1 mt-1">
+					<li>V nastavení režimu Konverzace zaškrtněte volbu "OpenAI API".</li>
+					<li>Do pole "API Key" vložte váš zkopírovaný tajný klíč.</li>
+					<li>Do pole "Model name" napište přesný název modelu, který chcete používat.</li>
+					<li>Pole "Request URL" by mělo být nastaveno na výchozí https://api.openai.com/v1/chat/completions.</li>
+				</ul>
+			</Li>
 		</List>
 	</div>
 </main>

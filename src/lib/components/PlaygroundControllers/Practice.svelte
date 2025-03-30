@@ -33,6 +33,7 @@
 	let messageVisible: boolean = false;
 	const SUCCESS_MESSAGE_DURATION = 3000;
 	let alertMessage : string = "";
+	let messageColor: string = "green";
 
 	/**
 	 * Selects random word from words list and plays animation
@@ -57,16 +58,16 @@
 	 */
 	function checkAnswer() {
 		if (textInput.length < 1) {
-			displayMessage("Napište slovo, které jste viděli");
+			displayMessage("Napište slovo, které jste viděli", "orange");
 			return;
 		}
 
 		if(replaceCzechDiacriticsAndNormalize(textInput) === replaceCzechDiacriticsAndNormalize(randomWord)) {
-			displayMessage("Správně!");
+			displayMessage("Správně!", "green");
 			textInput = '';
 			randomWord = '';
 		} else {
-			displayMessage("Chyba, zkuste to znovu.")
+			displayMessage("Chyba, zkuste to znovu.", "orange")
 		}
 	}
 
@@ -97,16 +98,18 @@
 	 * Reveals the correct word
 	 */
 	function giveUp(){
-		displayMessage(`Správné slovo bylo: ${randomWord}`);
+		displayMessage(`Správné slovo bylo: ${randomWord}`, "orange");
 	}
 
 	/**
 	 * Displays a message for a short duration
 	 * @param msg - Message to display
 	 */
-	function displayMessage(msg : string) {
+	function displayMessage(msg: string, color: string) {
 		alertMessage = msg;
 		messageVisible = true;
+		messageColor = color;
+
 		setTimeout(() => {
 			messageVisible = false;
 		}, SUCCESS_MESSAGE_DURATION);
@@ -166,7 +169,7 @@
 	<!-- Success Message -->
 	{#if messageVisible}
 		<div class="absolute top-0 left-0 m-auto w-fit">
-			<Alert color="green" class="shadow-lg text-xl" >
+			<Alert color="{messageColor}" class="shadow-lg text-xl" >
 				{alertMessage}
 			</Alert>
 		</div>

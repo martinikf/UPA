@@ -2,6 +2,8 @@ import type { Classificator } from '$lib/handlers/Classificator';
 import * as tf from '@tensorflow/tfjs-core';
 import { GestureProbability } from '$lib/models/GestureProbability';
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
 import * as tfdf from '@tensorflow/tfjs-tfdf';
 
 /** Supported letters for gesture recognition */
