@@ -11,7 +11,7 @@
 	 *
 	 */
 
-	import LandmarkDetection from '$lib/components/Recognition/LandmarkDetection.svelte';
+	import GestureRecognition from '$lib/components/Recognition/GestureRecognition.svelte';
 	import Scene from '$lib/components/Animation/Scene.svelte';
 	import Model from '$lib/components/Animation/AnimatedModel.svelte';
 	import ControlRow from '$lib/components/Animation/ControlRow.svelte';
@@ -40,7 +40,7 @@
 	let transcript: Transcript;
 	let spellActivity: SpellActivity;
 	let interactive: Interactive;
-	let landmarkDetection: LandmarkDetection;
+	let gestureRecognition: GestureRecognition;
 	let controlRow: ControlRow;
 
 	let disabledToggle = false;
@@ -86,8 +86,8 @@
 	 * Toggles webcam state and handles related mode changes
 	 */
 	function toggleWebcam() {
-		if (webcam && landmarkDetection) {
-			landmarkDetection.disableCam();
+		if (webcam && gestureRecognition) {
+			gestureRecognition.disableCam();
 
 			if(mode != PlaygroundMode.Translator && mode != PlaygroundMode.Practice) {
 				mode = PlaygroundMode.Translator;
@@ -119,8 +119,8 @@
 	 * Ensures the webcam is disabled to release the resource.
 	 */
 	beforeNavigate(() => {
-		if(landmarkDetection){
-			landmarkDetection.disableCam();
+		if(gestureRecognition){
+			gestureRecognition.disableCam();
 		}
 	});
 </script>
@@ -219,7 +219,7 @@
 		<div class="rounded-lg shadow-sm absolute w-1/4 top-0 left-0 md:relative md:p-4 md:w-full md:bg-white md:dark:bg-gray-800">
 			{#if webcam}
 				<div class="aspect-auto border-2 border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
-					<LandmarkDetection bind:this={landmarkDetection} on:gestureRecognized={handleMessage} />
+					<GestureRecognition bind:this={gestureRecognition} on:gestureRecognized={handleMessage} />
 				</div>
 			{/if}
 		</div>

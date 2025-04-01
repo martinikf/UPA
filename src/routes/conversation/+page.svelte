@@ -11,7 +11,7 @@
 
 	import { beforeNavigate } from '$app/navigation';
 
-	import LandmarkDetection from '$lib/components/Recognition/LandmarkDetection.svelte';
+	import GestureRecognition from '$lib/components/Recognition/GestureRecognition.svelte';
 
 	// Import required components
 	import Scene from '$lib/components/Animation/Scene.svelte';
@@ -42,7 +42,7 @@
 	let scene: Scene;
 	let model: Model;
 	let controlRow: ControlRow;
-	let landmarkDetection: LandmarkDetection;
+	let gestureRecognition: GestureRecognition;
 
 	// Component state
 	let webcamOn : boolean = false;
@@ -323,7 +323,7 @@
 	 */
 	function webcamToggle() {
 		if (webcamOn) {
-			landmarkDetection.disableCam();
+			gestureRecognition.disableCam();
 		}
 
 		webcamOn = !webcamOn;
@@ -343,8 +343,8 @@
 	 * Ensures the webcam is disabled to release the resource.
 	 */
 	beforeNavigate(() => {
-		if(landmarkDetection){
-			landmarkDetection.disableCam();
+		if(gestureRecognition){
+			gestureRecognition.disableCam();
 		}
 	});
 </script>
@@ -370,7 +370,7 @@
 
 				<div class="aspect-auto mb-4 border-2 border-gray-200 md:dark:border-gray-700 md:w-full rounded-lg overflow-hidden md:relative fixed md:top-0 md:left-0 top-2 left-2 w-1/4 z-40">
 					{#if webcamOn}
-						<LandmarkDetection bind:this={landmarkDetection} on:gestureRecognized={handleMessage} />
+						<GestureRecognition bind:this={gestureRecognition} on:gestureRecognized={handleMessage} />
 					{/if}
 				</div>
 
