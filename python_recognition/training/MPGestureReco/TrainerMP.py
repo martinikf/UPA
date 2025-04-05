@@ -33,7 +33,7 @@ loss, accuracy = model.evaluate(test_data, batch_size=1)
 
 print(f"\n--- Evaluation Results ---")
 print(f"Test Loss: {loss:.4f}")
-print(f"Test Accuracy: {accuracy:.4f}") # This is the accuracy you requested
+print(f"Test Accuracy: {accuracy:.4f}")
 
 
 model.export_model()
