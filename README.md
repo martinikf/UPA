@@ -1,8 +1,24 @@
+## Structure
+### /src
+- SvelteKit app
+
+### /static
+- /models – 3D model and AI models
+- wasm files
+- manifest
+
+### /3D
+- Blender file for 3D model
+
+### /python_recognition
+- Python scripts for hand gesture recognition
+- Dataset (~7k images)
+- Note: TFDF needs linux, use Keras 2
+
 ## Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
 ```bash
+npm install
 npm run dev
 ```
 
