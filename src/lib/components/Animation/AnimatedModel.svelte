@@ -246,7 +246,7 @@ Command: npx @threlte/gltf@2.0.3 path\Model.glb --root /models/ --types --printw
 		//Next action name
 		const nextActionName = actionOffset.toString() + normalizeActionKey(currentChar, currentChar === previousChar) as ActionName
 		const nextAction = $actions[nextActionName as ActionName];
-		console.log(nextAction);
+		// console.log(nextAction);
 
 		// Handle letters vs non-letters
 		if (currentChar.toLowerCase() != currentChar.toUpperCase() && nextAction) {
@@ -266,7 +266,7 @@ Command: npx @threlte/gltf@2.0.3 path\Model.glb --root /models/ --types --printw
 	 * Recursive function to play animations for words
 	 */
 	function playSentenceRec() {
-		console.log(sentence)
+		// console.log(sentence)
 
 		const actionOffset = "ActionWord"
 

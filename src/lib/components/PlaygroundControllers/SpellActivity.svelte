@@ -68,7 +68,7 @@
 		if (!state.wordToGuess) return;
 
 		const result = msg.detail;
-		console.log(result)
+
 		if (performance.now() < state.lastDetectionTime + DETECTION_DELAY) return;
 
 		const currentLetter = getCurrentLetter();
