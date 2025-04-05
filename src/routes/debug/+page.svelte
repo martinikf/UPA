@@ -1,6 +1,6 @@
 <script lang="ts">
 
-	import LandmarkDetection from '$lib/components/Recognition/LandmarkDetection.svelte';
+	import GestureRecognition from '$lib/components/Recognition/GestureRecognition.svelte';
 
 	import Scene from '$lib/components/Animation/Scene.svelte';
 	import Model from '$lib/components/Animation/AnimatedModel.svelte';
@@ -15,7 +15,7 @@
 	let controlRow: ControlRow;
 
 	// References
-	let landmarkDetection: LandmarkDetection;
+	let landmarkDetection: GestureRecognition;
 
 	let lastMsg : GestureProbability[]= [];
 
@@ -60,7 +60,7 @@
 	<!-- WEBCAM -->
 	<div class="webcam_container">
 		<div class="webcam">
-			<LandmarkDetection bind:this={landmarkDetection} on:gestureRecognized={handleMessage} />
+			<GestureRecognition bind:this={landmarkDetection} on:gestureRecognized={handleMessage} />
 		</div>
 	</div>
 

@@ -14,7 +14,7 @@
 				Autor: Filip Martiník
 			</P>
 			<P>
-				<A href="/text.pdf" class="">Text diplomové práce</A>, ve&nbsp;kterém se lze dočíst jak celá webová aplikace funguje a podrobněji zjistit, jaké všechny funkcionality aplikace nabízí.
+				<A href="/dp.pdf" class="">Text diplomové práce</A>, ve&nbsp;kterém se lze dočíst jak celá webová aplikace funguje a podrobněji zjistit, jaké všechny funkcionality aplikace nabízí.
 				Zdrojový kód aplikace se nachází veřejně <A href="https://github.com/martinikf/upa"> na&nbsp;GitHubu</A>.
 			</P>
 		</div>

@@ -462,20 +462,20 @@
 		<Heading tag="h3" class="mt-6 mb-4">Tipy pro režim Konverzace</Heading>
 		<List class="space-y-3">
 			<Li>
-				<strong>Kvalita modelu ovlivňuje odpovědi:</strong> Pamatujte, že srozumitelnost, relevance a celková kvalita odpovědí virtuálního asistenta přímo závisí na tom, jaký jazykový model (LLM) máte v nastavení zvolený a spuštěný. Výkonnější modely (např. větší modely přes OpenAI API) mohou poskytovat zajímavější a přesnější odpovědi.
+				<strong>Kvalita modelu ovlivňuje odpovědi:</strong> Pamatujte, že srozumitelnost, relevance a celková kvalita odpovědí virtuálního asistenta přímo závisí na tom, jaký jazykový model (LLM) máte v nastavení zvolený. Větší modely (např. od OpenAI) mohou poskytovat zajímavější a přesnější odpovědi.
 			</Li>
 			<Li>
-				<strong>Nebojte se chyb v přepisu:</strong> Velkou výhodou moderních LLM je, že si často poradí i s textem, který obsahuje drobné chyby nebo překlepy vzniklé při automatickém rozpoznávání vašeho znakování. Nemusíte se tedy stresovat tím, že přepis není 100% dokonalý. Zaměřte se na plynulé znakování a LLM pravděpodobně pochopí, co máte na mysli.
+				<strong>Nebojte se chyb v přepisu:</strong> Velkou výhodou LLM je, že si často poradí i s textem, který obsahuje drobné chyby nebo překlepy vzniklé při automatickém rozpoznávání vašeho znakování. Nemusíte se tedy stresovat tím, že přepis není dokonalý. Zaměřte se na plynulé znakování a LLM pravděpodobně pochopí, co máte na mysli.
 			</Li>
 			<Li>
-				<strong>Technika znakování pro přepis:</strong> Pro správné vkládání mezer mezi slovy - podržte znak spoledního písmena slova déle a pro zadávání stejných písmen za sebou - krátce změňte gesto mezi znaky.
+				<strong>Technika znakování pro přepis:</strong> Pro správné vkládání mezer mezi slovy – podržte znak spoledního písmena slova déle a pro zadávání stejných písmen za sebou - krátce změňte gesto mezi znaky.
 			</Li>
 		</List>
 
 		<Heading tag="h3" class="mt-6 mb-4">Klávesové zkratky v režimu Konverzace</Heading>
 		<List class="space-y-2">
-			<Li><strong>Enter:</strong> Odešle aktuálně rozpoznaný text (zobrazený pod 3D modelem) jako vaši zprávu jazykovému modelu.</Li>
-			<Li><strong>Mezerník (Space):</strong> Manuálně vloží mezeru do rozpoznávaného textu.</Li>
+			<Li><strong>Enter:</strong> Odešle aktuálně rozpoznaný text (zobrazený nad 3D modelem) jako vaši zprávu jazykovému modelu.</Li>
+			<Li><strong>Mezerník:</strong> Manuálně vloží mezeru do rozpoznávaného textu.</Li>
 			<Li><strong>Backspace:</strong> Smaže poslední rozpoznaný znak z aktuálně sestavované zprávy.</Li>
 		</List>
 
@@ -483,43 +483,44 @@
 		<P>Aby režim "Konverzace" fungoval, potřebuje aplikace komunikovat s nějakým velkým jazykovým modelem (LLM), který bude generovat odpovědi. Můžete si vybrat jednu ze dvou možností:</P>
 
 		<Heading tag="h4" class="mb-3">Možnost 1: Ollama (Spouštění modelů na vašem počítači)</Heading>
-		<P class="mb-3">Ollama je bezplatný nástroj, který vám umožní stahovat a spouštět různé open-source jazykové modely přímo na vašem vlastním počítači. Výhodou je soukromí (data neopouštějí váš PC) a nulové náklady na použití modelů. Nevýhodou může být náročnost na výkon počítače (zejména RAM a případně grafickou kartu) a nutnost technického nastavení.</P>
+		<P class="mb-3">Ollama je bezplatný nástroj, který vám umožní stahovat a spouštět různé open-source jazykové modely přímo na vašem vlastním počítači. Výhodou je soukromí (data neopouštějí váš PC) a nulové náklady na použití modelů. Nevýhodou může být náročnost na výkon počítače a nutnost technického nastavení.</P>
 		<List tag="ol" class="space-y-3">
 			<Li>
 				<strong>Instalace Ollama:</strong> Stáhněte a nainstalujte Ollama pro váš operační systém z oficiální stránky: <A href="https://ollama.com/download" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:underline">https://ollama.com/download</A>.
 			</Li>
 			<Li>
+				<strong>Nastavení CORS (Povolení komunikace pro prohlížeč):</strong>
+				<ul class="list-disc list-inside pl-5 space-y-1 mt-1">
+					<li>Prohlížeč z bezpečnostních důvodů potřebuje explicitní povolení, aby mohl komunikovat s programem Ollama běžící na vašem počítači. To se nastavuje pomocí systémové proměnné OLLAMA_ORIGINS.</li>
+					<li>Hodnota této proměnné musí být adresa, na které běží tato webová aplikace.
+					</li>
+					<li>Jak nastavit proměnnou (PŘED spuštěním programu Ollama):
+						<ul class="list-circle list-inside pl-5 space-y-1 mt-1">
+							<li>Windows – v příkazové řádce: Zadejte set OLLAMA_ORIGINS=adresa_webové_aplikace (např. set "OLLAMA_ORIGINS=https://158.194.92.104").</li>
+						</ul>
+					</li>
+					<li>Po nastavení proměnné (a restartu služby Ollama, pokud běžela) spusťte model.</li>
+				</ul>
+			</Li>
+			<Li>
 				<strong>Stažení a spuštění modelu:</strong>
 				<ul class="list-disc list-inside pl-5 space-y-1 mt-1">
-					<li>Otevřete si terminál nebo příkazovou řádku vašeho systému.</li>
+					<li>Otevřete si příkazovou řádku vašeho systému.</li>
 					<li>Vyberte si model, který chcete použít (seznam najdete na <A href="https://ollama.com/library" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:underline">ollama.com/library</A>).</li>
 					<li>Stáhněte a spusťte model zadáním příkazu: <code class="text-sm bg-gray-100 dark:bg-gray-700 p-1 rounded">ollama run název_modelu</code> (např. <code class="text-sm bg-gray-100 dark:bg-gray-700 p-1 rounded">ollama run llama3.1</code>). Při prvním spuštění se model stáhne, což může chvíli trvat.</li>
 				</ul>
 			</Li>
-			<Li>
-				<strong>Nastavení CORS (Povolení komunikace pro prohlížeč):</strong>
-				<ul class="list-disc list-inside pl-5 space-y-1 mt-1">
-					<li>Prohlížeč z bezpečnostních důvodů potřebuje explicitní povolení, aby mohl komunikovat s programem ollama běžící na vašem počítači. To se nastavuje pomocí systémové proměnné OLLAMA_ORIGINS.</li>
-					<li>Hodnota této proměnné musí být adresa, na které běží tato webová aplikace.
-					</li>
-					<li>Jak nastavit proměnnou (PŘED spuštěním ollama run):
-						<ul class="list-circle list-inside pl-5 space-y-1 mt-1">
-							<li>Windows (v příkazové řádce/terminálu): Zadejte set OLLAMA_ORIGINS=adresa_webové_aplikace (např. set OLLAMA_ORIGINS=http://localhost:5173 nebo set "OLLAMA_ORIGINS=https://158.194.92.104") a stiskněte Enter. Toto nastavení platí jen pro daný terminál. Pro trvalé nastavení hledejte "environment variables" v nastavení Windows.</li>
-						</ul>
-					</li>
-					<li>Po nastavení proměnné (a případném restartu terminálu/služby Ollama, pokud běžela) spusťte model pomocí ollama run</li>
-				</ul>
-			</Li>
+
 			<Li>
 				<strong>Nastavení v Aplikaci:</strong>
 				<ul class="list-disc list-inside pl-5 space-y-1 mt-1">
-					<li>V nastavení režimu Konverzace (rozbalovací sekce "Nastavení modelu") se ujistěte, že nemáte zaškrtnuto "OpenAI API".</li>
+					<li>V nastavení režimu Konverzace se ujistěte, že nemáte přepínač v poloze "OpenAI API".</li>
 					<li>Do pole "Model name" zadejte přesně ten název modelu, který jste spustili příkazem ollama run (např. llama3.1).</li>
-					<li>Pole "Request URL" by mělo být nastaveno na výchozí http://localhost:11434/api/chat, což je standardní adresa pro lokálně běžící Ollama.</li>
+					<li>Pole "Request URL" by mělo být nastaveno na výchozí http://localhost:11434/api/chat, což je standardní adresa pro lokálně běžící program Ollama.</li>
 				</ul>
 			</Li>
 			<Li>
-				<strong>Ukončení modelu:</strong> Až skončíte s používáním konverzace, můžete model v terminálu zastavit napsáním /bye a stiskem Enter. Tím se uvolní systémové prostředky.
+				<strong>Ukončení modelu:</strong> Až skončíte s používáním konverzace, můžete model zastavit napsáním příkazu /bye do příkazové řádky. Tím se uvolní systémové prostředky.
 			</Li>
 		</List>
 
