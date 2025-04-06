@@ -86,7 +86,7 @@ Command: npx @threlte/gltf@2.0.3 path\Model.glb --root /models/ --types --printw
 		Í: 'Id',
 		Ó: 'Od',
 		Ú: 'Ud',
-		Ů: 'Ud', // Missing animation for "Ů" so use "Ú" instead
+		Ů: 'Uk',
 		Ý: 'Yd',
 		Č: 'Cc',
 		Ď: 'Dc',
@@ -102,25 +102,25 @@ Command: npx @threlte/gltf@2.0.3 path\Model.glb --root /models/ --types --printw
 	 * Dictionary for mapping special characters to their two-hand animation names
 	 */
 	const dictCZ2ActionLetter: { [key: string]: string } = {
-		Á: 'A',
-		É: 'E',
-		Í: 'I',
-		Ó: 'O',
-		Ú: 'U',
-		Ů: 'U',
-		Ý: 'Y',
-		Č: 'C',
-		Ď: 'D',
-		Ě: 'E',
-		Ň: 'N',
-		Ř: 'R',
-		Š: 'S',
-		Ť: 'T',
-		Ž: 'Z'
+		Á: 'Ad',
+		É: 'Ed',
+		Í: 'Id',
+		Ó: 'Od',
+		Ú: 'Ud',
+		Ů: 'Uk',
+		Ý: 'Yd',
+		Č: 'Cc',
+		Ď: 'Dc',
+		Ě: 'Ec',
+		Ň: 'Nc',
+		Ř: 'Rc',
+		Š: 'Sc',
+		Ť: 'Tc',
+		Ž: 'Zc'
 	};
 
 	/* List of supported words, todo: load this dynamically from the model */
-	const animatedWords = ["Ahoj", "Mama"];
+	const animatedWords = ["Ahoj", "Máma", "Bolest", "Dnes","Jídlo", "Kočka", "Láska", "Omluva", "Pomoc", "Prosím", "Voda"];
 
 	// Reactive statement to play animation when currentActionName changes
 	$: $actions[currentActionName]?.play();
