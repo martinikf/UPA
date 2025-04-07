@@ -4,7 +4,7 @@ const SPACE_INSERT_THRESHOLD = 20;
 const MULTI_CHAR_TOKENS = ['Ch'];
 const ERROR_CONTEXT_SIZE = 1; // Characters to check around mismatches
 
-export function convertToFrequencyFormat(input: string): string {
+export function convertRecognitionsToText(input: string): string {
 	// Tokenize input with multi-character support
 	const tokens: string[] = [];
 	let i = 0;
@@ -32,10 +32,10 @@ export function convertToFrequencyFormat(input: string): string {
 		const isValidExtension =
 			i < tokens.length &&
 			(tokens[i] === currentToken ||
-				(i > ERROR_CONTEXT_SIZE &&
+				(i > ERROR_CONTEXT_SIZE && // When there is miss in recognition, look around (error_context_size) if the token is the same as current sequence token
 					i < tokens.length - ERROR_CONTEXT_SIZE &&
 					tokens[i - ERROR_CONTEXT_SIZE] === currentToken &&
-					tokens[i + ERROR_CONTEXT_SIZE] === currentToken));
+					tokens[i + ERROR_CONTEXT_SIZE] === currentToken)); // There should be check if the count (current + error) is even necessary for the valid token recognition
 
 		if (isValidExtension) {
 			count++;

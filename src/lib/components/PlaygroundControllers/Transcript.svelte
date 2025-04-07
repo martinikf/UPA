@@ -14,7 +14,7 @@
 	import { Button, P } from 'flowbite-svelte';
 	import type { GestureProbability } from '$lib/models/GestureProbability';
 	import { Language } from '$lib/models/Word';
-	import { convertToFrequencyFormat } from '$lib/helpers/CSLR';
+	import { convertRecognitionsToText } from '$lib/helpers/CSLR';
 
 	/** Instance of the AnimatedModel component, passed as a prop. */
 	export let model: Model;
@@ -52,7 +52,7 @@
 		if (automaticMode) {
 			// In Automatic mode, append directly and parse using CSLR
 			str += winner.letter;
-			parsedStr = convertToFrequencyFormat(str);
+			parsedStr = convertRecognitionsToText(str);
 		}
 		if(!automaticMode) {
 			// In Manual mode, add the potential winner to a buffer
@@ -159,7 +159,7 @@
 
 			// Update parsed string immediately if in automatic mode
 			if (automaticMode) {
-				parsedStr = convertToFrequencyFormat(str);
+				parsedStr = convertRecognitionsToText(str);
 			}
 		}
 	}

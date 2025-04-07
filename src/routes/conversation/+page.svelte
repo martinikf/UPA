@@ -36,7 +36,7 @@
 		P,
 		Toggle
 	} from 'flowbite-svelte';
-	import { convertToFrequencyFormat, MIN_GROUP_LENGTH } from '$lib/helpers/CSLR';
+	import { convertRecognitionsToText, MIN_GROUP_LENGTH } from '$lib/helpers/CSLR';
 
 	// Component references
 	let scene: Scene;
@@ -96,7 +96,7 @@
 			// Process only the most probable letter (first in the array)
 			if(i == 0){
 				str += letter; // Append recognized letter to the raw string
-				parsed = convertToFrequencyFormat(str) // Update the parsed string using CSLR logic
+				parsed = convertRecognitionsToText(str) // Update the parsed string using CSLR logic
 			}
 		}
 	}
@@ -127,7 +127,7 @@
 	 */
 	async function send(){
 		// Ensure the final parsed string is up-to-date before sending
-		parsed = convertToFrequencyFormat(str);
+		parsed = convertRecognitionsToText(str);
 
 		// Trim whitespace and convert to lowercase before sending to LLM
 		await sendPrompt(parsed.trim().toLowerCase());
@@ -289,7 +289,7 @@
 
 			// Add multiple spaces to simulate holding a pause for CSLR
 			str += " ".repeat(MIN_GROUP_LENGTH);
-			parsed = convertToFrequencyFormat(str) // Update parsed view
+			parsed = convertRecognitionsToText(str) // Update parsed view
 
 		} else if (event.code === "Backspace") {
 			// Prevent default backspace behavior
@@ -310,7 +310,7 @@
 				}
 			}
 
-			parsed = convertToFrequencyFormat(str)
+			parsed = convertRecognitionsToText(str)
 		} else if(event.code === "Enter"){
 			event.preventDefault(); // Prevent default form submission if applicable
 			send() // Send the message
