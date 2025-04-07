@@ -34,7 +34,7 @@
 			<NavLi href="/sign-alphabet" class="py-2 px-3 md:p-0 text-lg">Prstová abeceda</NavLi>
 			<NavLi href="/learn" class="py-2 px-3 md:p-0 text-lg">Učitel</NavLi>
 			<NavLi href="/conversation" class="py-2 px-3 md:p-0 text-lg">Konverzace</NavLi>
-			<NavLi href="/playground" class="py-2 px-3 md:p-0 text-lg">Playground</NavLi>
+			<NavLi href="/playground" class="py-2 px-3 md:p-0 text-lg">Cvičiště</NavLi>
 		</NavUl>
 	</Navbar>
 </header>

@@ -66,7 +66,7 @@
 
 			<Card class="hover:shadow-lg transition-shadow duration-200 dark:bg-gray-800" size="xs">
 				<div class="p-6 space-y-4">
-					<Heading tag="h3" class="text-xl font-semibold dark:text-white">Playground</Heading>
+					<Heading tag="h3" class="text-xl font-semibold dark:text-white">Cvičiště</Heading>
 					<P class="text-gray-600 dark:text-gray-400">
 						Souhrn různých režimů na&nbsp;jednom místě. Zde si&nbsp;můžete vyzkoušet co&nbsp;Vás napadne.
 					</P>
