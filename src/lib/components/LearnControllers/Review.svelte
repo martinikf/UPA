@@ -90,7 +90,7 @@
 	<P class="text-gray-600 dark:text-gray-400 mb-6">
 		Zde vidíte všechny znaky, nezašedlé položky již umíte.<br>
 		Pro přehrání daného znaku klikněte na&nbsp;něj.<br>
-		Pokud jste již v&nbsp;minulosti tento režim použili, dvojklikem na&nbsp;znak se daný znak označí jako již naučený.
+		Pokud jste již v&nbsp;minulosti tento režim použili, dvojklikem na&nbsp;písmeno se daný znak písmena a všechny předcházející znaky písmen automaticky označí za již naučené.
 	</P>
 
 	<div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm space-y-6">
