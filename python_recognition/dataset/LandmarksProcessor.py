@@ -62,18 +62,19 @@ def run():
                 # Process each image file found in the label subdirectory
                 for file in get_files(offset_path + letter):
                     # Extract and preprocess landmarks from the image
-                    data = process_image(hands, offset_path + letter + '/' + file)
-                    print(data)
-                    if data:
-                        # Write the label index and the 42 features to the CSV
-                        f.write(f"{i},")
-                        for index, num in enumerate(data):
-                            if(index == len(data) - 1):
-                                f.write(f"{num}")
-                            else:
-                                f.write(f"{num},")
-                        f.write("\n")
-                    print(f"Processed {letter}/{file}")
+                    for flip in [False, True]:
+                        data = process_image(hands, offset_path + letter + '/' + file, flip)
+                        print(data)
+                        if data:
+                            # Write the label index and the 42 features to the CSV
+                            f.write(f"{i},")
+                            for index, num in enumerate(data):
+                                if(index == len(data) - 1):
+                                    f.write(f"{num}")
+                                else:
+                                    f.write(f"{num},")
+                            f.write("\n")
+                        print(f"Processed {letter}/{file}")
 
 
 def setup():
@@ -172,7 +173,7 @@ def pre_process_landmark(landmark_list):
     return temp_landmark_list
 
 
-def process_image(hands_arg, file_path):
+def process_image(hands_arg, file_path, flip=False):
     """
         Loads an image file, detects hand landmarks using MediaPipe, calculates
         pixel coordinates, preprocesses them (relative coords, normalization),
@@ -181,13 +182,15 @@ def process_image(hands_arg, file_path):
         Args:
             hands_arg: The initialized MediaPipe Hands object.
             file_path: The path to the image file.
+            flip: Flips the image if True.
 
         Returns:
             A list of 42 normalized landmark features if a hand is detected,
             otherwise None.
     """
     img = cv2.imread(file_path)
-    # img = cv2.flip(img, 1) # its already flipped
+    if flip:
+        img = cv2.flip(img, 1)
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
     results = hands_arg.process(img)
