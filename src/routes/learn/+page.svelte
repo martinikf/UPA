@@ -38,7 +38,7 @@
 		//Add letter 'ch' after 'h'
 		lettersCz.splice(8, 0, 'ch');
 
-		let words = ["Ahoj", "Máma", "Bolest","Dnes","Jídlo","Kočka","Láska","Omluva","Pomoc","Prosím","Voda"]; //TODO, load dynamically from AnimatedModel - duplication!
+		let words = ["Ahoj", "Máma", "Bolest","Dnes","Jídlo","Kočka","Láska","Omluva","Pomoc","Prosím","Voda"]; //TODO, load dynamically from AnimatedModel!
 
 		let listOfAllWords: Word[] = [];
 

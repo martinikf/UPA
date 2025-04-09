@@ -119,8 +119,7 @@ Command: npx @threlte/gltf@2.0.3 path\Model.glb --root /models/ --types --printw
 		Ž: 'Zc'
 	};
 
-	/* List of supported words, todo: load this dynamically from the model */
-	const animatedWords = ["Ahoj", "Máma", "Bolest", "Dnes","Jídlo", "Kočka", "Láska", "Omluva", "Pomoc", "Prosím", "Voda"];
+	let animatedWords : string[] = [];
 
 	// Reactive statement to play animation when currentActionName changes
 	$: $actions[currentActionName]?.play();
@@ -139,6 +138,20 @@ Command: npx @threlte/gltf@2.0.3 path\Model.glb --root /models/ --types --printw
 			}, delayOnNewWord);
 		}
 	});
+
+	/**
+	 * Loads all existing animated words from the 3D model
+	 * @constructor
+	 */
+	function LoadAnimatedWords() : string[]{
+		animatedWords = actions?.current
+			? Object.keys(actions.current)
+				.filter(key => key.includes("Word"))
+				.map(key => key.replace("ActionWord", ""))
+			: [];
+
+		return animatedWords;
+	}
 
 	/**
 	 * Determines the action offset based on the language
@@ -295,8 +308,12 @@ Command: npx @threlte/gltf@2.0.3 path\Model.glb --root /models/ --types --printw
 	 * Initiates animation for given text in specified language
 	 */
 	export function playAnimationForText(textArg: string, language: Language) {
-		actionOffset = getActionOffset(language);
+		// if animatedWords are empty -> load them
+		if(animatedWords.length < 1){
+			LoadAnimatedWords();
+		}
 
+		actionOffset = getActionOffset(language);
 		if (language == Language.Czech) {
 			// Handle sign language differently to finger alphabet
 			sentence = textArg;
