@@ -7,7 +7,7 @@ RUN npm ci
 
 COPY . .
 
-RUN npm run build
+RUN NODE_OPTIONS=--max_old_space_size=4096 npm run build
 RUN npm prune --production
 
 
