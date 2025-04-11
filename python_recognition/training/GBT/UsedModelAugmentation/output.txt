@@ -1,0 +1,1193 @@
+/home/martinikf/.virtualenvs/TensorTrees/bin/python /mnt/c/Users/marti/Documents/GitHub/prstovka/python_recognition/training/GBT/TrainerDF.py 
+2025-04-11 19:53:48.411491: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-04-11 19:53:48.422622: I external/local_xla/xla/tsl/cuda/cudart_stub.cc:32] Could not find cuda drivers on your machine, GPU will not be used.
+2025-04-11 19:53:48.518861: I external/local_xla/xla/tsl/cuda/cudart_stub.cc:32] Could not find cuda drivers on your machine, GPU will not be used.
+2025-04-11 19:53:48.600131: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:477] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1744394028.664587    4806 cuda_dnn.cc:8310] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1744394028.685487    4806 cuda_blas.cc:1418] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2025-04-11 19:53:48.852704: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI AVX512_BF16 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+🌲 Try https://ydf.readthedocs.io, the successor of TensorFlow Decision Forests with more features and faster training!
+Starting model training process...
+   label   f1   f2        f3  ...       f39       f40       f41       f42
+0      0  0.0  0.0  0.347222  ... -0.125000 -0.604167 -0.131944 -0.500000
+1      0  0.0  0.0 -0.314286  ...  0.074286 -0.657143  0.068571 -0.548571
+2      0  0.0  0.0  0.246988  ... -0.090361 -0.662651 -0.156627 -0.572289
+
+[3 rows x 43 columns]
+12778 examples in training, 1448 examples for testing.
+2025-04-11 19:53:51.052323: E external/local_xla/xla/stream_executor/cuda/cuda_driver.cc:152] failed call to cuInit: INTERNAL: CUDA error: Failed call to cuInit: UNKNOWN ERROR (303)
+Use 16 thread(s) for training
+Use /tmp/tmpna2tttn2 as temporary training directory
+2025-04-11 19:53:51.118696: W external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1840] "goss_alpha" set but "sampling_method" not equal to "GOSS".
+2025-04-11 19:53:51.118733: W external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1850] "goss_beta" set but "sampling_method" not equal to "GOSS".
+2025-04-11 19:53:51.118738: W external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1864] "selective_gradient_boosting_ratio" set but "sampling_method" not equal to "SELGB".
+Reading training dataset...
+Training tensor examples:
+Features: {'f1': <tf.Tensor 'data:0' shape=(None,) dtype=float64>, 'f2': <tf.Tensor 'data_1:0' shape=(None,) dtype=float64>, 'f3': <tf.Tensor 'data_2:0' shape=(None,) dtype=float64>, 'f4': <tf.Tensor 'data_3:0' shape=(None,) dtype=float64>, 'f5': <tf.Tensor 'data_4:0' shape=(None,) dtype=float64>, 'f6': <tf.Tensor 'data_5:0' shape=(None,) dtype=float64>, 'f7': <tf.Tensor 'data_6:0' shape=(None,) dtype=float64>, 'f8': <tf.Tensor 'data_7:0' shape=(None,) dtype=float64>, 'f9': <tf.Tensor 'data_8:0' shape=(None,) dtype=float64>, 'f10': <tf.Tensor 'data_9:0' shape=(None,) dtype=float64>, 'f11': <tf.Tensor 'data_10:0' shape=(None,) dtype=float64>, 'f12': <tf.Tensor 'data_11:0' shape=(None,) dtype=float64>, 'f13': <tf.Tensor 'data_12:0' shape=(None,) dtype=float64>, 'f14': <tf.Tensor 'data_13:0' shape=(None,) dtype=float64>, 'f15': <tf.Tensor 'data_14:0' shape=(None,) dtype=float64>, 'f16': <tf.Tensor 'data_15:0' shape=(None,) dtype=float64>, 'f17': <tf.Tensor 'data_16:0' shape=(None,) dtype=float64>, 'f18': <tf.Tensor 'data_17:0' shape=(None,) dtype=float64>, 'f19': <tf.Tensor 'data_18:0' shape=(None,) dtype=float64>, 'f20': <tf.Tensor 'data_19:0' shape=(None,) dtype=float64>, 'f21': <tf.Tensor 'data_20:0' shape=(None,) dtype=float64>, 'f22': <tf.Tensor 'data_21:0' shape=(None,) dtype=float64>, 'f23': <tf.Tensor 'data_22:0' shape=(None,) dtype=float64>, 'f24': <tf.Tensor 'data_23:0' shape=(None,) dtype=float64>, 'f25': <tf.Tensor 'data_24:0' shape=(None,) dtype=float64>, 'f26': <tf.Tensor 'data_25:0' shape=(None,) dtype=float64>, 'f27': <tf.Tensor 'data_26:0' shape=(None,) dtype=float64>, 'f28': <tf.Tensor 'data_27:0' shape=(None,) dtype=float64>, 'f29': <tf.Tensor 'data_28:0' shape=(None,) dtype=float64>, 'f30': <tf.Tensor 'data_29:0' shape=(None,) dtype=float64>, 'f31': <tf.Tensor 'data_30:0' shape=(None,) dtype=float64>, 'f32': <tf.Tensor 'data_31:0' shape=(None,) dtype=float64>, 'f33': <tf.Tensor 'data_32:0' shape=(None,) dtype=float64>, 'f34': <tf.Tensor 'data_33:0' shape=(None,) dtype=float64>, 'f35': <tf.Tensor 'data_34:0' shape=(None,) dtype=float64>, 'f36': <tf.Tensor 'data_35:0' shape=(None,) dtype=float64>, 'f37': <tf.Tensor 'data_36:0' shape=(None,) dtype=float64>, 'f38': <tf.Tensor 'data_37:0' shape=(None,) dtype=float64>, 'f39': <tf.Tensor 'data_38:0' shape=(None,) dtype=float64>, 'f40': <tf.Tensor 'data_39:0' shape=(None,) dtype=float64>, 'f41': <tf.Tensor 'data_40:0' shape=(None,) dtype=float64>, 'f42': <tf.Tensor 'data_41:0' shape=(None,) dtype=float64>}
+Label: Tensor("data_42:0", shape=(None,), dtype=int64)
+Weights: None
+Normalized tensor features:
+ {'f1': SemanticTensor(semantic=<Semantic.NUMERICAL: 1>, tensor=<tf.Tensor 'Cast:0' shape=(None,) dtype=float32>), 'f2': SemanticTensor(semantic=<Semantic.NUMERICAL: 1>, tensor=<tf.Tensor 'Cast_1:0' shape=(None,) dtype=float32>), 'f3': SemanticTensor(semantic=<Semantic.NUMERICAL: 1>, tensor=<tf.Tensor 'Cast_2:0' shape=(None,) dtype=float32>), 'f4': SemanticTensor(semantic=<Semantic.NUMERICAL: 1>, tensor=<tf.Tensor 'Cast_3:0' shape=(None,) dtype=float32>), 'f5': SemanticTensor(semantic=<Semantic.NUMERICAL: 1>, tensor=<tf.Tensor 'Cast_4:0' shape=(None,) dtype=float32>), 'f6': SemanticTensor(semantic=<Semantic.NUMERICAL: 1>, tensor=<tf.Tensor 'Cast_5:0' shape=(None,) dtype=float32>), 'f7': SemanticTensor(semantic=<Semantic.NUMERICAL: 1>, tensor=<tf.Tensor 'Cast_6:0' shape=(None,) dtype=float32>), 'f8': SemanticTensor(semantic=<Semantic.NUMERICAL: 1>, tensor=<tf.Tensor 'Cast_7:0' shape=(None,) dtype=float32>), 'f9': SemanticTensor(semantic=<Semantic.NUMERICAL: 1>, tensor=<tf.Tensor 'Cast_8:0' shape=(None,) dtype=float32>), 'f10': SemanticTensor(semantic=<Semantic.NUMERICAL: 1>, tensor=<tf.Tensor 'Cast_9:0' shape=(None,) dtype=float32>), 'f11': SemanticTensor(semantic=<Semantic.NUMERICAL: 1>, tensor=<tf.Tensor 'Cast_10:0' shape=(None,) dtype=float32>), 'f12': SemanticTensor(semantic=<Semantic.NUMERICAL: 1>, tensor=<tf.Tensor 'Cast_11:0' shape=(None,) dtype=float32>), 'f13': SemanticTensor(semantic=<Semantic.NUMERICAL: 1>, tensor=<tf.Tensor 'Cast_12:0' shape=(None,) dtype=float32>), 'f14': SemanticTensor(semantic=<Semantic.NUMERICAL: 1>, tensor=<tf.Tensor 'Cast_13:0' shape=(None,) dtype=float32>), 'f15': SemanticTensor(semantic=<Semantic.NUMERICAL: 1>, tensor=<tf.Tensor 'Cast_14:0' shape=(None,) dtype=float32>), 'f16': SemanticTensor(semantic=<Semantic.NUMERICAL: 1>, tensor=<tf.Tensor 'Cast_15:0' shape=(None,) dtype=float32>), 'f17': SemanticTensor(semantic=<Semantic.NUMERICAL: 1>, tensor=<tf.Tensor 'Cast_16:0' shape=(None,) dtype=float32>), 'f18': SemanticTensor(semantic=<Semantic.NUMERICAL: 1>, tensor=<tf.Tensor 'Cast_17:0' shape=(None,) dtype=float32>), 'f19': SemanticTensor(semantic=<Semantic.NUMERICAL: 1>, tensor=<tf.Tensor 'Cast_18:0' shape=(None,) dtype=float32>), 'f20': SemanticTensor(semantic=<Semantic.NUMERICAL: 1>, tensor=<tf.Tensor 'Cast_19:0' shape=(None,) dtype=float32>), 'f21': SemanticTensor(semantic=<Semantic.NUMERICAL: 1>, tensor=<tf.Tensor 'Cast_20:0' shape=(None,) dtype=float32>), 'f22': SemanticTensor(semantic=<Semantic.NUMERICAL: 1>, tensor=<tf.Tensor 'Cast_21:0' shape=(None,) dtype=float32>), 'f23': SemanticTensor(semantic=<Semantic.NUMERICAL: 1>, tensor=<tf.Tensor 'Cast_22:0' shape=(None,) dtype=float32>), 'f24': SemanticTensor(semantic=<Semantic.NUMERICAL: 1>, tensor=<tf.Tensor 'Cast_23:0' shape=(None,) dtype=float32>), 'f25': SemanticTensor(semantic=<Semantic.NUMERICAL: 1>, tensor=<tf.Tensor 'Cast_24:0' shape=(None,) dtype=float32>), 'f26': SemanticTensor(semantic=<Semantic.NUMERICAL: 1>, tensor=<tf.Tensor 'Cast_25:0' shape=(None,) dtype=float32>), 'f27': SemanticTensor(semantic=<Semantic.NUMERICAL: 1>, tensor=<tf.Tensor 'Cast_26:0' shape=(None,) dtype=float32>), 'f28': SemanticTensor(semantic=<Semantic.NUMERICAL: 1>, tensor=<tf.Tensor 'Cast_27:0' shape=(None,) dtype=float32>), 'f29': SemanticTensor(semantic=<Semantic.NUMERICAL: 1>, tensor=<tf.Tensor 'Cast_28:0' shape=(None,) dtype=float32>), 'f30': SemanticTensor(semantic=<Semantic.NUMERICAL: 1>, tensor=<tf.Tensor 'Cast_29:0' shape=(None,) dtype=float32>), 'f31': SemanticTensor(semantic=<Semantic.NUMERICAL: 1>, tensor=<tf.Tensor 'Cast_30:0' shape=(None,) dtype=float32>), 'f32': SemanticTensor(semantic=<Semantic.NUMERICAL: 1>, tensor=<tf.Tensor 'Cast_31:0' shape=(None,) dtype=float32>), 'f33': SemanticTensor(semantic=<Semantic.NUMERICAL: 1>, tensor=<tf.Tensor 'Cast_32:0' shape=(None,) dtype=float32>), 'f34': SemanticTensor(semantic=<Semantic.NUMERICAL: 1>, tensor=<tf.Tensor 'Cast_33:0' shape=(None,) dtype=float32>), 'f35': SemanticTensor(semantic=<Semantic.NUMERICAL: 1>, tensor=<tf.Tensor 'Cast_34:0' shape=(None,) dtype=float32>), 'f36': SemanticTensor(semantic=<Semantic.NUMERICAL: 1>, tensor=<tf.Tensor 'Cast_35:0' shape=(None,) dtype=float32>), 'f37': SemanticTensor(semantic=<Semantic.NUMERICAL: 1>, tensor=<tf.Tensor 'Cast_36:0' shape=(None,) dtype=float32>), 'f38': SemanticTensor(semantic=<Semantic.NUMERICAL: 1>, tensor=<tf.Tensor 'Cast_37:0' shape=(None,) dtype=float32>), 'f39': SemanticTensor(semantic=<Semantic.NUMERICAL: 1>, tensor=<tf.Tensor 'Cast_38:0' shape=(None,) dtype=float32>), 'f40': SemanticTensor(semantic=<Semantic.NUMERICAL: 1>, tensor=<tf.Tensor 'Cast_39:0' shape=(None,) dtype=float32>), 'f41': SemanticTensor(semantic=<Semantic.NUMERICAL: 1>, tensor=<tf.Tensor 'Cast_40:0' shape=(None,) dtype=float32>), 'f42': SemanticTensor(semantic=<Semantic.NUMERICAL: 1>, tensor=<tf.Tensor 'Cast_41:0' shape=(None,) dtype=float32>)}
+Training dataset read in 0:00:01.695330. Found 12778 examples.
+Training model...
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1744394032.830508    4806 kernel.cc:782] Start Yggdrasil model training
+I0000 00:00:1744394032.830838    4806 kernel.cc:783] Collect training examples
+I0000 00:00:1744394032.830844    4806 kernel.cc:795] Dataspec guide:
+column_guides {
+  column_name_pattern: "^__LABEL$"
+  type: CATEGORICAL
+  categorial {
+    min_vocab_frequency: 0
+    max_vocab_count: -1
+  }
+}
+default_column_guide {
+  categorial {
+    max_vocab_count: 2000
+  }
+  discretized_numerical {
+    maximum_num_bins: 255
+  }
+}
+ignore_columns_without_guides: false
+detect_numerical_as_discretized_numerical: false
+
+I0000 00:00:1744394032.831082    4806 kernel.cc:401] Number of batches: 13
+I0000 00:00:1744394032.831095    4806 kernel.cc:402] Number of examples: 12778
+I0000 00:00:1744394032.833503    4806 kernel.cc:802] Training dataset:
+Number of records: 12778
+Number of columns: 43
+
+Number of columns by type:
+	NUMERICAL: 42 (97.6744%)
+	CATEGORICAL: 1 (2.32558%)
+
+Columns:
+
+NUMERICAL: 42 (97.6744%)
+	1: "f1" NUMERICAL mean:0 min:0 max:0 sd:0
+	2: "f10" NUMERICAL mean:-0.452514 min:-1 max:1 sd:0.420467
+	3: "f11" NUMERICAL mean:-0.00247117 min:-0.963964 max:1 sd:0.208211
+	4: "f12" NUMERICAL mean:-0.517676 min:-1 max:0.609467 sd:0.257061
+	5: "f13" NUMERICAL mean:-0.00294509 min:-1 max:1 sd:0.301136
+	6: "f14" NUMERICAL mean:-0.632863 min:-1 max:0.830065 sd:0.404929
+	7: "f15" NUMERICAL mean:-0.00342195 min:-1 max:1 sd:0.357369
+	8: "f16" NUMERICAL mean:-0.625912 min:-1 max:0.945055 sd:0.476781
+	9: "f17" NUMERICAL mean:-0.00385286 min:-1 max:1 sd:0.404485
+	10: "f18" NUMERICAL mean:-0.630061 min:-1 max:1 sd:0.546167
+	11: "f19" NUMERICAL mean:-0.00220191 min:-0.712121 max:0.7 sd:0.138587
+	12: "f2" NUMERICAL mean:0 min:0 max:0 sd:0
+	13: "f20" NUMERICAL mean:-0.503341 min:-1 max:0.63125 sd:0.249853
+	14: "f21" NUMERICAL mean:-0.00418911 min:-1 max:1 sd:0.246385
+	15: "f22" NUMERICAL mean:-0.61519 min:-1 max:0.85625 sd:0.41921
+	16: "f23" NUMERICAL mean:-0.00493991 min:-1 max:1 sd:0.290339
+	17: "f24" NUMERICAL mean:-0.577392 min:-1 max:0.981481 sd:0.495832
+	18: "f25" NUMERICAL mean:-0.00398382 min:-1 max:1 sd:0.327748
+	19: "f26" NUMERICAL mean:-0.574908 min:-1 max:1 sd:0.559912
+	20: "f27" NUMERICAL mean:-0.00242671 min:-0.736111 max:0.880952 sd:0.152271
+	21: "f28" NUMERICAL mean:-0.449834 min:-1 max:0.6125 sd:0.247911
+	22: "f29" NUMERICAL mean:-0.00299985 min:-1 max:1 sd:0.234356
+	23: "f3" NUMERICAL mean:-0.00177215 min:-0.495495 max:0.658537 sd:0.183425
+	24: "f30" NUMERICAL mean:-0.529877 min:-1 max:0.833333 sd:0.403425
+	25: "f31" NUMERICAL mean:-0.00408029 min:-0.966102 max:0.975 sd:0.246215
+	26: "f32" NUMERICAL mean:-0.458832 min:-1 max:0.962963 sd:0.441807
+	27: "f33" NUMERICAL mean:-0.0038842 min:-1 max:1 sd:0.258943
+	28: "f34" NUMERICAL mean:-0.42741 min:-1 max:1 sd:0.473434
+	29: "f35" NUMERICAL mean:-0.00220292 min:-0.958333 max:1 sd:0.215003
+	30: "f36" NUMERICAL mean:-0.373612 min:-1 max:0.56875 sd:0.250316
+	31: "f37" NUMERICAL mean:-0.00190151 min:-1 max:1 sd:0.261483
+	32: "f38" NUMERICAL mean:-0.445418 min:-1 max:0.814815 sd:0.372589
+	33: "f39" NUMERICAL mean:-0.00227951 min:-1 max:1 sd:0.282134
+	34: "f4" NUMERICAL mean:-0.136251 min:-0.505263 max:0.431818 sd:0.116259
+	35: "f40" NUMERICAL mean:-0.424677 min:-1 max:0.888889 sd:0.415092
+	36: "f41" NUMERICAL mean:-0.000591987 min:-1 max:1 sd:0.307182
+	37: "f42" NUMERICAL mean:-0.420327 min:-1 max:1 sd:0.450737
+	38: "f5" NUMERICAL mean:-0.00331524 min:-0.77931 max:1 sd:0.307089
+	39: "f6" NUMERICAL mean:-0.293399 min:-0.853933 max:0.727273 sd:0.238096
+	40: "f7" NUMERICAL mean:-0.00393602 min:-0.960784 max:1 sd:0.380438
+	41: "f8" NUMERICAL mean:-0.397771 min:-1 max:0.901961 sd:0.346351
+	42: "f9" NUMERICAL mean:-0.00480643 min:-1 max:1 sd:0.428462
+
+CATEGORICAL: 1 (2.32558%)
+	0: "__LABEL" CATEGORICAL integerized vocab-size:29 no-ood-item
+
+Terminology:
+	nas: Number of non-available (i.e. missing) values.
+	ood: Out of dictionary.
+	manually-defined: Attribute whose type is manually defined by the user, i.e., the type was not automatically inferred.
+	tokenized: The attribute value is obtained through tokenization.
+	has-dict: The attribute is attached to a string dictionary e.g. a categorical attribute stored as a string.
+	vocab-size: Number of unique values.
+
+I0000 00:00:1744394032.833544    4806 kernel.cc:818] Configure learner
+2025-04-11 19:53:52.833671: W external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1840] "goss_alpha" set but "sampling_method" not equal to "GOSS".
+2025-04-11 19:53:52.833696: W external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1850] "goss_beta" set but "sampling_method" not equal to "GOSS".
+2025-04-11 19:53:52.833701: W external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1864] "selective_gradient_boosting_ratio" set but "sampling_method" not equal to "SELGB".
+I0000 00:00:1744394032.833727    4806 kernel.cc:831] Training config:
+learner: "HYPERPARAMETER_OPTIMIZER"
+features: "^f1$"
+features: "^f10$"
+features: "^f11$"
+features: "^f12$"
+features: "^f13$"
+features: "^f14$"
+features: "^f15$"
+features: "^f16$"
+features: "^f17$"
+features: "^f18$"
+features: "^f19$"
+features: "^f2$"
+features: "^f20$"
+features: "^f21$"
+features: "^f22$"
+features: "^f23$"
+features: "^f24$"
+features: "^f25$"
+features: "^f26$"
+features: "^f27$"
+features: "^f28$"
+features: "^f29$"
+features: "^f3$"
+features: "^f30$"
+features: "^f31$"
+features: "^f32$"
+features: "^f33$"
+features: "^f34$"
+features: "^f35$"
+features: "^f36$"
+features: "^f37$"
+features: "^f38$"
+features: "^f39$"
+features: "^f4$"
+features: "^f40$"
+features: "^f41$"
+features: "^f42$"
+features: "^f5$"
+features: "^f6$"
+features: "^f7$"
+features: "^f8$"
+features: "^f9$"
+label: "^__LABEL$"
+task: CLASSIFICATION
+metadata {
+  framework: "TF Keras"
+}
+[yggdrasil_decision_forests.model.hyperparameters_optimizer_v2.proto.hyperparameters_optimizer_config] {
+  base_learner {
+    learner: "GRADIENT_BOOSTED_TREES"
+    features: "^f1$"
+    features: "^f10$"
+    features: "^f11$"
+    features: "^f12$"
+    features: "^f13$"
+    features: "^f14$"
+    features: "^f15$"
+    features: "^f16$"
+    features: "^f17$"
+    features: "^f18$"
+    features: "^f19$"
+    features: "^f2$"
+    features: "^f20$"
+    features: "^f21$"
+    features: "^f22$"
+    features: "^f23$"
+    features: "^f24$"
+    features: "^f25$"
+    features: "^f26$"
+    features: "^f27$"
+    features: "^f28$"
+    features: "^f29$"
+    features: "^f3$"
+    features: "^f30$"
+    features: "^f31$"
+    features: "^f32$"
+    features: "^f33$"
+    features: "^f34$"
+    features: "^f35$"
+    features: "^f36$"
+    features: "^f37$"
+    features: "^f38$"
+    features: "^f39$"
+    features: "^f4$"
+    features: "^f40$"
+    features: "^f41$"
+    features: "^f42$"
+    features: "^f5$"
+    features: "^f6$"
+    features: "^f7$"
+    features: "^f8$"
+    features: "^f9$"
+    label: "^__LABEL$"
+    task: CLASSIFICATION
+    random_seed: 123456
+    pure_serving_model: false
+    [yggdrasil_decision_forests.model.gradient_boosted_trees.proto.gradient_boosted_trees_config] {
+      num_trees: 300
+      decision_tree {
+        max_depth: 6
+        min_examples: 5
+        in_split_min_examples_check: true
+        keep_non_leaf_label_distribution: true
+        num_candidate_attributes: -1
+        missing_value_policy: GLOBAL_IMPUTATION
+        allow_na_conditions: false
+        categorical_set_greedy_forward {
+          sampling: 0.1
+          max_num_items: -1
+          min_item_frequency: 1
+        }
+        growing_strategy_local {
+        }
+        categorical {
+          cart {
+          }
+        }
+        axis_aligned_split {
+        }
+        internal {
+          sorting_strategy: PRESORTED
+        }
+        uplift {
+          min_examples_in_treatment: 5
+          split_score: KULLBACK_LEIBLER
+        }
+      }
+      shrinkage: 0.1
+      loss: DEFAULT
+      validation_set_ratio: 0.1
+      validation_interval_in_trees: 1
+      early_stopping: VALIDATION_LOSS_INCREASE
+      early_stopping_num_trees_look_ahead: 30
+      l2_regularization: 0
+      lambda_loss: 1
+      mart {
+      }
+      adapt_subsample_for_maximum_training_duration: false
+      l1_regularization: 0
+      use_hessian_gain: false
+      l2_regularization_categorical: 1
+      xe_ndcg {
+        ndcg_truncation: 5
+      }
+      stochastic_gradient_boosting {
+        ratio: 1
+      }
+      apply_link_function: true
+      compute_permutation_variable_importance: false
+      early_stopping_initial_iteration: 10
+    }
+  }
+  optimizer {
+    optimizer_key: "RANDOM"
+    [yggdrasil_decision_forests.model.hyperparameters_optimizer_v2.proto.random] {
+      num_trials: 50
+    }
+  }
+  search_space {
+    fields {
+      name: "num_candidate_attributes_ratio"
+      discrete_candidates {
+        possible_values {
+          real: 0.6
+        }
+        possible_values {
+          real: 0.8
+        }
+        possible_values {
+          real: 1
+        }
+      }
+    }
+    fields {
+      name: "subsample"
+      discrete_candidates {
+        possible_values {
+          real: 0.7
+        }
+        possible_values {
+          real: 0.8
+        }
+        possible_values {
+          real: 0.9
+        }
+        possible_values {
+          real: 1
+        }
+      }
+    }
+    fields {
+      name: "min_examples"
+      discrete_candidates {
+        possible_values {
+          integer: 1
+        }
+        possible_values {
+          integer: 3
+        }
+        possible_values {
+          integer: 5
+        }
+        possible_values {
+          integer: 10
+        }
+        possible_values {
+          integer: 15
+        }
+      }
+    }
+    fields {
+      name: "use_hessian_gain"
+      discrete_candidates {
+        possible_values {
+          categorical: "true"
+        }
+        possible_values {
+          categorical: "false"
+        }
+      }
+    }
+    fields {
+      name: "num_trees"
+      discrete_candidates {
+        possible_values {
+          integer: 100
+        }
+        possible_values {
+          integer: 200
+        }
+        possible_values {
+          integer: 300
+        }
+        possible_values {
+          integer: 400
+        }
+      }
+    }
+    fields {
+      name: "growing_strategy"
+      discrete_candidates {
+        possible_values {
+          categorical: "LOCAL"
+        }
+        possible_values {
+          categorical: "BEST_FIRST_GLOBAL"
+        }
+      }
+      children {
+        name: "max_depth"
+        discrete_candidates {
+          possible_values {
+            integer: 3
+          }
+          possible_values {
+            integer: 4
+          }
+          possible_values {
+            integer: 5
+          }
+          possible_values {
+            integer: 6
+          }
+          possible_values {
+            integer: 7
+          }
+        }
+        parent_discrete_values {
+          possible_values {
+            categorical: "LOCAL"
+          }
+        }
+      }
+      children {
+        name: "max_num_nodes"
+        discrete_candidates {
+          possible_values {
+            integer: 16
+          }
+          possible_values {
+            integer: 32
+          }
+          possible_values {
+            integer: 64
+          }
+          possible_values {
+            integer: 128
+          }
+          possible_values {
+            integer: 256
+          }
+        }
+        parent_discrete_values {
+          possible_values {
+            categorical: "BEST_FIRST_GLOBAL"
+          }
+        }
+      }
+    }
+  }
+  base_learner_deployment {
+    num_threads: 1
+  }
+}
+
+I0000 00:00:1744394032.833993    4806 kernel.cc:834] Deployment config:
+cache_path: "/tmp/tmpna2tttn2/working_cache"
+num_threads: 16
+try_resume_training: true
+
+I0000 00:00:1744394032.834101    4911 kernel.cc:895] Train model
+2025-04-11 19:53:52.834388: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:210] Hyperparameter search space:
+fields {
+  name: "num_candidate_attributes_ratio"
+  discrete_candidates {
+    possible_values {
+      real: 0.6
+    }
+    possible_values {
+      real: 0.8
+    }
+    possible_values {
+      real: 1
+    }
+  }
+}
+fields {
+  name: "subsample"
+  discrete_candidates {
+    possible_values {
+      real: 0.7
+    }
+    possible_values {
+      real: 0.8
+    }
+    possible_values {
+      real: 0.9
+    }
+    possible_values {
+      real: 1
+    }
+  }
+}
+fields {
+  name: "min_examples"
+  discrete_candidates {
+    possible_values {
+      integer: 1
+    }
+    possible_values {
+      integer: 3
+    }
+    possible_values {
+      integer: 5
+    }
+    possible_values {
+      integer: 10
+    }
+    possible_values {
+      integer: 15
+    }
+  }
+}
+fields {
+  name: "use_hessian_gain"
+  discrete_candidates {
+    possible_values {
+      categorical: "true"
+    }
+    possible_values {
+      categorical: "false"
+    }
+  }
+}
+fields {
+  name: "num_trees"
+  discrete_candidates {
+    possible_values {
+      integer: 100
+    }
+    possible_values {
+      integer: 200
+    }
+    possible_values {
+      integer: 300
+    }
+    possible_values {
+      integer: 400
+    }
+  }
+}
+fields {
+  name: "growing_strategy"
+  discrete_candidates {
+    possible_values {
+      categorical: "LOCAL"
+    }
+    possible_values {
+      categorical: "BEST_FIRST_GLOBAL"
+    }
+  }
+  children {
+    name: "max_depth"
+    discrete_candidates {
+      possible_values {
+        integer: 3
+      }
+      possible_values {
+        integer: 4
+      }
+      possible_values {
+        integer: 5
+      }
+      possible_values {
+        integer: 6
+      }
+      possible_values {
+        integer: 7
+      }
+    }
+    parent_discrete_values {
+      possible_values {
+        categorical: "LOCAL"
+      }
+    }
+  }
+  children {
+    name: "max_num_nodes"
+    discrete_candidates {
+      possible_values {
+        integer: 16
+      }
+      possible_values {
+        integer: 32
+      }
+      possible_values {
+        integer: 64
+      }
+      possible_values {
+        integer: 128
+      }
+      possible_values {
+        integer: 256
+      }
+    }
+    parent_discrete_values {
+      possible_values {
+        categorical: "BEST_FIRST_GLOBAL"
+      }
+    }
+  }
+}
+
+2025-04-11 19:53:52.834425: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:494] Start local tuner with 1 parallel trial(s), each with 16 thread(s)
+2025-04-11 19:53:52.837893: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 19:53:52.837925: W external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:607] The model configuration specifies 200 trees but computation of the validation loss will only start at iteration 10 with 28 trees per iteration. No validation loss will be computed, early stopping is not used.
+2025-04-11 19:53:52.837930: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 19:53:52.842244: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 19:53:53.338689: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.466349 train-accuracy:0.877618 valid-loss:1.554482 valid-accuracy:0.847604
+2025-04-11 19:53:53.870105: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:2 train-loss:1.193282 train-accuracy:0.906562 valid-loss:1.293736 valid-accuracy:0.875884
+2025-04-11 19:54:23.939605: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:54 train-loss:0.015006 train-accuracy:1.000000 valid-loss:0.151005 valid-accuracy:0.956009
+I0000 00:00:1744394074.490790    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.139398
+2025-04-11 19:54:34.490840: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 1960 tree(s) i.e. 70  iteration(s).
+2025-04-11 19:54:34.490945: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:70 valid-loss:0.139398 valid-accuracy:0.959152
+2025-04-11 19:54:34.499504: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [1/50] Score: -0.139398 / -0.139398 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 0.6 } } fields { name: "subsample" value { real: 1 } } fields { name: "min_examples" value { integer: 15 } } fields { name: "use_hessian_gain" value { categorical: "true" } } fields { name: "num_trees" value { integer: 200 } } fields { name: "growing_strategy" value { categorical: "BEST_FIRST_GLOBAL" } } fields { name: "max_num_nodes" value { integer: 16 } }
+2025-04-11 19:54:34.499635: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 19:54:34.499659: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 19:54:34.502423: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 19:54:35.083512: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.379962 train-accuracy:0.900130 valid-loss:1.476098 valid-accuracy:0.866457
+2025-04-11 19:54:54.384413: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:33 train-loss:0.043746 train-accuracy:0.998088 valid-loss:0.217854 valid-accuracy:0.940298
+I0000 00:00:1744394114.574947    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.171018
+2025-04-11 19:55:14.575031: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 1820 tree(s) i.e. 65  iteration(s).
+2025-04-11 19:55:14.575259: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:65 valid-loss:0.171018 valid-accuracy:0.946583
+2025-04-11 19:55:14.585648: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [2/50] Score: -0.171018 / -0.139398 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 1 } } fields { name: "subsample" value { real: 1 } } fields { name: "min_examples" value { integer: 15 } } fields { name: "use_hessian_gain" value { categorical: "false" } } fields { name: "num_trees" value { integer: 400 } } fields { name: "growing_strategy" value { categorical: "LOCAL" } } fields { name: "max_depth" value { integer: 6 } }
+2025-04-11 19:55:14.586124: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 19:55:14.586160: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 19:55:14.593385: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 19:55:15.062561: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.250769 train-accuracy:0.918209 valid-loss:1.440804 valid-accuracy:0.833464
+2025-04-11 19:55:24.664022: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:20 train-loss:0.073654 train-accuracy:0.995046 valid-loss:0.339502 valid-accuracy:0.917518
+I0000 00:00:1744394150.218231    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.238595
+2025-04-11 19:55:50.218289: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 1960 tree(s) i.e. 70  iteration(s).
+2025-04-11 19:55:50.218704: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:70 valid-loss:0.238595 valid-accuracy:0.937156
+2025-04-11 19:55:50.243347: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [3/50] Score: -0.238595 / -0.139398 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 0.6 } } fields { name: "subsample" value { real: 0.7 } } fields { name: "min_examples" value { integer: 1 } } fields { name: "use_hessian_gain" value { categorical: "false" } } fields { name: "num_trees" value { integer: 400 } } fields { name: "growing_strategy" value { categorical: "BEST_FIRST_GLOBAL" } } fields { name: "max_num_nodes" value { integer: 128 } }
+2025-04-11 19:55:50.243711: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 19:55:50.243742: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 19:55:50.256681: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 19:55:50.669148: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.546321 train-accuracy:0.849631 valid-loss:1.611121 valid-accuracy:0.809112
+2025-04-11 19:55:54.914149: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:11 train-loss:0.391453 train-accuracy:0.939244 valid-loss:0.515574 valid-accuracy:0.901807
+I0000 00:00:1744394179.232025    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.153691
+2025-04-11 19:56:19.232084: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 1792 tree(s) i.e. 64  iteration(s).
+2025-04-11 19:56:19.232240: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:64 valid-loss:0.153691 valid-accuracy:0.953653
+2025-04-11 19:56:19.238851: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [4/50] Score: -0.153691 / -0.139398 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 0.8 } } fields { name: "subsample" value { real: 0.7 } } fields { name: "min_examples" value { integer: 10 } } fields { name: "use_hessian_gain" value { categorical: "true" } } fields { name: "num_trees" value { integer: 300 } } fields { name: "growing_strategy" value { categorical: "LOCAL" } } fields { name: "max_depth" value { integer: 5 } }
+2025-04-11 19:56:19.239087: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 19:56:19.239100: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 19:56:19.243900: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 19:56:19.776140: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.337488 train-accuracy:0.905432 valid-loss:1.474005 valid-accuracy:0.849961
+2025-04-11 19:56:25.129921: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:10 train-loss:0.298304 train-accuracy:0.974967 valid-loss:0.483277 valid-accuracy:0.918303
+I0000 00:00:1744394215.171907    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.153907
+2025-04-11 19:56:55.171961: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 1540 tree(s) i.e. 55  iteration(s).
+2025-04-11 19:56:55.172253: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:55 valid-loss:0.153907 valid-accuracy:0.955224
+2025-04-11 19:56:55.189429: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [5/50] Score: -0.153907 / -0.139398 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 0.6 } } fields { name: "subsample" value { real: 0.8 } } fields { name: "min_examples" value { integer: 10 } } fields { name: "use_hessian_gain" value { categorical: "true" } } fields { name: "num_trees" value { integer: 400 } } fields { name: "growing_strategy" value { categorical: "LOCAL" } } fields { name: "max_depth" value { integer: 7 } }
+2025-04-11 19:56:55.189684: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 19:56:55.189706: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 19:56:55.198039: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 19:56:55.536116: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.725793 train-accuracy:0.803042 valid-loss:1.756056 valid-accuracy:0.772192
+2025-04-11 19:56:55.866206: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:2 train-loss:1.441042 train-accuracy:0.825728 valid-loss:1.479232 valid-accuracy:0.801257
+2025-04-11 19:57:26.052677: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:92 train-loss:0.017672 train-accuracy:0.999913 valid-loss:0.158300 valid-accuracy:0.953653
+I0000 00:00:1744394251.834598    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.151061
+2025-04-11 19:57:31.834651: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 2996 tree(s) i.e. 107  iteration(s).
+2025-04-11 19:57:31.834714: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:107 valid-loss:0.151061 valid-accuracy:0.956009
+2025-04-11 19:57:31.840073: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [6/50] Score: -0.151061 / -0.139398 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 1 } } fields { name: "subsample" value { real: 0.7 } } fields { name: "min_examples" value { integer: 10 } } fields { name: "use_hessian_gain" value { categorical: "true" } } fields { name: "num_trees" value { integer: 300 } } fields { name: "growing_strategy" value { categorical: "LOCAL" } } fields { name: "max_depth" value { integer: 4 } }
+2025-04-11 19:57:31.840410: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 19:57:31.840451: W external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:607] The model configuration specifies 200 trees but computation of the validation loss will only start at iteration 10 with 28 trees per iteration. No validation loss will be computed, early stopping is not used.
+2025-04-11 19:57:31.840458: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 19:57:31.845489: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 19:57:32.339783: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.288167 train-accuracy:0.914124 valid-loss:1.440138 valid-accuracy:0.859387
+2025-04-11 19:57:56.552504: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:42 train-loss:0.006987 train-accuracy:1.000000 valid-loss:0.168669 valid-accuracy:0.950511
+I0000 00:00:1744394281.551845    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.162471
+2025-04-11 19:58:01.551900: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 1344 tree(s) i.e. 48  iteration(s).
+2025-04-11 19:58:01.552246: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:48 valid-loss:0.162471 valid-accuracy:0.954438
+2025-04-11 19:58:01.568327: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [7/50] Score: -0.162471 / -0.139398 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 0.6 } } fields { name: "subsample" value { real: 0.7 } } fields { name: "min_examples" value { integer: 5 } } fields { name: "use_hessian_gain" value { categorical: "true" } } fields { name: "num_trees" value { integer: 200 } } fields { name: "growing_strategy" value { categorical: "BEST_FIRST_GLOBAL" } } fields { name: "max_num_nodes" value { integer: 256 } }
+2025-04-11 19:58:01.568654: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 19:58:01.568680: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 19:58:01.576196: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 19:58:02.145869: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.320455 train-accuracy:0.912907 valid-loss:1.472484 valid-accuracy:0.851532
+2025-04-11 19:58:26.980066: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:43 train-loss:0.019518 train-accuracy:1.000000 valid-loss:0.236768 valid-accuracy:0.937942
+I0000 00:00:1744394314.489980    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.225955
+2025-04-11 19:58:34.490034: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 1512 tree(s) i.e. 54  iteration(s).
+2025-04-11 19:58:34.490262: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:54 valid-loss:0.225955 valid-accuracy:0.939513
+2025-04-11 19:58:34.502968: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [8/50] Score: -0.225955 / -0.139398 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 1 } } fields { name: "subsample" value { real: 0.9 } } fields { name: "min_examples" value { integer: 1 } } fields { name: "use_hessian_gain" value { categorical: "false" } } fields { name: "num_trees" value { integer: 300 } } fields { name: "growing_strategy" value { categorical: "LOCAL" } } fields { name: "max_depth" value { integer: 6 } }
+2025-04-11 19:58:34.503215: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 19:58:34.503237: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 19:58:34.510754: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 19:58:35.159371: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.307425 train-accuracy:0.919687 valid-loss:1.433974 valid-accuracy:0.863315
+2025-04-11 19:58:57.029365: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:27 train-loss:0.035243 train-accuracy:0.999392 valid-loss:0.183963 valid-accuracy:0.948940
+I0000 00:00:1744394360.690940    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.145391
+2025-04-11 19:59:20.690991: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 1428 tree(s) i.e. 51  iteration(s).
+2025-04-11 19:59:20.691270: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:51 valid-loss:0.145391 valid-accuracy:0.958366
+2025-04-11 19:59:20.708839: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [9/50] Score: -0.145391 / -0.139398 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 0.8 } } fields { name: "subsample" value { real: 1 } } fields { name: "min_examples" value { integer: 15 } } fields { name: "use_hessian_gain" value { categorical: "true" } } fields { name: "num_trees" value { integer: 400 } } fields { name: "growing_strategy" value { categorical: "BEST_FIRST_GLOBAL" } } fields { name: "max_num_nodes" value { integer: 256 } }
+2025-04-11 19:59:20.709180: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 19:59:20.709204: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 19:59:20.717083: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 19:59:21.336325: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.255263 train-accuracy:0.925163 valid-loss:1.380808 valid-accuracy:0.874313
+2025-04-11 19:59:27.349343: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:9 train-loss:0.308029 train-accuracy:0.977662 valid-loss:0.499008 valid-accuracy:0.920660
+2025-04-11 19:59:57.439618: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:46 train-loss:0.003454 train-accuracy:1.000000 valid-loss:0.158616 valid-accuracy:0.952867
+I0000 00:00:1744394412.678727    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.152483
+2025-04-11 20:00:12.678781: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 1736 tree(s) i.e. 62  iteration(s).
+2025-04-11 20:00:12.678974: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:62 valid-loss:0.152483 valid-accuracy:0.952082
+2025-04-11 20:00:12.698935: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [10/50] Score: -0.152483 / -0.139398 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 0.8 } } fields { name: "subsample" value { real: 0.8 } } fields { name: "min_examples" value { integer: 5 } } fields { name: "use_hessian_gain" value { categorical: "true" } } fields { name: "num_trees" value { integer: 400 } } fields { name: "growing_strategy" value { categorical: "LOCAL" } } fields { name: "max_depth" value { integer: 7 } }
+2025-04-11 20:00:12.699231: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 20:00:12.699257: W external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:607] The model configuration specifies 100 trees but computation of the validation loss will only start at iteration 10 with 28 trees per iteration. No validation loss will be computed, early stopping is not used.
+2025-04-11 20:00:12.699262: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 20:00:12.707990: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 20:00:13.404886: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.231698 train-accuracy:0.931334 valid-loss:1.376924 valid-accuracy:0.869599
+2025-04-11 20:00:28.092528: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:18 train-loss:0.080059 train-accuracy:0.996436 valid-loss:0.273510 valid-accuracy:0.932443
+2025-04-11 20:00:58.876337: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:51 train-loss:0.001802 train-accuracy:1.000000 valid-loss:0.163202 valid-accuracy:0.949725
+I0000 00:00:1744394463.661747    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.162267
+2025-04-11 20:01:03.661801: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 1512 tree(s) i.e. 54  iteration(s).
+2025-04-11 20:01:03.662140: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:54 valid-loss:0.162267 valid-accuracy:0.951296
+2025-04-11 20:01:03.682045: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [11/50] Score: -0.162267 / -0.139398 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 1 } } fields { name: "subsample" value { real: 0.8 } } fields { name: "min_examples" value { integer: 3 } } fields { name: "use_hessian_gain" value { categorical: "true" } } fields { name: "num_trees" value { integer: 100 } } fields { name: "growing_strategy" value { categorical: "BEST_FIRST_GLOBAL" } } fields { name: "max_num_nodes" value { integer: 256 } }
+2025-04-11 20:01:03.682554: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 20:01:03.682592: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 20:01:03.691305: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 20:01:04.416933: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.308189 train-accuracy:0.920035 valid-loss:1.424986 valid-accuracy:0.864886
+2025-04-11 20:01:29.349969: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:27 train-loss:0.034146 train-accuracy:0.999218 valid-loss:0.188084 valid-accuracy:0.950511
+I0000 00:00:1744394510.017433    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.154389
+2025-04-11 20:01:50.017487: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 1260 tree(s) i.e. 45  iteration(s).
+2025-04-11 20:01:50.017804: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:45 valid-loss:0.154389 valid-accuracy:0.951296
+2025-04-11 20:01:50.031787: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [12/50] Score: -0.154389 / -0.139398 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 1 } } fields { name: "subsample" value { real: 1 } } fields { name: "min_examples" value { integer: 15 } } fields { name: "use_hessian_gain" value { categorical: "true" } } fields { name: "num_trees" value { integer: 400 } } fields { name: "growing_strategy" value { categorical: "BEST_FIRST_GLOBAL" } } fields { name: "max_num_nodes" value { integer: 128 } }
+2025-04-11 20:01:50.032171: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 20:01:50.032204: W external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:607] The model configuration specifies 100 trees but computation of the validation loss will only start at iteration 10 with 28 trees per iteration. No validation loss will be computed, early stopping is not used.
+2025-04-11 20:01:50.032210: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 20:01:50.039224: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 20:01:50.736890: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.222772 train-accuracy:0.933333 valid-loss:1.383235 valid-accuracy:0.870385
+2025-04-11 20:01:59.797304: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:13 train-loss:0.168747 train-accuracy:0.988527 valid-loss:0.404977 valid-accuracy:0.924588
+I0000 00:00:1744394547.467607    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.222702
+2025-04-11 20:02:27.467660: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 1316 tree(s) i.e. 47  iteration(s).
+2025-04-11 20:02:27.468003: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:47 valid-loss:0.222702 valid-accuracy:0.939513
+2025-04-11 20:02:27.482600: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [13/50] Score: -0.222702 / -0.139398 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 1 } } fields { name: "subsample" value { real: 0.9 } } fields { name: "min_examples" value { integer: 3 } } fields { name: "use_hessian_gain" value { categorical: "false" } } fields { name: "num_trees" value { integer: 100 } } fields { name: "growing_strategy" value { categorical: "BEST_FIRST_GLOBAL" } } fields { name: "max_num_nodes" value { integer: 64 } }
+2025-04-11 20:02:27.482881: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 20:02:27.482905: W external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:607] The model configuration specifies 100 trees but computation of the validation loss will only start at iteration 10 with 28 trees per iteration. No validation loss will be computed, early stopping is not used.
+2025-04-11 20:02:27.482910: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 20:02:27.492304: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 20:02:27.771213: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.776674 train-accuracy:0.788440 valid-loss:1.823817 valid-accuracy:0.769835
+2025-04-11 20:02:29.873736: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:9 train-loss:0.687572 train-accuracy:0.879444 valid-loss:0.779737 valid-accuracy:0.849961
+2025-04-11 20:02:52.917553: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:100 train-loss:0.032981 train-accuracy:0.999826 valid-loss:0.203922 valid-accuracy:0.941084
+2025-04-11 20:02:52.917594: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 2800 tree(s) i.e. 100  iteration(s).
+2025-04-11 20:02:52.917599: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:100 valid-loss:0.203922 valid-accuracy:0.941084
+2025-04-11 20:02:52.923859: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [14/50] Score: -0.203922 / -0.139398 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 0.8 } } fields { name: "subsample" value { real: 0.9 } } fields { name: "min_examples" value { integer: 3 } } fields { name: "use_hessian_gain" value { categorical: "false" } } fields { name: "num_trees" value { integer: 100 } } fields { name: "growing_strategy" value { categorical: "LOCAL" } } fields { name: "max_depth" value { integer: 4 } }
+2025-04-11 20:02:52.924049: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 20:02:52.924062: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 20:02:52.929105: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 20:02:53.591527: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.432247 train-accuracy:0.878227 valid-loss:1.516679 valid-accuracy:0.853103
+2025-04-11 20:03:00.409204: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:10 train-loss:0.389449 train-accuracy:0.947501 valid-loss:0.512373 valid-accuracy:0.912804
+2025-04-11 20:03:30.879726: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:48 train-loss:0.018903 train-accuracy:0.999913 valid-loss:0.165569 valid-accuracy:0.948154
+I0000 00:00:1744394626.330487    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.149978
+2025-04-11 20:03:46.330571: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 1820 tree(s) i.e. 65  iteration(s).
+2025-04-11 20:03:46.330705: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:65 valid-loss:0.149978 valid-accuracy:0.957581
+2025-04-11 20:03:46.339007: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [15/50] Score: -0.149978 / -0.139398 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 1 } } fields { name: "subsample" value { real: 0.8 } } fields { name: "min_examples" value { integer: 15 } } fields { name: "use_hessian_gain" value { categorical: "true" } } fields { name: "num_trees" value { integer: 400 } } fields { name: "growing_strategy" value { categorical: "BEST_FIRST_GLOBAL" } } fields { name: "max_num_nodes" value { integer: 16 } }
+2025-04-11 20:03:46.340606: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 20:03:46.340638: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 20:03:46.345067: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 20:03:46.955516: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.257435 train-accuracy:0.927423 valid-loss:1.390375 valid-accuracy:0.872742
+2025-04-11 20:04:01.059435: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:22 train-loss:0.062981 train-accuracy:0.995915 valid-loss:0.267826 valid-accuracy:0.931657
+I0000 00:00:1744394655.960397    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.207365
+2025-04-11 20:04:15.960450: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 1204 tree(s) i.e. 43  iteration(s).
+2025-04-11 20:04:15.960761: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:43 valid-loss:0.207365 valid-accuracy:0.941870
+2025-04-11 20:04:15.975067: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [16/50] Score: -0.207365 / -0.139398 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 0.8 } } fields { name: "subsample" value { real: 0.8 } } fields { name: "min_examples" value { integer: 5 } } fields { name: "use_hessian_gain" value { categorical: "false" } } fields { name: "num_trees" value { integer: 400 } } fields { name: "growing_strategy" value { categorical: "BEST_FIRST_GLOBAL" } } fields { name: "max_num_nodes" value { integer: 256 } }
+2025-04-11 20:04:15.975241: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 20:04:15.975255: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 20:04:15.983226: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 20:04:16.674838: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.231187 train-accuracy:0.934029 valid-loss:1.392056 valid-accuracy:0.871956
+2025-04-11 20:04:31.100714: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:19 train-loss:0.071247 train-accuracy:0.997306 valid-loss:0.256910 valid-accuracy:0.934014
+I0000 00:00:1744394698.272007    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.154142
+2025-04-11 20:04:58.272068: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 1344 tree(s) i.e. 48  iteration(s).
+2025-04-11 20:04:58.272372: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:48 valid-loss:0.154142 valid-accuracy:0.954438
+2025-04-11 20:04:58.289818: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [17/50] Score: -0.154142 / -0.139398 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 0.8 } } fields { name: "subsample" value { real: 0.9 } } fields { name: "min_examples" value { integer: 5 } } fields { name: "use_hessian_gain" value { categorical: "true" } } fields { name: "num_trees" value { integer: 300 } } fields { name: "growing_strategy" value { categorical: "LOCAL" } } fields { name: "max_depth" value { integer: 7 } }
+2025-04-11 20:04:58.290095: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 20:04:58.290124: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 20:04:58.297812: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 20:04:58.826755: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.416584 train-accuracy:0.889352 valid-loss:1.487028 valid-accuracy:0.861744
+2025-04-11 20:05:01.147989: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:5 train-loss:0.696315 train-accuracy:0.936115 valid-loss:0.806909 valid-accuracy:0.903378
+2025-04-11 20:05:31.776776: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:54 train-loss:0.006777 train-accuracy:1.000000 valid-loss:0.152129 valid-accuracy:0.954438
+I0000 00:00:1744394733.045738    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.152129
+2025-04-11 20:05:33.045783: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 1512 tree(s) i.e. 54  iteration(s).
+2025-04-11 20:05:33.045933: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:54 valid-loss:0.152129 valid-accuracy:0.954438
+2025-04-11 20:05:33.055629: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [18/50] Score: -0.152129 / -0.139398 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 0.8 } } fields { name: "subsample" value { real: 0.8 } } fields { name: "min_examples" value { integer: 15 } } fields { name: "use_hessian_gain" value { categorical: "true" } } fields { name: "num_trees" value { integer: 400 } } fields { name: "growing_strategy" value { categorical: "LOCAL" } } fields { name: "max_depth" value { integer: 6 } }
+2025-04-11 20:05:33.056132: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 20:05:33.056166: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 20:05:33.062066: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 20:05:33.707775: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.213584 train-accuracy:0.943242 valid-loss:1.400857 valid-accuracy:0.860958
+2025-04-11 20:06:02.007187: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:41 train-loss:0.007362 train-accuracy:1.000000 valid-loss:0.234606 valid-accuracy:0.937156
+I0000 00:00:1744394766.101110    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.230711
+2025-04-11 20:06:06.101163: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 1260 tree(s) i.e. 45  iteration(s).
+2025-04-11 20:06:06.101539: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:45 valid-loss:0.230711 valid-accuracy:0.939513
+2025-04-11 20:06:06.119173: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [19/50] Score: -0.230711 / -0.139398 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 0.8 } } fields { name: "subsample" value { real: 1 } } fields { name: "min_examples" value { integer: 1 } } fields { name: "use_hessian_gain" value { categorical: "false" } } fields { name: "num_trees" value { integer: 300 } } fields { name: "growing_strategy" value { categorical: "LOCAL" } } fields { name: "max_depth" value { integer: 7 } }
+2025-04-11 20:06:06.119482: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 20:06:06.119516: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 20:06:06.129697: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 20:06:06.563337: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.453493 train-accuracy:0.876749 valid-loss:1.525684 valid-accuracy:0.835035
+2025-04-11 20:06:32.219155: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:54 train-loss:0.007815 train-accuracy:1.000000 valid-loss:0.141512 valid-accuracy:0.954438
+I0000 00:00:1744394798.840246    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.135039
+2025-04-11 20:06:38.840300: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 1820 tree(s) i.e. 65  iteration(s).
+2025-04-11 20:06:38.840476: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:65 valid-loss:0.135039 valid-accuracy:0.957581
+2025-04-11 20:06:38.851795: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 20:06:38.851824: W external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:607] The model configuration specifies 200 trees but computation of the validation loss will only start at iteration 10 with 28 trees per iteration. No validation loss will be computed, early stopping is not used.
+2025-04-11 20:06:38.851829: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 20:06:38.858889: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [20/50] Score: -0.135039 / -0.135039 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 0.6 } } fields { name: "subsample" value { real: 0.8 } } fields { name: "min_examples" value { integer: 15 } } fields { name: "use_hessian_gain" value { categorical: "true" } } fields { name: "num_trees" value { integer: 300 } } fields { name: "growing_strategy" value { categorical: "LOCAL" } } fields { name: "max_depth" value { integer: 6 } }
+2025-04-11 20:06:38.859999: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 20:06:39.455130: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.423197 train-accuracy:0.883790 valid-loss:1.503206 valid-accuracy:0.839749
+2025-04-11 20:07:02.897327: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:35 train-loss:0.040462 train-accuracy:0.998609 valid-loss:0.203376 valid-accuracy:0.932443
+I0000 00:00:1744394850.174398    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.154917
+2025-04-11 20:07:30.174453: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 1988 tree(s) i.e. 71  iteration(s).
+2025-04-11 20:07:30.174591: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:71 valid-loss:0.154917 valid-accuracy:0.950511
+2025-04-11 20:07:30.184065: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [21/50] Score: -0.154917 / -0.135039 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 0.8 } } fields { name: "subsample" value { real: 0.8 } } fields { name: "min_examples" value { integer: 1 } } fields { name: "use_hessian_gain" value { categorical: "true" } } fields { name: "num_trees" value { integer: 200 } } fields { name: "growing_strategy" value { categorical: "BEST_FIRST_GLOBAL" } } fields { name: "max_num_nodes" value { integer: 16 } }
+2025-04-11 20:07:30.184438: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 20:07:30.184471: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 20:07:30.190411: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 20:07:30.334842: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:2.205886 train-accuracy:0.665276 valid-loss:2.229196 valid-accuracy:0.659859
+2025-04-11 20:07:32.971227: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:23 train-loss:0.535380 train-accuracy:0.868927 valid-loss:0.623290 valid-accuracy:0.837392
+I0000 00:00:1744394871.423094    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.208172
+2025-04-11 20:07:51.423143: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 5012 tree(s) i.e. 179  iteration(s).
+2025-04-11 20:07:51.423183: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:179 valid-loss:0.208172 valid-accuracy:0.940298
+2025-04-11 20:07:51.427287: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [22/50] Score: -0.208172 / -0.135039 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 0.6 } } fields { name: "subsample" value { real: 0.9 } } fields { name: "min_examples" value { integer: 15 } } fields { name: "use_hessian_gain" value { categorical: "false" } } fields { name: "num_trees" value { integer: 400 } } fields { name: "growing_strategy" value { categorical: "LOCAL" } } fields { name: "max_depth" value { integer: 3 } }
+2025-04-11 20:07:51.427620: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 20:07:51.427643: W external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:607] The model configuration specifies 100 trees but computation of the validation loss will only start at iteration 10 with 28 trees per iteration. No validation loss will be computed, early stopping is not used.
+2025-04-11 20:07:51.427648: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 20:07:51.432416: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 20:07:51.943586: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.331650 train-accuracy:0.916819 valid-loss:1.447478 valid-accuracy:0.869599
+2025-04-11 20:08:03.087172: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:19 train-loss:0.094702 train-accuracy:0.991569 valid-loss:0.245926 valid-accuracy:0.936371
+I0000 00:00:1744394911.087277    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.134721
+2025-04-11 20:08:31.087327: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 1624 tree(s) i.e. 58  iteration(s).
+2025-04-11 20:08:31.087564: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:58 valid-loss:0.134721 valid-accuracy:0.960723
+2025-04-11 20:08:31.105183: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 20:08:31.105217: W external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:607] The model configuration specifies 200 trees but computation of the validation loss will only start at iteration 10 with 28 trees per iteration. No validation loss will be computed, early stopping is not used.
+2025-04-11 20:08:31.105222: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 20:08:31.112710: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 20:08:31.112772: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [23/50] Score: -0.134721 / -0.134721 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 0.6 } } fields { name: "subsample" value { real: 0.9 } } fields { name: "min_examples" value { integer: 15 } } fields { name: "use_hessian_gain" value { categorical: "true" } } fields { name: "num_trees" value { integer: 100 } } fields { name: "growing_strategy" value { categorical: "LOCAL" } } fields { name: "max_depth" value { integer: 7 } }
+2025-04-11 20:08:31.611915: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.281759 train-accuracy:0.923772 valid-loss:1.441270 valid-accuracy:0.850746
+2025-04-11 20:08:33.367060: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:4 train-loss:0.701324 train-accuracy:0.962364 valid-loss:0.883498 valid-accuracy:0.903378
+2025-04-11 20:09:03.370308: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:51 train-loss:0.002184 train-accuracy:1.000000 valid-loss:0.155678 valid-accuracy:0.952082
+I0000 00:00:1744394946.710436    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.154011
+2025-04-11 20:09:06.710490: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 1512 tree(s) i.e. 54  iteration(s).
+2025-04-11 20:09:06.710798: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:54 valid-loss:0.154011 valid-accuracy:0.954438
+2025-04-11 20:09:06.729190: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [24/50] Score: -0.154011 / -0.134721 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 0.6 } } fields { name: "subsample" value { real: 0.8 } } fields { name: "min_examples" value { integer: 5 } } fields { name: "use_hessian_gain" value { categorical: "true" } } fields { name: "num_trees" value { integer: 200 } } fields { name: "growing_strategy" value { categorical: "BEST_FIRST_GLOBAL" } } fields { name: "max_num_nodes" value { integer: 128 } }
+2025-04-11 20:09:06.729745: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 20:09:06.729799: W external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:607] The model configuration specifies 200 trees but computation of the validation loss will only start at iteration 10 with 28 trees per iteration. No validation loss will be computed, early stopping is not used.
+2025-04-11 20:09:06.729806: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 20:09:06.738983: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 20:09:07.444193: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.249814 train-accuracy:0.925771 valid-loss:1.377495 valid-accuracy:0.871956
+2025-04-11 20:09:34.113327: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:31 train-loss:0.018344 train-accuracy:1.000000 valid-loss:0.185367 valid-accuracy:0.944226
+I0000 00:00:1744394995.839240    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.157506
+2025-04-11 20:09:55.839299: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 1456 tree(s) i.e. 52  iteration(s).
+2025-04-11 20:09:55.839608: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:52 valid-loss:0.157506 valid-accuracy:0.953653
+2025-04-11 20:09:55.857032: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [25/50] Score: -0.157506 / -0.134721 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 1 } } fields { name: "subsample" value { real: 0.8 } } fields { name: "min_examples" value { integer: 5 } } fields { name: "use_hessian_gain" value { categorical: "true" } } fields { name: "num_trees" value { integer: 200 } } fields { name: "growing_strategy" value { categorical: "LOCAL" } } fields { name: "max_depth" value { integer: 7 } }
+2025-04-11 20:09:55.857413: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 20:09:55.857449: W external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:607] The model configuration specifies 200 trees but computation of the validation loss will only start at iteration 10 with 28 trees per iteration. No validation loss will be computed, early stopping is not used.
+2025-04-11 20:09:55.857456: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 20:09:55.865591: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 20:09:56.573864: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.229083 train-accuracy:0.930726 valid-loss:1.394887 valid-accuracy:0.856245
+2025-04-11 20:10:04.270969: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:10 train-loss:0.250524 train-accuracy:0.984615 valid-loss:0.478231 valid-accuracy:0.925373
+2025-04-11 20:10:34.973319: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:44 train-loss:0.004667 train-accuracy:1.000000 valid-loss:0.183879 valid-accuracy:0.947368
+I0000 00:00:1744395049.094379    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.175699
+2025-04-11 20:10:49.094473: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 1596 tree(s) i.e. 57  iteration(s).
+2025-04-11 20:10:49.094783: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:57 valid-loss:0.175699 valid-accuracy:0.953653
+2025-04-11 20:10:49.109699: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [26/50] Score: -0.175699 / -0.134721 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 1 } } fields { name: "subsample" value { real: 0.8 } } fields { name: "min_examples" value { integer: 1 } } fields { name: "use_hessian_gain" value { categorical: "true" } } fields { name: "num_trees" value { integer: 200 } } fields { name: "growing_strategy" value { categorical: "BEST_FIRST_GLOBAL" } } fields { name: "max_num_nodes" value { integer: 32 } }
+2025-04-11 20:10:49.110063: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 20:10:49.110090: W external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:607] The model configuration specifies 200 trees but computation of the validation loss will only start at iteration 10 with 28 trees per iteration. No validation loss will be computed, early stopping is not used.
+2025-04-11 20:10:49.110094: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 20:10:49.117819: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 20:10:49.773716: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.232607 train-accuracy:0.943242 valid-loss:1.387159 valid-accuracy:0.862529
+2025-04-11 20:11:05.665321: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:20 train-loss:0.056763 train-accuracy:0.998001 valid-loss:0.248434 valid-accuracy:0.942655
+I0000 00:00:1744395090.676479    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.170859
+2025-04-11 20:11:30.676535: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 1288 tree(s) i.e. 46  iteration(s).
+2025-04-11 20:11:30.676905: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:46 valid-loss:0.170859 valid-accuracy:0.952082
+2025-04-11 20:11:30.698461: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [27/50] Score: -0.170859 / -0.134721 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 0.8 } } fields { name: "subsample" value { real: 1 } } fields { name: "min_examples" value { integer: 3 } } fields { name: "use_hessian_gain" value { categorical: "true" } } fields { name: "num_trees" value { integer: 200 } } fields { name: "growing_strategy" value { categorical: "BEST_FIRST_GLOBAL" } } fields { name: "max_num_nodes" value { integer: 128 } }
+2025-04-11 20:11:30.698625: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 20:11:30.698647: W external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:607] The model configuration specifies 200 trees but computation of the validation loss will only start at iteration 10 with 28 trees per iteration. No validation loss will be computed, early stopping is not used.
+2025-04-11 20:11:30.698652: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 20:11:30.707471: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 20:11:31.087783: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.342337 train-accuracy:0.894915 valid-loss:1.470905 valid-accuracy:0.849175
+2025-04-11 20:11:35.978493: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:15 train-loss:0.209459 train-accuracy:0.974359 valid-loss:0.410848 valid-accuracy:0.915947
+I0000 00:00:1744395118.491516    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.223321
+2025-04-11 20:11:58.491570: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 1904 tree(s) i.e. 68  iteration(s).
+2025-04-11 20:11:58.491716: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:68 valid-loss:0.223321 valid-accuracy:0.940298
+2025-04-11 20:11:58.501585: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [28/50] Score: -0.223321 / -0.134721 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 0.8 } } fields { name: "subsample" value { real: 0.8 } } fields { name: "min_examples" value { integer: 3 } } fields { name: "use_hessian_gain" value { categorical: "false" } } fields { name: "num_trees" value { integer: 200 } } fields { name: "growing_strategy" value { categorical: "BEST_FIRST_GLOBAL" } } fields { name: "max_num_nodes" value { integer: 16 } }
+2025-04-11 20:11:58.501981: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 20:11:58.502008: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 20:11:58.508390: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 20:11:58.679163: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:2.106551 train-accuracy:0.699000 valid-loss:2.127402 valid-accuracy:0.692852
+2025-04-11 20:12:06.070834: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:51 train-loss:0.262597 train-accuracy:0.938722 valid-loss:0.382182 valid-accuracy:0.895522
+I0000 00:00:1744395150.755516    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.200564
+2025-04-11 20:12:30.755566: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 6076 tree(s) i.e. 217  iteration(s).
+2025-04-11 20:12:30.755605: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:217 valid-loss:0.200564 valid-accuracy:0.940298
+2025-04-11 20:12:30.762552: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [29/50] Score: -0.200564 / -0.134721 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 0.8 } } fields { name: "subsample" value { real: 1 } } fields { name: "min_examples" value { integer: 3 } } fields { name: "use_hessian_gain" value { categorical: "false" } } fields { name: "num_trees" value { integer: 300 } } fields { name: "growing_strategy" value { categorical: "LOCAL" } } fields { name: "max_depth" value { integer: 3 } }
+2025-04-11 20:12:30.762795: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 20:12:30.762830: W external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:607] The model configuration specifies 200 trees but computation of the validation loss will only start at iteration 10 with 28 trees per iteration. No validation loss will be computed, early stopping is not used.
+2025-04-11 20:12:30.762835: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 20:12:30.768406: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 20:12:31.499430: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.220754 train-accuracy:0.944372 valid-loss:1.390846 valid-accuracy:0.871170
+2025-04-11 20:12:36.914511: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:7 train-loss:0.386510 train-accuracy:0.981834 valid-loss:0.598775 valid-accuracy:0.921445
+2025-04-11 20:13:07.587087: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:38 train-loss:0.006008 train-accuracy:1.000000 valid-loss:0.186503 valid-accuracy:0.949725
+I0000 00:00:1744395193.716238    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.184778
+2025-04-11 20:13:13.716291: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 1176 tree(s) i.e. 42  iteration(s).
+2025-04-11 20:13:13.716664: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:42 valid-loss:0.184778 valid-accuracy:0.952867
+2025-04-11 20:13:13.736297: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [30/50] Score: -0.184778 / -0.134721 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 1 } } fields { name: "subsample" value { real: 1 } } fields { name: "min_examples" value { integer: 3 } } fields { name: "use_hessian_gain" value { categorical: "true" } } fields { name: "num_trees" value { integer: 200 } } fields { name: "growing_strategy" value { categorical: "BEST_FIRST_GLOBAL" } } fields { name: "max_num_nodes" value { integer: 64 } }
+2025-04-11 20:13:13.736643: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 20:13:13.736671: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 20:13:13.744627: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 20:13:13.939978: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:2.115732 train-accuracy:0.689352 valid-loss:2.128687 valid-accuracy:0.681854
+2025-04-11 20:13:37.640359: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:138 train-loss:0.043107 train-accuracy:0.996958 valid-loss:0.168409 valid-accuracy:0.947368
+I0000 00:00:1744395220.562316    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.160752
+2025-04-11 20:13:40.562367: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 4284 tree(s) i.e. 153  iteration(s).
+2025-04-11 20:13:40.562403: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:153 valid-loss:0.160752 valid-accuracy:0.952082
+2025-04-11 20:13:40.566216: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [31/50] Score: -0.160752 / -0.134721 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 0.8 } } fields { name: "subsample" value { real: 0.7 } } fields { name: "min_examples" value { integer: 15 } } fields { name: "use_hessian_gain" value { categorical: "true" } } fields { name: "num_trees" value { integer: 400 } } fields { name: "growing_strategy" value { categorical: "LOCAL" } } fields { name: "max_depth" value { integer: 3 } }
+2025-04-11 20:13:40.566620: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 20:13:40.566644: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 20:13:40.571551: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 20:13:41.102520: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.254077 train-accuracy:0.934463 valid-loss:1.407006 valid-accuracy:0.853103
+2025-04-11 20:14:07.666341: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:40 train-loss:0.006132 train-accuracy:1.000000 valid-loss:0.158776 valid-accuracy:0.952867
+I0000 00:00:1744395257.881403    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.150954
+2025-04-11 20:14:17.881456: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 1456 tree(s) i.e. 52  iteration(s).
+2025-04-11 20:14:17.881755: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:52 valid-loss:0.150954 valid-accuracy:0.952867
+2025-04-11 20:14:17.901758: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [32/50] Score: -0.150954 / -0.134721 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 0.6 } } fields { name: "subsample" value { real: 1 } } fields { name: "min_examples" value { integer: 5 } } fields { name: "use_hessian_gain" value { categorical: "true" } } fields { name: "num_trees" value { integer: 300 } } fields { name: "growing_strategy" value { categorical: "BEST_FIRST_GLOBAL" } } fields { name: "max_num_nodes" value { integer: 64 } }
+2025-04-11 20:14:17.902244: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 20:14:17.902281: W external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:607] The model configuration specifies 100 trees but computation of the validation loss will only start at iteration 10 with 28 trees per iteration. No validation loss will be computed, early stopping is not used.
+2025-04-11 20:14:17.902289: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 20:14:17.911677: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 20:14:18.354929: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.498593 train-accuracy:0.863538 valid-loss:1.575136 valid-accuracy:0.828751
+2025-04-11 20:14:37.990617: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:47 train-loss:0.048936 train-accuracy:0.997306 valid-loss:0.237653 valid-accuracy:0.931657
+I0000 00:00:1744395297.195494    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.198367
+2025-04-11 20:14:57.195557: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 2548 tree(s) i.e. 91  iteration(s).
+2025-04-11 20:14:57.195641: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:91 valid-loss:0.198367 valid-accuracy:0.941084
+2025-04-11 20:14:57.203893: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [33/50] Score: -0.198367 / -0.134721 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 1 } } fields { name: "subsample" value { real: 0.8 } } fields { name: "min_examples" value { integer: 10 } } fields { name: "use_hessian_gain" value { categorical: "false" } } fields { name: "num_trees" value { integer: 100 } } fields { name: "growing_strategy" value { categorical: "LOCAL" } } fields { name: "max_depth" value { integer: 5 } }
+2025-04-11 20:14:57.204348: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 20:14:57.204377: W external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:607] The model configuration specifies 200 trees but computation of the validation loss will only start at iteration 10 with 28 trees per iteration. No validation loss will be computed, early stopping is not used.
+2025-04-11 20:14:57.204383: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 20:14:57.211722: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 20:14:57.734409: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.206847 train-accuracy:0.946980 valid-loss:1.384250 valid-accuracy:0.848390
+2025-04-11 20:15:08.010799: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:19 train-loss:0.070655 train-accuracy:0.996697 valid-loss:0.306892 valid-accuracy:0.930872
+I0000 00:00:1744395323.753755    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.222307
+2025-04-11 20:15:23.753807: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 1260 tree(s) i.e. 45  iteration(s).
+2025-04-11 20:15:23.754141: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:45 valid-loss:0.222307 valid-accuracy:0.941870
+2025-04-11 20:15:23.772167: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [34/50] Score: -0.222307 / -0.134721 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 0.6 } } fields { name: "subsample" value { real: 1 } } fields { name: "min_examples" value { integer: 1 } } fields { name: "use_hessian_gain" value { categorical: "false" } } fields { name: "num_trees" value { integer: 200 } } fields { name: "growing_strategy" value { categorical: "BEST_FIRST_GLOBAL" } } fields { name: "max_num_nodes" value { integer: 64 } }
+2025-04-11 20:15:23.772389: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 20:15:23.772418: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 20:15:23.783034: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 20:15:24.121646: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.730286 train-accuracy:0.799826 valid-loss:1.757593 valid-accuracy:0.771406
+2025-04-11 20:15:38.239378: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:43 train-loss:0.101512 train-accuracy:0.983312 valid-loss:0.229176 valid-accuracy:0.934800
+I0000 00:00:1744395363.685847    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.141137
+2025-04-11 20:16:03.685896: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 3248 tree(s) i.e. 116  iteration(s).
+2025-04-11 20:16:03.685947: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:116 valid-loss:0.141137 valid-accuracy:0.961508
+2025-04-11 20:16:03.691836: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [35/50] Score: -0.141137 / -0.134721 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 1 } } fields { name: "subsample" value { real: 0.7 } } fields { name: "min_examples" value { integer: 15 } } fields { name: "use_hessian_gain" value { categorical: "true" } } fields { name: "num_trees" value { integer: 400 } } fields { name: "growing_strategy" value { categorical: "LOCAL" } } fields { name: "max_depth" value { integer: 4 } }
+2025-04-11 20:16:03.692043: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 20:16:03.692065: W external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:607] The model configuration specifies 100 trees but computation of the validation loss will only start at iteration 10 with 28 trees per iteration. No validation loss will be computed, early stopping is not used.
+2025-04-11 20:16:03.692069: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 20:16:03.697278: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 20:16:04.155574: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.250758 train-accuracy:0.926380 valid-loss:1.388499 valid-accuracy:0.851532
+2025-04-11 20:16:08.507309: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:11 train-loss:0.240647 train-accuracy:0.982095 valid-loss:0.461976 valid-accuracy:0.915947
+I0000 00:00:1744395394.374198    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.209113
+2025-04-11 20:16:34.374253: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 1792 tree(s) i.e. 64  iteration(s).
+2025-04-11 20:16:34.374558: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:64 valid-loss:0.209113 valid-accuracy:0.941870
+2025-04-11 20:16:34.389767: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [36/50] Score: -0.209113 / -0.134721 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 0.6 } } fields { name: "subsample" value { real: 0.8 } } fields { name: "min_examples" value { integer: 3 } } fields { name: "use_hessian_gain" value { categorical: "false" } } fields { name: "num_trees" value { integer: 100 } } fields { name: "growing_strategy" value { categorical: "BEST_FIRST_GLOBAL" } } fields { name: "max_num_nodes" value { integer: 32 } }
+2025-04-11 20:16:34.390090: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 20:16:34.390114: W external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:607] The model configuration specifies 200 trees but computation of the validation loss will only start at iteration 10 with 28 trees per iteration. No validation loss will be computed, early stopping is not used.
+2025-04-11 20:16:34.390119: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 20:16:34.399854: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 20:16:34.873600: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.452958 train-accuracy:0.877879 valid-loss:1.549266 valid-accuracy:0.845247
+2025-04-11 20:16:38.540051: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:8 train-loss:0.489802 train-accuracy:0.948023 valid-loss:0.628930 valid-accuracy:0.908091
+2025-04-11 20:17:08.975409: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:63 train-loss:0.007425 train-accuracy:1.000000 valid-loss:0.155102 valid-accuracy:0.951296
+I0000 00:00:1744395435.675050    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.147613
+2025-04-11 20:17:15.675103: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 2044 tree(s) i.e. 73  iteration(s).
+2025-04-11 20:17:15.675241: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:73 valid-loss:0.147613 valid-accuracy:0.955224
+2025-04-11 20:17:15.685616: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [37/50] Score: -0.147613 / -0.134721 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 0.6 } } fields { name: "subsample" value { real: 0.8 } } fields { name: "min_examples" value { integer: 5 } } fields { name: "use_hessian_gain" value { categorical: "true" } } fields { name: "num_trees" value { integer: 200 } } fields { name: "growing_strategy" value { categorical: "BEST_FIRST_GLOBAL" } } fields { name: "max_num_nodes" value { integer: 16 } }
+2025-04-11 20:17:15.685931: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 20:17:15.685955: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 20:17:15.691840: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 20:17:16.422487: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.309078 train-accuracy:0.920382 valid-loss:1.427754 valid-accuracy:0.865672
+2025-04-11 20:17:39.128894: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:25 train-loss:0.047809 train-accuracy:0.998609 valid-loss:0.200014 valid-accuracy:0.942655
+2025-04-11 20:18:09.489158: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:55 train-loss:0.002779 train-accuracy:1.000000 valid-loss:0.147014 valid-accuracy:0.958366
+I0000 00:00:1744395493.722657    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.146601
+2025-04-11 20:18:13.722710: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 1596 tree(s) i.e. 57  iteration(s).
+2025-04-11 20:18:13.722970: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:57 valid-loss:0.146601 valid-accuracy:0.959937
+2025-04-11 20:18:13.738643: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [38/50] Score: -0.146601 / -0.134721 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 1 } } fields { name: "subsample" value { real: 1 } } fields { name: "min_examples" value { integer: 15 } } fields { name: "use_hessian_gain" value { categorical: "true" } } fields { name: "num_trees" value { integer: 300 } } fields { name: "growing_strategy" value { categorical: "BEST_FIRST_GLOBAL" } } fields { name: "max_num_nodes" value { integer: 32 } }
+2025-04-11 20:18:13.738877: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 20:18:13.738899: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 20:18:13.746798: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 20:18:13.904576: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:2.206543 train-accuracy:0.658670 valid-loss:2.235754 valid-accuracy:0.652789
+2025-04-11 20:18:39.626508: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:190 train-loss:0.021899 train-accuracy:0.999478 valid-loss:0.149070 valid-accuracy:0.957581
+I0000 00:00:1744395522.901991    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.143826
+2025-04-11 20:18:42.902039: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 5936 tree(s) i.e. 212  iteration(s).
+2025-04-11 20:18:42.902081: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:212 valid-loss:0.143826 valid-accuracy:0.956009
+2025-04-11 20:18:42.907478: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [39/50] Score: -0.143826 / -0.134721 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 0.6 } } fields { name: "subsample" value { real: 0.8 } } fields { name: "min_examples" value { integer: 15 } } fields { name: "use_hessian_gain" value { categorical: "true" } } fields { name: "num_trees" value { integer: 300 } } fields { name: "growing_strategy" value { categorical: "LOCAL" } } fields { name: "max_depth" value { integer: 3 } }
+2025-04-11 20:18:42.907680: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 20:18:42.907704: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 20:18:42.912612: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 20:18:43.250070: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.585698 train-accuracy:0.851369 valid-loss:1.660316 valid-accuracy:0.803613
+I0000 00:00:1744395548.941566    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.150313
+2025-04-11 20:19:08.941615: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 2044 tree(s) i.e. 73  iteration(s).
+2025-04-11 20:19:08.941701: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:73 valid-loss:0.150313 valid-accuracy:0.953653
+2025-04-11 20:19:08.949315: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [40/50] Score: -0.150313 / -0.134721 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 0.6 } } fields { name: "subsample" value { real: 0.7 } } fields { name: "min_examples" value { integer: 3 } } fields { name: "use_hessian_gain" value { categorical: "true" } } fields { name: "num_trees" value { integer: 300 } } fields { name: "growing_strategy" value { categorical: "LOCAL" } } fields { name: "max_depth" value { integer: 5 } }
+2025-04-11 20:19:08.949656: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 20:19:08.949688: W external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:607] The model configuration specifies 200 trees but computation of the validation loss will only start at iteration 10 with 28 trees per iteration. No validation loss will be computed, early stopping is not used.
+2025-04-11 20:19:08.949693: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 20:19:08.955662: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 20:19:09.609041: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.229041 train-accuracy:0.933855 valid-loss:1.393484 valid-accuracy:0.860173
+2025-04-11 20:19:10.365637: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:2 train-loss:0.974612 train-accuracy:0.954542 valid-loss:1.154664 valid-accuracy:0.890809
+2025-04-11 20:19:40.491670: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:38 train-loss:0.006855 train-accuracy:1.000000 valid-loss:0.179029 valid-accuracy:0.949725
+I0000 00:00:1744395590.351031    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.169827
+2025-04-11 20:19:50.351085: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 1316 tree(s) i.e. 47  iteration(s).
+2025-04-11 20:19:50.351486: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:47 valid-loss:0.169827 valid-accuracy:0.953653
+2025-04-11 20:19:50.369284: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [41/50] Score: -0.169827 / -0.134721 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 0.8 } } fields { name: "subsample" value { real: 0.9 } } fields { name: "min_examples" value { integer: 3 } } fields { name: "use_hessian_gain" value { categorical: "true" } } fields { name: "num_trees" value { integer: 200 } } fields { name: "growing_strategy" value { categorical: "BEST_FIRST_GLOBAL" } } fields { name: "max_num_nodes" value { integer: 64 } }
+2025-04-11 20:19:50.369615: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 20:19:50.369640: W external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:607] The model configuration specifies 200 trees but computation of the validation loss will only start at iteration 10 with 28 trees per iteration. No validation loss will be computed, early stopping is not used.
+2025-04-11 20:19:50.369645: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 20:19:50.378016: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 20:19:50.999483: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.261465 train-accuracy:0.924815 valid-loss:1.373475 valid-accuracy:0.875098
+2025-04-11 20:20:11.245294: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:27 train-loss:0.028809 train-accuracy:0.999565 valid-loss:0.193954 valid-accuracy:0.940298
+I0000 00:00:1744395632.257427    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.156205
+2025-04-11 20:20:32.257498: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 1400 tree(s) i.e. 50  iteration(s).
+2025-04-11 20:20:32.257864: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:50 valid-loss:0.156205 valid-accuracy:0.955224
+2025-04-11 20:20:32.275283: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [42/50] Score: -0.156205 / -0.134721 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 0.8 } } fields { name: "subsample" value { real: 0.8 } } fields { name: "min_examples" value { integer: 5 } } fields { name: "use_hessian_gain" value { categorical: "true" } } fields { name: "num_trees" value { integer: 200 } } fields { name: "growing_strategy" value { categorical: "BEST_FIRST_GLOBAL" } } fields { name: "max_num_nodes" value { integer: 64 } }
+2025-04-11 20:20:32.275497: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 20:20:32.275519: W external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:607] The model configuration specifies 200 trees but computation of the validation loss will only start at iteration 10 with 28 trees per iteration. No validation loss will be computed, early stopping is not used.
+2025-04-11 20:20:32.275523: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 20:20:32.284046: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 20:20:32.811736: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.238255 train-accuracy:0.939157 valid-loss:1.422569 valid-accuracy:0.851532
+2025-04-11 20:20:41.405225: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:16 train-loss:0.108473 train-accuracy:0.993916 valid-loss:0.344945 valid-accuracy:0.926944
+I0000 00:00:1744395666.641482    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.206181
+2025-04-11 20:21:06.641535: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 1680 tree(s) i.e. 60  iteration(s).
+2025-04-11 20:21:06.641851: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:60 valid-loss:0.206181 valid-accuracy:0.945012
+2025-04-11 20:21:06.664800: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [43/50] Score: -0.206181 / -0.134721 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 0.6 } } fields { name: "subsample" value { real: 1 } } fields { name: "min_examples" value { integer: 3 } } fields { name: "use_hessian_gain" value { categorical: "false" } } fields { name: "num_trees" value { integer: 200 } } fields { name: "growing_strategy" value { categorical: "LOCAL" } } fields { name: "max_depth" value { integer: 7 } }
+2025-04-11 20:21:06.664972: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 20:21:06.664996: W external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:607] The model configuration specifies 200 trees but computation of the validation loss will only start at iteration 10 with 28 trees per iteration. No validation loss will be computed, early stopping is not used.
+2025-04-11 20:21:06.665000: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 20:21:06.676333: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 20:21:06.964848: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.737887 train-accuracy:0.790700 valid-loss:1.758009 valid-accuracy:0.772977
+2025-04-11 20:21:11.439180: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:18 train-loss:0.381483 train-accuracy:0.916993 valid-loss:0.496927 valid-accuracy:0.883739
+2025-04-11 20:21:41.522806: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:136 train-loss:0.013761 train-accuracy:1.000000 valid-loss:0.183826 valid-accuracy:0.946583
+I0000 00:00:1744395702.029226    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.183826
+2025-04-11 20:21:42.029280: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 3808 tree(s) i.e. 136  iteration(s).
+2025-04-11 20:21:42.029347: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:136 valid-loss:0.183826 valid-accuracy:0.946583
+2025-04-11 20:21:42.037529: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [44/50] Score: -0.183826 / -0.134721 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 0.8 } } fields { name: "subsample" value { real: 1 } } fields { name: "min_examples" value { integer: 15 } } fields { name: "use_hessian_gain" value { categorical: "false" } } fields { name: "num_trees" value { integer: 200 } } fields { name: "growing_strategy" value { categorical: "LOCAL" } } fields { name: "max_depth" value { integer: 4 } }
+2025-04-11 20:21:42.037774: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 20:21:42.037797: W external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:607] The model configuration specifies 100 trees but computation of the validation loss will only start at iteration 10 with 28 trees per iteration. No validation loss will be computed, early stopping is not used.
+2025-04-11 20:21:42.037802: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 20:21:42.044103: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 20:21:42.707290: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.287990 train-accuracy:0.912473 valid-loss:1.397267 valid-accuracy:0.852317
+2025-04-11 20:22:11.984393: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:42 train-loss:0.013255 train-accuracy:1.000000 valid-loss:0.221656 valid-accuracy:0.937156
+I0000 00:00:1744395739.028195    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.215802
+2025-04-11 20:22:19.028251: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 1400 tree(s) i.e. 50  iteration(s).
+2025-04-11 20:22:19.028577: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:50 valid-loss:0.215802 valid-accuracy:0.937942
+2025-04-11 20:22:19.044228: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [45/50] Score: -0.215802 / -0.134721 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 1 } } fields { name: "subsample" value { real: 0.7 } } fields { name: "min_examples" value { integer: 5 } } fields { name: "use_hessian_gain" value { categorical: "false" } } fields { name: "num_trees" value { integer: 100 } } fields { name: "growing_strategy" value { categorical: "BEST_FIRST_GLOBAL" } } fields { name: "max_num_nodes" value { integer: 64 } }
+2025-04-11 20:22:19.044595: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 20:22:19.044622: W external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:607] The model configuration specifies 100 trees but computation of the validation loss will only start at iteration 10 with 28 trees per iteration. No validation loss will be computed, early stopping is not used.
+2025-04-11 20:22:19.044626: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 20:22:19.053491: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 20:22:19.636391: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.283242 train-accuracy:0.915428 valid-loss:1.413111 valid-accuracy:0.863315
+2025-04-11 20:22:42.363592: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:37 train-loss:0.019303 train-accuracy:0.999913 valid-loss:0.223528 valid-accuracy:0.937156
+I0000 00:00:1744395773.553192    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.207657
+2025-04-11 20:22:53.553246: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 1484 tree(s) i.e. 53  iteration(s).
+2025-04-11 20:22:53.553523: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:53 valid-loss:0.207657 valid-accuracy:0.937156
+2025-04-11 20:22:53.571194: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [46/50] Score: -0.207657 / -0.134721 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 0.8 } } fields { name: "subsample" value { real: 0.7 } } fields { name: "min_examples" value { integer: 5 } } fields { name: "use_hessian_gain" value { categorical: "false" } } fields { name: "num_trees" value { integer: 100 } } fields { name: "growing_strategy" value { categorical: "BEST_FIRST_GLOBAL" } } fields { name: "max_num_nodes" value { integer: 128 } }
+2025-04-11 20:22:53.571453: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 20:22:53.571481: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 20:22:53.580427: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 20:22:53.881821: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.367268 train-accuracy:0.885093 valid-loss:1.466000 valid-accuracy:0.846819
+2025-04-11 20:23:12.571713: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:61 train-loss:0.013633 train-accuracy:1.000000 valid-loss:0.221078 valid-accuracy:0.935585
+I0000 00:00:1744395795.849342    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.216987
+2025-04-11 20:23:15.849403: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 1932 tree(s) i.e. 69  iteration(s).
+2025-04-11 20:23:15.849605: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:69 valid-loss:0.216987 valid-accuracy:0.937156
+2025-04-11 20:23:15.858686: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [47/50] Score: -0.216987 / -0.134721 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 0.6 } } fields { name: "subsample" value { real: 0.8 } } fields { name: "min_examples" value { integer: 3 } } fields { name: "use_hessian_gain" value { categorical: "false" } } fields { name: "num_trees" value { integer: 400 } } fields { name: "growing_strategy" value { categorical: "BEST_FIRST_GLOBAL" } } fields { name: "max_num_nodes" value { integer: 16 } }
+2025-04-11 20:23:15.858926: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 20:23:15.858958: W external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:607] The model configuration specifies 200 trees but computation of the validation loss will only start at iteration 10 with 28 trees per iteration. No validation loss will be computed, early stopping is not used.
+2025-04-11 20:23:15.858963: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 20:23:15.865534: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 20:23:16.274339: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.519671 train-accuracy:0.861886 valid-loss:1.628278 valid-accuracy:0.805970
+2025-04-11 20:23:42.627118: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:68 train-loss:0.017829 train-accuracy:1.000000 valid-loss:0.205859 valid-accuracy:0.941870
+I0000 00:00:1744395827.944050    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.199085
+2025-04-11 20:23:47.944102: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 2240 tree(s) i.e. 80  iteration(s).
+2025-04-11 20:23:47.944200: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:80 valid-loss:0.199085 valid-accuracy:0.944226
+2025-04-11 20:23:47.952121: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [48/50] Score: -0.199085 / -0.134721 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 0.8 } } fields { name: "subsample" value { real: 1 } } fields { name: "min_examples" value { integer: 3 } } fields { name: "use_hessian_gain" value { categorical: "false" } } fields { name: "num_trees" value { integer: 200 } } fields { name: "growing_strategy" value { categorical: "LOCAL" } } fields { name: "max_depth" value { integer: 5 } }
+2025-04-11 20:23:47.952503: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 20:23:47.952529: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 20:23:47.958949: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 20:23:48.485380: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.238255 train-accuracy:0.939157 valid-loss:1.422569 valid-accuracy:0.851532
+2025-04-11 20:24:12.958385: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:45 train-loss:0.005269 train-accuracy:1.000000 valid-loss:0.213497 valid-accuracy:0.940298
+I0000 00:00:1744395862.103792    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.206181
+2025-04-11 20:24:22.103846: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 1680 tree(s) i.e. 60  iteration(s).
+2025-04-11 20:24:22.104213: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:60 valid-loss:0.206181 valid-accuracy:0.945012
+2025-04-11 20:24:22.125393: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [49/50] Score: -0.206181 / -0.134721 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 0.6 } } fields { name: "subsample" value { real: 1 } } fields { name: "min_examples" value { integer: 3 } } fields { name: "use_hessian_gain" value { categorical: "false" } } fields { name: "num_trees" value { integer: 400 } } fields { name: "growing_strategy" value { categorical: "LOCAL" } } fields { name: "max_depth" value { integer: 7 } }
+2025-04-11 20:24:22.125579: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:575] Default loss set to MULTINOMIAL_LOG_LIKELIHOOD
+2025-04-11 20:24:22.125602: W external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:607] The model configuration specifies 100 trees but computation of the validation loss will only start at iteration 10 with 28 trees per iteration. No validation loss will be computed, early stopping is not used.
+2025-04-11 20:24:22.125606: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1188] Training gradient boosted tree on 12778 example(s) and 42 feature(s).
+2025-04-11 20:24:22.137203: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1228] 11505 examples used for training and 1273 examples used for validation
+2025-04-11 20:24:22.643121: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1603] 	num-trees:1 train-loss:1.263071 train-accuracy:0.934029 valid-loss:1.402268 valid-accuracy:0.861744
+2025-04-11 20:24:43.143065: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:1605] 	num-trees:38 train-loss:0.010382 train-accuracy:1.000000 valid-loss:0.205332 valid-accuracy:0.943441
+I0000 00:00:1744395894.462560    4912 early_stopping.cc:54] Early stop of the training because the validation loss does not decrease anymore. Best valid-loss: 0.196111
+2025-04-11 20:24:54.462616: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:277] Truncates the model to 1596 tree(s) i.e. 57  iteration(s).
+2025-04-11 20:24:54.462984: I external/ydf/yggdrasil_decision_forests/learner/gradient_boosted_trees/gradient_boosted_trees.cc:339] Final model num-trees:57 valid-loss:0.196111 valid-accuracy:0.948154
+2025-04-11 20:24:54.483661: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:578] [50/50] Score: -0.196111 / -0.134721 HParams: fields { name: "num_candidate_attributes_ratio" value { real: 0.6 } } fields { name: "subsample" value { real: 1 } } fields { name: "min_examples" value { integer: 5 } } fields { name: "use_hessian_gain" value { categorical: "false" } } fields { name: "num_trees" value { integer: 100 } } fields { name: "growing_strategy" value { categorical: "BEST_FIRST_GLOBAL" } } fields { name: "max_num_nodes" value { integer: 64 } }
+2025-04-11 20:24:54.501010: I external/ydf/yggdrasil_decision_forests/learner/hyperparameters_optimizer/hyperparameters_optimizer.cc:219] Best hyperparameters:
+fields {
+  name: "num_candidate_attributes_ratio"
+  value {
+    real: 0.6
+  }
+}
+fields {
+  name: "subsample"
+  value {
+    real: 0.9
+  }
+}
+fields {
+  name: "min_examples"
+  value {
+    integer: 15
+  }
+}
+fields {
+  name: "use_hessian_gain"
+  value {
+    categorical: "true"
+  }
+}
+fields {
+  name: "num_trees"
+  value {
+    integer: 100
+  }
+}
+fields {
+  name: "growing_strategy"
+  value {
+    categorical: "LOCAL"
+  }
+}
+fields {
+  name: "max_depth"
+  value {
+    integer: 7
+  }
+}
+
+I0000 00:00:1744395894.501197    4911 kernel.cc:926] Export model in log directory: /tmp/tmpna2tttn2 with prefix 347e6037e6954a00
+I0000 00:00:1744395894.538258    4911 kernel.cc:944] Save model in resources
+I0000 00:00:1744395894.542964    4806 abstract_model.cc:914] Model self evaluation:
+Task: CLASSIFICATION
+Label: __LABEL
+Loss (MULTINOMIAL_LOG_LIKELIHOOD): 0.134721
+
+Accuracy: 0.960723  CI95[W][0 1]
+ErrorRate: : 0.0392773
+
+
+Confusion Table:
+truth\prediction
+     a   b   c   d   e   f   g   h   ch  i   j   k   l   m   n   o   p   q   r   s   t   u   v   w   x   y   z   None
+ a  40   0   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+ b   0  44   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1
+ c   0   0  38   0   0   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   4
+ d   0   0   0  46   0   0   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+ e   0   0   0   0  35   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+ f   0   0   0   0   0  45   0   0   0   0   0   0   0   0   0   0   0   0   0   0   4   0   0   0   0   0   0   0
+ g   0   0   0   0   0   0  45   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+ h   0   0   0   0   0   0   0  38   0   0   0   0   0   0   0   0   0   0   1   0   0   0   2   0   0   0   0   2
+ch   0   0   0   0   0   0   0   1  40   0   0   1   0   0   0   0   0   0   1   0   0   0   0   0   0   0   0   0
+ i   0   0   0   0   0   0   0   0   0  52   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+ j   0   0   0   0   0   0   0   0   0   0  34   0   0   0   0   2   0   0   0   0   0   0   0   0   0   1   0   0
+ k   0   0   0   0   0   0   0   0   0   0   0  32   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+ l   0   0   0   0   0   0   0   0   0   0   0   0  50   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+ m   0   0   0   0   0   0   0   0   0   0   0   0   0  45   0   0   0   1   0   0   0   0   0   0   0   0   0   0
+ n   0   0   0   0   0   0   0   0   0   0   0   0   0   1  48   0   0   0   0   0   0   0   0   0   0   0   0   0
+ o   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0  50   0   0   0   0   0   0   0   0   0   0   0   0
+ p   0   0   0   0   0   0   0   0   0   0   1   1   0   0   0   0  40   0   0   0   0   0   0   0   0   0   0   0
+ q   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0  37   0   0   0   0   0   0   0   0   1   0
+ r   0   0   0   0   0   0   0   3   0   0   0   0   0   0   0   0   0   0  46   0   0   0   0   0   0   0   0   0
+ s   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0  30   0   0   0   0   0   0   0   0
+ t   0   0   0   0   0   2   0   0   0   0   0   0   0   0   0   0   0   0   0   0  41   0   0   0   0   0   0   0
+ u   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0  48   1   0   0   0   0   0
+ v   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   3  56   0   0   0   0   0
+ w   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0  48   0   0   0   1
+ x   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0  52   0   0   0
+ y   0   0   0   0   0   0   0   0   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0  47   0   1
+ z   0   0   0   0   0   0   0   0   0   0   0   0   0   1   0   0   0   0   0   0   0   0   0   0   0   0  37   0
+ N   1   0   0   1   0   1   0   1   0   0   1   0   0   2   1   0   0   0   0   0   0   0   0   0   0   0   1  59
+Total: 1273
+
+
+2025-04-11 20:24:54.560926: I tensorflow_decision_forests/tensorflow/ops/inference/kernel.cc:1206] Loading model from path /tmp/tmpna2tttn2/model/ with prefix 347e6037e6954a00
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1744395894.701923    4806 decision_forest.cc:761] Model loaded with 1624 root(s), 121800 node(s), and 40 input feature(s).
+I0000 00:00:1744395894.705141    4806 abstract_model.cc:1404] Engine "GradientBoostedTreesGeneric" built
+2025-04-11 20:24:54.705169: I tensorflow_decision_forests/tensorflow/ops/inference/kernel.cc:1035] Use fast generic engine
+Model trained in 0:31:01.884244
+Compiling model...
+Model compiled.
+2/2 [==============================] - 0s 33ms/step - loss: 0.0000e+00 - accuracy: 0.9648
+
+loss: 0.0000
+accuracy: 0.9648
+2025-04-11 20:24:56.153426: I tensorflow_decision_forests/tensorflow/ops/inference/kernel.cc:1206] Loading model from path model/assets/ with prefix 347e6037e6954a00
+I0000 00:00:1744395913.547559    4885 decision_forest.cc:761] Model loaded with 1624 root(s), 121800 node(s), and 40 input feature(s).
+I0000 00:00:1744395913.547599    4885 abstract_model.cc:1404] Engine "GradientBoostedTreesGeneric" built
+2025-04-11 20:25:13.547613: I tensorflow_decision_forests/tensorflow/ops/inference/kernel.cc:1035] Use fast generic engine
+I0000 00:00:1744395913.555565    4806 devices.cc:67] Number of eligible GPUs (core count >= 8, compute capability >= 0.0): 0
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1744395913.555726    4806 single_machine.cc:361] Starting new session
+WARNING:tensorflow:Issue encountered when serializing table_initializer.
+Type is unsupported, or the types of the items don't match field type in CollectionDef. Note this is a warning and probably safe to ignore.
+'NoneType' object has no attribute 'name'
+WARNING:tensorflow:Issue encountered when serializing table_initializer.
+Type is unsupported, or the types of the items don't match field type in CollectionDef. Note this is a warning and probably safe to ignore.
+'NoneType' object has no attribute 'name'
+I0000 00:00:1744395913.646649    4806 devices.cc:67] Number of eligible GPUs (core count >= 8, compute capability >= 0.0): 0
+I0000 00:00:1744395913.646724    4806 single_machine.cc:361] Starting new session
+weight StatefulPartitionedCall/gradient_boosted_trees_model/StatefulPartitionedCall/RaggedConstant/Const with shape (1,) and dtype int64 was auto converted to the type int32
+weight StatefulPartitionedCall/gradient_boosted_trees_model/StatefulPartitionedCall/RaggedConstant/Const_1 with shape (1,) and dtype int64 was auto converted to the type int32
+
+Model training process finished.
+
+Process finished with exit code 0

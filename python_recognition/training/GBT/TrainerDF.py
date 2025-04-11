@@ -68,21 +68,25 @@ def run():
     test_ds = tfdf.keras.pd_dataframe_to_tf_dataset(test_ds_pd, label="label")
 
     # Configure the tuner.
-    tuner = tfdf.tuner.RandomSearch(num_trials=100)
-    tuner.choice("num_candidate_attributes_ratio", [1.0, 0.8, 0.6])
+    tuner = tfdf.tuner.RandomSearch(num_trials=50)
+    tuner.choice("num_candidate_attributes_ratio", [0.6, 0.8, 1.0])
+    tuner.choice("subsample", [0.7, 0.8, 0.9, 1.0])
+    tuner.choice("min_examples", [1, 3, 5, 10, 15])
+
     tuner.choice("use_hessian_gain", [True, False])
-    tuner.choice("num_trees", [100, 200, 300, 400, 500])
+    tuner.choice("num_trees", [100, 200, 300, 400])
 
     local_search_space = tuner.choice("growing_strategy", ["LOCAL"])
-    local_search_space.choice("max_depth", [-1, 1, 3, 4, 5, 6, 7])
+    local_search_space.choice("max_depth", [3, 4, 5, 6, 7])
 
     global_search_space = tuner.choice(
         "growing_strategy", ["BEST_FIRST_GLOBAL"], merge=True)
-    global_search_space.choice("max_num_nodes", [-1, 16, 32, 64, 128])
+    global_search_space.choice("max_num_nodes", [16, 32, 64, 128, 256])
 
+    SHRINKAGE_VALUE = 0.1  # Try 0.1, 0.05
     # Initialize the Gradient Boosted Trees model from TFDF
     # verbose=2 provides detailed logs during training
-    model = tfdf.keras.GradientBoostedTreesModel(verbose=2, tuner=tuner)
+    model = tfdf.keras.GradientBoostedTreesModel(shrinkage=SHRINKAGE_VALUE, verbose=2, tuner=tuner)
 
     # Train the model on the training dataset
     model.fit(train_ds)
@@ -100,7 +104,7 @@ def run():
     model.save(OUTPUT_TFDF_MODEL_PATH)
 
     # Convert the SavedModel to TensorFlow.js format
-    #tfjs.converters.tf_saved_model_conversion_v2.convert_tf_saved_model(OUTPUT_TFDF_MODEL_PATH, OUTPUT_TFJS_MODEL_PATH)
+    tfjs.converters.tf_saved_model_conversion_v2.convert_tf_saved_model(OUTPUT_TFDF_MODEL_PATH, OUTPUT_TFJS_MODEL_PATH)
 
 
 if __name__ == "__main__":
