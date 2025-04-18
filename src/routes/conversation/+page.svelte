@@ -438,7 +438,7 @@
 		<!-- Right Column - Chat -->
 		<div class="md:mt-12 mt-2">
 			<div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm h-[625px] flex flex-col">
-				<div class="overflow-y-auto flex-1 space-y-4">
+				<div class="overflow-y-auto flex-1 space-y-4 messages">
 					{#each chatHistory.slice(1) as message}
 						<div class="p-4 rounded-lg {message.role === 'user' ? 'bg-blue-50 dark:bg-gray-700 ml-6' : 'bg-gray-50 dark:bg-gray-700 mr-6'}">
 							<Heading tag="h5" class="text-sm font-medium mb-2">{message.role === 'user' ? 'Vy' : 'Asistent'}</Heading>
