@@ -87,12 +87,12 @@
          Žádné z~prozkoumaných řešení nenabízí funkci ověření správnosti znakování uživatelem pomocí rozpoznávání. Vyvinutá aplikace tedy přichází s~inovativním přístupem pomocí rozpoznání znaků z~webkamery a~tím nabízí nový přístup, jak se učit prstovou abecedu.
 
      \subsection{Funkcionalita aplikace}
-       Tato podkapitola uvádí seznam všech požadavků na funkcionalitu a~chování vyvinuté aplikace. Tento seznam vychází zejména ze zadání práce, ale obsahuje i~aspekty, kterými byla aplikace rozšířena nad rámec zadání. Tento seznam slouží pro lepší představu o~vyvíjené aplikaci a~také k~sjednocení všech funkcionalit aplikace.
+       Tato podkapitola uvádí seznam všech požadavků na funkcionalitu a~chování vyvinuté aplikace. Tento seznam vychází zejména ze zadání práce, ale obsahuje i~aspekty, kterými byla aplikace rozšířena nad rámec zadání. Seznam slouží pro lepší představu o~vyvíjené aplikaci a~také ke~sjednocení všech funkcionalit aplikace.
 
         \begin{itemize}
-            \item Převod textu na plynulou sekvenci 3D animací interpretující daný text v~české jednoruční prstové abecedě.
+            \item Převod textu na plynulou 3D animaci interpretující daný text v~české jednoruční prstové abecedě.
             \begin{itemize}
-                \item Možnost měnit rychlost přehrávání animace a~jejího zastavení.
+                \item Možnost změny rychlosti přehrávané animace a~jejího zastavení.
                 \item Možnost ovládání úhlu pohledu.
             \end{itemize}
             
@@ -115,7 +115,7 @@
 \clearpage
 
 \section{Znakový jazyk}
-    Znakové jazyky představují plnohodnotné systémy, které slouží jako primární komunikační prostředek pro komunity neslyšících a~nedoslýchavých po celém světě. Na rozdíl od jazyků mluvených, které využívají zvuk, jsou znakové jazyky založeny na vizuální podobě. To znamená, že informace jsou předávány prostřednictvím kombinace tvarů rukou, jejich umístění a~pohybu v~prostoru, mimiky, pohybů hlavy a~horní části trupu. Je klíčové zdůraznit, že znakové jazyky nejsou pouhou pantomimou nebo manuální reprezentací mluvených jazyků; mají vlastní komplexní gramatiku, syntaxi a~bohatou slovní zásobu.
+    Znakové jazyky představují plnohodnotné systémy, které slouží jako primární komunikační prostředek pro komunity neslyšících a~nedoslýchavých po celém světě. Na rozdíl od jazyků mluvených, které využívají zvuk, jsou znakové jazyky založeny na vizuální podobě. To znamená, že informace jsou předávány prostřednictvím kombinace tvarů rukou, jejich umístění a~pohybů v~prostoru, mimiky, pohybů hlavy a~horní části trupu. Je klíčové zdůraznit, že znakové jazyky nejsou pouhou pantomimou nebo manuální reprezentací mluvených jazyků; mají vlastní komplexní gramatiku, syntaxi a~bohatou slovní zásobu.
 
 
     Podobně jako mluvené jazyky, i~znakové jazyky vykazují značnou geografickou a~kulturní diverzitu. Neexistuje jeden univerzální znakový jazyk. Prakticky každý stát má svůj vlastní unikátní znakový jazyk (např. Český znakový jazyk – ČZJ, Americký znakový jazyk – ASL atd.), který se vyvíjel nezávisle. Tato rozmanitost se týká nejen samotných znaků pro slova a~pojmy, ale také systémů pro reprezentaci písmen – prstových abeced. \cite{ruce.cz}
@@ -141,7 +141,7 @@
     
         \subsubsection{Česká jednoruční prstová abeceda}
         
-            Tato diplomová práce a~výsledná aplikace se zaměřují specificky na podporu výuky české jednoruční prstové abecedy. Důvodem pro toto zaměření je, že pro slyšící začátečníky může představovat určitou výzvu. Ačkoliv se tvary ruky snaží vizuálně přiblížit podobě písmen, vyžadují poměrně vysokou míru přesnosti v~provedení a~pozici prstů. Některé znaky si mohou být pro nezkušené oko velmi podobné, což může zpočátku činit potíže při jejich rozlišování a~učení. 
+            Tato diplomová práce a~výsledná aplikace se zaměřují specificky na podporu výuky české jednoruční prstové abecedy. Důvodem pro toto zaměření je, že pro slyšící začátečníky může představovat určitou výzvu. Ačkoliv se tvary ruky snaží vizuálně přiblížit podobě písmen, vyžadují poměrně vysokou míru přesnosti v~provedení a~pozici prstů. Některé znaky mohou být pro nezkušené oko velmi podobné, což může zpočátku činit potíže při jejich rozlišování a~učení. 
         
         
             Vizualizaci všech znaků používaných v~české jednoruční prstové abecedě poskytuje obrázek \ref{prstova-abeceda}.
@@ -169,7 +169,7 @@
 \section{Převod textu na animaci}
     Cílem této části je implementace převodu textu na 3D animaci, ve které bude postava ukazovat sekvenci znaků odpovídající danému textu s~možností volby rychlosti přehrávání animace.
     
-    K~vytvoření takového systému je potřeba vytvořit 3D model postavy, vytvořit pro tento model animace konkrétních znaků a~následně tento model vykreslit a~řídit pomocí algoritmu posloupnost zobrazených animací znaků na vykresleném modelu. 
+    K~vytvoření takového systému je potřeba vytvořit 3D model postavy, vytvořit pro tento model animace konkrétních znaků a~následně tento model vykreslit a~pomocí algoritmu řídit posloupnost zobrazených animací znaků na vykresleném modelu. 
     Tento komplexní úkol je rozdělen do vhodných menších částí, které jsou popsány v~následujících podkapitolách.
     
     \subsection{Použité technologie}
@@ -186,11 +186,11 @@
         \subsubsection{3D model člověka}
             Nejprve je potřeba vytvořit 3D model člověka. Takový model lze vytvořit například v~programu Blender. Vytvoření vizuálně zdařilého modelu postavy není triviální záležitost, z~tohoto důvodu byl použit již vytvořený model.
 
-            Mixamo \cite{mixamo} je online platforma, kterou vlastní společnost Adobe. Poskytuje širokou škálu 3D modelů a~animací zdarma. Uživatelé mohou na Mixamo najít předem vytvořené 3D modely postav a~animace, které lze snadno integrovat do různých 3D projektů. Mixamo také umožňuje automatické rigování, což znamená, že uživatelé mohou nahrát své vlastní 3D modely a~Mixamo automaticky přidá kostru postavy, umožňující pohyb daného modelu. Tato platforma je velmi užitečná pro vývojáře her, animátory a~další profesionály pracující s~3D grafikou. Model postavy byl použit právě z~této platformy. 
+            Mixamo \cite{mixamo} je online platforma, kterou vlastní společnost Adobe. Poskytuje širokou škálu 3D modelů a~animací zdarma. Uživatelé mohou na Mixamo najít předem vytvořené 3D modely postav a~animace, které lze snadno integrovat do různých 3D projektů. Mixamo také umožňuje automatické rigování, což znamená, že uživatelé mohou nahrát své vlastní 3D modely a~Mixamo automaticky přidá kostru postavy, umožňující pohyb daného modelu. Tato platforma je velmi užitečná pro vývojáře her, animátory a~další profesionály pracující s~3D grafikou. Model postavy byl získán právě z~této platformy. 
             
     
         \subsubsection{Animace}
-            Animování modelu je náročný proces. Zjednodušeně řečeno, vytvoření animace probíhá nejdříve pojmenováním animace, poté pomocí časové osy se v~konkrétních časech nastavují pozice a~rotace kostry modelu. Nastavení kostry ale není potřeba dělat pro každý snímek dané animace, chybějící snímky jsou automaticky dopočítávány.
+            Animování modelu je náročný proces. Zjednodušeně řečeno, vytvoření animace probíhá nejdříve pojmenováním animace, poté se pomocí časové osy v~konkrétních časech nastavují pozice a~rotace kostry modelu. Nastavení kostry ale není potřeba dělat pro každý snímek dané animace, chybějící snímky jsou automaticky dopočítávány.
 
             Manuální vytváření animací je velmi časově náročné, proto byla využita \emph{Pose Library}, která uchovává jedno konkrétní nastavení kostry. Jedno nastavení zastupuje výchozí stav, ze kterého všechny ostatní animace vycházejí, a~dále je pro každý znak vytvořeno jedno nastavení kostry reprezentující dané písmeno. 
             
@@ -199,19 +199,19 @@
             Nicméně, při tomto jednoduchém přístupu mohou nastávat nežádoucí situace, kdy například prst projde jiným prstem. Tento problém by bylo možné vyřešit použitím více nastavení kostry v~průběhu animace. Ve výsledné aplikaci je tento problém řešen prolnutím animací do sebe (viz \ref{ovladani-animaci}), přičemž zmíněné situace nijak nenarušují dojem z~plynulosti a~správnosti animace.
            
         \subsubsection{Vytvoření animací pomocí aplikace Blender}
-            V~této sekci je stručný popis funkcionalit, který popisuje proces tvorby animací. Prostředí aplikace při tvorbě animací je zobrazeno na obrázku \ref{blender}.
+            V~této sekci je stručný popis funkcionalit, který vysvětluje proces tvorby animací. Prostředí aplikace při tvorbě animací je zobrazeno na obrázku \ref{blender}.
 
             \begin{itemize}
-                    \item Model \par
-                        Nejprve je potřeba vytvořit nebo nahrát již vytvořený model s~kostrou. Blender podporuje mnoho formátů 3D modelů, včetně formátu \emph{FBX}, který je podporován platformou Mixamo.
+                    \item \emph{Model} \par
+                        Nejprve je potřeba vytvořit nebo nahrát již vytvořený model s~kostrou. Blender podporuje mnoho formátů 3D modelů, včetně formátu \emph{fbx}, který je podporován platformou Mixamo.
                         
-                    \item Pozice \par
+                    \item \emph{Pozice} \par
                         V~režimu \emph{Pose} je možné nastavovat pozice a~rotace jednotlivých kostí v~kostře modelu.
                         
-                    \item Animace \par
+                    \item \emph{Animace} \par
                         Animace se vytváří pomocí \emph{Action Editor}, který obsahuje již zmíněnou časovou osu a~další nástroje pro vytváření animací. Průběh tvorby si lze představit tak, že se nastaví konkrétní čas na časové ose, zapne se tlačítko záznamu a~následně se nastaví pozice a~rotace kostí. Tím se dané nastavení kostry aplikuje v~daném čase animace. V~použitém případě se na konkrétní časové místo aplikuje kostra z~\emph{Pose Library}.
                         
-                    \item Výraz obličeje \par
+                    \item \emph{Výraz obličeje} \par
                         Ve znakovém jazyku je důležitý pohyb úst. Tento pohyb ale není možné zobrazit pomocí kostry, jelikož ústa a~obličej celkově nejsou součástí výchozí kostry. Tento problém je možné vyřešit například pomocí \emph{Shape keys}. Pomocí této techniky lze vytvářet jednoduché deformace modelu, které lze ovládat například pomocí pohybu nové kosti, kde se pozice kosti prováže s~hodnotou \emph{Shape key}. Poté lze upravovat výraz obličeje pomocí pozice konkrétních kostí jako u~výchozích kostí kostry.
                 \end{itemize}
 
@@ -223,22 +223,22 @@
             \end{figure}
                 
             \subsubsection{Exportování modelu}
-                Pro použití modelu na webové stránce je klíčová jeho velikost. Použitý model při výchozím uložení obsahuje zhruba 100 MB dat ve formátu glb. Taková velikost je pro použití na webové stránce příliš velká, proto je potřeba model specificky exportovat, s~cílem minimalizovat jeho velikost. Model lze komprimovat dvěma hlavními způsoby. Komprimovat lze samotný 3D model pomocí Draco komprese, a~textury modelu lze komprimovat například převodem do .jpg formátu nebo zmenšením jejich rozlišení. Kombinací těchto dvou přístupů vznikl model s~velikostí kolem 10 MB.
+                Pro použití modelu na webové stránce je klíčová jeho velikost. Použitý model při výchozím uložení obsahuje zhruba 100 MB dat ve formátu \emph{glb}. Taková velikost je pro použití na webové stránce příliš velká, proto je potřeba model specificky exportovat s~cílem minimalizace jeho velikosti. Model je možné komprimovat dvěma hlavními způsoby. Komprimovat lze samotný 3D model pomocí Draco komprese, a~textury modelu lze komprimovat například převodem do \emph{jpg} formátu nebo zmenšením jejich rozlišení. Kombinací těchto dvou přístupů vznikl model s~velikostí kolem 10 MB.
     
     
     \subsection{Řízení přehrávání animací}
         Vytvořený model je potřeba nějakým způsobem zobrazit a~spouštět jeho animace ve správném pořadí a~načasování. V~této sekci je daný problém popsán obecně.
 
-        Konkrétní vykreslení modelu a~řízení animací je popsáno v~kapitole Webová aplikace (kapitola \ref{webova-aplikace}), která využívá knihovnu Threlte spolu s~vytvořeným modelem z~této kapitoly.
+        Konkrétní vykreslení modelu a~řízení animací je popsáno v~kapitole o~webové aplikaci (kapitola \ref{webova-aplikace}), která popisuje využití knihovny Threlte spolu s~vytvořeným modelem z~této kapitoly.
 
 
         \subsubsection{Řídící algoritmus}
-            Animace je potřeba přehrávat postupně za sebou. Tedy je nutné vstupní text rozložit na jednotlivé animace znaků. Pro každý jeden znak je potom spuštěna animace, která odpovídá danému znaku a~zvolenému jazyku. Je potřeba detekovat konec této animace a~na jejím konci spustit další animaci pro následující znak. Popsaný postup je opakován, dokud nejsou všechny znaky přehrány.
+            Animace je potřeba přehrávat postupně za sebou. Je tedy nutné vstupní text rozložit na jednotlivé animace znaků. Pro každý jeden znak je potom spuštěna animace, která odpovídá danému znaku a~zvolenému jazyku. Je potřeba detekovat konec této animace a~na jejím konci spustit další animaci pro následující znak. Popsaný postup je opakován, dokud nejsou všechny znaky přehrány.
 
            K~přechodům jsou poté dodány prodlevy. Na konci každé animace je zobrazený znak na chvíli ponechán. Na konci celých slov je také vytvořena prodleva na signalizaci mezery mezi slovy.
         
         \subsubsection{Plynulý přechod mezi animacemi}
-            Jelikož nejsou animace v~tomto případě příliš sofistikovaně vytvořeny a~nenavazují na sebe, tak je potřeba řídit jejich přechody tak, aby vypadaly přirozeně. Tento problém lze vyřešit splynutím konce aktuální animace do začátku následující animace.
+            Jelikož nejsou animace v~tomto případě příliš sofistikovaně vytvořeny a~nenavazují na sebe, tak je potřeba řídit jejich přechody takovým způsobem, aby vypadaly přirozeně. Tento problém lze vyřešit splynutím konce aktuální animace do začátku následující animace.
 
         \subsubsection{Ovládací prvky}
             Důležitým aspektem a~výhodou přehrávání animací je volba její rychlosti. Tato funkcionalita je pro cílovou aplikaci velice vhodná. Začátečníci mohou používat aplikaci v~pomalejším tempu a~pokročilým uživatelům umožní využívat různé režimy ve vyšší rychlosti a~tím výrazně zvýšit náročnost procvičování. 
@@ -262,7 +262,7 @@
         V~této podkapitole jsou popsány klíčové technologie, kterými je problém rozpoznání prstové abecedy z~videa řešen.
         
         \subsubsection{MediaPipe Solutions}
-                Souhrn knihoven a~nástrojů od společností Google, které slouží k~různým rychlým nasazením metod umělé inteligence do aplikace. Nabízí podporu pro Android, iOS, JavaScript a~Python. MediaPipe již obsahuje několik hotových, v~některých případech rozšiřitelných, řešení například pro rozpoznání obličeje, objektovou klasifikaci, text embedding a~zejména rozpoznání orientačních bodů (souřadnic) ruky. Poslední zmíněné řešení je klíčovou součástí vyvinuté aplikace a~její použití značně zjednodušilo vývoj a~umožnilo vysokou přesnost tohoto systému. \cite{mediapipe}
+                Souhrn knihoven a~nástrojů od společnosti Google, které slouží k~různým a~jednoduchým nasazením metod umělé inteligence do aplikací. Nabízí podporu pro Android, iOS, JavaScript a~Python. MediaPipe již obsahuje několik hotových, v~některých případech rozšiřitelných, řešení například pro rozpoznání obličeje, objektovou klasifikaci, text embedding a~zejména rozpoznání orientačních bodů (souřadnic) ruky. Poslední zmíněné řešení je klíčovou součástí vyvinuté aplikace a~její použití značně zjednodušilo vývoj a~umožnilo vysokou přesnost tohoto systému. \cite{mediapipe}
                 
         \subsubsection{TensorFlow}
                 TensorFlow je open-source knihovna pro strojové učení vyvinutá společností Google. Je velmi populární mezi vývojáři díky své flexibilitě a~široké škále nástrojů pro vytváření a~trénování modelů strojového učení. TensorFlow je dostupný pro všechny hlavní platformy a~podporuje mnoho programovacích jazyků, včetně Pythonu a~JavaScriptu. TensorFlow je použit pro vytvoření modelu pro rozpoznání prstové abecedy. \cite{tensorflow}
@@ -296,11 +296,11 @@
         \end{figure}
         
         \subsubsection{Extrakce souřadnic bodů ruky}
-           Pomocí modelu Hand Landmark Detection z~frameworku MediaPipe lze získat z~obrazu ruky 21 souřadnic, které reprezentují orientační body ruky. Tyto souřadnice jsou vyjádřeny trojicí $(x, y, z)$, kde $x$ a~$y$ jsou souřadnice bodů relativně k~celému snímku a~$z$~je vzdálenost od kamery.
+           Pomocí modelu Hand Landmarker z~frameworku MediaPipe lze získat z~obrazu ruky 21 souřadnic, které reprezentují orientační body ruky. Tyto souřadnice jsou vyjádřeny trojicí $(x, y, z)$, kde $x$ a~$y$ jsou souřadnice bodů relativně k~celému snímku a~$z$~je vzdálenost od kamery.
 
-           Velkou výhodou využití MediaPipe Hand Landmark Detection je vysoká přesnost určení souřadnic bodů ruky, a~to i~za špatných světelných podmínek, při různých rotacích ruky nebo při jakémkoliv pozadí, před kterým uživatel svou ruku zobrazuje. Názorné rozpoznání souřadnic lze vidět na obrázku \ref{mediapipe}.
+           Velkou výhodou využití MediaPipe Hand Landmarker modelu je vysoká přesnost určení souřadnic bodů ruky, a~to i~za špatných světelných podmínek, při různých rotacích ruky nebo při jakémkoliv pozadí, před kterým uživatel svou ruku zobrazuje. Názorné rozpoznání souřadnic lze vidět na obrázku \ref{mediapipe}.
            
-           Tento fakt umožňuje se více zaměřit na klasifikaci rozpoznaných souřadnic a~tím se abstrahovat od problému správné detekce bodů ruky a~prstů.
+           Tento fakt umožňuje zaměřit se více na klasifikaci rozpoznaných souřadnic a~tím se abstrahovat od problému správné detekce bodů ruky a~prstů.
 
          \begin{figure}[htbp]
             \centering
@@ -325,11 +325,11 @@
         Při vytváření klasifikátoru je nejdůležitější mít dataset obsahující data, na kterých bude model trénován. Nad takovými daty je poté spuštěn trénovací algoritmus, jehož výstupem je model, který lze použít pro klasifikaci souřadnic ruky.
 
         \subsubsection{Dataset}
-            Datasetem jsou v~tomto případě fotky, na kterých je viditelná ruka člověka zobrazující nějaký konkrétní znak. Tyto fotky jsou v~jednotlivých složkách, kde každá složka obsahuje fotky s~jedním konkrétním znakem. Velikost datasetu je zhruba 100 fotek jedné osoby a~25 fotek druhé osoby na každý znak české jednoruční prstové abecedy pro levou i~pravou ruku. K~těmto znakům je ještě přidán znak \emph{None}, reprezentující žádný znak za účelem zpřesnění klasifikace. Dohromady dataset obsahuje 7217 snímků v~rozlišení 250x250 pixelů. Strukturu a~ukázku obrázků datasetu zobrazuje obrázek \ref{dataset}.
+            Datasetem jsou v~tomto případě fotky, na kterých je viditelná ruka člověka zobrazující nějaký konkrétní znak. Tyto fotky jsou v~jednotlivých složkách, kde každá složka obsahuje fotky s~jedním konkrétním znakem. Velikost datasetu je zhruba 100 fotek jedné osoby a~25 fotek druhé osoby na každý znak české jednoruční prstové abecedy pro levou i~pravou ruku. K~těmto znakům je ještě přidán znak \emph{None}, reprezentující žádný znak za účelem zpřesnění klasifikace. Dohromady dataset obsahuje 7~217 snímků v~rozlišení 250\(\times\)250 pixelů. Strukturu a~ukázku snímků datasetu zobrazuje obrázek \ref{dataset}.
 
-            Každý snímek je převeden do formátu zpracovaných souřadnic a~uložen do .csv souboru, který je použit jako vstup pro trénovací algoritmus. Během tohoto zpracování jsou data dále rozšířena pomocí techniky známé jako \emph{augmentace dat}. Jejím principem je umělé navýšení objemu trénovacích dat pomocí provedení různých změn nad již existujícími daty. V~tomto případě bylo využito horizontálního zrcadlení každého snímku. Tato transformace je zde vhodná, protože zrcadlový obraz znaku zobrazeného levou rukou vizuálně odpovídá stejnému znaku zobrazenému pravou rukou a~naopak. Pro téměř každý původní snímek tak vznikají dva záznamy zpracovaných souřadnic, čímž se velikost trénovacího datasetu téměř zdvojnásobí.
+            Každý snímek je převeden do formátu zpracovaných souřadnic a~uložen do .csv souboru, který je použit jako vstup pro trénovací algoritmus. Během tohoto zpracování jsou data dále rozšířena pomocí techniky známé jako \emph{augmentace dat}. Jejím principem je umělé navýšení objemu trénovacích dat pomocí provedení různých změn nad již existujícími daty. V~tomto případě bylo využito horizontálního zrcadlení každého snímku. Tato transformace je zde vhodná, protože zrcadlový obraz znaku zobrazeného levou rukou vizuálně odpovídá stejnému znaku zobrazenému pravou rukou a~naopak. Pro téměř každý původní snímek tak vznikají dva záznamy zpracovaných souřadnic, čímž se velikost trénovacího datasetu skoro zdvojnásobí.
 
-            K~tvorbě datasetu existují dva skripty v~jazyce Python ulehčující tento proces. Prvním je \emph{Collector.py}, který v~okně zobrazí záznam webkamery a~odposlouchává stisky kláves klávesnice. Pokud uživatel stiskne písmeno na klávesnici, tak se algoritmus pokusí získat souřadnice prstů ruky z~bufferu několika posledních snímků kamery. Nejnovější ořezaný snímek, ze kterého lze rozeznat souřadnice prstů ruky, se uloží do složky s~názvem odpovídajícím stisknuté klávesy. 
+            Ke~tvorbě datasetu existují dva skripty v~jazyce Python ulehčující tento proces. Prvním je \emph{Collector.py}, který v~okně zobrazí záznam webkamery a~odposlouchává stisky kláves klávesnice. Pokud uživatel stiskne písmeno na klávesnici, tak se algoritmus pokusí získat souřadnice prstů ruky z~bufferu několika posledních snímků kamery. Nejnovější ořezaný snímek, ze kterého lze rozeznat souřadnice prstů ruky, se uloží do složky s~názvem odpovídajícím stisknuté klávese. 
             
             Druhým skriptem je \emph{LandmarksProcessor.py}, který zpracuje všechny snímky v~dané struktuře složek a~uloží je do .csv souboru.
 
@@ -343,7 +343,7 @@
            
 
         \subsubsection{Použití frameworku MediaPipe v~Pythonu}
-        Ukázka použití MediaPipe Solutions frameworku, konkrétně Hand Landmark Detection v~jazyce Python viz zdrojový kód \ref{mediapipe-python}.
+        Ukázka použití Hand Landmarker modelu z~frameworku MediaPipe Solutions v~jazyce Python viz zdrojový kód \ref{mediapipe-python}.
         
         \begin{kicode}{Python}{mediapipe-python}{Použití MediaPipe Solutions v~Pythonu}
 import mediapipe as mp
@@ -366,15 +366,15 @@ result = hands.process(image)
            Pro~žádanou klasifikaci souřadnic existuje spousta metod, v~rámci této práce byly vyzkoušeny následující metody:
 
            \begin{itemize}
-                \item MediaPipe Gesture recognition
-                \item Neuronové sítě
-                \item XGBoost
+                \item MediaPipe Gesture recognition,
+                \item Neuronové sítě,
+                \item XGBoost,
                 \item TensorFlow Decision Forests~--~Gradient Boosted Trees.
             \end{itemize}
 
-        MediaPipe Gesture recognition nabízí možnost úpravy a~rozšíření jejich modelu pro rozpoznávání gest, který pracuje mírně odlišným způsobem při zpracování souřadnic oproti ostatním vyzkoušeným přístupům. Nejprve z~extrahovaných souřadnic vytvoří 128 prvkový vektor pomocí neuronové sítě a~následně daný výsledek embeddingu klasifikuje další neuronovou sítí. Tato metoda měla mírně vyšší přesnost než vlastní implementace neuronových sítí se zmíněným zpracováním souřadnic z~podkapitoly \ref{zpracovani-souradnic}.
+        MediaPipe Gesture recognition nabízí možnost úpravy a~rozšíření jejich modelu pro rozpoznávání gest, který pracuje mírně odlišným způsobem při zpracování souřadnic oproti ostatním vyzkoušeným přístupům. Nejprve z~extrahovaných souřadnic vytvoří 128-prvkový vektor pomocí neuronové sítě a~následně daný výsledek embeddingu klasifikuje další neuronovou sítí. Tato metoda měla mírně vyšší přesnost než vlastní implementace neuronových sítí se zmíněným zpracováním souřadnic z~podkapitoly \ref{zpracovani-souradnic}.
     
-       Ve finální aplikaci je použita metoda \emph{Gradient Boosted Trees} z~knihovny TensorFlow Decision Forests. Oproti neuronovým sítím měla tato metoda výrazně větší přesnost. Metoda XGBoost byla mírně přesnější než TFDF Gradient Boosted Trees, ale ve finální aplikaci nebyla použita z~důvodu náročnosti integrace do webové aplikace. 
+       Ve finální aplikaci je použita metoda \emph{Gradient Boosted Trees} z~knihovny TensorFlow Decision Forests. Oproti neuronovým sítím měla tato metoda výrazně vyšší přesnost. Metoda XGBoost byla mírně přesnější, ale ve finální aplikaci nebyla použita z~důvodu náročnosti integrace do webové aplikace. 
         
         K~trénování modelu slouží skript \emph{TrainerDF.py}, který rozdělí vstupní data z~.csv souboru do trénovací a~testovací množiny. Poté nad trénovací množinou spustí trénovací algoritmus poskytnutý knihovnou TensorFlow Decision Forests a~následně natrénovaný model vyhodnotí a~uloží do formátu, který je využíván knihovnou TensorFlow v~JavaScriptu.
 
@@ -404,7 +404,7 @@ tfjs.converters.tf_saved_model_conversion_v2.convert_tf_saved_model(OUTPUT_TFDF_
 
 
         \subsubsection{Přesnost modelu}
-            Natrénovaný model má přesnost \(\sim \)96~\% na testovací množině dat. Při testování neuronových sítí se přesnost pohybovala zhruba o~\(\sim \)10~\% níže. Důležitým faktorem pro reálné použití modelu je přesnost pro každý znak zvlášť. Pokud by model vyhodnocoval všechny znaky kromě jednoho správně a~ten jeden zcela špatně, tak by byl takový model v~aplikaci nepoužitelný. Pro takové vyhodnocení lze využít například matici záměn. Tabulku reprezentující takovou matici lze vidět na obrázku \ref{confusion-matrix}, která obsahuje hodnoty použitého modelu.
+            Natrénovaný model má přesnost \(\sim \)96~\% na testovací množině dat. Při testování neuronových sítí se přesnost pohybovala zhruba o~\(\sim \)10~\% níže. Důležitým faktorem pro reálné použití modelu je přesnost pro každý znak zvlášť. Pokud by model vyhodnocoval všechny znaky kromě jednoho správně a~ten jeden zcela špatně, byl by takový model v~aplikaci nepoužitelný. Pro takové vyhodnocení lze využít například matici záměn. Tabulku reprezentující zmíněnou matici lze vidět na obrázku \ref{confusion-matrix}, která obsahuje hodnoty použitého modelu.
 
              \begin{figure}[htbp]
                 \centering
@@ -480,7 +480,7 @@ tfjs.converters.tf_saved_model_conversion_v2.convert_tf_saved_model(OUTPUT_TFDF_
             Pokračování: Pokud vstupní sekvence ještě neskončila, nastaví se nový aktuální token a~proces pokračuje další iterací v~kroku 2.
         \end{enumerate}
 
-    Znaky 'g'~a~'f'~vyžadují pouze polovinu rozpoznání, protože jsou častěji zaměňovány s~jinými znaky než ostatní písmena. Písmeno 'f' je zaměňováno s~písmenem 't'. Písmeno 'g' je zaměňováno s~písmeny 'c' a~'o'. K~těmto jednostranným záměnám dochází z~důvodu nedokonalosti rozpoznávání a~velké podobnosti zmíněných znaků písmen. Zmíněné podobnosti ale nejsou jedinými a~i~ostatní znaky písmen mají často velmi podobné znaky.
+    Znaky 'g'~a~'f'~vyžadují pouze polovinu rozpoznání, protože jsou častěji zaměňovány s~jinými znaky než ostatní písmena. Písmeno 'f' je zaměňováno s~písmenem 't'. Písmeno 'g' je zaměňováno s~písmeny 'c' a~'o'. K~těmto jednostranným záměnám dochází z~důvodu nedokonalosti rozpoznávání a~velké podobnosti zmíněných znaků písmen. Zmíněné podobnosti ale nejsou jedinými a~i~ostatní znaky písmen jsou si často velmi podobné.
 
 
    \subsubsection{Příklad vstupu a~výstupu}
@@ -494,7 +494,7 @@ tfjs.converters.tf_saved_model_conversion_v2.convert_tf_saved_model(OUTPUT_TFDF_
     MMMMMMMMMMMMAAASAAAAAAAAMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNZZKKKKKKKKKKKChOOOOOOCCCCCCCCCCCDChKKKKKKKKKKKKKChChUUUUUUUUUUUUUUUUUUUUUUUUUUSSSSSSSSSSSSSSSSSSSSSSEOEEEEEEERRRRRRRRRRRRRAAAAChRRRRRRRRRRRROOOOOOOOOHRRRRRRRRRRRRREEEEEEEEEEEOOMMMMMMMMMMMMMM
         }}\\ zmíněný algoritmus vyhodnotí skutečnou sekvenci znaků na skutečně zobrazené slovní spojení: \emph{MAM KOCKU S~ERROREM}.
 
-        V~příkladě lze vidět, že vstup obsahuje necílené znaky při změnách skutečně zobrazovaných znaků (např. změna znaku z~písmene 'm' na písmeno 'k'~--~MMMMMMNZZKKKK). Tyto krátké sekvence nejsou ale rozpoznávány. 
+        V~příkladu lze vidět, že vstup obsahuje necílené znaky při změnách skutečně zobrazovaných znaků (např. změna znaku z~písmene 'm' na písmeno 'k'~--~MMMMMMNZZKKKK). Tyto krátké sekvence nejsou ale rozpoznávány. 
         
         Také si lze všimnout ignorování osamělých znaků v~rámci některé sekvence (např.~zobrazené písmeno 'a' bylo nechtěně rozpoznáno jako písmeno 's'~--~AAASAAA).
 
@@ -503,13 +503,13 @@ tfjs.converters.tf_saved_model_conversion_v2.convert_tf_saved_model(OUTPUT_TFDF_
         U~posledních písmen ve slově lze vidět podstatně delší sekvenci rozpoznání.
 
     \subsubsection{Propojení s~LLM}
-        Proces rozpoznání záznamu kamery na souvislý text je náročný a~zcela určitě bude docházet k~chybám. Tím se nabízí problém, jak detekovat tyto chyby a~jak je opravit.
+        Proces rozpoznání záznamu kamery na souvislý text je náročný a~zcela určitě bude docházet k~chybám. Tím se vyskytuje problém, jak detekovat tyto chyby a~jak je opravit.
 
         Jedno z~tradičních řešení je například vytvoření databáze všech možných slov, kde by algoritmus měl za cíl pro slovo s~chybou najít takové slovo, kterému se nejvíce podobá. Jak už bylo zmíněno, některé znaky jsou zaměňovány častěji než jiné, tedy do tohoto algoritmu by bylo možné zakomponovat výběr chtěného slova na základě toho, s~jakou pravděpodobností byl chybně rozpoznaný znak zaměněn za jiný.
 
-        Implementace takového algoritmu ale není rozhodně přímočará a~zcela nefunkční pro slova, která by nebyla v~databázi slov. Zajímavým zamyšlením také je, že pravděpodobnost výskytu slova ve větě je provázána s~okolními slovy v~dané větě a~i~v~okolních větách~--~tedy s~kontextem celého textu. Tato úvaha, která v~posledních pár letech zcela změnila svět, mě přivedla na použití řešení tohoto problému pomocí velkých jazykových modelů (LLM).
+        Implementace takového algoritmu ale není rozhodně přímočará a~je zcela nefunkční pro slova, která by nebyla v~databázi slov. Zajímavým zamyšlením je, že pravděpodobnost výskytu slova ve větě je provázána s~okolními slovy v~dané větě a~i~v~okolních větách~--~tedy s~kontextem celého textu. Tato úvaha, která v~posledních pár letech zcela změnila svět, mě přivedla k~řešení tohoto problému pomocí velkých jazykových modelů (LLM).
         
-        Výstup popsaného algoritmu \emph{CSLR} je možné provázat se vstupem velkého jazykového modelu. Vlastností takových modelů je porozumění kontextu slov v~textovém vstupu a~tím vzniklá schopnost zanedbání drobných chyb či překlepů takového vstupu.
+        Výstup popsaného algoritmu \emph{CSLR} je možné provázat se vstupem velkého jazykového modelu. Vlastností takových modelů je porozumění kontextu slov v~textovém vstupu a~tím vzniká schopnost zanedbání drobných chyb či překlepů takového vstupu.
 
         Zmíněné provázání \emph{CSLR} algoritmu s~velkým jazykovým modelem je využito v~režimu \emph{Konverzace}, který je popsán v~podkapitole \ref{up-konverzace}.
 
@@ -571,7 +571,7 @@ tfjs.converters.tf_saved_model_conversion_v2.convert_tf_saved_model(OUTPUT_TFDF_
             \end{itemize}
          
         \subsubsection{Diagram aplikace}
-            K~přehledu provázanosti komponent a~přehledu architektury celé aplikace slouží následující diagram, viz obrázek \ref{webapp-architecture-diagram}.
+            K~přehledu provázanosti komponent a~přehledu architektury celé aplikace slouží diagram na obrázku \ref{webapp-architecture-diagram}.
 
               \begin{figure}[htbp]
             \centering
@@ -618,7 +618,7 @@ tfjs.converters.tf_saved_model_conversion_v2.convert_tf_saved_model(OUTPUT_TFDF_
 
 
         \subsubsection{Ovládání animací} \label{ovladani-animaci}
-            K~animacím modelu se v~Threlte přistupuje pomocí actions a~mixer, které lze získat pomocí funkce \emph{useGltfAnimation(gltf, ref)}, kde \emph{gltf} je právě načtený model pomocí funkce \emph{useGltf}. Slovník \emph{actions} obsahuje všechny dostupné animace, ke kterým lze přistupovat pomocí klíče odpovídajícího názvu animace uvnitř 3D modelu. Animaci lze spustit pomocí nalezení v~kolekci \emph{actions} a~zavolání funkce \emph{play()} nad danou instancí.
+            K~animacím modelu se v~Threlte přistupuje pomocí instancí \emph{actions} a~\emph{mixer}, které lze získat pomocí funkce \emph{useGltfAnimation(gltf, ref)}, kde \emph{gltf} je právě načtený model pomocí funkce \emph{useGltf}. Instance \emph{actions} obsahuje slovník všech dostupných animací, ke kterým lze přistupovat pomocí klíče odpovídajícího názvu animace uvnitř 3D modelu. Animaci lze spustit pomocí nalezení v~kolekci a~zavolání funkce \emph{play()} nad danou instancí získané animace.
 
             K~určení bodu začátku následující animace pro nadcházející znak je potřeba detekovat konec aktuální animace. Instance \emph{mixer} umožňuje odběr události, která je volána při ukončení animace.
 
@@ -654,13 +654,13 @@ mixer.timeScale = speed;
 
     
     \subsection{Rozpoznání gest ruky}
-        K~rozpoznání gesta ruky na webové stránce je potřeba získat snímek z~webkamery. Na takovém snímku poté provést stejné rozpoznání a~zpracování souřadnic ruky jako při trénování z~datasetu a~následně výsledek klasifikovat pomocí vytvořeného klasifikátoru. 
+        K~rozpoznání gesta ruky na webové stránce je potřeba získat snímek z~webkamery. Na takovém snímku je poté nutné provést stejné rozpoznání a~zpracování souřadnic ruky jako při trénování z~datasetu a~následně výsledek klasifikovat pomocí vytvořeného klasifikátoru. 
         
         Celý proces rozpoznání je zobrazen na následujícím diagramu znázorněném na obrázku \ref{gesture-recognition-diagram}.
 
         \begin{figure}[htbp]
             \centering
-            \includegraphics[width=0.8\columnwidth]{graphics/gesture-recognition-diagram.png}
+            \includegraphics[width=0.82\columnwidth]{graphics/gesture-recognition-diagram.png}
             \caption{Diagram procesu rozpoznání gest ruky}
             \label{gesture-recognition-diagram}
         \end{figure}
@@ -708,7 +708,7 @@ const output = (await model.executeAsync(tensor)) as tf.Tensor;
     \subsection{Rozhraní a~výkon aplikace}
         Rozhraní aplikace je responzivní, aplikaci lze používat jak na mobilním zařízení, tak i~na větším monitoru. Pro komfortní použití aplikace je potřeba stále vidět animaci, záznam kamery i~ovládací prvky, a~proto doporučuji používat aplikaci na zařízení s~větší obrazovkou.
 
-        Zobrazení na menších obrazovkách využívá netradiční řešení. Místo zmenšení nebo změny uspořádání prvků aplikace využívá fixní pozicování. V~režimu \emph{Konverzace} je v~levém horním rohu okno webkamery a~v~pravém dolním rohu tlačítko pro odesílání zprávy. V~režimu \emph{Učitel} je animace v~levém dolním rohu obrazovky. Zmíněné prvky jsou ve fixních pozicích stále, nezávisle na aktuálně zobrazené části stránky. Tímto přístupem lze stále vidět podstatnou část stránky a~při tom využívat ovládací prvky, které by jinak na menších obrazovkách nebyly současně vidět. Obrázek \ref{mobile} zobrazuje vzhled aplikace na mobilním zařízení.
+        Zobrazení na menších obrazovkách využívá netradiční řešení. Místo zmenšení nebo změny uspořádání prvků aplikace využívá fixní pozicování. V~režimu \emph{Konverzace} je v~levém horním rohu okno webkamery a~v~pravém dolním rohu tlačítko pro odeslání zprávy. V~režimu \emph{Učitel} je animace v~levém dolním rohu obrazovky. Zmíněné prvky jsou ve fixních pozicích stále, nezávisle na aktuálně zobrazené části stránky. Tímto přístupem lze stále vidět podstatnou část stránky a~přitom využívat ovládací prvky, které by jinak na menších obrazovkách nebyly současně vidět. Obrázek \ref{mobile} zobrazuje vzhled aplikace na mobilním zařízení.
 
         Aplikace, obzvlášť v~režimech s~animací a~rozpoznáním zároveň, je znatelně náročná na systémové požadavky zařízení. Na průměrně výkonných telefonech může být přehrávání animací viditelně neplynulé, a~proto doporučuji aplikaci používat na počítačích. Na běžně výkonném počítači je aplikace zcela plynulá.
 
@@ -728,21 +728,18 @@ const output = (await model.executeAsync(tensor)) as tf.Tensor;
         
         Při nasazení mimo lokální síť je nutné provozovat webovou aplikaci přes protokol \emph{https}, protože prohlížeče z~bezpečnostních důvodů blokují přístup k~webkameře při použití protokolu \emph{http}.
         
-        Pro správné fungování aplikace v~režimu PWA je rovněž nutné, aby webový server disponoval platným SSL certifikátem.
+        Pro správné fungování aplikace v~režimu PWA (Progresivní webové aplikace) je rovněž nutné, aby webový server disponoval platným SSL certifikátem.
 
 \clearpage
 
 
 \section{Uživatelská příručka webové aplikace}
     Tato kapitola popisuje jednotlivé funkční části aplikace z~hlediska jejich funkčnosti a~používání.
-
-    \subsection{Obecné ovládání}
-        V~následujících dvou podkapitolách je vysvětleno, jak uživatel může a~měl by přistupovat k~ovládání a~používání aplikace.
         
     \subsection{Ovládání kamery animace}
-        Úhel přiblížení nebo pozici kamery lze v~animačním okně s~postavou ovládat. Držením levého tlačítka myši lze ovládat rotaci kamery. Pomocí pravého tlačítka lze pohybovat celou kamerou. Použitím kolečka lze měnit přiblížení.
+        Úhel přiblížení nebo pozici kamery je možné v~animačním okně s~postavou ovládat. Držením levého tlačítka myši lze ovládat rotaci kamery. Pomocí pravého tlačítka lze pohybovat celou kamerou. Použitím kolečka lze měnit přiblížení.
 
-        Rychlost přehrávání animace lze měnit posuvníkem pod oknem animace.
+        Rychlost přehrávání animace je ovládána pomocí posuvníku pod oknem animace.
 
     \subsection{Ovládání rozpoznání prstové abecedy z~kamery}
         Ke správnému rozpoznávání znaků z~kamery je dobré vědět, jak aplikace uživatelovo znakování zaznamenává a~podle toho se přizpůsobit očekávanému chování uživatele ze strany aplikace.
@@ -761,7 +758,7 @@ const output = (await model.executeAsync(tensor)) as tf.Tensor;
                 Chcete-li ukončit slovo a~začít nové (vložit mezeru), musíte znak posledního písmena slova podržet znatelně déle než ostatní znaky. Aplikace delší zobrazení znaku interpretuje jako signál pro vložení mezery.
                 
                 \item Znakování stejného písmene vícekrát za sebou \par
-                    Tato situace vyžaduje specifický postup, protože aplikace nezaregistruje stejné písmeno dvakrát, při delším podržení daného znaku.
+                    Tato situace vyžaduje specifický postup, protože aplikace nezaregistruje stejné písmeno dvakrát při delším podržení daného znaku.
                     
                     \begin{itemize}
                         \item Ukažte znak písmena a~počkejte, až jej aplikace zapíše (uvidíte písmeno v~textovém poli).
@@ -769,7 +766,7 @@ const output = (await model.executeAsync(tensor)) as tf.Tensor;
                         \item Poté znovu ukažte stejné písmeno, které chcete zapsat podruhé.
                     \end{itemize}
 
-                    Pokud uživatel neuvolní ruku mezi stejným znakem dostatečně rychle, dojde k~rozeznání mezery. Pokud uživatel uvolní ruku na příliš dlouho, může dojít k~zapsání jiného znaku.
+                    Pokud uživatel neuvolní ruku mezi stejným znakem dostatečně rychle, dojde k~rozeznání mezery. Pokud uživatel uvolní ruku na příliš dlouhou dobu, může dojít k~zapsání jiného znaku.
             \end{itemize}
 
     
@@ -790,18 +787,18 @@ const output = (await model.executeAsync(tensor)) as tf.Tensor;
         \subsubsection{Odezírání}
             \emph{Odezírání} je režim, ve kterém je uživateli ukázáno náhodné slovo v~podobě animace a~uživatel má za úkol dané slovo rozpoznat a~zapsat. Aplikace poté zkontroluje, zda zadané slovo odpovídá náhodně zvolenému slovu. 
             
-            Aplikace obsahuje zhruba 23000 náhodných českých slov \cite{ceska-slova}. Při volbě znakového jazyka se slova generují stále stejným způsobem a~je tedy pravděpodobné, že pro dané slovo nebude existovat animace. Pro procvičování znakového jazyka pouze s~existujícími animacemi může uživatel využít procvičení na stránce \emph{Učitel}.
+            Aplikace obsahuje zhruba 23~000 náhodných českých slov \cite{ceska-slova}. Při volbě znakového jazyka se slova generují stále stejným způsobem a~je tedy pravděpodobné, že pro dané slovo nebude existovat animace. Pro procvičování znakového jazyka pouze s~existujícími animacemi může uživatel využít procvičení na stránce \emph{Učitel}.
         
         \subsubsection{Znakování}
             Tento režim slouží pro procvičení znakování. Uživatel si může vymyslet své vlastní slovo, nebo si jej může vygenerovat jako v~režimu \emph{Odezírání}. Rozdílem oproti předchozímu režimu ale je, že uživatel má nyní dané slovo ukázat před webkamerou. Webová aplikace přitom kontroluje, zda uživatel dané slovo znakuje správně. Pokud uživatel nebude vědět, jak dané slovo znakovat, může si slovo přehrát v~animaci stiskem tlačítka.
         
         \subsubsection{Přepis}
-            Režim \emph{Přepis} má dvě volby~--~\emph{Automatický} a~\emph{Manuální}. V~automatickém režimu aplikace rozpoznává znaky, které uživatel ukazuje před webkamerou, a~aplikace se snaží přepsat sekvenci rozpoznání do věty. V~manuálním režimu namísto automatického zaznamenávání musí uživatel manuálně potvrdit zaznamenání aktuálně ukázaného znaku.
+            Režim \emph{Přepis} má dvě volby~--~\emph{Automatický} a~\emph{Manuální}. V~automatickém režimu aplikace rozpoznává znaky, které uživatel ukazuje před webkamerou, a~snaží se přepsat sekvenci rozpoznání do věty. V~manuálním režimu namísto automatického zaznamenávání musí uživatel manuálně potvrdit zaznamenání aktuálně ukázaného znaku.
         
         \subsubsection{Procvičování}
-            \emph{Procvičování} na stránce \emph{Cvičiště} je nejinteraktivnějším režimem. Uživatel si zde může vymyslet vlastní text, který poté střídavě znakuje spolu s~animací. 
+            \emph{Procvičování} je nejinteraktivnějším režimem na stránce \emph{Cvičiště}. Uživatel si zde může vymyslet vlastní text, který poté střídavě znakuje spolu s~animací. 
             
-            Každý znak nejprve ukáže model v~animaci a~poté musí uživatel zobrazený znak zobrazit správně před webkamerou. Až po úspěšném zobrazení dochází k~přechodu k~dalšímu znaku. Cíl uživatele je takto projít celým textem.
+            Každý znak nejprve ukáže model v~animaci a~poté musí uživatel daný znak zobrazit správně před webkamerou. Až po úspěšném zobrazení dochází k~přechodu k~dalšímu znaku. Cíl uživatele je takto projít celým textem.
         
     \subsection{Učitel}
         Stránka \emph{Učitel} provádí uživatele postupně všemi znaky jazyka. Nabízí českou jednoruční a~dvouruční prstovou abecedu a~také český znakový jazyk. Tento režim lze rozdělit na tři části~--~\emph{Procvičovat}, \emph{Učit} a~\emph{Znaky}. Vzhled stránky lze vidět na obrázku \ref{ucitel}.
@@ -820,7 +817,7 @@ const output = (await model.executeAsync(tensor)) as tf.Tensor;
             Učení nových znaků probíhá v~režimu \emph{Učit}. Zde je uživateli přehrán následující, zatím nenaučený, znak v~animaci. Uživatel si může danou animaci přehrát vícekrát a~rozhodnout se, že si přehrávaný znak již pamatuje a~označit jej za naučený.
 
         \subsubsection{Znaky}
-            V~režimu \emph{Znaky} lze sledovat aktuální postup již naučených znaků. Lze si zde všechny znaky přehrávat a~také je lze zrychleně označit za již naučené dvojitým kliknutím.
+            V~režimu \emph{Znaky} lze sledovat aktuální postup již naučených znaků. Lze si zde všechny znaky přehrávat a~také je zrychleně označit za již naučené dvojitým kliknutím.
 
     \subsection{Konverzace} \label{up-konverzace}
         Stránka \emph{Konverzace} poskytuje nejinteraktivnější možnost procvičování prstové abecedy. Stránka se skládá ze tří hlavních částí. Uprostřed obrazovky se nachází 3D model, se kterým uživatel komunikuje. V~levé části lze vidět záznam webkamery a~také ovládací prvky. V~pravé části se nachází historie konverzace. Režim je založen na konverzaci, kde uživatel komunikuje s~modelem prostřednictvím české jednoruční prstové abecedy. Uživatel nejdříve vyznakuje sekvenci znaků, která je převedena do věty. Tato věta je odeslána nastavenému LLM modelu a~odpověď tohoto modelu je uživateli prezentována v~podobě animace.
@@ -863,7 +860,7 @@ const output = (await model.executeAsync(tensor)) as tf.Tensor;
                         Již stažený model lze zapnout stejným příkazem: \\\emph{ollama run název\_modelu}.
                         
                     \item \emph{Ukončení modelu} \par
-                        Pro vypnutí modelu a~uvolnění paměti stačí napsat do příkazové řádky s~běžícím model příkaz \emph{/bye}.
+                        Pro vypnutí modelu a~uvolnění paměti stačí napsat do příkazové řádky s~běžícím modelem příkaz \emph{/bye}.
                 \end{enumerate}
 
             \subsubsection{OpenAI}
@@ -873,7 +870,7 @@ const output = (await model.executeAsync(tensor)) as tf.Tensor;
             Uživatel může využívat klávesy \emph{Mezerník} pro vytvoření mezery v~aktuálním místě vstupu a~také \emph{Backspace} pro smazání posledně zaznamenaného znaku. Klávesa \emph{Enter} odešle aktuální zprávu.
 
     \subsection{Používání aplikace bez internetu}
-        Vytvořená webová aplikace je PWA aplikací~--~progressive web application. Umožňuje instalaci na uživatelovo zařízení a~nainstalovanou aplikaci lze poté používat bez přístupu k~internetu. Nainstalovanou aplikaci lze ale také samozřejmě používat i~s~připojením k~internetu a~využívat \emph{OpenAI API} na stránce \emph{Konverzace}.
+        Vytvořená aplikace je progresivní webová aplikace. Umožňuje instalaci na uživatelovo zařízení a~nainstalovanou aplikaci lze poté používat bez přístupu k~internetu. Nainstalovanou aplikaci lze ale používat i~s~připojením k~internetu a~využívat \emph{OpenAI API} na stránce \emph{Konverzace}.
         
         V~desktopovém prohlížeči lze aplikaci nainstalovat pomocí otevření webové aplikace v~prohlížeči a~stisknutí ikony zobrazené v~pravém okraji adresního řádku prohlížeče.
 
@@ -914,11 +911,11 @@ const output = (await model.executeAsync(tensor)) as tf.Tensor;
     
     Rozpoznávání prstové abecedy ze záznamu webkamery bylo implementováno pro českou jednoruční prstovou abecedu. Aplikace je schopna spolehlivě rozpoznávat znaky zobrazované uživatelem. Tato funkce je v~aplikaci využita dvěma hlavními způsoby: zaprvé slouží k~ověření správnosti zobrazeného znaku, zadruhé umožňuje pokus o~přepis souvislé sekvence znakování do souvislé textové podoby pomocí vyvinutého heuristického algoritmu.
     
-    Samotný proces rozpoznání gesta je dvoufázový. Nejprve jsou extrahovány souřadnice klíčových bodů ruky pomocí modelu Hand Landmark Detection z~frameworku MediaPipe Solutions, který poskytuje robustní a~přesnou detekci. Následně jsou tyto souřadnice transformovány a~klasifikovány modelem typu Gradient Boosted Trees, natrénovaným s~využitím knihovny TensorFlow. Trénovací dataset pro tento model obsahuje 7217 snímků od dvou osob a~byl vytvořen v~rámci této práce.
+    Samotný proces rozpoznání gesta je dvoufázový. Nejprve jsou extrahovány souřadnice klíčových bodů ruky pomocí modelu Hand Landmarker z~frameworku MediaPipe Solutions, který poskytuje robustní a~přesnou detekci. Následně jsou tyto souřadnice transformovány a~klasifikovány modelem typu Gradient Boosted Trees, natrénovaným s~využitím knihovny TensorFlow. Trénovací dataset pro tento model obsahuje 7~217 snímků od dvou osob a~byl vytvořen v~rámci této práce.
     
     Spojením těchto dvou klíčových funkcionalit vznikla webová aplikace postavená na frameworku SvelteKit. Aplikace integruje zmíněné technologie a~vytváří tak interaktivní prostředí pro výuku české prstové abecedy. Nabízí několik režimů použití: volnější režim Cvičiště pro experimentování, strukturovanější režim Učitel pro systematickou výuku a~inovativní režim Konverzace, ve kterém může uživatel oboustranně komunikovat s~velkým jazykovým modelem prostřednictvím znakování české jednoruční prstové abecedy.
     
-    I~přes možná další rozšíření je výsledná aplikace plně funkční a~představuje cennou pomůcku pro výuku. Zejména režim konverzace se ukázal jako zajímavý a~zábavný způsob procvičování, který může významně přispět k~osvojení prstové abecedy. Navíc implementace české dvouruční prstové abecedy a~snadná rozšiřitelnost pro znaky znakového jazyka otevírají dveře k~dalšímu rozvoji aplikace.
+    I~přes možná další rozšíření je výsledná aplikace plně funkční a~představuje cennou pomůcku pro výuku. Zejména režim Konverzace se ukázal jako zajímavý a~zábavný způsob procvičování, který může významně přispět k~osvojení prstové abecedy. Navíc implementace české dvouruční prstové abecedy a~snadná rozšiřitelnost pro znaky znakového jazyka otevírají dveře k~dalšímu rozvoji aplikace.
 \end{kiconclusions}
 
 \begin{kiconclusions}[english]
@@ -926,13 +923,13 @@ const output = (await model.executeAsync(tensor)) as tf.Tensor;
 
     The text-to-animation conversion process is based on a pre-existing 3D character model. For this model, animations were created for the Czech one-handed and two-handed finger alphabets, including the representation of diacritics, as well as animations for a few basic words of Czech Sign Language. This model is subsequently rendered in a web browser using the Three.js library and offers the user the options to change the animation playback speed or control the camera view.
     
-    Finger alphabet recognition from webcam recordings was implemented for the Czech one-handed finger alphabet. The application is able to reliably recognize signs displayed by the user. This functionality is used in the application in two main ways: firstly, it serves to verify the correctness of the displayed sign and secondly, it allows attempting the transcription of a continuous sequence of signing into continuous text form using the developed heuristic algorithm.
+    Finger alphabet recognition from webcam recordings was implemented for the Czech one-handed finger alphabet. The application is able to reliably recognize the signs displayed by the user. This functionality is used in the application in two main ways: firstly, it serves to verify the correctness of the displayed sign and secondly, it allows attempting the transcription of a continuous sequence of signing into continuous text form using the developed heuristic algorithm.
     
-    The gesture recognition process itself is two-phase. First, the coordinates of key hand landmarks are extracted using the Hand Landmark Detection model from the MediaPipe Solutions framework, which provides robust and accurate detection. Then these coordinates are transformed and classified by a Gradient Boosted Trees model, trained using the TensorFlow library. The training dataset for this model, containing 7,217 images from two individuals, was created as part of this work.
+    The gesture recognition process itself is two-phase. First, the coordinates of key hand landmarks are extracted using the Hand Landmarker model from the MediaPipe Solutions framework, which provides robust and accurate detection. Then these coordinates are transformed and classified by a Gradient Boosted Trees model trained using the TensorFlow library. The training dataset for this model, containing 7,217 images from two individuals, was created as part of this work.
     
-    Combining these two key functionalities resulted in a web application built on the SvelteKit framework. The application integrates the mentioned technologies, thus creating an interactive environment for learning the Czech finger alphabet. It offers several modes of use: a freer Playground mode for experimentation, a more structured Teacher mode for systematic learning, and an innovative Conversation mode in which the user can interact with a large language model through signing the Czech one-handed finger alphabet.
+    Combining these two key functionalities resulted in a web application built on the SvelteKit framework. The application integrates the mentioned technologies, thus creating an interactive environment for learning the Czech finger alphabet. It offers several modes of use: a freer Playground mode for experimentation, a~more structured Teacher mode for systematic learning, and an innovative Conversation mode in which the user can interact with a large language model through signing the Czech one-handed finger alphabet.
     
-    Despite possible further expansions, the resulting application is fully functional and represents a valuable aid for learning. In particular, the conversation mode proved to be an interesting and entertaining method of practice, which can significantly contribute to the acquisition of the finger alphabet. Additionally, the implementation of the Czech two-handed finger alphabet and the easy extensibility for sign language signs open the door to further development of the application.
+    Despite possible further expansions, the resulting application is fully functional and represents a valuable aid for learning. In particular, the Conversation mode proved to be an interesting and entertaining method of practice, which can significantly contribute to the acquisition of the finger alphabet. Additionally, the implementation of the Czech two-handed finger alphabet and the easy extensibility for sign language signs open the door to further development of the application.
 \end{kiconclusions}
 
 \appendix
