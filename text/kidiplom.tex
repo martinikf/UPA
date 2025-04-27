@@ -19,7 +19,7 @@
 
 \annotation{Práce pojednává o~představení prstové abecedy a~jejím významu. Zabývá se problémem převodu textu na 3D animaci prstové abecedy a~rozpoznáním prstové abecedy z~videa. Tyto funkcionality jsou následně spojeny v~jednu webovou aplikaci, která umožňuje podporu výuky české jednoruční prstové abecedy.}
 
-\annotation[english]{The thesis discusses the introduction of the sign alphabet, the problem of converting text into a~3D animation of the finger alphabet, and the challenge of recognizing the finger alphabet from video. These methods are then combined into a~single web application that supports the learning of the Czech one-handed finger alphabet.}
+\annotation[english]{The thesis discusses the introduction of the sign alphabet, the problem of converting text into a~3D animation of the finger alphabet, and the challenge of recognizing the finger alphabet from video. These methods are then combined into a~single web application that supports learning of the Czech one-handed finger alphabet.}
 
 \keywords{Prstová abeceda, animace, rozpoznání gest ruky}
 \keywords[english]{Finger alphabet, animations, hand gesture recognition}
@@ -62,7 +62,7 @@
                 Povedená mobilní aplikace, která obsahuje základní znaky slov českého znakového jazyka. Znaky třídí do různých kategorií a~zobrazuje je pomocí videozáznamu, na kterém je člověk znakující daný znak. Aplikace umožňuje označovat znaky za již naučené a~pro procvičování nabízí kvízy, které jsou založeny na tom, že uživatel musí zvolit jednu ze tří odpovědí na základě zobrazeného znaku pomocí videa. \cite{tamtam}                
 
             \item \emph{Sign Language ASL Pocket Sign} \par
-                Mobilní aplikace pro výuku amerického znakového jazyka. Také využívá videozáznamy pro zobrazování znaků. Navíc tyto videozáznamy dobře integruje do vzhledu aplikace, protože využívá záznamy s~vklíčovaným pozadím. Neumožňuje však volbu rychlosti přehrávání či ovládání úhlu pohledu. \cite{pocket-sign}
+                Mobilní aplikace pro výuku amerického znakového jazyka. Také využívá videozáznamy pro zobrazování znaků. Navíc tyto videozáznamy dobře integruje do vzhledu aplikace, protože využívá záznamy s~průhledným pozadím. Neumožňuje však volbu rychlosti přehrávání či ovládání úhlu pohledu. \cite{pocket-sign}
              
             \item \emph{www.spreadthesign.com} \par
                 Webová stránka s~obsahem znaků slov a~písmen různých znakových jazyků, včetně českého. Obsahuje slovník s~videozáznamy. Vzhled stránky zobrazuje obrázek \ref{spread-the-sign.com}. \cite{spreadthesign}
@@ -141,7 +141,7 @@
     
         \subsubsection{Česká jednoruční prstová abeceda}
         
-            Tato diplomová práce a~výsledná aplikace se zaměřují specificky na podporu výuky české jednoruční prstové abecedy. Důvodem pro toto zaměření je, že pro slyšící začátečníky může představovat určitou výzvu. Ačkoliv se tvary ruky snaží vizuálně přiblížit podobě písmen, vyžadují poměrně vysokou míru přesnosti v~provedení a~pozici prstů. Některé znaky mohou být pro nezkušené oko velmi podobné, což může zpočátku činit potíže při jejich rozlišování a~učení. 
+            Tato diplomová práce a~výsledná aplikace se zaměřují specificky na podporu výuky české jednoruční prstové abecedy. Důvodem pro toto zaměření je, že pro začátečníky může představovat určitou výzvu. Ačkoliv se tvary ruky snaží vizuálně přiblížit podobě písmen, vyžadují poměrně vysokou míru přesnosti v~provedení a~pozici prstů. Některé znaky mohou být pro nezkušené oko velmi podobné, což může zpočátku činit potíže při jejich rozlišování a~učení. 
         
         
             Vizualizaci všech znaků používaných v~české jednoruční prstové abecedě poskytuje obrázek \ref{prstova-abeceda}.
@@ -186,7 +186,7 @@
         \subsubsection{3D model člověka}
             Nejprve je potřeba vytvořit 3D model člověka. Takový model lze vytvořit například v~programu Blender. Vytvoření vizuálně zdařilého modelu postavy není triviální záležitost, z~tohoto důvodu byl použit již vytvořený model.
 
-            Mixamo \cite{mixamo} je online platforma, kterou vlastní společnost Adobe. Poskytuje širokou škálu 3D modelů a~animací zdarma. Uživatelé mohou na Mixamo najít předem vytvořené 3D modely postav a~animace, které lze snadno integrovat do různých 3D projektů. Mixamo také umožňuje automatické rigování, což znamená, že uživatelé mohou nahrát své vlastní 3D modely a~Mixamo automaticky přidá kostru postavy, umožňující pohyb daného modelu. Tato platforma je velmi užitečná pro vývojáře her, animátory a~další profesionály pracující s~3D grafikou. Model postavy byl získán právě z~této platformy. 
+            Mixamo \cite{mixamo} je online platforma, kterou vlastní společnost Adobe. Poskytuje širokou škálu 3D modelů a~animací zdarma. Uživatelé mohou na Mixamo najít předem vytvořené 3D modely postav a~animace, které lze snadno integrovat do různých 3D projektů. Mixamo také umožňuje automatické rigování, což znamená, že uživatelé mohou nahrát své vlastní 3D modely a~Mixamo automaticky přidá kostru postavy, umožňující pohyb daného modelu. Model postavy v~této práci byl získán právě z~platformy Mixamo. 
             
     
         \subsubsection{Animace}
@@ -647,7 +647,7 @@ mixer.timeScale = speed;
 
     <T.AmbientLight intensity={5} />
 
-    <T is={\$gltf.scene} position = {[0, -1.5, 0]} />
+    <T is={$gltf.scene} position = {[0, -1.5, 0]} />
 </Canvas>
             \end{kicode}
 
@@ -801,7 +801,7 @@ const output = (await model.executeAsync(tensor)) as tf.Tensor;
             Každý znak nejprve ukáže model v~animaci a~poté musí uživatel daný znak zobrazit správně před webkamerou. Až po úspěšném zobrazení dochází k~přechodu k~dalšímu znaku. Cíl uživatele je takto projít celým textem.
         
     \subsection{Učitel}
-        Stránka \emph{Učitel} provádí uživatele postupně všemi znaky jazyka. Nabízí českou jednoruční a~dvouruční prstovou abecedu a~také český znakový jazyk. Tento režim lze rozdělit na tři části~--~\emph{Procvičovat}, \emph{Učit} a~\emph{Znaky}. Vzhled stránky lze vidět na obrázku \ref{ucitel}.
+        Stránka \emph{Učitel} provádí uživatele postupně všemi znaky jazyka. Nabízí českou jednoruční a~dvouruční prstovou abecedu a~také český znakový jazyk. Tento režim se skládá ze tří částí~--~\emph{Procvičovat}, \emph{Učit} a~\emph{Znaky}. Vzhled stránky lze vidět na obrázku \ref{ucitel}.
 
          \begin{figure}[htbp]
                 \centering
@@ -919,17 +919,17 @@ const output = (await model.executeAsync(tensor)) as tf.Tensor;
 \end{kiconclusions}
 
 \begin{kiconclusions}[english]
-    This thesis addresses the development of a web application to support the learning of the Czech one-handed finger alphabet. The application integrates text-to-3D animation conversion and finger alphabet recognition from video recordings, creating a comprehensive environment for effective learning and practicing the finger alphabet.
+    This thesis addresses the development of a web application to support the learning of the Czech one-handed finger alphabet. The application integrates text-to-3D animation conversion and finger alphabet recognition from video recordings, creating a comprehensive environment for effective learning and practising the finger alphabet.
 
-    The text-to-animation conversion process is based on a pre-existing 3D character model. For this model, animations were created for the Czech one-handed and two-handed finger alphabets, including the representation of diacritics, as well as animations for a few basic words of Czech Sign Language. This model is subsequently rendered in a web browser using the Three.js library and offers the user the options to change the animation playback speed or control the camera view.
+    The text-to-animation conversion process is based on a pre-existing 3D character model. For this model, animations were created for the Czech one-handed and two-handed finger alphabets, including the representation of diacritics, as well as animations for a few basic words of Czech Sign Language. This model is subsequently rendered in a web browser using the Three.js library and offers the user the option to change the animation playback speed or control the camera view.
     
     Finger alphabet recognition from webcam recordings was implemented for the Czech one-handed finger alphabet. The application is able to reliably recognize the signs displayed by the user. This functionality is used in the application in two main ways: firstly, it serves to verify the correctness of the displayed sign and secondly, it allows attempting the transcription of a continuous sequence of signing into continuous text form using the developed heuristic algorithm.
     
     The gesture recognition process itself is two-phase. First, the coordinates of key hand landmarks are extracted using the Hand Landmarker model from the MediaPipe Solutions framework, which provides robust and accurate detection. Then these coordinates are transformed and classified by a Gradient Boosted Trees model trained using the TensorFlow library. The training dataset for this model, containing 7,217 images from two individuals, was created as part of this work.
     
-    Combining these two key functionalities resulted in a web application built on the SvelteKit framework. The application integrates the mentioned technologies, thus creating an interactive environment for learning the Czech finger alphabet. It offers several modes of use: a freer Playground mode for experimentation, a~more structured Teacher mode for systematic learning, and an innovative Conversation mode in which the user can interact with a large language model through signing the Czech one-handed finger alphabet.
+    Combining these two key functionalities resulted in a web application built on the SvelteKit framework. The application integrates the mentioned technologies, thus creating an interactive environment for learning the Czech finger alphabet. It offers several modes of use: a freer Playground mode for experimentation, a~more structured Teacher mode for systematic learning, and an innovative Conversation mode in which the user can interact with a large language model by signing the Czech one-handed finger alphabet.
     
-    Despite possible further expansions, the resulting application is fully functional and represents a valuable aid for learning. In particular, the Conversation mode proved to be an interesting and entertaining method of practice, which can significantly contribute to the acquisition of the finger alphabet. Additionally, the implementation of the Czech two-handed finger alphabet and the easy extensibility for sign language signs open the door to further development of the application.
+    Despite possible further expansions, the resulting application is fully functional and represents a valuable learning aid. In particular, the Conversation mode proved to be an interesting and entertaining method of practice, which can significantly contribute to the acquisition of the finger alphabet. Additionally, the implementation of the Czech two-handed finger alphabet and the easy extensibility of sign language signs open the door to further development of the application.
 \end{kiconclusions}
 
 \appendix
@@ -942,14 +942,14 @@ const output = (await model.executeAsync(tensor)) as tf.Tensor;
     \item[\texttt{text/}] \hfill \\
         Text práce a~veškeré soubory sloužící k~jeho vytvoření.
     
-    \item[\texttt{src/}] \hfill \\
-        Zdrojové kódy aplikace.
+    \item[\texttt{python\_recognition/}] \hfill \\
+        Zdrojové kódy pro tvorbu klasifikátoru a~dataset.
     
-    \item[\texttt{dataset/}] \hfill \\
-        Vytvořený dataset české jednoruční prstové abecedy.
+    \item[\texttt{web-app/}] \hfill \\
+        Zdrojové kódy webové aplikace.
     
     \item[\texttt{3D/}] \hfill \\
-        Blender model obsahující vytvořené animace.
+        Vytvořený 3D model postavy s animacemi.
     
     \item[\texttt{README.txt}] \hfill \\ 
         Návod pro~zprovoznění aplikace.
