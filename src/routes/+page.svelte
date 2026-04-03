@@ -11,7 +11,7 @@
 				Diplomová práce: Program na&nbsp;podporu výuky prstové abecedy
 			</P>
 			<P class="text-lg text-gray-500 dark:text-gray-500">
-				Autor: Filip Martiník
+				Autor: Filip Martiník (kontakt: martinik.filip01@gmail.com)
 			</P>
 			<P>
 				<A href="/dp.pdf" class="">Text diplomové práce</A>, ve&nbsp;kterém se lze dočíst jak celá webová aplikace funguje a podrobněji zjistit, jaké všechny funkcionality aplikace nabízí.
